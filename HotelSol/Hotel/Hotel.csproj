@@ -8,7 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="src\" />
+    <PackageReference Include="Autofac" Version="8.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="src\MenuManagement\Interfaces\" />
   </ItemGroup>
 
 </Project>
