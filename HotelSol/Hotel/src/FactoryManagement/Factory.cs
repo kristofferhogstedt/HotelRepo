@@ -8,6 +8,9 @@ namespace Hotel.src.FactoryManagement
 {
     internal class Factory
     {
-
+        // Singleton 
+        public Factory()
+        { 
+        }
     }
 }
