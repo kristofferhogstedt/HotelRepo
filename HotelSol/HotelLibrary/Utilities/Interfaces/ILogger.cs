@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelLibrary.Utilities.Interfaces
 {
-    internal interface ILogger
+    public interface ILogger
     {
         void Log(string message);
     }

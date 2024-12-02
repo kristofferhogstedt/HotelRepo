@@ -1,4 +1,7 @@
-﻿
+﻿using Autofac;
+using Hotel.src;
+using Hotel.src.FactoryManagement;
+using Hotel.src.Interfaces;
 using HotelLibrary;
 using HotelLibrary.Interfaces;
 
@@ -8,11 +11,15 @@ namespace Hotel
     {
         static void Main(string[] args)
         {
-            IClass _myClass = new Class();
-            _myClass.ProcessData();
+            var _container = ContainerConfig.Configure();
+
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var _app = scope.Resolve<IApp>();
+                _app.Run();
+            }
 
             Console.ReadKey();
-
         }
     }
 

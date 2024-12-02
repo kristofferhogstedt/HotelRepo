@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Interfaces
 {
-    internal class IMenu
+    internal interface IMenu
     {
     }
 }

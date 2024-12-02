@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelLibrary.Utilities
 {
-    internal class Logger : ILogger
+    public class Logger : ILogger
     {
         public void Log(string message)
         {
