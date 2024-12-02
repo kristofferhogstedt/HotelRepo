@@ -1,10 +1,18 @@
-﻿namespace Hotel
+﻿
+using HotelLibrary;
+using HotelLibrary.Interfaces;
+
+namespace Hotel
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            IClass _myClass = new Class();
+            _myClass.ProcessData();
+
+            Console.ReadKey();
+
         }
     }
 

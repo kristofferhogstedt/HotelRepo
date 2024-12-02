@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.Persistence
 {
-    internal class DBContext
+    class ApplicationDbContext : DbContext
     {
-        public DBContext()
-        {
-        }
-        public DbSet<Purchase> Purchases { get; set; }
-
+        private readonly string _databaseString = "MyDb";
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseInMemoryDatabase("MyDb");
+            optionsBuilder.UseInMemoryDatabase(_databaseString);
         }
     }
 }
+
+
+
+
