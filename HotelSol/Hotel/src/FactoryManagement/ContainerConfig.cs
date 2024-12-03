@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Hotel.src.Interfaces;
 using HotelLibrary.Interfaces;
 using HotelLibrary.Utilities;
+using HotelLibrary.Utilities.Interfaces;
 
 namespace Hotel.src.FactoryManagement
 {
@@ -29,8 +30,8 @@ namespace Hotel.src.FactoryManagement
             // Library
             builder.RegisterAssemblyTypes(Assembly.Load(nameof(HotelLibrary)))
                 .Where(t => t.Namespace.Contains(nameof(HotelLibrary.Utilities)))
-                //.As(t => t.GetInterfaces().FirstOrDefault(i => i.Name == t.BaseType.Name));
                 .As(t => t.GetInterfaces().FirstOrDefault(i => i.Name == "I" + t.Name));
+            //.As(t => t.GetInterfaces().FirstOrDefault(i => i.Name == t.BaseType.Name));
 
 
             return builder.Build();

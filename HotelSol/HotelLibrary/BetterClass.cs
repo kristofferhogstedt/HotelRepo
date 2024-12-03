@@ -12,6 +12,7 @@ namespace HotelLibrary
             _logger = logger;
             _dataAccess = dataAccess;
         }
+
         public void ProcessData()
         {
             _logger.Log("Loggar...");
