@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelLibrary.UserInputManagement.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,28 @@ using System.Threading.Tasks;
 
 namespace HotelLibrary.UserInputManagement
 {
-    public static class ArrowKeyHandler
+    public class ArrowKeyHandler : IUserInput<EUserInputKeys>
     {
-        public static EUserInputKeys UserInputArrowKey()
+        private static ArrowKeyHandler _instance;
+        private ArrowKeyHandler() 
+        {
+            
+        }
+
+        /// <summary>
+        /// Singleton
+        /// </summary>
+        /// <returns></returns>
+        public static ArrowKeyHandler GetInstance()
+        {
+            if (_instance == null)
+                _instance = new ArrowKeyHandler();
+            return _instance;
+        }
+
+        public EUserInputKeys Output { get; set; }
+
+        public EUserInputKeys UserInputArrowKey()
         {
             while (true)
             {
@@ -17,14 +37,20 @@ namespace HotelLibrary.UserInputManagement
                 switch (_consoleKey)
                 {
                     case ConsoleKey.UpArrow:
-                        return EUserInputKeys.Up;
+                        Output = EUserInputKeys.Up;
+                        break;
                     case ConsoleKey.DownArrow:
-                        return EUserInputKeys.Down;
+                        Output = EUserInputKeys.Down;
+                        break;
                     case ConsoleKey.Enter:
-                        return EUserInputKeys.Enter;
+                        Output = EUserInputKeys.Enter;
+                        break;
                     default:
-                        return EUserInputKeys.None;
+                        Output = EUserInputKeys.None;
+                        break;
                 }
+
+                return Output;
             }
         }
 

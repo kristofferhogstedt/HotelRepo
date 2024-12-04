@@ -9,5 +9,9 @@ namespace Hotel.src.MenuManagement
 {
     internal class MenuSelector : IMenuSelector
     {
+        public static IMenu Select(IUserInput userInput)
+        {
+
+        }
     }
 }
