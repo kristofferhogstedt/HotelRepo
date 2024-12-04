@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel.src.MenuManagement.Interfaces
+namespace HotelLibrary.UserInputManagement
 {
-    public interface IMenu
+    public enum EUserInputKeys
     {
-        void Show();
-        void Select();
+        Up, Down, Left, Right, Enter, None
     }
 }

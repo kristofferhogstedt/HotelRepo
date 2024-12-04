@@ -1,4 +1,5 @@
 ﻿using Hotel.src.Interfaces;
+using Hotel.src.MenuManagement.Interfaces;
 using HotelLibrary.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,16 +11,16 @@ namespace Hotel.src
 {
     public class App : IApp
     {
-        private IClass _class;
+        IMenu _menu;
 
-        public App(IClass myClass)
+        public App(IMenu menu)
         {
-            _class = myClass;
+            _menu = menu;
         }
 
         public void Run()
         {
-            _class.ProcessData();
+            _menu.Show();
         }
     }
 }

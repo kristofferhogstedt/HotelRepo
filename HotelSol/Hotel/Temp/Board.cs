@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel.src.MenuManagement.Interfaces
+namespace Hotel.Temp
 {
-    public interface IMenu
+    internal class Board
     {
-        void Show();
-        void Select();
     }
 }
