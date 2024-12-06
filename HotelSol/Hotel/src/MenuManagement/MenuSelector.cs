@@ -1,4 +1,6 @@
 ﻿using Hotel.src.MenuManagement.Interfaces;
+using HotelLibrary.UserInputManagement;
+using HotelLibrary.UserInputManagement.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +9,12 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement
 {
-    internal class MenuSelector : IMenuSelector
+    internal class MenuSelector(Dictionary<int, string> menu, IUserInput<EUserInputKeys> userInput) : IMenuSelector
     {
-        public static IMenu Select(IUserInput userInput)
+        Dictionary<int, string> _menu = menu;
+        IUserInput<EUserInputKeys> _userInput = userInput;
+
+        public IMenuDestination Select()
         {
 
         }
