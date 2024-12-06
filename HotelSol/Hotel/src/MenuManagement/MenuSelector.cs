@@ -14,6 +14,11 @@ namespace Hotel.src.MenuManagement
         Dictionary<int, string> _menu = menu;
         IUserInput<EUserInputKeys> _userInput = userInput;
 
+        private MenuSelector GetInstance()
+        {
+
+        }
+
         public IMenuDestination Select()
         {
 
