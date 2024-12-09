@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelLibrary.Models.Interfaces
 {
-    internal interface IRoom
+    public interface IRoom
     {
         int RoomId { get; set; }
         string RoomName { get; set; }

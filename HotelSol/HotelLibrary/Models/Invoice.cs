@@ -10,6 +10,7 @@ namespace HotelLibrary.Models
     internal class Invoice : IInvoice
     {
         public int InvoiceID { get; set; }
+        public int CustomerID { get; set; }
         public DateTime InvoiceDate { get; set; }
         public double Amount { get; set; }
         public DateTime DueDate { get; set; }
