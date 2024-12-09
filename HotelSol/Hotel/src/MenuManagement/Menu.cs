@@ -14,7 +14,7 @@ namespace Hotel.src.MenuManagement
 
         public Menu(IPreviousMenu previousMenu)
         {
-            _previousMenu = previousMenu;
+            //_previousMenu = previousMenu;
             MenuSelection = new Dictionary<int, string>();
             MenuSelection.Add(1, "Start");
             MenuSelection.Add(9, "Avsluta");
@@ -28,6 +28,9 @@ namespace Hotel.src.MenuManagement
         public void Select()
         {
             throw new NotImplementedException();
+        }
+        public void Return()
+        {
         }
     }
 }

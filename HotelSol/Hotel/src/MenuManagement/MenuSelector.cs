@@ -9,19 +9,20 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement
 {
-    internal class MenuSelector(Dictionary<int, string> menu, IUserInput<EUserInputKeys> userInput) : IMenuSelector
+    internal class MenuSelector(
+        IMenu menu
+        , IUserInput<EUserInputKeys> userInputter
+        ) 
+        : IMenuSelector
     {
-        Dictionary<int, string> _menu = menu;
-        IUserInput<EUserInputKeys> _userInput = userInput;
-
-        private MenuSelector GetInstance()
-        {
-
-        }
+        IMenu _menu = menu;
+        IUserInput<EUserInputKeys> _userInput = userInputter;
+        IMenuDestination _menuDestination;
 
         public IMenuDestination Select()
         {
 
+            return _menuDestination;
         }
     }
 }

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel.src.MenuManagement.Interfaces
+namespace HotelLibrary.Services.Interfaces
 {
-    internal interface IPreviousMenu
+    public interface ICustomerService
     {
-        void Return();
     }
 }

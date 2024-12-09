@@ -25,9 +25,11 @@ namespace Hotel.src.FactoryManagement
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<App>().As<IApp>();
-            builder.RegisterType<MainMenu>().As<IMenu>();
-            builder.RegisterType<Class>().As<IClass>();
+            builder.RegisterType<App>().As<IApp>().SingleInstance();
+            builder.RegisterType<MainMenu>().As<IMenu>().SingleInstance();
+            
+
+            //builder.RegisterType<Class>().As<IClass>().SingleInstance();
 
 
             //  builder.RegisterType<Class>().As<IClass>();
