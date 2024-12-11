@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelLibrary.UserInputManagement.Interfaces
+namespace HotelLibrary.Controllers
 {
-    public interface IUserInput<T>
+    internal class CustomerController
     {
-        T Output { get; set; }
     }
 }

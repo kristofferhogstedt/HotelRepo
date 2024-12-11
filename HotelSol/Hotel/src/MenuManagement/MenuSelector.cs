@@ -1,6 +1,6 @@
 ﻿using Hotel.src.MenuManagement.Interfaces;
-using HotelLibrary.UserInputManagement;
-using HotelLibrary.UserInputManagement.Interfaces;
+using HotelLibrary.Utilities.UserInputManagement;
+using HotelLibrary.Utilities.UserInputManagement.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelLibrary.UserInputManagement
+namespace HotelLibrary.Utilities.UserInputManagement
 {
     public class UserInputHandler
     {

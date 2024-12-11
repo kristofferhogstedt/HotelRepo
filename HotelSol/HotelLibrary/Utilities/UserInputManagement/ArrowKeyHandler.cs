@@ -1,18 +1,18 @@
-﻿using HotelLibrary.UserInputManagement.Interfaces;
+﻿using HotelLibrary.Utilities.UserInputManagement.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelLibrary.UserInputManagement
+namespace HotelLibrary.Utilities.UserInputManagement
 {
     public class ArrowKeyHandler : IUserInput<EUserInputKeys>
     {
         private static ArrowKeyHandler _instance;
-        private ArrowKeyHandler() 
+        private ArrowKeyHandler()
         {
-            
+
         }
 
         /// <summary>

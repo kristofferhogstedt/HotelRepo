@@ -1,7 +1,7 @@
 ﻿using HotelLibrary.Models;
 using HotelLibrary.Models.Interfaces;
 using HotelLibrary.Services.Interfaces;
-using HotelLibrary.UserInputManagement;
+using HotelLibrary.Utilities.UserInputManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;

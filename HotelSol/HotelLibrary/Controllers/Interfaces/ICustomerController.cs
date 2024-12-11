@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelLibrary.UserInputManagement
+namespace HotelLibrary.Controllers.Interfaces
 {
-    public enum EUserInputKeys
+    public interface ICustomerController
     {
-        Up, Down, Left, Right, Enter, None
     }
 }
