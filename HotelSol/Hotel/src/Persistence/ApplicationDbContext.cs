@@ -11,16 +11,25 @@ namespace Hotel.src.Persistence
 {
     class ApplicationDbContext : DbContext
     {
-        private readonly string _databaseString = "MyDb";
+        public DbSet<Customer> Customer { get; set; }
+        public DbSet<Booking> Booking { get; set; }
 
-        public List<ICustomer> Customers { get; set; }
-        public IRoom Rooms { get; set; }
-        public IInvoice Invoices { get; set; }
+        public ApplicationDbContext()
+        {
+        }
 
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+        }
 
+        /// <summary>
+        /// Used for initial connection to database
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseInMemoryDatabase(_databaseString);
+            if (!optionsBuilder.IsConfigured)
+                optionsBuilder.UseSqlServer(Settings.DatabaseString);
         }
     }
 }

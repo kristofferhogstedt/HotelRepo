@@ -13,6 +13,8 @@ using HotelLibrary.Interfaces;
 using HotelLibrary.Utilities;
 using HotelLibrary.Utilities.Interfaces;
 using Hotel.src.MenuManagement;
+using Hotel.src.Persistence.Interfaces;
+using Hotel.src.Persistence;
 
 namespace Hotel.src.FactoryManagement
 {
@@ -25,9 +27,10 @@ namespace Hotel.src.FactoryManagement
         {
             var builder = new ContainerBuilder();
 
+            builder.RegisterType<DatabaseLair>().As<IDatabaseLair>().SingleInstance();
             builder.RegisterType<App>().As<IApp>().SingleInstance();
             builder.RegisterType<MainMenu>().As<IMenu>().SingleInstance();
-            
+
 
             //builder.RegisterType<Class>().As<IClass>().SingleInstance();
 

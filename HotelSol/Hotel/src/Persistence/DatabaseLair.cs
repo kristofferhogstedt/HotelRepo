@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Hotel.src.Persistence.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -8,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.Persistence
 {
-    public class DatabaseLair
+    public class DatabaseLair : IDatabaseLair
     {
-        public ApplicationDbContext GetDbContext()
+        public IConfigurationBuilder Builder { get; set; } 
+        public IConfiguration Config { get; set; }
+        public string ConnectionString { get; set; }
+        public DbContextOptionsBuilder Options { get; set; }
+
+        public DatabaseLair()
         {
-            var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.json",
-                true, true);
-            var config = builder.Build();
-
-            var connectionString = config.GetConnectionString("DefaultConnection");
-
-            var options = new DbContextOptionsBuilder<StudentContext>();
-            options.UseSqlServer(connectionString);
-
-            return new StudentContext(options.Options);
+            Builder = new ConfigurationBuilder().AddJsonFile(Settings.AppSettingsFileName, true, true);
+            Config = Builder.Build();
+            Options = new DbContextOptionsBuilder<ApplicationDbContext>();
+            ConnectionString = Config.GetConnectionString("DefaultConnection");
+            Options.UseSqlServer(ConnectionString);
         }
     }
 }
