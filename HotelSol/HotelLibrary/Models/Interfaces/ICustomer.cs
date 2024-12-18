@@ -10,5 +10,6 @@ namespace HotelLibrary.Models.Interfaces
         IAddress Address { get; set; }
         string Email { get; set; }
         string Phone { get; set; }
+        List<IBooking> Bookings { get; set; }
     }
 }

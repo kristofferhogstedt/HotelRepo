@@ -9,9 +9,9 @@ namespace HotelLibrary.Models.Interfaces
     public interface IInvoice
     {
         int InvoiceID { get; set; }
-        int CustomerID { get; set; }
-        DateTime InvoiceDate { get; set; }
+        int BookingID { get; set; }
         double Amount { get; set; }
+        DateTime InvoiceDate { get; set; }
         DateTime DueDate { get; set; }
         bool IsPaid { get; set; }
     }
