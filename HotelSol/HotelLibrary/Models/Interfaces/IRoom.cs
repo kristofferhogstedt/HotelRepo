@@ -8,10 +8,10 @@ namespace HotelLibrary.Models.Interfaces
 {
     public interface IRoom
     {
-        int RoomId { get; set; }
+        int RoomId { get; }
         string RoomName { get; set; }
         string RoomDescription { get; set; }
-        string RoomType { get; set; }
+        IRoomType RoomType { get; set; }
         string Floor { get; set; }
     }
 }

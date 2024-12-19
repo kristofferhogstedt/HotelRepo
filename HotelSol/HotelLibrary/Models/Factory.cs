@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel.src.FactoryManagement
+namespace HotelLibrary.Models
 {
     internal class Factory
     {
         // Singleton 
         public Factory()
-        { 
+        {
             IInstantiatable<T> GetInstance()
             {
 

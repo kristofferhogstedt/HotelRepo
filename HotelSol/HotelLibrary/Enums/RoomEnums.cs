@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelLibrary.Controllers
+namespace HotelLibrary.Enums
 {
-    internal class CustomerController
+    public enum ERoomType
     {
+        Single, 
+        Double, 
+        Family,
+        Luxury
     }
 }

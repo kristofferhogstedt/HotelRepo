@@ -9,10 +9,14 @@ namespace HotelLibrary.Models
 {
     internal class Room : IRoom
     {
-        public int RoomId { get; set; }
+        public int RoomId { get; }
         public string RoomName { get; set; }
         public string RoomDescription { get; set; }
-        public string RoomType { get; set; }
+        public IRoomType RoomType { get; set; }
         public string Floor { get; set; }
+        public Room()
+        {
+
+        }
     }
 }
