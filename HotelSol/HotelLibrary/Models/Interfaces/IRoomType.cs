@@ -11,6 +11,7 @@ namespace HotelLibrary.Models.Interfaces
     {
         int ID { get; }
         string TypeName { get; set; }
+        string Description { get; set; }
         ushort NumberOfBedsDefault { get; set; }
         ushort NumberOfBedsMax { get; set; }
     }

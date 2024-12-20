@@ -9,16 +9,16 @@ namespace HotelLibrary.Models
 {
     internal class Invoice : IInvoice
     {
-        public int InvoiceID { get; set; }
+        public int ID { get; set; }
         public int CustomerID { get; set; }
-        public DateTime InvoiceDate { get; set; }
+        public DateTime CreateDate { get; set; }
         public double Amount { get; set; }
         public DateTime DueDate { get; set; }
         public bool IsPaid { get; set; }
         public Invoice()
         {
-            InvoiceDate = new DateTime();
-            InvoiceDate = DateTime.Now;
+            CreateDate = new DateTime();
+            CreateDate = DateTime.Now;
 
             DueDate = new DateTime();
             DueDate = DateTime.Now.AddDays(30);

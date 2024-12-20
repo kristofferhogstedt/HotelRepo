@@ -9,7 +9,7 @@ namespace HotelLibrary.Models.Interfaces
     public interface IBooking
     {
         int Id { get; }
-        //int CustomerID { get; set; }
+        int CustomerID { get; set; }
         //int RoomID { get; set; }
         //int InvoiceID { get; set; }
         DateTime CreateDate { get; set; }
