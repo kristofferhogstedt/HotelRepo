@@ -11,19 +11,22 @@ namespace Hotel.src.Persistence
 {
     public class DatabaseLair : IDatabaseLair
     {
-        public IConfigurationBuilder Builder { get; set; } 
-        public IConfiguration Config { get; set; }
-        public string ConnectionString { get; set; }
-        public DbContextOptionsBuilder Options { get; set; }
+        //public IConfigurationBuilder Builder { get; set; } 
+        //public IConfiguration Config { get; set; }
+        //public string ConnectionString { get; set; }
+        //public DbContextOptionsBuilder Options { get; set; }
         private static DatabaseLair _instance;
+        public ApplicationDbContext DbContext { get; set; }
 
         public DatabaseLair()
         {
-            Builder = new ConfigurationBuilder().AddJsonFile(Settings.AppSettingsFileName, true, true);
-            Config = Builder.Build();
-            Options = new DbContextOptionsBuilder<ApplicationDbContext>();
-            ConnectionString = Config.GetConnectionString("DefaultConnection");
-            Options.UseSqlServer(ConnectionString);
+            var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.json", true, true);
+            var config = builder.Build();
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>();
+            var connectionString = config.GetConnectionString("DefaultConnection");
+            options.UseSqlServer(connectionString);
+
+            DbContext = new ApplicationDbContext(options.Options);
         }
 
         public static DatabaseLair GetInstance()

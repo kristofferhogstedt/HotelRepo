@@ -9,8 +9,4 @@
   <ItemGroup>
     <Folder Include="Repositories\" />
   </ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Hotel\Hotel.csproj" />
-	</ItemGroup>
 </Project>
