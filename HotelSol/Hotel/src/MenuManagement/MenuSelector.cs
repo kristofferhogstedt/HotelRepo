@@ -21,7 +21,6 @@ namespace Hotel.src.MenuManagement
 
         public IMenuDestination Select()
         {
-
             return _menuDestination;
         }
     }

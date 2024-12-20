@@ -1,4 +1,6 @@
 ﻿using HotelLibrary.Models.Interfaces;
+using Hotel;
+using Hotel.src.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HotelLibrary.Models.Controllers
 {
-    internal class CustomerController
+    public class CustomerController
     {
         public static void Create()
         {

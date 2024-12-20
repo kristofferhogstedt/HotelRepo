@@ -1,5 +1,6 @@
 ﻿using Hotel.src.Interfaces;
 using Hotel.src.MenuManagement.Interfaces;
+using Hotel.src.Persistence;
 using Hotel.src.Persistence.Interfaces;
 using HotelLibrary.Interfaces;
 using System;
@@ -18,11 +19,11 @@ namespace Hotel
         public App(IMenu menu)
         {
             _menu = menu;
+            _databaseLair = DatabaseLair.GetInstance();
         }
 
         public void Run()
         {
-
             _menu.Show();
         }
     }
