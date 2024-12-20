@@ -12,8 +12,10 @@ namespace HotelLibrary.Models
         public int ID { get; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public IRoomType Type { get; set; }
+        public RoomType Type { get; set; }
         public string Floor { get; set; }
+        public ushort NumberOfBeds { get; set; }
+
         public Room()
         {
 

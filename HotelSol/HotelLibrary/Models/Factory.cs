@@ -12,10 +12,6 @@ namespace HotelLibrary.Models
         // Singleton 
         public Factory()
         {
-            IInstantiatable<T> GetInstance()
-            {
-
-            }
         }
     }
 }

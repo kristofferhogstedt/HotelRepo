@@ -11,9 +11,10 @@ namespace HotelLibrary.Models
     {
         public int Id => throw new NotImplementedException();
 
-        public DateTime CreateDate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DateTime UpdateDate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DateTime FromDate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DateTime ToDate { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public DateTime CreateDate { get; set; }
+        public DateTime UpdateDate { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
+        public int CustomerID { get; set; }
     }
 }

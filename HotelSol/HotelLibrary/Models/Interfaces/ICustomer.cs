@@ -7,9 +7,9 @@ namespace HotelLibrary.Models.Interfaces
         int CustomerId { get; set; }
         string CustomerFirstName { get; set; }
         string CustomerLastName { get; set; }
-        IAddress Address { get; set; }
+        Address Address { get; set; }
         string Email { get; set; }
         string Phone { get; set; }
-        List<IBooking> Bookings { get; set; }
+        List<Booking> Bookings { get; set; }
     }
 }

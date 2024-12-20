@@ -14,7 +14,7 @@ namespace HotelLibrary.Models.Controllers
 
         }
 
-        public static ICustomer ReadOne(StudentContext dbContext)
+        public static ICustomer ReadOne(ApplicationDbContext dbContext)
         {
             Console.Write("Ange katt: ");
             return dbContext.Students.First(c => c.FirstName == Console.ReadLine());

@@ -10,7 +10,7 @@ namespace HotelLibrary.Models.Interfaces
     public interface IRoomType
     {
         int ID { get; }
-        string TypeName { get; set; }
+        string Name { get; set; }
         string Description { get; set; }
         ushort NumberOfBedsDefault { get; set; }
         ushort NumberOfBedsMax { get; set; }

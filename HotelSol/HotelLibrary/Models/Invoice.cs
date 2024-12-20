@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotelLibrary.Models
 {
-    internal class Invoice : IInvoice
+    public class Invoice : IInvoice
     {
         public int ID { get; set; }
         public int CustomerID { get; set; }
@@ -15,6 +15,8 @@ namespace HotelLibrary.Models
         public double Amount { get; set; }
         public DateTime DueDate { get; set; }
         public bool IsPaid { get; set; }
+        public int BookingID { get; set; }
+
         public Invoice()
         {
             CreateDate = new DateTime();

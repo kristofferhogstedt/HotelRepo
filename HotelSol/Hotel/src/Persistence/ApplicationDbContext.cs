@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.Persistence
 {
-    class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Booking> Booking { get; set; }

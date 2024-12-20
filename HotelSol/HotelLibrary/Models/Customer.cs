@@ -13,15 +13,15 @@ namespace HotelLibrary.Models
         public int CustomerId { get; set; }
         public string CustomerFirstName { get; set; }
         public string CustomerLastName { get; set; }
-        public IAddress Address { get; set; }
+        public Address Address { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public List<IInvoice> Invoices { get; set; }
+        public List<Booking> Bookings { get; set; }
 
         public Customer() 
         {
         }
-        public Customer(int id, string firstName, string lastName, string email, string phone, IAddress address)
+        public Customer(int id, string firstName, string lastName, string email, string phone, Address address)
         {
             CustomerId = id;
             CustomerFirstName = firstName;

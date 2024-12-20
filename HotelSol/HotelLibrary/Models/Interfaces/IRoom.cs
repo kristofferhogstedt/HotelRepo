@@ -12,7 +12,7 @@ namespace HotelLibrary.Models.Interfaces
         string Name { get; set; }
         string Description { get; set; }
         //int BookingID { get; set; }
-        IRoomType Type { get; set; } 
+        RoomType Type { get; set; } 
         string Floor { get; set; }
         ushort NumberOfBeds { get; set; }
     }
