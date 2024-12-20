@@ -1,6 +1,7 @@
 ﻿using HotelLibrary.Models.Interfaces;
 using Hotel;
 using Hotel.src.Persistence;
+using Hotel.src.Persistence.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,10 @@ namespace HotelLibrary.Models.Controllers
 
         }
 
-        public static ICustomer ReadOne(ApplicationDbContext dbContext)
+        public static ICustomer ReadOne(DatabaseLair dbLair)
         {
-            Console.Write("Ange katt: ");
-            return dbContext.Students.First(c => c.FirstName == Console.ReadLine());
+            Console.Write("Kund: ");
+            return dbLair.Students.First(c => c.FirstName == Console.ReadLine());
         }
 
         public static List<ICustomer> ReadAll(StudentContext dbContext)

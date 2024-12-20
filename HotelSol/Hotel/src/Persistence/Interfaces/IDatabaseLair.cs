@@ -8,6 +8,6 @@ namespace Hotel.src.Persistence.Interfaces
         public IConfigurationBuilder Builder { get; set; }
         public IConfiguration Config { get; set; }
         public string ConnectionString { get; set; }
-        public DbContextOptionsBuilder Options { get; set; }
+        public DbContextOptionsBuilder Options { get; set; } 
     }
 }
