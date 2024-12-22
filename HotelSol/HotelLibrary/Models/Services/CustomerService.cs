@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HotelLibrary.Services
 {
-    internal class CustomerService : ICustomerService
+    public class CustomerService : ICustomerService
     {
         ICustomerService _instance;
 
@@ -21,22 +21,9 @@ namespace HotelLibrary.Services
             return _instance;
         }
 
-        public ICustomer CreateCustomer()
+        public static void CreateCustomer(ICustomer newCustomer)
         {
-            Console.WriteLine("Kundregistrering");
-            Console.Write("\nFörNamn: ");
-            string _firstName = UserInputHandler.UserInputString();
-            Console.Write("\nEfternamn: ");
-            string _lastName = UserInputHandler.UserInputString();
-            Console.Write("\nE-post: ");
-            string _email = UserInputHandler.UserInputString();
-            Console.Write("\nTelefon: ");
-            string _phoneNumber = UserInputHandler.UserInputString();
-
-            Console.WriteLine("\nAdress: ");
-            IAddress _address = AddressService.CreateAddress();
-
-            return new Customer(this.GetID(), _firstName, _lastName, _email, _phoneNumber, _address);
+            
         }
 
         public string GetFullName()
