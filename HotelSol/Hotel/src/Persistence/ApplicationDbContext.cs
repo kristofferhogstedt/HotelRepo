@@ -1,12 +1,5 @@
-﻿using HotelLibrary.Models.Interfaces;
+﻿using Hotel.src.ModelManagement.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HotelLibrary.Models.Data;
-using Hotel.src.Models.Data;
 
 namespace Hotel.src.Persistence
 {
