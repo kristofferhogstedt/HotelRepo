@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement
 {
-    internal class Menu : IMenu, IPreviousMenu
+    public class Menu : IMenu, IPreviousMenu
     {
         Dictionary<int, string> MenuSelection { get; init; }
         IPreviousMenu _previousMenu;

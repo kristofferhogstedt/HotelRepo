@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement
 {
-    internal class MenuDestination : IMenuDestination
+    public class MenuDestination : IMenuDestination
     {
         public void Instantiate()
         {

@@ -1,12 +1,19 @@
-﻿using HotelLibrary.Models;
+﻿using HotelLibrary.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using HotelLibrary.Models.Data;
+using Hotel.src.Models.Data;
 
 namespace Hotel.src.Persistence
 {
     public class ApplicationDbContext : DbContext
     {
-        public DbSet<Customer> Customer { get; set; }
-        public DbSet<Booking> Booking { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
 
         public ApplicationDbContext()
         {

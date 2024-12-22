@@ -9,10 +9,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement
 {
-    internal class MenuSelector(
-        IMenu menu
-        , IUserInput<EUserInputKeys> userInputter
-        ) 
+    public class MenuSelector(IMenu menu, IUserInput<EUserInputKeys> userInputter) 
         : IMenuSelector
     {
         IMenu _menu = menu;

@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel.src.MenuManagement.Interfaces
+namespace Hotel.Enums
 {
-    public interface IMenuDestination
+    public enum ERoomType
     {
-        void Instantiate();
+        Single,
+        Double,
+        Family,
+        Luxury
     }
 }

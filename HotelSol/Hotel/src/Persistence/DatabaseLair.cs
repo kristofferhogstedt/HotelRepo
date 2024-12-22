@@ -16,7 +16,7 @@ namespace Hotel.src.Persistence
         //public string ConnectionString { get; set; }
         //public DbContextOptionsBuilder Options { get; set; }
         private static DatabaseLair _instance;
-        public ApplicationDbContext DbContext { get; set; }
+        public ApplicationDbContext DatabaseContext { get; set; }
 
         public DatabaseLair()
         {
@@ -26,7 +26,7 @@ namespace Hotel.src.Persistence
             var connectionString = config.GetConnectionString("DefaultConnection");
             options.UseSqlServer(connectionString);
 
-            DbContext = new ApplicationDbContext(options.Options);
+            DatabaseContext = new ApplicationDbContext(options.Options);
         }
 
         public static DatabaseLair GetInstance()

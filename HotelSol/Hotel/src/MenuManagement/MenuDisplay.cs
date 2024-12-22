@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement
 {
-    internal class MenuDisplay
+    public class MenuDisplay
     {
         public static void DisplayMenu(Dictionary<int, string> menuToDisplay)
         {
