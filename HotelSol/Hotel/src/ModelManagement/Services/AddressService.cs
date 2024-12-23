@@ -1,4 +1,5 @@
-﻿using Hotel.src.ModelManagement.Interfaces;
+﻿using Hotel.src.ModelManagement.Models;
+using Hotel.src.ModelManagement.Interfaces;
 using Hotel.src.ModelManagement.Services.Interfaces;
 using HotelLibrary.Utilities.UserInputManagement;
 

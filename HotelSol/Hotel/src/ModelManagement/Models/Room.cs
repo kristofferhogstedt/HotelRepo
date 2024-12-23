@@ -1,6 +1,6 @@
 ﻿using Hotel.src.ModelManagement.Interfaces;
 
-namespace Hotel.src.ModelManagement.Data
+namespace Hotel.src.ModelManagement.Models
 {
     public class Room : IRoom
     {

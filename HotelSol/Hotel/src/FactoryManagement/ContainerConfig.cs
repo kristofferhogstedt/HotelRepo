@@ -27,7 +27,7 @@ namespace Hotel.src.FactoryManagement
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<DatabaseLair>().As<IDatabaseLair>().SingleInstance();
+            //builder.RegisterType<DatabaseLair>().As<IDatabaseLair>().SingleInstance();
             builder.RegisterType<App>().As<IApp>().SingleInstance();
             builder.RegisterType<MainMenu>().As<IMenu>().SingleInstance();
 
@@ -40,9 +40,9 @@ namespace Hotel.src.FactoryManagement
             //builder.RegisterType<Logger>().As<ILogger>();
 
             // Library
-            builder.RegisterAssemblyTypes(Assembly.Load(nameof(HotelLibrary)))
-                .Where(t => t.Namespace.Contains(nameof(HotelLibrary.Utilities)))
-                .As(t => t.GetInterfaces().FirstOrDefault(i => i.Name == "I" + t.Name));
+            //builder.RegisterAssemblyTypes(Assembly.Load(nameof(HotelLibrary)))
+            //    .Where(t => t.Namespace.Contains(nameof(HotelLibrary.Utilities)))
+            //    .As(t => t.GetInterfaces().FirstOrDefault(i => i.Name == "I" + t.Name));
              
             return builder.Build();
         }

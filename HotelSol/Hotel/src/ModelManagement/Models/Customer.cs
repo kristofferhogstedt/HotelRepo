@@ -1,12 +1,12 @@
 ﻿using Hotel.src.ModelManagement.Interfaces;
 
-namespace Hotel.src.ModelManagement.Data
+namespace Hotel.src.ModelManagement.Models
 {
     public class Customer : ICustomer
     {
-        public int CustomerId { get; set; }
-        public string CustomerFirstName { get; set; }
-        public string CustomerLastName { get; set; }
+        public int ID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public Address Address { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
@@ -15,14 +15,13 @@ namespace Hotel.src.ModelManagement.Data
         public Customer()
         {
         }
-        public Customer(int id, string firstName, string lastName, string email, string phone, Address address)
+        public Customer(string firstName, string lastName, string email, string phone, Address address)
         {
-            CustomerId = id;
-            CustomerFirstName = firstName;
-            CustomerLastName = lastName;
+            FirstName = firstName;
+            LastName = lastName;
             Address = address;
             Email = email;
             Phone = phone;
         }
     }
-}
+} 
