@@ -10,7 +10,7 @@ namespace Hotel.src.ModelManagement.Models
         public Address Address { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public List<Booking> Bookings { get; set; }
+        public List<Booking>? Bookings { get; set; }
 
         public Customer()
         {

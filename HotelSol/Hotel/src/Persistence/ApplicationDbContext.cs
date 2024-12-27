@@ -7,6 +7,7 @@ namespace Hotel.src.Persistence
     {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Room> Rooms { get; set; }
 
         public ApplicationDbContext()
         {
@@ -24,6 +25,11 @@ namespace Hotel.src.Persistence
         {
             if (!optionsBuilder.IsConfigured)
                 optionsBuilder.UseSqlServer(Settings.DatabaseString);
+        }
+
+        internal void EnsureCreated()
+        {
+            throw new NotImplementedException();
         }
     }
 }

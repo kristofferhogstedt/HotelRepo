@@ -11,6 +11,6 @@ namespace Hotel.Enums
         Single,
         Double,
         Family,
-        Luxury
+        Suite
     }
 }
