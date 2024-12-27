@@ -1,4 +1,4 @@
-﻿using Hotel.src.ModelManagement.Data;
+﻿using Hotel.src.ModelManagement.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hotel.src.Persistence

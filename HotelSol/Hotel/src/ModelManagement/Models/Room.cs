@@ -7,7 +7,7 @@ namespace Hotel.src.ModelManagement.Models
         public int ID { get; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public RoomType Type { get; set; }
+        public RoomType RoomTypeID { get; set; }
         public string Floor { get; set; }
         public ushort NumberOfBeds { get; set; }
 
