@@ -23,7 +23,6 @@ namespace Hotel.src.Persistence
             options.UseSqlServer(connectionString);
 
             DatabaseContext = new ApplicationDbContext(options.Options);
-
         }
 
         public static IDatabaseLair GetInstance()

@@ -11,9 +11,7 @@ namespace Hotel.src.ModelManagement.Controllers.Checks
     {
         public static bool HasBooking(ICustomer customer)
         {
-            if (customer.Bookings.Any() == null)
-                return false;
-            return true;
+            return customer.Bookings.Any();
         }
     }
 }
