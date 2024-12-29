@@ -1,16 +1,28 @@
-﻿using Hotel.src.ModelManagement.Interfaces;
+﻿using Hotel.src.ModelManagement.Models.Interfaces;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hotel.src.ModelManagement.Models
 {
     public class Customer : ICustomer
     {
+        [Key]
         public int ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Address Address { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public Address Address { get; set; }
         public List<Booking>? Bookings { get; set; }
+
+        [NotMapped]
+        public string FullName => $"{FirstName} {LastName}";
+        [NotMapped]
+        public ushort Age => Convert.ToUInt16(DateTime.Now - DateOfBirth);
+        [NotMapped]
+        public string Info => $"Namn: {FullName}, Epost: {Email}, Telefon: {Phone}";
+
 
         public Customer()
         {

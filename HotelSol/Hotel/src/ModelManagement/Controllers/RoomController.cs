@@ -1,7 +1,7 @@
 ﻿using Hotel.Enums;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
-using Hotel.src.ModelManagement.Interfaces;
 using Hotel.src.ModelManagement.Models;
+using Hotel.src.ModelManagement.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

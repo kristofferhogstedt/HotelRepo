@@ -1,4 +1,4 @@
-﻿namespace Hotel.src.ModelManagement.Interfaces
+﻿namespace Hotel.src.ModelManagement.Models.Interfaces
 {
     public interface IInvoice
     {

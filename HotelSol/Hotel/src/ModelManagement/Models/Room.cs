@@ -1,5 +1,5 @@
 ﻿using Hotel.Enums;
-using Hotel.src.ModelManagement.Interfaces;
+using Hotel.src.ModelManagement.Models.Interfaces;
 
 namespace Hotel.src.ModelManagement.Models
 {
@@ -12,6 +12,7 @@ namespace Hotel.src.ModelManagement.Models
         public string Floor { get; set; }
         public ushort NumberOfBeds { get; set; }
         public ushort Size { get; set; }
+        public DateTime CleanedDate { get; set; }
 
         public Room()
         {

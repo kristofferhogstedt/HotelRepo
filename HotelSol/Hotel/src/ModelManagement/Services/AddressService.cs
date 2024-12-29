@@ -1,7 +1,7 @@
 ﻿using Hotel.src.ModelManagement.Models;
-using Hotel.src.ModelManagement.Interfaces;
 using Hotel.src.ModelManagement.Services.Interfaces;
 using HotelLibrary.Utilities.UserInputManagement;
+using Hotel.src.ModelManagement.Models.Interfaces;
 
 namespace Hotel.src.ModelManagement.Services
 {

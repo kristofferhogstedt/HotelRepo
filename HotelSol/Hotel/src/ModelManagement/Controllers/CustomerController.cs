@@ -1,9 +1,9 @@
 ﻿using Hotel.src.ModelManagement.Models;
-using Hotel.src.ModelManagement.Interfaces;
 using Hotel.src.ModelManagement.Services;
 using Hotel.src.Persistence;
 using HotelLibrary.Utilities.UserInputManagement;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
+using Hotel.src.ModelManagement.Models.Interfaces;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
@@ -24,14 +24,10 @@ namespace Hotel.src.ModelManagement.Controllers
             return _instance;
         }
 
-        public string ToString()
-        {
-            return $"Namn: {_customer.FirstName} {_customer.LastName}, Epost: {_customer.Email}";
-        }
 
         public void PrintPersonInfo()
         {
-            Console.WriteLine(ToString());
+            Console.WriteLine(_customer.Info);
         }
 
         public static ICustomer Create()

@@ -1,4 +1,4 @@
-﻿using Hotel.src.ModelManagement.Interfaces;
+﻿using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.Persistence;
 
 namespace Hotel.src.ModelManagement.Controllers.Interfaces
