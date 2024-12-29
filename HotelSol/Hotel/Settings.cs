@@ -12,5 +12,6 @@ namespace Hotel
         public static string DatabaseString { get; } =
             $@"Server=.;Database={DatabaseName};Trusted_Connection=True;TrustServerCertificate=true;";
         public static string AppSettingsFileName { get; } = "appsettings.json";
+        public static ushort BedSize { get; } = 20;
     }
 }

@@ -26,24 +26,5 @@ namespace Hotel.src.ModelManagement.Controllers
                 _instance = new RoomController(new Room());
             return _instance;
         }
-
-        public void SetSize()
-        {
-            switch (_room.RoomType)
-            {
-                case ERoomType.Single:
-                    _room.Size = 20;
-                    break;
-                case ERoomType.Double:
-                    _room.Size = 35;
-                    break;
-                case ERoomType.Family:
-                    _room.Size = 50;
-                    break;
-                case ERoomType.Suite:
-                    _room.Size = 60;
-                    break;
-            }
-        }
     }
 }

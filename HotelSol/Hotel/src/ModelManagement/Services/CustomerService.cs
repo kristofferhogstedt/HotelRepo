@@ -1,9 +1,4 @@
-﻿using Hotel.src.ModelManagement.Interfaces;
-using Hotel.src.ModelManagement.Services.Interfaces;
-using Hotel.src.Persistence;
-using HotelLibrary.Utilities.UserInputManagement;
-
-namespace Hotel.src.ModelManagement.Services
+﻿namespace Hotel.src.ModelManagement.Services
 {
     //public class CustomerService //: ICustomerService
     //{
