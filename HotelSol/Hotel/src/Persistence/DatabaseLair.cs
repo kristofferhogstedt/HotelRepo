@@ -33,9 +33,10 @@ namespace Hotel.src.Persistence
             return _instance;
         }
 
-        public void Seed()
+        public void SeedAndMigrate()
         {
             DataInitializer.Initialize(this);
+            DatabaseContext.Database.Migrate();
         }
     }
 }

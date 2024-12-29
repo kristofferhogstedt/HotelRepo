@@ -14,6 +14,10 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         Address Address { get; set; }
         List<Booking> Bookings { get; set; }
         bool IsActive { get; set; }
+        DateTime CreatedDate { get; set; }
+        DateTime? UpdatedDate { get; set; }
+        DateTime? InactivatedDate { get; set; }
+
 
         [NotMapped]
         public string FullName => $"{FirstName} {LastName}";
