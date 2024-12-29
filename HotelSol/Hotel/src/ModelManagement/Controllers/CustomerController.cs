@@ -3,15 +3,25 @@ using Hotel.src.ModelManagement.Interfaces;
 using Hotel.src.ModelManagement.Services;
 using Hotel.src.Persistence;
 using HotelLibrary.Utilities.UserInputManagement;
+using Hotel.src.ModelManagement.Controllers.Interfaces;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
-    public class CustomerController
+    public class CustomerController : ICustomerController
     {
+        public static ICustomerController _instance;
         private ICustomer _customer;
+
         public CustomerController(ICustomer customer)
         {
             _customer = customer;
+        }
+
+        public static ICustomerController GetInstance()
+        {
+            if (_instance == null)
+                _instance = new CustomerController(new Customer());
+            return _instance;
         }
 
         public string ToString()

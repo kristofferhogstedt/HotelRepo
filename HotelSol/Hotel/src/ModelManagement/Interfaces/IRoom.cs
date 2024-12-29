@@ -8,9 +8,9 @@ namespace Hotel.src.ModelManagement.Interfaces
         int ID { get; }
         string Name { get; set; }
         string Description { get; set; }
-        //int BookingID { get; set; }
         ERoomType RoomType { get; set; }
         string Floor { get; set; }
         ushort NumberOfBeds { get; set; }
+        ushort Size { get; set; }
     }
 }

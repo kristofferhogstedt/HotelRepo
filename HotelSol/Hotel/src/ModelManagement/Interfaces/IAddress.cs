@@ -7,6 +7,5 @@
         string City { get; set; }
         string PostalCode { get; set; }
         string StreetName { get; set; }
-
     }
 }

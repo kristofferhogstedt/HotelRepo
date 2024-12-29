@@ -14,7 +14,7 @@ namespace Hotel.src.Persistence
         {
             context.DatabaseContext.EnsureCreated();
 
-            // Look for any students.
+            // Look for any rooms.
             if (context.DatabaseContext.Rooms.Any())
             {
                 return;   // DB has been seeded
