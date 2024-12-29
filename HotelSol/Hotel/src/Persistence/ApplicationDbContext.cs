@@ -27,10 +27,6 @@ namespace Hotel.src.Persistence
                 optionsBuilder.UseSqlServer(Settings.DatabaseString);
         }
 
-        internal void EnsureCreated()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
 
