@@ -4,6 +4,7 @@ using Hotel.src.Persistence;
 using HotelLibrary.Utilities.UserInputManagement;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models.Interfaces;
+using Hotel.src.ModelManagement.Controllers.Checks;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
@@ -17,6 +18,10 @@ namespace Hotel.src.ModelManagement.Controllers
             _customer = customer;
         }
 
+        /// <summary>
+        /// Single instance
+        /// </summary>
+        /// <returns></returns>
         public static ICustomerController GetInstance()
         {
             if (_instance == null)
@@ -56,19 +61,9 @@ namespace Hotel.src.ModelManagement.Controllers
             return dbLair.DatabaseContext.Customers.First(c => c.FirstName == UserInputHandler.UserInputString());
         }
 
-        public List<ICustomer> ReadAll(DatabaseLair dbLair)
+        public void ReadAll(DatabaseLair dbLair)
         {
-            List<ICustomer> ListToReturn = (List<ICustomer>)(dbLair.DatabaseContext.Customers.ToList() as ICustomer);
 
-            Console.Clear();
-            if (ListToReturn == null)
-            {
-                Console.WriteLine("Data not found, contact administrator");
-                Console.WriteLine("Returning... ");
-                return ListToReturn;
-            }
-            return ListToReturn;
-            // Guard clause?
         }
 
         //public void Update(DatabaseLair dbLair)
@@ -89,6 +84,14 @@ namespace Hotel.src.ModelManagement.Controllers
         //}
         public void Delete()
         {
+            while (true)
+            {
+
+                Console.Write("Ange kund: ");
+                string _customerName = UserInputHandler.UserInputString();
+                ICustomer _customer = CustomerService.ReadOne(_customerName);
+                CustomerChecks.HasBooking(_customerName);
+            }
 
         }
     }
