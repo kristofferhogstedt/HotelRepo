@@ -43,5 +43,17 @@ namespace Hotel.src.Persistence
                 new Room{Name="302",Description="Room 302",RoomType=(new RoomType{Type = ERoomType.Suite}),Floor="3",NumberOfBeds=2},
             };
         }
+
+        public static void SeedCustomers(DatabaseLair context)
+        {
+            context.DatabaseContext.EnsureCreated();
+
+            // Look for any rooms.
+            if (context.DatabaseContext.Customers.Any())
+            {
+                return;   // DB has been seeded
+            }
+
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace Hotel
     public class App : IApp
     {
         IMenu _menu;
-        IDatabaseLair _databaseLair;
+        public IDatabaseLair _databaseLair;
 
         public App(IMenu menu)
         {

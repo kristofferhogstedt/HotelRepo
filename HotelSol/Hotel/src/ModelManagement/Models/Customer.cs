@@ -15,6 +15,10 @@ namespace Hotel.src.ModelManagement.Models
         public DateTime DateOfBirth { get; set; }
         public Address Address { get; set; }
         public List<Booking>? Bookings { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public DateTime? InactivatedDate { get; set; }
 
         [NotMapped]
         public string FullName => $"{FirstName} {LastName}";

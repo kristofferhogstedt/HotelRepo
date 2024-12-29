@@ -84,14 +84,14 @@ namespace Hotel.src.ModelManagement.Controllers
         //}
         public void Delete()
         {
-            while (true)
-            {
+            //while (true)
+            //{
 
-                Console.Write("Ange kund: ");
-                string _customerName = UserInputHandler.UserInputString();
-                ICustomer _customer = CustomerService.ReadOne(_customerName);
-                CustomerChecks.HasBooking(_customerName);
-            }
+            //    Console.Write("Ange kund: ");
+            //    string _customerName = UserInputHandler.UserInputString();
+            //    ICustomer _customer = CustomerService.ReadOne(_customerName);
+            //    CustomerChecks.HasBooking(_customerName);
+            //}
 
         }
     }

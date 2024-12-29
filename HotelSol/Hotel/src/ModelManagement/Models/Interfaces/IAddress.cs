@@ -6,6 +6,6 @@
         string Country { get; set; }
         string City { get; set; }
         string PostalCode { get; set; }
-        string StreetName { get; set; }
+        string StreetAddress { get; set; }
     }
 }

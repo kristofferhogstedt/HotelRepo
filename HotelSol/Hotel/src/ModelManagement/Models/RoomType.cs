@@ -7,7 +7,7 @@ namespace Hotel.src.ModelManagement.Models
 {
     public class RoomType : IRoomType
     {
-        public int ID { get; }
+        public int ID { get; set; }
         public ERoomType Type { get; set; }
 
         private string _name;
