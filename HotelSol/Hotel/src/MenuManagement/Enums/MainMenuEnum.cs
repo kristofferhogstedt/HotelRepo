@@ -1,4 +1,5 @@
 ﻿using Hotel.src.MenuManagement;
+using Hotel.src.MenuManagement.Enums.Services;
 using Hotel.src.MenuManagement.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace Hotel.src.MenuManagement.Enums
 
     public static class MainMenuEnum //: Menu, IMenu, IPreviousMenu
     {
-        public static string Menu(this Enum enumValues)
+        public static string ShowMainMenu(this Enum enumValues)
         {
             return DescriptionGetter.GetDescription(enumValues);
         }

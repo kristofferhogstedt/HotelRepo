@@ -29,11 +29,14 @@ namespace Hotel.src.MenuManagement.Menus
                     case MainMenuOptions.PreviousMenu:
                         StartMenu.Run();
                         break;
-                    case MainMenuOptions.ViewAllProducts:
-                        ProductController.GetProducts();
+                    case MainMenuOptions.CustomerManagement:
+                        CustomerMenu.Run();
                         break;
-                    case MainMenuOptions.ViewAllProducts:
-                        ProductController.GetProducts();
+                    case MainMenuOptions.BookingManagement:
+                        BookingMenu.Run();
+                        break;
+                    case MainMenuOptions.RoomManagement:
+                        RoomMenu.Run();
                         break;
                     case MainMenuOptions.Exit:
                         return;

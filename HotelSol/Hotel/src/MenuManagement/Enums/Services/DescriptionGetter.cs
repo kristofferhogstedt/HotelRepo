@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel.src.MenuManagement.Enums
+namespace Hotel.src.MenuManagement.Enums.Services
 {
     public static class DescriptionGetter
     {

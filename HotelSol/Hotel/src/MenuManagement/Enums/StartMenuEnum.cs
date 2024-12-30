@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hotel.src.MenuManagement.Enums.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Enums
 {
-    public enum MainMenuOptions
+    public enum StartMenuOptions
     {
         [Description("Login")]
         Login,
