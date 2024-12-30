@@ -17,6 +17,10 @@ namespace Hotel.src.ModelManagement.Models
         public ushort Size { get; set; }
         public DateTime CleanedDate { get; set; }
 
+        public Room()
+        { 
+        }
+
         public Room(ERoomType roomType)
         {
             Type = roomType;
