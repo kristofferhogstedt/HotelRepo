@@ -24,7 +24,7 @@ namespace Hotel.src.ModelManagement.Services
 
         public static ICustomer GetOne(DatabaseLair databaseLair, string customerName)
         {
-            ICustomer _customerToReturn = databaseLair.DatabaseContext.Customers.First(c => c.FullName == customerName);
+            ICustomer _customerToReturn = DatabaseLair.DatabaseContext.Customers.First(c => c.FullName == customerName);
 
             if (_customerToReturn == null)
             {
@@ -38,7 +38,7 @@ namespace Hotel.src.ModelManagement.Services
 
         public List<ICustomer> GetAll(DatabaseLair databaseLair)
         {
-            List<ICustomer> ListToReturn = (List<ICustomer>)(databaseLair.DatabaseContext.Customers.ToList() as ICustomer);
+            List<ICustomer> ListToReturn = (List<ICustomer>)(DatabaseLair.DatabaseContext.Customers.ToList() as ICustomer);
 
             Console.Clear();
             if (ListToReturn == null)

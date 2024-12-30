@@ -33,7 +33,8 @@ namespace Hotel.src.MenuManagement.Menus
                         MainMenu.Run();
                         break;
                     case StartMenuOptions.Exit:
-                        return;
+                        Exit.ExitProgram();
+                        break;
                     default:
                         break;
                 }

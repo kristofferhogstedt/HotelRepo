@@ -26,7 +26,7 @@ namespace Hotel.src.MenuManagement.Enums
 
     public static class BookingMenuEnum
     {
-        public static string ShowCustomerMenu(this Enum enumValues)
+        public static string ShowBookingMenu(this Enum enumValues)
         {
             return DescriptionGetter.GetDescription(enumValues);
         }

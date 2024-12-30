@@ -2,6 +2,7 @@
 using Hotel.src.Interfaces;
 using Hotel.src.MenuManagement.Enums;
 using Hotel.src.MenuManagement.Interfaces;
+using Hotel.src.MenuManagement.Menus;
 
 namespace Hotel.src.FactoryManagement
 {
@@ -16,7 +17,7 @@ namespace Hotel.src.FactoryManagement
 
             //builder.RegisterType<DatabaseLair>().As<IDatabaseLair>().SingleInstance();
             builder.RegisterType<App>().As<IApp>().SingleInstance();
-            builder.RegisterType<MainMenuEnum>().As<IMenu>().SingleInstance();
+            builder.RegisterType<MainMenu>().As<IMenu>().SingleInstance();
 
 
             //builder.RegisterType<Class>().As<IClass>().SingleInstance();

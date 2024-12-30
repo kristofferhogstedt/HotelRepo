@@ -13,15 +13,14 @@ namespace Hotel.src.ModelManagement.Controllers
         public static RoomDetailController _instance;
         IRoomDetail _roomType;
 
-        public RoomDetailController(IRoomDetail roomType)
+        public RoomDetailController()
         {
-            _roomType = roomType;
         }
 
         public static RoomDetailController GetInstance()
         {
             if (_instance == null)
-                _instance = new RoomDetailController(new RoomDetails());
+                _instance = new RoomDetailController();
             return _instance;
         }
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Menus
 {
-    public class MainMenu
+    public class MainMenu : IMenu
     {
         public static void Run()
         {
@@ -29,17 +29,18 @@ namespace Hotel.src.MenuManagement.Menus
                     case MainMenuOptions.PreviousMenu:
                         StartMenu.Run();
                         break;
-                    case MainMenuOptions.CustomerManagement:
-                        CustomerMenu.Run();
-                        break;
+                    //case MainMenuOptions.CustomerManagement:
+                    //    CustomerMenu.Run();
+                    //    break;
                     case MainMenuOptions.BookingManagement:
                         BookingMenu.Run();
                         break;
-                    case MainMenuOptions.RoomManagement:
-                        RoomMenu.Run();
-                        break;
+                    //case MainMenuOptions.RoomManagement:
+                    //    RoomMenu.Run();
+                    //    break;
                     case MainMenuOptions.Exit:
-                        return;
+                        Exit.ExitProgram();
+                        break;
                     default:
                         break;
                 }

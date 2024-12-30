@@ -8,7 +8,7 @@ namespace Hotel.src.MenuManagement.Interfaces
 {
     public interface IMenu
     {
-        void Show();
-        void Select();
+        static void Run() { }
+        //void Select();
     }
 }

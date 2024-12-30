@@ -23,20 +23,20 @@ namespace Hotel.src.MenuManagement.Menus
                         .AddChoices(Enum.GetValues<BookingMenuOptions>())
                     );
 
-                switch (option)
-                {
-                    case BookingMenuOptions.Login:
-                        MainMenu.Run();
-                        break;
-                    case BookingMenuOptions.AdminLogin:
-                        Settings.IsAdmin = true;
-                        MainMenu.Run();
-                        break;
-                    case BookingMenuOptions.Exit:
-                        return;
-                    default:
-                        break;
-                }
+                //switch (option)
+                //{
+                //    case BookingMenuOptions.Login:
+                //        MainMenu.Run();
+                //        break;
+                //    case BookingMenuOptions.AdminLogin:
+                //        Settings.IsAdmin = true;
+                //        MainMenu.Run();
+                //        break;
+                //    case BookingMenuOptions.Exit:
+                //        return;
+                //    default:
+                //        break;
+                //}
             }
         }
     }
