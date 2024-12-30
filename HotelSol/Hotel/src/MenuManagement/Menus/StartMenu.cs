@@ -26,12 +26,13 @@ namespace Hotel.src.MenuManagement.Menus
                 switch (option)
                 {
                     case StartMenuOptions.Login:
+                        Settings.IsAdmin = false;
                         MainMenu.Run();
                         break;
-                    case StartMenuOptions.AdminLogin:
-                        Settings.IsAdmin = true;
-                        MainMenu.Run();
-                        break;
+                    //case StartMenuOptions.AdminLogin:
+                    //    Settings.IsAdmin = true;
+                    //    MainMenu.Run();
+                    //    break;
                     case StartMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;

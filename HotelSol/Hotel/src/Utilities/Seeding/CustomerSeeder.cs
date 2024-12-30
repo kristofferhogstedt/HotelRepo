@@ -10,7 +10,7 @@ namespace Hotel.src.Utilities.Seeding
     {
         public static void Seed()
         {
-            if (DatabaseLair.DatabaseContext.Rooms.Any())
+            if (DatabaseLair.DatabaseContext.Customers.Any())
             {
                 return;   // DB already contains data
             }

@@ -20,11 +20,13 @@ namespace Hotel
         public App(IMenu menu)
         {
             //_menu = menu;
-            //_databaseLair = DatabaseLair.GetInstance();
+            _databaseLair = DatabaseLair.GetInstance();
         }
 
         public void Run()
         {
+            _databaseLair.CreateDbConnection();
+            DatabaseLair.SeedAndMigrate();
             StartMenu.Run();
         }
     }

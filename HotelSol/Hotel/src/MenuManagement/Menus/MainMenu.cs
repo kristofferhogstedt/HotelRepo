@@ -29,15 +29,21 @@ namespace Hotel.src.MenuManagement.Menus
                     case MainMenuOptions.PreviousMenu:
                         StartMenu.Run();
                         break;
-                    //case MainMenuOptions.CustomerManagement:
-                    //    CustomerMenu.Run();
-                    //    break;
+                    case MainMenuOptions.CustomerManagement:
+                        CustomerMenu.Run();
+                        break;
                     case MainMenuOptions.BookingManagement:
                         BookingMenu.Run();
                         break;
-                    //case MainMenuOptions.RoomManagement:
-                    //    RoomMenu.Run();
-                    //    break;
+                    case MainMenuOptions.RoomManagement:
+                        RoomMenu.Run();
+                        break;
+                    case MainMenuOptions.CleaningManagement:
+                        CleaningMenu.Run();
+                        break;
+                    case MainMenuOptions.EconomyManagement:
+                        EconomyMenu.Run();
+                        break;
                     case MainMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;

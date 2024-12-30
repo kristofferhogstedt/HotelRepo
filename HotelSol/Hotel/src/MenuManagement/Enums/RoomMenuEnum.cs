@@ -17,9 +17,9 @@ namespace Hotel.src.MenuManagement.Enums
         [Description("Uppdatera rum")]
         UpdateRooms,
         [Description("Registrera nytt rum")]
-        AddRoom,
-        [Description("Städmeny")]
-        CleaningManager,
+        CreateRooms,
+        [Description("Radera rum")]
+        DeleteRooms,
         [Description("Avsluta")]
         Exit
     }

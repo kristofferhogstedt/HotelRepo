@@ -8,25 +8,21 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Enums
 {
-    public enum BookingMenuOptions
+    public enum EconomyMenuOptions
     {
         [Description("Föregående meny")]
         PreviousMenu,
-        [Description("Se bokningar")]
-        DisplayBookings,
-        [Description("Uppdatera bokningar")]
-        UpdateBookings,
-        [Description("Registrera ny bokning")]
-        CreateBooking,
-        [Description("Radera bokning")]
-        DeleteBooking,
+        [Description("Visa fakturor")]
+        DisplayInvoices,
+        [Description("Uppdatera faktura")]
+        UpdateInvoices,
         [Description("Avsluta")]
         Exit
     }
 
-    public static class BookingMenuEnum
+    public static class EconomyMenuEnum
     {
-        public static string ShowBookingMenu(this Enum enumValues)
+        public static string ShowEconomyMenu(this Enum enumValues)
         {
             return DescriptionGetter.GetDescription(enumValues);
         }

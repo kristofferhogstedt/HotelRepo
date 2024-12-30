@@ -12,14 +12,14 @@ namespace Hotel.src.MenuManagement.Enums
     {
         [Description("Föregående meny")]
         PreviousMenu,
-        [Description("Bokningshantering")]
-        BookingManagement,
-        [Description("Kundhantering")]
-        CustomerManagement,
-        [Description("Rumhantering")]
-        RoomManagement,
-        [Description("Admin")]
-        Admin,
+        [Description("Se kunder")]
+        DisplayCustomers,
+        [Description("Uppdatera kund")]
+        UpdateCustomer,
+        [Description("Registrera ny kund")]
+        CreateCustomer,
+        [Description("Radera kund")]
+        DeleteCustomer,
         [Description("Avsluta")]
         Exit
     }

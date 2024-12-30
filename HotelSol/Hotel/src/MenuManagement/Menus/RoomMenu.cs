@@ -26,7 +26,7 @@ namespace Hotel.src.MenuManagement.Menus
                 switch (option)
                 {
                     case RoomMenuOptions.PreviousMenu:
-                        RoomMenu.Run();
+                        MainMenu.Run();
                         break;
                     case RoomMenuOptions.Exit:
                         Exit.ExitProgram();
