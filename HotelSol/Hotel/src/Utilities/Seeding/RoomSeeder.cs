@@ -8,9 +8,9 @@ namespace Hotel.src.Utilities.Seeding
 {
     public class RoomSeeder : ISeedable
     {
-        public static void Seed(DatabaseLair databaseLair)
+        public static void Seed()
         {
-            if (databaseLair.DatabaseContext.Rooms.Any())
+            if (DatabaseLair.DatabaseContext.Rooms.Any())
             {
                 return;   // DB already contains data
             }
@@ -18,10 +18,10 @@ namespace Hotel.src.Utilities.Seeding
             var _rooms = CreateSeed();
             foreach (var room in _rooms)
             {
-                databaseLair.DatabaseContext.Rooms.Add((Room)room);
+                DatabaseLair.DatabaseContext.Rooms.Add((Room)room);
             }
 
-            databaseLair.DatabaseContext.SaveChanges();
+            DatabaseLair.DatabaseContext.SaveChanges();
         }
 
         /// <summary>

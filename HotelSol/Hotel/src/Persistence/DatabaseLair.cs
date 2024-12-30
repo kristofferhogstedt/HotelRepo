@@ -1,18 +1,15 @@
 ﻿using Hotel.src.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Threading;
 
 namespace Hotel.src.Persistence
 {
     public class DatabaseLair : IDatabaseLair
     {
-        //public IConfigurationBuilder Builder { get; set; } 
-        //public IConfiguration Config { get; set; }
-        //public string ConnectionString { get; set; }
-        //public DbContextOptionsBuilder Options { get; set; }
-
         private static DatabaseLair _instance;
-        public ApplicationDbContext DatabaseContext { get; set; }
+        private static readonly object _lock = new object(); // Lock for Thread safety
+        public static ApplicationDbContext DatabaseContext { get; set; }
 
         public DatabaseLair()
         {
@@ -22,19 +19,27 @@ namespace Hotel.src.Persistence
             var connectionString = config.GetConnectionString("DefaultConnection");
             options.UseSqlServer(connectionString);
 
-            DatabaseContext = new ApplicationDbContext(options.Options);
+            DatabaseContext = ApplicationDbContext.GetInstance(options); 
         }
 
         public static IDatabaseLair GetInstance()
         {
             if (_instance == null)
-                _instance = new DatabaseLair();
+            {
+                lock (_lock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new DatabaseLair();
+                    }
+                }
+            }
             return _instance;
         }
 
         public void SeedAndMigrate()
         {
-            DataInitializer.Initialize(this);
+            DataInitializer.Initialize();
             DatabaseContext.Database.Migrate();
         }
     }

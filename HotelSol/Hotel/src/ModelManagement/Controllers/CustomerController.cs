@@ -5,34 +5,48 @@ using HotelLibrary.Utilities.UserInputManagement;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Checks;
+using System.Threading;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
     public class CustomerController : ICustomerController
     {
-        public static ICustomerController _instance;
-        private ICustomer _customer;
+        //// Singleton
+        //public static ICustomerController _instance;
+        //private static readonly object _lock = new object(); // Lock object for thread safety
 
-        public CustomerController(ICustomer customer)
+        //private ICustomer _customer;
+
+        //public CustomerController()
+        //{
+        //    //_customer = customer;
+        //}
+
+        ///// <summary>
+        ///// Single instance
+        ///// </summary>
+        ///// <returns></returns>
+        //public static ICustomerController GetInstance()
+        //{
+        //    if (_instance == null)
+        //    {
+        //        lock (_lock)
+        //        {
+        //            if (_instance == null)
+        //            {
+        //                _instance = new CustomerController();
+        //            }
+        //        }
+        //    }
+        //    return _instance;
+        //}
+
+
+        public static void PrintCustomerInfo()
         {
-            _customer = customer;
-        }
-
-        /// <summary>
-        /// Single instance
-        /// </summary>
-        /// <returns></returns>
-        public static ICustomerController GetInstance()
-        {
-            if (_instance == null)
-                _instance = new CustomerController(new Customer());
-            return _instance;
-        }
-
-
-        public void PrintPersonInfo()
-        {
-            Console.WriteLine(_customer.Info);
+            Console.WriteLine("Kund: (Namn/ID/E-Post) ");
+            //var _customer = CustomerService.GetOne();
+            //Console.WriteLine(_customer.Info);
         }
 
         public static ICustomer Create()
@@ -54,14 +68,14 @@ namespace Hotel.src.ModelManagement.Controllers
             return new Customer(_firstName, _lastName, _email, _phoneNumber, (Address)_address);
         }
 
-        public ICustomer ReadOne(DatabaseLair dbLair)
+        public static ICustomer ReadOne(DatabaseLair dbLair)
         {
             Console.Clear();
             Console.Write("Kund: ");
-            return dbLair.DatabaseContext.Customers.First(c => c.FirstName == UserInputHandler.UserInputString());
+            return DatabaseLair.DatabaseContext.Customers.First(c => c.FirstName == UserInputHandler.UserInputString());
         }
 
-        public void ReadAll(DatabaseLair dbLair)
+        public static void ReadAll(DatabaseLair dbLair)
         {
 
         }

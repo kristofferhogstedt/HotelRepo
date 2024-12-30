@@ -11,18 +11,18 @@ namespace Hotel.src.Persistence
 {
     public class DataInitializer
     {
-        public static void Initialize(DatabaseLair databaseLair)
+        public static void Initialize()
         {
-            StartSeed(databaseLair);
+            StartSeed();
         }
 
-        public static void StartSeed(DatabaseLair databaseLair)
+        public static void StartSeed()
         {
-            CustomerSeeder.Seed(databaseLair);
-            SeederService.Message("Customer", databaseLair.DatabaseContext.Customers.Any());
+            CustomerSeeder.Seed();
+            SeederService.Message("Customer", DatabaseLair.DatabaseContext.Customers.Any());
 
-            RoomSeeder.Seed(databaseLair);
-            SeederService.Message("Room", databaseLair.DatabaseContext.Rooms.Any());
+            RoomSeeder.Seed();
+            SeederService.Message("Room", DatabaseLair.DatabaseContext.Rooms.Any());
         }
     }
 }
