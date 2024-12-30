@@ -8,9 +8,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel.src.MenuManager
+namespace Hotel.src.MenuManagement.Enums
 {
-    public enum MenuOptions
+    public enum MainMenuOptions
     {
         [Description("Föregående meny")]
         PreviousMenu,
@@ -26,8 +26,13 @@ namespace Hotel.src.MenuManager
         Exit
     }
 
-    internal static class MainMenu //: Menu, IMenu, IPreviousMenu
+    public static class MainMenuEnum //: Menu, IMenu, IPreviousMenu
     {
+        public static string Menu(this Enum enumValues)
+        {
+            return DescriptionGetter.GetDescription(enumValues);
+        }
+
         //Dictionary<int, string> MenuSelection { get; init; }
         //IPreviousMenu _previousMenu;
 
@@ -41,16 +46,16 @@ namespace Hotel.src.MenuManager
         //    MenuSelection.Add(9, "Avsluta");
         //}
 
-        public static string GetDescription(this Enum enumValue)
-        {
-            var field = enumValue.GetType().GetField(enumValue.ToString());
-            if (field == null)
-            {
-                return enumValue.ToString();
-            }
+        //public static string GetDescription(this Enum enumValue)
+        //{
+        //    var field = enumValue.GetType().GetField(enumValue.ToString());
+        //    if (field == null)
+        //    {
+        //        return enumValue.ToString();
+        //    }
 
-            var attribute = field.GetCustomAttribute<DescriptionAttribute>();
-            return attribute != null ? attribute.Description : enumValue.ToString();
-        }
+        //    var attribute = field.GetCustomAttribute<DescriptionAttribute>();
+        //    return attribute != null ? attribute.Description : enumValue.ToString();
+        //}
     }
 }
