@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Menus
 {
-    internal class BookingMenu
+    public class CleaningMenu
     {
         public static void Run()
         {
@@ -16,19 +16,18 @@ namespace Hotel.src.MenuManagement.Menus
             {
                 // Sprectre menyval!
                 var option = AnsiConsole.Prompt(
-                    new SelectionPrompt<BookingMenuOptions>()
+                    new SelectionPrompt<CleaningMenuOptions>()
                         .Title("Start")
-                        .UseConverter(option => option.ShowBookingMenu())
-                        //.UseConverter(option => option.GetDescription()) // Visa beskrivningar istället för enum-namn
-                        .AddChoices(Enum.GetValues<BookingMenuOptions>())
+                        .UseConverter(option => option.ShowCleaningMenu())
+                        .AddChoices(Enum.GetValues<CleaningMenuOptions>())
                     );
 
                 switch (option)
                 {
-                    case BookingMenuOptions.PreviousMenu:
+                    case CleaningMenuOptions.PreviousMenu:
                         RoomMenu.Run();
                         break;
-                    case BookingMenuOptions.Exit:
+                    case CleaningMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;
                     default:

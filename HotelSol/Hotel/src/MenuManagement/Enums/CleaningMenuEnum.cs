@@ -8,25 +8,21 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Enums
 {
-    public enum RoomMenuOptions
+    public enum CleaningMenuOptions
     {
         [Description("Föregående meny")]
         PreviousMenu,
-        [Description("Visa rum")]
+        [Description("Visa utförda städningar")]
         DisplayRooms,
-        [Description("Uppdatera rum")]
+        [Description("Registrera ny städning")]
         UpdateRooms,
-        [Description("Registrera nytt rum")]
-        AddRoom,
-        [Description("Städmeny")]
-        CleaningManager,
         [Description("Avsluta")]
         Exit
     }
 
-    public static class RoomMenuEnum
+    public static class CleaningMenuEnum
     {
-        public static string ShowRoomMenu(this Enum enumValues)
+        public static string ShowCleaningMenu(this Enum enumValues)
         {
             return DescriptionGetter.GetDescription(enumValues);
         }
