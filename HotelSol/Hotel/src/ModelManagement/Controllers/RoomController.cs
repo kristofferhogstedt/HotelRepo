@@ -15,6 +15,10 @@ namespace Hotel.src.ModelManagement.Controllers
         public static IRoomController _instance;
         IRoom _room;
 
+        public RoomController()
+        {
+        }
+
         public RoomController(IRoom room)
         {
             _room = room;
@@ -23,7 +27,7 @@ namespace Hotel.src.ModelManagement.Controllers
         public static IRoomController GetInstance()
         {
             if (_instance == null)
-                _instance = new RoomController(new Room());
+                _instance = new RoomController();
             return _instance;
         }
     }

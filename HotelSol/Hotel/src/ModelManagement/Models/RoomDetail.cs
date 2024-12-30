@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace Hotel.src.ModelManagement.Models
 {
-    public class RoomType : IRoomType
+    public class RoomDetail : IRoomDetail
     {
         public int ID { get; set; }
         public ERoomType Type { get; set; }
@@ -22,16 +22,43 @@ namespace Hotel.src.ModelManagement.Models
                 switch (Type)
                 {
                     case ERoomType.Single:
-                        _name = "Single";
+                        _name = "Enkelrum";
                         break;
                     case ERoomType.Double:
-                        _name = "Double";
+                        _name = "Dubbelrum";
                         break;
                     case ERoomType.Family:
-                        _name = "Familj";
+                        _name = "Familjerum";
                         break;
                     case ERoomType.Suite:
                         _name = "Lyxsvit'n";
+                        break;
+                }
+            }
+        }
+
+        private ushort _defaultSize;
+        public ushort DefaultSize
+        {
+            get
+            {
+                return _defaultSize;
+            }
+            set
+            {
+                switch (Type)
+                {
+                    case ERoomType.Single:
+                        DefaultSize = 20;
+                        break;
+                    case ERoomType.Double:
+                        DefaultSize = 35;
+                        break;
+                    case ERoomType.Family:
+                        DefaultSize = 50;
+                        break;
+                    case ERoomType.Suite:
+                        DefaultSize = 60;
                         break;
                 }
             }
@@ -63,6 +90,7 @@ namespace Hotel.src.ModelManagement.Models
                 }
             }
         }
+
         private ushort _numberOfBedsMax;
         public ushort NumberOfBedsMax
         {
@@ -88,6 +116,11 @@ namespace Hotel.src.ModelManagement.Models
                         break;
                 }
             }
+        }
+
+        public RoomDetail(ERoomType roomType)
+        {
+            Type = roomType;
         }
     }
 }

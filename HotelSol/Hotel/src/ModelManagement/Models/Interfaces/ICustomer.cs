@@ -12,7 +12,7 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         string Phone { get; set; }
         DateTime DateOfBirth { get; set; }
         Address Address { get; set; }
-        List<Booking> Bookings { get; set; }
+        List<Booking>? Bookings { get; set; }
         bool IsActive { get; set; }
         DateTime CreatedDate { get; set; }
         DateTime? UpdatedDate { get; set; }

@@ -13,7 +13,7 @@ namespace Hotel.src.ModelManagement.Models
         public DateTime UpdateDate { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
-        public int EmployeeID { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int EmployeeID { get; set; }
         public bool IsActive { get; set; }
     }
 }
