@@ -1,11 +1,13 @@
 ﻿using Hotel.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hotel.src.ModelManagement.Models
 {
     public class Room : IRoom
     {
+        [Key]
         public int ID { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }

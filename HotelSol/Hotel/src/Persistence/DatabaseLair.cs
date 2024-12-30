@@ -37,7 +37,7 @@ namespace Hotel.src.Persistence
             return _instance;
         }
 
-        public static void SeedAndMigrate()
+        public void SeedDatabase()
         {
             DatabaseContext.Database.Migrate();
             DataInitializer.Initialize();

@@ -18,7 +18,7 @@ namespace Hotel.src.Utilities.Seeding
             var _customers = CustomerSeeder.CreateSeed(10);
             foreach (var customer in _customers)
             {
-                DatabaseLair.DatabaseContext.Customers.Add((Customer)customer);
+                DatabaseLair.DatabaseContext.Customers.Add(customer);
             }
 
             DatabaseLair.DatabaseContext.SaveChanges();
@@ -29,17 +29,17 @@ namespace Hotel.src.Utilities.Seeding
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
-        public static List<ICustomer> CreateSeed(int num)
+        public static List<Customer> CreateSeed(int num)
         {
-            var _addressFaker = new Faker<IAddress>()
-                .RuleFor(a => a.ID, f => f.IndexFaker + 1)
+            var _addressFaker = new Faker<Address>()
+                //.RuleFor(a => a.ID, f => f.IndexFaker + 1)
                 .RuleFor(c => c.Country, f => f.Address.Country())
                 .RuleFor(c => c.City, f => f.Address.City())
                 .RuleFor(c => c.PostalCode, f => f.Address.ZipCode())
                 .RuleFor(c => c.StreetAddress, f => f.Address.StreetAddress());
 
-            var _customerFaker = new Faker<ICustomer>()
-                .RuleFor(c => c.ID, f => f.IndexFaker + 1)
+            var _customerFaker = new Faker<Customer>()
+                //.RuleFor(c => c.ID, f => f.IndexFaker + 1)
                 .RuleFor(c => c.FirstName, f => f.Name.FirstName())
                 .RuleFor(c => c.LastName, f => f.Name.LastName())
                 .RuleFor(c => c.Email, f => f.Internet.Email())

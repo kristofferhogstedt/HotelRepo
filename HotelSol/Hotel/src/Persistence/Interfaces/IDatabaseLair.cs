@@ -6,7 +6,7 @@ namespace Hotel.src.Persistence.Interfaces
     public interface IDatabaseLair
     {
         void CreateDbConnection();
-        static void SeedAndMigrate() { }
+        void SeedDatabase() { }
         static void CloseConnection() { }
     }
 }

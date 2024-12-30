@@ -26,7 +26,7 @@ namespace Hotel
         public void Run()
         {
             _databaseLair.CreateDbConnection();
-            DatabaseLair.SeedAndMigrate();
+            _databaseLair.SeedDatabase();
             StartMenu.Run();
         }
     }
