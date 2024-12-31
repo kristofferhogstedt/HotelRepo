@@ -1,4 +1,6 @@
 ﻿using Hotel.src.MenuManagement.Enums;
+using Hotel.src.ModelManagement.Controllers;
+using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -26,6 +28,9 @@ namespace Hotel.src.MenuManagement.Menus
                 {
                     case CustomerMenuOptions.PreviousMenu:
                         MainMenu.Run();
+                        break;
+                    case CustomerMenuOptions.CreateCustomer:
+                        ICustomerController.
                         break;
                     case CustomerMenuOptions.Exit:
                         Exit.ExitProgram();

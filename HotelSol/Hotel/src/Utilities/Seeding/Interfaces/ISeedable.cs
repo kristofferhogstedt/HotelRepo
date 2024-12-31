@@ -10,7 +10,7 @@ namespace Hotel.src.Utilities.Seeding.Interfaces
 {
     public interface ISeedable
     {
-        static virtual void Seed(DatabaseLair databaseLair)
+        static virtual void Seed()
         {
         }
         public virtual static List<ICustomer> CreateSeed(int num)

@@ -42,11 +42,11 @@ namespace Hotel.src.ModelManagement.Controllers
         //}
 
 
-        public static void PrintCustomerInfo()
+        public static string GetCustomerInfoString(ICustomer customer)
         {
             Console.WriteLine("Kund: (Namn/ID/E-Post) ");
             //var _customer = CustomerService.GetOne();
-            //Console.WriteLine(_customer.Info);
+            return customer.Info;
         }
 
         public static ICustomer Create()
@@ -68,11 +68,12 @@ namespace Hotel.src.ModelManagement.Controllers
             return new Customer(_firstName, _lastName, _email, _phoneNumber, (Address)_address);
         }
 
-        public static ICustomer ReadOne(DatabaseLair dbLair)
+        public static void ReadOne()
         {
             Console.Clear();
             Console.Write("Kund: ");
-            return DatabaseLair.DatabaseContext.Customers.First(c => c.FirstName == UserInputHandler.UserInputString());
+            //return App.AppDatabase.Database.Customers.First(c => c.FirstName == UserInputHandler.UserInputString());
+            Console.WriteLine();
         }
 
         public static void ReadAll(DatabaseLair dbLair)

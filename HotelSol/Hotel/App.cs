@@ -15,18 +15,18 @@ namespace Hotel
     public class App : IApp
     {
         IMenu _menu;
-        public IDatabaseLair _databaseLair;
+        public static IDatabaseLair AppDatabase;
 
         public App(IMenu menu)
         {
             //_menu = menu;
-            _databaseLair = DatabaseLair.GetInstance();
+            AppDatabase = DatabaseLair.GetInstance();
         }
 
         public void Run()
         {
-            _databaseLair.CreateDbConnection();
-            _databaseLair.SeedDatabase();
+            //AppDatabase.CreateDbConnection();
+            AppDatabase.SeedDatabase();
             StartMenu.Run();
         }
     }

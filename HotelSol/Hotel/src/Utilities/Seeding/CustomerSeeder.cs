@@ -42,6 +42,7 @@ namespace Hotel.src.Utilities.Seeding
                 //.RuleFor(c => c.ID, f => f.IndexFaker + 1)
                 .RuleFor(c => c.FirstName, f => f.Name.FirstName())
                 .RuleFor(c => c.LastName, f => f.Name.LastName())
+                .RuleFor(c => c.DateOfBirth, f => f.Date.Past(18))
                 .RuleFor(c => c.Email, f => f.Internet.Email())
                 .RuleFor(c => c.Phone, f => f.Phone.PhoneNumber())
                 .RuleFor(c => c.Address, f => _addressFaker.Generate())

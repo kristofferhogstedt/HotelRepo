@@ -11,7 +11,7 @@ namespace Hotel.src.Persistence
         private static readonly object _lock = new object(); // Lock for Thread safety
         public static ApplicationDbContext DatabaseContext { get; set; }
 
-        public void CreateDbConnection()
+        public DatabaseLair()
         {
             var builder = new ConfigurationBuilder().AddJsonFile($"appsettings.json", true, true);
             var config = builder.Build();
@@ -19,7 +19,7 @@ namespace Hotel.src.Persistence
             var connectionString = config.GetConnectionString("DefaultConnection");
             options.UseSqlServer(connectionString);
 
-            DatabaseContext = ApplicationDbContext.GetInstance(options); 
+            DatabaseContext = ApplicationDbContext.GetInstance(options);
         }
 
         public static IDatabaseLair GetInstance()
@@ -43,7 +43,7 @@ namespace Hotel.src.Persistence
             DataInitializer.Initialize();
         }
                 
-        public static void CloseConnection()
+        public static void CloseDbConnection()
         {
             if (DatabaseContext != null)
             {

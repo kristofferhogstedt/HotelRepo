@@ -12,7 +12,7 @@ namespace Hotel
         public static void ExitProgram()
         {
             Console.WriteLine("Programmet avslutas...");
-            DatabaseLair.CloseConnection();
+            DatabaseLair.CloseDbConnection();
             Environment.Exit(0);
         }
     }
