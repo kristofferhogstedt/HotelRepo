@@ -31,10 +31,11 @@ namespace Hotel.src.ModelManagement.Models
         public Customer()
         {
         }
-        public Customer(string firstName, string lastName, string email, string phone, Address address)
+        public Customer(string firstName, string lastName, DateTime dateOfBirth, string email, string phone, Address address)
         {
             FirstName = firstName;
             LastName = lastName;
+            DateOfBirth = dateOfBirth;
             Address = address;
             Email = email;
             Phone = phone;

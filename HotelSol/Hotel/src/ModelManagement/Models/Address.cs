@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Hotel.src.ModelManagement.Models
 {
-    public class Address : IAddress
+    public class Address : IAddress, ISupportModel
     {
         [Key]
         public int ID { get; set; }

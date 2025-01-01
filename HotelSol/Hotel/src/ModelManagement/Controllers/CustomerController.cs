@@ -12,7 +12,6 @@ namespace Hotel.src.ModelManagement.Controllers
 {
     public class CustomerController : IModelController
     {
-        // Singleton
         public static IModelController _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
 
@@ -35,7 +34,7 @@ namespace Hotel.src.ModelManagement.Controllers
                 {
                     if (_instance == null)
                     {
-                        _instance = new CustomerController() as IModelController;
+                        _instance = new CustomerController();
                     }
                 }
             }
@@ -54,20 +53,23 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             Console.Clear();
             Console.WriteLine("Kundregistrering");
-            Console.Write("\nFörNamn: ");
+            Console.Write("\nFörnamn: ");
             string _firstName = UserInputHandler.UserInputString();
             Console.Write("\nEfternamn: ");
             string _lastName = UserInputHandler.UserInputString();
+            Console.WriteLine("Födelseår: ");
+            ushort _yearOfBirth = UserInputHandler.UserInputUshort();
+            DateTime _dateOfBirth = UserInputHandler.UserInputDateTime(_yearOfBirth);
             Console.Write("\nE-post: ");
-            string _email = UserInputHandler.UserInputString();
+            string _email = UserInputHandler.UserInputStringEmail();
             Console.Write("\nTelefon: ");
-            string? _phoneNumber = UserInputHandler.UserInputString();
+            string? _phoneNumber = UserInputHandler.UserInputStringPhone();
 
             Console.WriteLine("\nAdress: ");
-            IAddress _address = AddressService.CreateAddress();
+            var _addressController = AddressController.GetInstance();
+            var _address = _addressController.Create() as IAddress;
 
-            ICustomer _customer = new Customer(_firstName, _lastName, _email, _phoneNumber, (Address)_address);
-
+            ICustomer _customer = new Customer(_firstName, _lastName, _dateOfBirth, _email, _phoneNumber, (Address)_address);
             CustomerService.Create(_customer);
         }
 
@@ -82,7 +84,7 @@ namespace Hotel.src.ModelManagement.Controllers
             var _searchString = UserInputHandler.UserInputString();
             var _customerList = CustomerService.GetSpecific(_searchString);
             //return App.AppDatabase.Database.Customers.First(c => c.FirstName == UserInputHandler.UserInputString());
-            
+
             CustomerDisplayer.DisplayModelTable(_customerList);
         }
 

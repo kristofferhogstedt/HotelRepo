@@ -1,26 +1,26 @@
-﻿using Hotel.src.ModelManagement.Models.Interfaces;
+﻿using Hotel.src.ModelManagement.Models;
+using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.Persistence;
 
 namespace Hotel.src.ModelManagement.Services
 {
     public class CustomerService //: ICustomerService
     {
-        //    public void Create()
-        //    {
-        //        Console.Clear();
-        //        Console.WriteLine("Kundregistrering");
-        //        Console.Write("\nFörNamn: ");
-        //        string _firstName = UserInputHandler.UserInputString();
-        //        Console.Write("\nEfternamn: ");
-        //        string _lastName = UserInputHandler.UserInputString();
-        //        Console.Write("\nE-post: ");
-        //        string _email = UserInputHandler.UserInputString();
-        //        Console.Write("\nTelefon: ");
-        //        string _phoneNumber = UserInputHandler.UserInputString();
-
-        //        Console.WriteLine("\nAdress: ");
-        //        IAddress _address = AddressService.CreateAddress();
-        //    }
+        public static void Create(ICustomer customer)
+        {
+            try
+            {
+                DatabaseLair.DatabaseContext.Customers.Add((Customer)customer);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                DatabaseLair.DatabaseContext.SaveChanges();
+            }
+        }
 
         /// <summary>
         /// For fetching one customer

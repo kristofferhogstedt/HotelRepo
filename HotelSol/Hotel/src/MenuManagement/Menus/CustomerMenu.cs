@@ -18,6 +18,7 @@ namespace Hotel.src.MenuManagement.Menus
         {
             while (true)
             {
+                Console.Clear();
                 // Sprectre menyval!
                 var option = AnsiConsole.Prompt(
                     new SelectionPrompt<CustomerMenuOptions>()
