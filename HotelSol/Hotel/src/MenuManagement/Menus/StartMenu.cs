@@ -14,7 +14,6 @@ namespace Hotel.src.MenuManagement.Menus
         {
             while (true)
             {
-                // Sprectre menyval!
                 var option = AnsiConsole.Prompt(
                     new SelectionPrompt<StartMenuOptions>()
                         .Title("Start")

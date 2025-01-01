@@ -6,14 +6,15 @@ using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Checks;
 using System.Threading;
+using Hotel.src.ModelManagement.Displayers;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
-    public class CustomerController : ICustomerController
+    public class CustomerController : IModelController
     {
-        //// Singleton
-        //public static ICustomerController _instance;
-        //private static readonly object _lock = new object(); // Lock object for thread safety
+        // Singleton
+        public static IModelController _instance;
+        private static readonly object _lock = new object(); // Lock object for thread safety
 
         //private ICustomer _customer;
 
@@ -22,34 +23,34 @@ namespace Hotel.src.ModelManagement.Controllers
         //    //_customer = customer;
         //}
 
-        ///// <summary>
-        ///// Single instance
-        ///// </summary>
-        ///// <returns></returns>
-        //public static ICustomerController GetInstance()
-        //{
-        //    if (_instance == null)
-        //    {
-        //        lock (_lock)
-        //        {
-        //            if (_instance == null)
-        //            {
-        //                _instance = new CustomerController();
-        //            }
-        //        }
-        //    }
-        //    return _instance;
-        //}
+        /// <summary>
+        /// Single instance
+        /// </summary>
+        /// <returns></returns>
+        public static IModelController GetInstance()
+        {
+            if (_instance == null)
+            {
+                lock (_lock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new CustomerController() as IModelController;
+                    }
+                }
+            }
+            return _instance;
+        }
 
 
-        public static string GetCustomerInfoString(ICustomer customer)
+        public string CustomerInfoString(ICustomer customer)
         {
             Console.WriteLine("Kund: (Namn/ID/E-Post) ");
             //var _customer = CustomerService.GetOne();
             return customer.Info;
         }
 
-        public static ICustomer Create()
+        public void Create()
         {
             Console.Clear();
             Console.WriteLine("Kundregistrering");
@@ -65,18 +66,32 @@ namespace Hotel.src.ModelManagement.Controllers
             Console.WriteLine("\nAdress: ");
             IAddress _address = AddressService.CreateAddress();
 
-            return new Customer(_firstName, _lastName, _email, _phoneNumber, (Address)_address);
+            ICustomer _customer = new Customer(_firstName, _lastName, _email, _phoneNumber, (Address)_address);
+
+            CustomerService.Create(_customer);
         }
 
-        public static void ReadOne()
+        public void ReadOne()
+        {
+        }
+
+        public void ReadSpecific()
         {
             Console.Clear();
-            Console.Write("Kund: ");
+            Console.Write("Ange söksträng: ");
+            var _searchString = UserInputHandler.UserInputString();
+            var _customerList = CustomerService.GetSpecific(_searchString);
             //return App.AppDatabase.Database.Customers.First(c => c.FirstName == UserInputHandler.UserInputString());
-            Console.WriteLine();
+            
+            CustomerDisplayer.DisplayModelTable(_customerList);
         }
 
-        public static void ReadAll(DatabaseLair dbLair)
+        public void ReadAll()
+        {
+            CustomerDisplayer.DisplayModelTable(CustomerService.GetAll());
+        }
+
+        public void Update()
         {
 
         }

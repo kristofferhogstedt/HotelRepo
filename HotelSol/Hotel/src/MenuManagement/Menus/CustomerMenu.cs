@@ -12,6 +12,8 @@ namespace Hotel.src.MenuManagement.Menus
 {
     public class CustomerMenu
     {
+        private static IModelController _controller = FactoryManagement.ModelFactory.GetModelController();
+
         public static void Run()
         {
             while (true)
@@ -29,8 +31,14 @@ namespace Hotel.src.MenuManagement.Menus
                     case CustomerMenuOptions.PreviousMenu:
                         MainMenu.Run();
                         break;
+                    case CustomerMenuOptions.DisplayCustomer:
+                        _controller.ReadSpecific();
+                        break;
+                    case CustomerMenuOptions.DisplayCustomerAll:
+                        _controller.ReadAll();
+                        break;
                     case CustomerMenuOptions.CreateCustomer:
-                        ICustomerController.
+                        _controller.Create();
                         break;
                     case CustomerMenuOptions.Exit:
                         Exit.ExitProgram();

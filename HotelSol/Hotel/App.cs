@@ -1,4 +1,5 @@
-﻿using Hotel.src.Interfaces;
+﻿using Hotel.src.FactoryManagement;
+using Hotel.src.Interfaces;
 using Hotel.src.MenuManagement.Interfaces;
 using Hotel.src.MenuManagement.Menus;
 using Hotel.src.Persistence;
@@ -20,6 +21,7 @@ namespace Hotel
         public App(IMenu menu)
         {
             //_menu = menu;
+            ModelFactory _factory = new ModelFactory();
             AppDatabase = DatabaseLair.GetInstance();
         }
 

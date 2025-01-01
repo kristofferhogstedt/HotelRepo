@@ -13,7 +13,9 @@ namespace Hotel.src.MenuManagement.Enums
         [Description("Föregående meny")]
         PreviousMenu,
         [Description("Se kunder")]
-        DisplayCustomers,
+        DisplayCustomer,
+        [Description("Se alla kunder")]
+        DisplayCustomerAll,
         [Description("Uppdatera kund")]
         UpdateCustomer,
         [Description("Registrera ny kund")]

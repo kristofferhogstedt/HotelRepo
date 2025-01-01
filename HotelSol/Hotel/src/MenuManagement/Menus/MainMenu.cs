@@ -15,7 +15,7 @@ namespace Hotel.src.MenuManagement.Menus
         {
             while (true)
             {
-                // Sprectre menyval!
+                Console.Clear();
                 var option = AnsiConsole.Prompt(
                     new SelectionPrompt<MainMenuOptions>()
                         .Title("Huvudmeny")

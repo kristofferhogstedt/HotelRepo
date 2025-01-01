@@ -22,32 +22,62 @@ namespace Hotel.src.ModelManagement.Services
         //        IAddress _address = AddressService.CreateAddress();
         //    }
 
-        public static ICustomer GetOne(DatabaseLair databaseLair, string customerName)
+        /// <summary>
+        /// For fetching one customer
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <returns></returns>
+        public static ICustomer GetOne(string searchString)
         {
-            ICustomer _customerToReturn = DatabaseLair.DatabaseContext.Customers.First(c => c.FullName == customerName);
+            ICustomer _customerToReturn = DatabaseLair.DatabaseContext.Customers
+                .First(c => c.FirstName.Contains(searchString));
 
             if (_customerToReturn == null)
             {
-                Console.WriteLine("Data not found, contact administrator");
-                Console.WriteLine("Returning... ");
-                return _customerToReturn;
+                Console.Clear();
+                DataNotFoundMessage();
+                return null;
             }
 
             return _customerToReturn;
         }
 
-        public List<ICustomer> GetAll(DatabaseLair databaseLair)
+        /// <summary>
+        /// For fetching list of specific customers based on search string
+        /// </summary>
+        /// <param name="searchString"></param>
+        /// <returns></returns>
+        public static List<ICustomer> GetSpecific(string searchString)
         {
-            List<ICustomer> ListToReturn = (List<ICustomer>)(DatabaseLair.DatabaseContext.Customers.ToList() as ICustomer);
+            List<ICustomer> _listToReturn = DatabaseLair.DatabaseContext.Customers
+                .Where(c => c.FirstName.Contains(searchString)).ToList<ICustomer>();
 
-            Console.Clear();
-            if (ListToReturn == null)
+            if (_listToReturn == null)
             {
-                Console.WriteLine("Data not found, contact administrator");
-                Console.WriteLine("Returning... ");
-                return ListToReturn;
+                Console.Clear();
+                DataNotFoundMessage();
+                return null;
             }
-            return ListToReturn;
+
+            return _listToReturn;
+        }
+
+        /// <summary>
+        /// For fetching all customers
+        /// </summary>
+        /// <param name="databaseLair"></param>
+        /// <returns></returns>
+        public static List<ICustomer> GetAll()
+        {
+            List<ICustomer> _listToReturn = DatabaseLair.DatabaseContext.Customers.ToList<ICustomer>();
+
+            if (_listToReturn == null)
+            {
+                Console.Clear();
+                DataNotFoundMessage();
+                return _listToReturn;
+            }
+            return _listToReturn;
             // Guard clause?
         }
 
@@ -71,5 +101,11 @@ namespace Hotel.src.ModelManagement.Services
         //    {
 
         //    }
+
+        public static void DataNotFoundMessage()
+        {
+            Console.WriteLine("Data not found");
+            Console.WriteLine("Returning... ");
+        }
     }
 }
