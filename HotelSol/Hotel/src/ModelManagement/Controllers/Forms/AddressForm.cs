@@ -9,7 +9,7 @@ using System.Diagnostics.Metrics;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms
 {
-    public class AddressForm : IModelForm, IInstantiable
+    public class AddressForm : IModelRegistrationForm, IInstantiable
     {
         public IMenu PreviousMenu { get; set; }
         private static IInstantiable _instance;
@@ -21,10 +21,10 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         string _country;
         private IAddress _address;
 
-        public static IModelForm GetInstance(IMenu previousMenu)
+        public static IModelRegistrationForm GetInstance(IMenu previousMenu)
         {
             _instance = InstanceGenerator.GetInstance<AddressForm>(_instance, _lock, previousMenu);
-            return (IModelForm)_instance;
+            return (IModelRegistrationForm)_instance;
         }
 
         public IModel CreateOrEdit(IModel adressToEdit)

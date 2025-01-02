@@ -43,7 +43,7 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void Create()
         {
-            var _customerForm = CustomerForm.GetInstance(PreviousMenu);
+            var _customerForm = CustomerRegistrationForm.GetInstance(PreviousMenu);
             ICustomer _customer = (ICustomer)_customerForm.Run();
 
             if (_customer == null)
@@ -67,27 +67,46 @@ namespace Hotel.src.ModelManagement.Controllers
             Console.WriteLine($"\nAdress: {customer.Address.StreetAddress} {customer.Address.PostalCode} {customer.Address.City} {customer.Address.Country}");
         }
 
+        public List<ICustomer> GetSpecific()
+        {
+            string _searchString = "";
+            List<ICustomer> _customerListToReturn;
+
+            while (true)
+            {
+                Console.Clear();
+                Displayers.CustomerDisplayer.DisplayModelTable(CustomerService.GetSpecific(_searchString));
+                Console.WriteLine("\nAnge sökkriterie (Namn, E-post): ");
+                _searchString = UserInputHandler.UserInputString(PreviousMenu);
+                _customerListToReturn = CustomerService.GetSpecific(_searchString);
+                if (UserInputHandler.UserInputEnter(Console.ReadKey()))
+                    break;
+            }
+
+            return _customerListToReturn;
+        }
+
         public ICustomer GetOne()
         {
-            Console.Clear();
-            Console.Write("Ange kund: ");
-            string _customerName = UserInputHandler.UserInputString(PreviousMenu);
-            var _customer = CustomerService.GetOne(_customerName);
-
-            return _customer;
+            while (true)
+            {
+                var _customerList = GetSpecific();
+                if (_customerList.Count == 1)
+                    return _customerList[0];
+            }
         }
 
         public void ReadOne()
         {
+            var _customer = GetOne();
+            var _customerList = new List<ICustomer> { _customer };
+            CustomerDisplayer.DisplayModelTable(_customerList);
         }
 
         public void ReadSpecific()
         {
             Console.Clear();
-            Console.Write("Ange söksträng: ");
-            var _searchString = UserInputHandler.UserInputString(PreviousMenu);
-            var _customerList = CustomerService.GetSpecific(_searchString);
-            //return App.AppDatabase.Database.Customers.First(c => c.FirstName == UserInputHandler.UserInputString());
+            var _customerList = GetSpecific();
 
             CustomerDisplayer.DisplayModelTable(_customerList);
         }
@@ -101,7 +120,7 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             var _customerToUpdate = GetOne();
 
-            var _customerForm = CustomerForm.GetInstance(PreviousMenu);
+            var _customerForm = CustomerRegistrationForm.GetInstance(PreviousMenu);
             ICustomer _customer = (ICustomer)_customerForm.CreateOrEdit((IModel)_customerToUpdate);
 
             if (_customer == null)

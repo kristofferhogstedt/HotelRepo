@@ -9,7 +9,7 @@ using Spectre.Console;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms
 {
-    public class CustomerForm : IModelForm, IInstantiable
+    public class CustomerRegistrationForm : IModelRegistrationForm, IInstantiable
     {
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
@@ -23,10 +23,10 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         IAddress _address;
         private ICustomer _customer;
 
-        public static IModelForm GetInstance(IMenu previousMenu)
+        public static IModelRegistrationForm GetInstance(IMenu previousMenu)
         {
-            _instance = InstanceGenerator.GetInstance<CustomerForm>(_instance, _lock, previousMenu);
-            return (IModelForm)_instance;
+            _instance = InstanceGenerator.GetInstance<CustomerRegistrationForm>(_instance, _lock, previousMenu);
+            return (IModelRegistrationForm)_instance;
         }
 
         public IModel CreateOrEdit(IModel customerToEdit)

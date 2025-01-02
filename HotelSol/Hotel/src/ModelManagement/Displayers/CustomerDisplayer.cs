@@ -32,9 +32,9 @@ namespace Hotel.src.ModelManagement.Displayers
 
             AnsiConsole.Write(table);
 
-            Console.WriteLine("Valfri tangent för att återgå till huvudmeny");
-            Console.ReadLine();
-            Console.Clear();
+            //Console.WriteLine("Valfri tangent för att återgå till huvudmeny");
+            //Console.ReadLine();
+            //Console.Clear();
         }
 
         public static void DisplayModel(ICustomer customer)
@@ -51,9 +51,9 @@ namespace Hotel.src.ModelManagement.Displayers
 
             AnsiConsole.Write(panel);
 
-            Console.WriteLine("Valfri tangent för att återgå till huvudmeny");
-            Console.ReadLine();
-            Console.Clear();
+            //Console.WriteLine("Valfri tangent för att återgå till huvudmeny");
+            //Console.ReadLine();
+            //Console.Clear();
         }
     }
 }

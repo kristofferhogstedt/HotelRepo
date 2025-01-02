@@ -23,6 +23,15 @@ namespace HotelLibrary.Utilities.UserInputManagement
                     break;
             }
         }
+
+        public static bool UserInputEnter(ConsoleKeyInfo consoleKeyInput)
+        {
+            if (consoleKeyInput.Key == ConsoleKey.Enter)
+                return true;
+            else
+                return false;
+        }
+
         public static string UserInputString(IMenu previousMenu)
         {
             UserInputEscape(previousMenu);

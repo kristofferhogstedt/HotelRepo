@@ -54,6 +54,9 @@ namespace Hotel.src.MenuManagement.Menus
                     case CustomerMenuOptions.CreateCustomer:
                         _controller.Create();
                         break;
+                    case CustomerMenuOptions.UpdateCustomer:
+                        _controller.Update();
+                        break;
                     case CustomerMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;

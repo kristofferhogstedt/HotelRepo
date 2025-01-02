@@ -50,7 +50,11 @@ namespace Hotel.src.ModelManagement.Services
         /// <returns></returns>
         public static List<ICustomer> GetSpecific(string searchString)
         {
-            List<ICustomer> _listToReturn = DatabaseLair.DatabaseContext.Customers
+            List<ICustomer> _listToReturn;
+            if (searchString == null || searchString == "")
+                _listToReturn = GetAll();
+            else
+                _listToReturn = DatabaseLair.DatabaseContext.Customers
                 .Where(c => c.FirstName.Contains(searchString)).ToList<ICustomer>();
 
             if (_listToReturn == null)

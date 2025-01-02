@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms.Interfaces
 {
-    public interface IModelForm
+    public interface IModelRegistrationForm
     {
         IModel CreateOrEdit(IModel modelToUpdate);
         IModel Run();
