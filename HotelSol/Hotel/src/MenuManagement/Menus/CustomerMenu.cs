@@ -1,21 +1,42 @@
-﻿using Hotel.src.MenuManagement.Enums;
+﻿using Hotel.src.FactoryManagement;
+using Hotel.src.FactoryManagement.Interfaces;
+using Hotel.src.MenuManagement.Enums;
 using Hotel.src.MenuManagement.Interfaces;
-using Hotel.src.ModelManagement.Controllers;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Menus
 {
-    public class CustomerMenu : IMenu
+    public class CustomerMenu : IMenu, IInstantiable
     {
-        private static IModelController _controller = FactoryManagement.ModelFactory.GetModelController();
+        public IMenu PreviousMenu { get; set; }
+        private static IInstantiable _instance;
+        private static readonly object _lock = new object();
+        private static IModelController _controller;
 
-        public static void Run()
+        public CustomerMenu()
+        {
+            _controller = ModelFactory.GetModelController(PreviousMenu);
+        }
+
+        public static IMenu GetInstance(IMenu previousMenu)
+        {
+            _instance = FactoryManagement.InstanceGenerator.GetInstance<CustomerMenu>(_instance, _lock, previousMenu);
+            return (CustomerMenu)_instance;
+            //if (_instance == null)
+            //{
+            //    lock (_lock)
+            //    {
+            //        if (_instance == null)
+            //        {
+            //            _instance = new CustomerMenu(previousMenu);
+            //        }
+            //    }
+            //}
+            //return _instance;
+        }
+
+        public void Run()
         {
             while (true)
             {
@@ -31,7 +52,7 @@ namespace Hotel.src.MenuManagement.Menus
                 switch (option)
                 {
                     case CustomerMenuOptions.PreviousMenu:
-                        MainMenu.Run();
+                        _instance.PreviousMenu.Run();
                         break;
                     case CustomerMenuOptions.DisplayCustomer:
                         _controller.ReadSpecific();

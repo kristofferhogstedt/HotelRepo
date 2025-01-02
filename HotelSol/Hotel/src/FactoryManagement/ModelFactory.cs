@@ -1,4 +1,5 @@
 ﻿using Hotel.src.Interfaces;
+using Hotel.src.MenuManagement.Interfaces;
 using Hotel.src.ModelManagement.Controllers;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
 using System;
@@ -18,9 +19,9 @@ namespace Hotel.src.FactoryManagement
             //_app = app;
         }
 
-        public static IModelController GetModelController()
+        public static IModelController GetModelController(IMenu previousMenu)
         {
-            return CustomerController.GetInstance() as IModelController;
+            return CustomerController.GetInstance(previousMenu) as IModelController;
         }
     }
 }

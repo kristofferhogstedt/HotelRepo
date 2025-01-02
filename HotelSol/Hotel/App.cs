@@ -29,7 +29,8 @@ namespace Hotel
         {
             //AppDatabase.CreateDbConnection();
             AppDatabase.SeedDatabase();
-            StartMenu.Run();
+            IMenu _startMenu = StartMenu.GetInstance();
+            _startMenu.Run();
         }
     }
 }

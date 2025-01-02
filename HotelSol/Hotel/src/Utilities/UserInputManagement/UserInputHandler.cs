@@ -1,10 +1,6 @@
-﻿using Hotel.src.MenuManagement.Interfaces;
+﻿using Hotel;
+using Hotel.src.MenuManagement.Interfaces;
 using Hotel.src.Utilities.UserInputManagement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotelLibrary.Utilities.UserInputManagement
 {
@@ -14,11 +10,16 @@ namespace HotelLibrary.Utilities.UserInputManagement
         public static void UserInputEscape(IMenu previousMenu)
         {
             var _key = Console.ReadKey(true).Key;
-            
+
             switch (_key)
             {
                 case ConsoleKey.Escape:
-                    IMenu.Run();
+                    if (previousMenu != null)
+                        previousMenu.Run();
+                    else
+                        Exit.ExitProgram();
+                    break;
+                default:
                     break;
             }
         }

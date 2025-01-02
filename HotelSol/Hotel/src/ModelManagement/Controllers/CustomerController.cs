@@ -7,38 +7,41 @@ using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Checks;
 using System.Threading;
 using Hotel.src.ModelManagement.Displayers;
+using Hotel.src.MenuManagement.Interfaces;
+using Hotel.src.FactoryManagement.Interfaces;
+using Hotel.src.FactoryManagement;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
-    public class CustomerController : IModelController
+    public class CustomerController : IModelController, IInstantiable
     {
-        public static IModelController _instance;
+        private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
+        public IMenu PreviousMenu { get; set; }
 
-        //private ICustomer _customer;
-
-        //public CustomerController()
-        //{
-        //    //_customer = customer;
-        //}
+        public CustomerController()
+        {
+        }
 
         /// <summary>
         /// Single instance
         /// </summary>
         /// <returns></returns>
-        public static IModelController GetInstance()
+        public static IModelController GetInstance(IMenu previousMenu)
         {
-            if (_instance == null)
-            {
-                lock (_lock)
-                {
-                    if (_instance == null)
-                    {
-                        _instance = new CustomerController();
-                    }
-                }
-            }
-            return _instance;
+            _instance = InstanceGenerator.GetInstance<CustomerController>(_instance, _lock, previousMenu);
+            return (IModelController)_instance;
+            //if (_instance == null)
+            //{
+            //    lock (_lock)
+            //    {
+            //        if (_instance == null)
+            //        {
+            //            _instance = new CustomerController(previousMenu);
+            //        }
+            //    }
+            //}
+            //return _instance;
         }
 
 
@@ -54,9 +57,9 @@ namespace Hotel.src.ModelManagement.Controllers
             Console.Clear();
             Console.WriteLine("Kundregistrering");
             Console.Write("\nFörnamn: ");
-            string _firstName = UserInputHandler.UserInputString();
+            string _firstName = UserInputHandler.UserInputString(PreviousMenu);
             Console.Write("\nEfternamn: ");
-            string _lastName = UserInputHandler.UserInputString();
+            string _lastName = UserInputHandler.UserInputString(PreviousMenu);
             Console.WriteLine("Födelseår: ");
             ushort _yearOfBirth = UserInputHandler.UserInputUshort();
             DateTime _dateOfBirth = UserInputHandler.UserInputDateTime(_yearOfBirth);
@@ -66,7 +69,7 @@ namespace Hotel.src.ModelManagement.Controllers
             string? _phoneNumber = UserInputHandler.UserInputStringPhone();
 
             Console.WriteLine("\nAdress: ");
-            var _addressController = AddressController.GetInstance();
+            var _addressController = AddressController.GetInstance(PreviousMenu);
             var _address = _addressController.Create() as IAddress;
 
             ICustomer _customer = new Customer(_firstName, _lastName, _dateOfBirth, _email, _phoneNumber, (Address)_address);
@@ -81,7 +84,7 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             Console.Clear();
             Console.Write("Ange söksträng: ");
-            var _searchString = UserInputHandler.UserInputString();
+            var _searchString = UserInputHandler.UserInputString(PreviousMenu);
             var _customerList = CustomerService.GetSpecific(_searchString);
             //return App.AppDatabase.Database.Customers.First(c => c.FirstName == UserInputHandler.UserInputString());
 

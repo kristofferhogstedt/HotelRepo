@@ -1,4 +1,6 @@
-﻿using Hotel.src.MenuManagement.Enums;
+﻿using Hotel.src.FactoryManagement.Interfaces;
+using Hotel.src.MenuManagement.Enums;
+using Hotel.src.MenuManagement.Interfaces;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -8,9 +10,19 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Menus
 {
-    public class RoomMenu
+    public class RoomMenu : IMenu, IInstantiable
     {
-        public static void Run()
+        public IMenu PreviousMenu { get; set; }
+        private static IInstantiable _instance;
+        private static readonly object _lock = new object();
+
+        public static IMenu GetInstance(IMenu previousMenu)
+        {
+            _instance = FactoryManagement.InstanceGenerator.GetInstance<RoomMenu>(_instance, _lock, previousMenu);
+
+            return (RoomMenu)_instance;
+        }
+        public void Run()
         {
             while (true)
             {
@@ -26,7 +38,7 @@ namespace Hotel.src.MenuManagement.Menus
                 switch (option)
                 {
                     case RoomMenuOptions.PreviousMenu:
-                        MainMenu.Run();
+                        PreviousMenu.Run();
                         break;
                     case RoomMenuOptions.Exit:
                         Exit.ExitProgram();
