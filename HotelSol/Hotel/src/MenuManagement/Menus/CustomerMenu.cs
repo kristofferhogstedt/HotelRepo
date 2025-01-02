@@ -27,7 +27,7 @@ namespace Hotel.src.MenuManagement.Menus
 
         public void Run()
         {
-            _controller = ModelFactory.GetModelController(PreviousMenu);
+            _controller = ModelFactory.GetModelController(this);
 
             while (true)
             {

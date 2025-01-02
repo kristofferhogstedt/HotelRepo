@@ -6,11 +6,12 @@ using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Checks;
 using System.Threading;
-using Hotel.src.ModelManagement.Displayers;
 using Hotel.src.MenuManagement.Interfaces;
 using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.FactoryManagement;
 using Hotel.src.ModelManagement.Controllers.Forms;
+using Hotel.src.ModelManagement.Utilities.Displayers;
+using Hotel.src.ModelManagement.Utilities.Selectors;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
@@ -75,12 +76,14 @@ namespace Hotel.src.ModelManagement.Controllers
             while (true)
             {
                 Console.Clear();
-                Displayers.CustomerDisplayer.DisplayModelTable(CustomerService.GetSpecific(_searchString));
+                CustomerDisplayer.DisplayModelTable(CustomerService.GetSpecific(_searchString));
                 Console.WriteLine("\nAnge sökkriterie (Namn, E-post): ");
                 _searchString = UserInputHandler.UserInputString(PreviousMenu);
                 _customerListToReturn = CustomerService.GetSpecific(_searchString);
                 if (UserInputHandler.UserInputEnter(Console.ReadKey()))
                     break;
+                else
+                    continue;
             }
 
             return _customerListToReturn;
@@ -88,12 +91,17 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public ICustomer GetOne()
         {
-            while (true)
-            {
-                var _customerList = GetSpecific();
-                if (_customerList.Count == 1)
-                    return _customerList[0];
-            }
+            ICustomer _customerToReturn = ModelEntitySelector.Select(CustomerService.GetAll(), 0, PreviousMenu);
+            return _customerToReturn;
+            //while (true)
+            //{
+            //    var _customerList = GetSpecific();
+
+            //    if (_customerList.Count == 1)
+            //        _customerToReturn = _customerList[0];
+            //    else
+            //        continue;
+            //}
         }
 
         public void ReadOne()

@@ -55,7 +55,10 @@ namespace Hotel.src.ModelManagement.Services
                 _listToReturn = GetAll();
             else
                 _listToReturn = DatabaseLair.DatabaseContext.Customers
-                .Where(c => c.FirstName.Contains(searchString)).ToList<ICustomer>();
+                .Where(c => c.FirstName.Contains(searchString)
+                || c.LastName.Contains(searchString)
+                || c.Email.Contains(searchString)
+                ).ToList<ICustomer>();
 
             if (_listToReturn == null)
             {

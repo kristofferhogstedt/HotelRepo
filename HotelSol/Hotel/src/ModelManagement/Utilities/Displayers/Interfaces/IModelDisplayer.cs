@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel.src.ModelManagement.Displayers.Interfaces
+namespace Hotel.src.ModelManagement.Utilities.Displayers.Interfaces
 {
     public interface IModelDisplayer
     {
