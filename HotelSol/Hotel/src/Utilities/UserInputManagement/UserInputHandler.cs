@@ -1,5 +1,6 @@
 ﻿using Hotel;
 using Hotel.src.MenuManagement.Interfaces;
+using Hotel.src.Utilities.ConsoleManagement;
 using Hotel.src.Utilities.UserInputManagement;
 
 namespace HotelLibrary.Utilities.UserInputManagement
@@ -73,9 +74,12 @@ namespace HotelLibrary.Utilities.UserInputManagement
         public static int UserInputYear()
         {
             var _output = 0;
+            Console.WriteLine("Ange årtal: ");
+
             while (!int.TryParse(Console.ReadLine(), out _output) || _output < DateTime.Now.Year - 150 || _output > DateTime.Now.Year + 150)
             {
                 Console.WriteLine("Felaktig inmatning, Ange ett giltigt årtal (nuvarande år +/- 150).");
+                LineClearer.ClearLastLine(1000);
             }
 
             return _output;
@@ -84,6 +88,8 @@ namespace HotelLibrary.Utilities.UserInputManagement
         public static int UserInputMonth()
         {
             var _output = 0;
+            Console.WriteLine("Ange månad: ");
+
             while (!int.TryParse(Console.ReadLine(), out _output) || _output < 1 || _output > 12)
             {
                 Console.WriteLine("Felaktig inmatning, Ange ett giltigt månad (1-12).");
@@ -96,6 +102,8 @@ namespace HotelLibrary.Utilities.UserInputManagement
             var _output = 0;
             var _monthString = MonthConverter.ConvertMonthToString(month);
             var _daysInMonth = DateTime.DaysInMonth(year, month);
+
+            Console.WriteLine("Ange dag: ");
 
             while (!int.TryParse(Console.ReadLine(), out _output) || _output < 1 || _output > _daysInMonth)
             {
