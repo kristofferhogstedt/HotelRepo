@@ -1,4 +1,5 @@
-﻿using Hotel.src.Utilities.UserInputManagement;
+﻿using Hotel.src.MenuManagement.Interfaces;
+using Hotel.src.Utilities.UserInputManagement;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,21 @@ namespace HotelLibrary.Utilities.UserInputManagement
 {
     public class UserInputHandler
     {
-        public static string UserInputString()
+
+        public static void UserInputEscape(IMenu previousMenu)
         {
+            var _key = Console.ReadKey(true).Key;
+            
+            switch (_key)
+            {
+                case ConsoleKey.Escape:
+                    IMenu.Run();
+                    break;
+            }
+        }
+        public static string UserInputString(IMenu previousMenu)
+        {
+            UserInputEscape(previousMenu);
             return Console.ReadLine();
         }
         public static string UserInputStringEmail()

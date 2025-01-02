@@ -25,7 +25,6 @@ namespace Hotel.src.Utilities.UserInputManagement
 
             while (true)
             {
-                Console.Clear();
                 RenderCalendar(_selectedDate);
 
                 // Läsa användarens tangent

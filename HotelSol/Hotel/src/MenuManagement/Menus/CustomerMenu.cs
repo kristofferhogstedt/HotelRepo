@@ -1,4 +1,5 @@
 ﻿using Hotel.src.MenuManagement.Enums;
+using Hotel.src.MenuManagement.Interfaces;
 using Hotel.src.ModelManagement.Controllers;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Spectre.Console;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Menus
 {
-    public class CustomerMenu
+    public class CustomerMenu : IMenu
     {
         private static IModelController _controller = FactoryManagement.ModelFactory.GetModelController();
 
