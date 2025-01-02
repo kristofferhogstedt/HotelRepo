@@ -16,28 +16,19 @@ namespace Hotel.src.MenuManagement.Menus
 
         public CustomerMenu()
         {
-            _controller = ModelFactory.GetModelController(PreviousMenu);
         }
 
         public static IMenu GetInstance(IMenu previousMenu)
         {
             _instance = FactoryManagement.InstanceGenerator.GetInstance<CustomerMenu>(_instance, _lock, previousMenu);
+            
             return (CustomerMenu)_instance;
-            //if (_instance == null)
-            //{
-            //    lock (_lock)
-            //    {
-            //        if (_instance == null)
-            //        {
-            //            _instance = new CustomerMenu(previousMenu);
-            //        }
-            //    }
-            //}
-            //return _instance;
         }
 
         public void Run()
         {
+            _controller = ModelFactory.GetModelController(PreviousMenu);
+
             while (true)
             {
                 Console.Clear();

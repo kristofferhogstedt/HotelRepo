@@ -31,17 +31,6 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             _instance = InstanceGenerator.GetInstance<CustomerController>(_instance, _lock, previousMenu);
             return (IModelController)_instance;
-            //if (_instance == null)
-            //{
-            //    lock (_lock)
-            //    {
-            //        if (_instance == null)
-            //        {
-            //            _instance = new CustomerController(previousMenu);
-            //        }
-            //    }
-            //}
-            //return _instance;
         }
 
 
@@ -74,6 +63,17 @@ namespace Hotel.src.ModelManagement.Controllers
 
             ICustomer _customer = new Customer(_firstName, _lastName, _dateOfBirth, _email, _phoneNumber, (Address)_address);
             CustomerService.Create(_customer);
+        }
+
+        public void DisplayCurrentCustomerInfo(ICustomer customer)
+        {
+            Console.Clear();
+            Console.WriteLine($"\nFörnamn: {customer.FirstName}");
+            Console.WriteLine($"\nEfternamn: {customer.LastName}");
+            Console.WriteLine($"\nFödelsedatum: {customer.DateOfBirth}");
+            Console.WriteLine($"\nE-post: {customer.Email}");
+            Console.WriteLine($"\nTelefon: {customer.Phone}");
+            Console.WriteLine($"\nAdress: {customer.Address.StreetAddress} {customer.Address.PostalCode} {customer.Address.City}");
         }
 
         public void ReadOne()

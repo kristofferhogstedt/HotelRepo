@@ -65,7 +65,7 @@ namespace HotelLibrary.Utilities.UserInputManagement
         /// Dateselector with current date as starting point
         /// </summary>
         /// <returns></returns>
-        public static DateTime? UserInputDateTime()
+        public static DateTime UserInputDateTime()
         {
             return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate()));
         }
@@ -86,7 +86,7 @@ namespace HotelLibrary.Utilities.UserInputManagement
         /// <param name="year"></param>
         /// <param name="month"></param>
         /// <returns></returns>
-        public static DateTime? UserInputDateTime(ushort year, ushort month)
+        public static DateTime UserInputDateTime(ushort year, ushort month)
         {
             return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year, month)));
         }
@@ -98,7 +98,7 @@ namespace HotelLibrary.Utilities.UserInputManagement
         /// <param name="month"></param>
         /// <param name="day"></param>
         /// <returns></returns>
-        public static DateTime? UserInputDateTime(ushort year, ushort month, ushort day)
+        public static DateTime UserInputDateTime(ushort year, ushort month, ushort day)
         {
             return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year, month, day)));
         }

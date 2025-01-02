@@ -25,6 +25,7 @@ namespace Hotel.src.Utilities.UserInputManagement
 
             while (true)
             {
+                Console.Clear();
                 RenderCalendar(_selectedDate);
 
                 // Läsa användarens tangent
@@ -45,7 +46,7 @@ namespace Hotel.src.Utilities.UserInputManagement
                         _selectedDate = _selectedDate.AddDays(7);
                         break;
                     case ConsoleKey.Enter:
-                        AnsiConsole.MarkupLine($"\nDu valde: [green]{_selectedDate:yyyy-MM-dd}[/]");
+                        //AnsiConsole.MarkupLine($"\nFödelsedatum: [green]{_selectedDate:yyyy-MM-dd}[/]");
                         return _selectedDate; // Avslutar loopen
                     case ConsoleKey.Escape:
                         return DateTime.MinValue; // Avbryter valet
