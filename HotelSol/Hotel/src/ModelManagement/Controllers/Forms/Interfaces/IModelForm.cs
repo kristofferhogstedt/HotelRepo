@@ -9,7 +9,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Interfaces
 {
     public interface IModelForm
     {
-        IModel EditForm();
+        IModel CreateOrEdit(IModel modelToUpdate);
+        IModel Run();
         void DisplaySummary();
     }
 }

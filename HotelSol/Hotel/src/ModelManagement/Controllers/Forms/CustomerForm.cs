@@ -1,14 +1,11 @@
 ﻿using Hotel.src.FactoryManagement;
 using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.MenuManagement.Interfaces;
-using Hotel.src.ModelManagement.Controllers.Enums;
 using Hotel.src.ModelManagement.Controllers.Forms.Interfaces;
-using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using HotelLibrary.Utilities.UserInputManagement;
 using Spectre.Console;
-using System.Numerics;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms
 {
@@ -32,20 +29,19 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             return (IModelForm)_instance;
         }
 
-        public void CreateOrEdit(ICustomer customerToEdit)
-        { 
+        public IModel CreateOrEdit(IModel customerToEdit)
+        {
             if (customerToEdit == null)
-                EditForm();
+                return Run();
             else
             {
-                _customer = customerToEdit;
+                _customer = (ICustomer)customerToEdit;
                 DisplaySummary(_customer);
-                EditForm();
+                return Run();
             }
         }
 
-
-        public IModel EditForm()
+        public IModel Run()
         {
 
             // Välkomstmeddelande
@@ -84,8 +80,14 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                     .ValidationErrorMessage("[red]Telefonnumret måste vara numeriskt![/]")
                     .Validate(input => long.TryParse(input, out _)));
 
-            AddressForm _addressForm = new AddressForm();
-            _address = (IAddress)_addressForm.EditForm();
+            // Create or edit Address
+            var _addressForm = AddressForm.GetInstance(PreviousMenu);
+
+            if (_customer != null)
+                _address = (IAddress)_addressForm.CreateOrEdit(_customer.Address);
+            else
+                _address = (IAddress)_addressForm.CreateOrEdit(null);
+
 
             DisplaySummary();
 

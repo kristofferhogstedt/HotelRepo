@@ -30,7 +30,8 @@ namespace Hotel.src.ModelManagement.Services
         public static ICustomer GetOne(string searchString)
         {
             ICustomer _customerToReturn = DatabaseLair.DatabaseContext.Customers
-                .First(c => c.FirstName.Contains(searchString));
+                .First(c => c.FirstName.Contains(searchString) 
+                || c.LastName.Contains(searchString));
 
             if (_customerToReturn == null)
             {
@@ -81,26 +82,16 @@ namespace Hotel.src.ModelManagement.Services
             // Guard clause?
         }
 
-        //    public void Update(DatabaseLair dbLair)
-        //    {
-        //        Console.Clear();
-        //        dbLair.DatabaseContext.Customers.Displayer.ReadAll(dbLair).ForEach(c => Console.WriteLine(c.DisplayString()));
-        //        Console.Write("Välj katt att uppdatera: ");
-        //        var _entityToUpdate = dbContext.Students.First(c => c.FirstName + " " + c.LastName == Console.ReadLine());
-        //        Console.Clear();
-        //        Console.WriteLine($"uppdaterar ålder på: {_entityToUpdate.FirstName} {_entityToUpdate.LastName}");
-        //        Console.Write("Ange ny ålder: ");
-        //        //_entityToUpdate. = UserInputManager.UserInputInt();
+        public static void Update(ICustomer customerToUpdate)
+        {
+            DatabaseLair.DatabaseContext.Customers.Update((Customer)customerToUpdate);
+            DatabaseLair.DatabaseContext.SaveChanges();
+        }
 
-        //        Console.Clear();
-        //        Console.WriteLine("Uppdaterad lista: ");
-        //        CustomerService.ReadAll(dbContext).ForEach(c => Console.WriteLine(c.DisplayString()));
-        //        dbContext.SaveChanges();
-        //    }
-        //    public void Delete()
-        //    {
+        public void Delete()
+        {
 
-        //    }
+        }
 
         public static void DataNotFoundMessage()
         {

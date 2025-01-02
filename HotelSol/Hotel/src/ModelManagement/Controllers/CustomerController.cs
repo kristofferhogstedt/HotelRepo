@@ -34,7 +34,6 @@ namespace Hotel.src.ModelManagement.Controllers
             return (IModelController)_instance;
         }
 
-
         public string CustomerInfoString(ICustomer customer)
         {
             Console.WriteLine("Kund: (Namn/ID/E-Post) ");
@@ -45,7 +44,7 @@ namespace Hotel.src.ModelManagement.Controllers
         public void Create()
         {
             var _customerForm = CustomerForm.GetInstance(PreviousMenu);
-            ICustomer _customer = (ICustomer)_customerForm.EditForm();
+            ICustomer _customer = (ICustomer)_customerForm.Run();
 
             if (_customer == null)
             {
@@ -66,6 +65,16 @@ namespace Hotel.src.ModelManagement.Controllers
             Console.WriteLine($"\nE-post: {customer.Email}");
             Console.WriteLine($"\nTelefon: {customer.Phone}");
             Console.WriteLine($"\nAdress: {customer.Address.StreetAddress} {customer.Address.PostalCode} {customer.Address.City} {customer.Address.Country}");
+        }
+
+        public ICustomer GetOne()
+        {
+            Console.Clear();
+            Console.Write("Ange kund: ");
+            string _customerName = UserInputHandler.UserInputString(PreviousMenu);
+            var _customer = CustomerService.GetOne(_customerName);
+
+            return _customer;
         }
 
         public void ReadOne()
@@ -90,10 +99,10 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void Update()
         {
-            var _customerToUpdate = CustomerController.GetOne();
+            var _customerToUpdate = GetOne();
 
             var _customerForm = CustomerForm.GetInstance(PreviousMenu);
-            ICustomer _customer = (ICustomer)_customerForm.EditForm(_customerToUpdate);
+            ICustomer _customer = (ICustomer)_customerForm.CreateOrEdit((IModel)_customerToUpdate);
 
             if (_customer == null)
             {
@@ -102,7 +111,7 @@ namespace Hotel.src.ModelManagement.Controllers
                 return;
             }
 
-            CustomerService.Create(_customer);
+            CustomerService.Update(_customer);
         }
 
         //public void Update(DatabaseLair dbLair)

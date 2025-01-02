@@ -19,6 +19,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         string _postalCode;
         string _city;
         string _country;
+        private IAddress _address;
 
         public static IModelForm GetInstance(IMenu previousMenu)
         {
@@ -26,7 +27,19 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             return (IModelForm)_instance;
         }
 
-        public IModel EditForm()
+        public IModel CreateOrEdit(IModel adressToEdit)
+        {
+            if (adressToEdit == null)
+                return Run();
+            else
+            {
+                _address = (IAddress)adressToEdit;
+                DisplaySummary(_address);
+                return Run();
+            }
+        }
+
+        public IModel Run()
         {
             // Välkomstmeddelande
             AnsiConsole.MarkupLine("[bold green]Adressregistrering[/]");
@@ -85,6 +98,20 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             table.AddRow("Postkod", _postalCode);
             table.AddRow("Stad", _city);
             table.AddRow("Land", _country);
+            AnsiConsole.Write(table);
+        }
+        public void DisplaySummary(IAddress address)
+        {
+            // Visa sammanfattning
+            Console.Clear();
+            AnsiConsole.MarkupLine("\n[bold green]Sammanfattning av kundinformation:[/]");
+            var table = new Table();
+            table.AddColumn("[red]Fält[/]");
+            table.AddColumn("[red]Värde[/]");
+            table.AddRow("Gatuadress", address.StreetAddress);
+            table.AddRow("Postkod", address.PostalCode);
+            table.AddRow("Stad", address.City);
+            table.AddRow("Land", address.Country);
             AnsiConsole.Write(table);
         }
     }
