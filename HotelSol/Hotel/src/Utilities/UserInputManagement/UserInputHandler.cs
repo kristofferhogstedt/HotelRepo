@@ -70,6 +70,40 @@ namespace HotelLibrary.Utilities.UserInputManagement
             return _output;
         }
 
+        public static int UserInputYear()
+        {
+            var _output = 0;
+            while (!int.TryParse(Console.ReadLine(), out _output) || _output < DateTime.Now.Year - 150 || _output > DateTime.Now.Year + 150)
+            {
+                Console.WriteLine("Felaktig inmatning, Ange ett giltigt årtal (nuvarande år +/- 150).");
+            }
+
+            return _output;
+        }
+
+        public static int UserInputMonth()
+        {
+            var _output = 0;
+            while (!int.TryParse(Console.ReadLine(), out _output) || _output < 1 || _output > 12)
+            {
+                Console.WriteLine("Felaktig inmatning, Ange ett giltigt månad (1-12).");
+            }
+            return _output;
+        }
+
+        public static int UserInputDay(int year, int month)
+        {
+            var _output = 0;
+            var _monthString = MonthConverter.ConvertMonthToString(month);
+            var _daysInMonth = DateTime.DaysInMonth(year, month);
+
+            while (!int.TryParse(Console.ReadLine(), out _output) || _output < 1 || _output > _daysInMonth)
+            {
+                Console.WriteLine($"Felaktig inmatning, Ange ett giltigt dag (1-{_daysInMonth} för {_monthString} {year}).");
+            }
+            return _output;
+        }
+
         /// <summary>
         /// Dateselector with current date as starting point
         /// </summary>

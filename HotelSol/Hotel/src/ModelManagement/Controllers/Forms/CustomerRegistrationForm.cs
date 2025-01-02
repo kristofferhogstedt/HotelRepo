@@ -142,19 +142,21 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             if (_lastName == null)
                 _lastName = _customerToUpdate.LastName;
 
-            string _yearOfBirth = AnsiConsole.Prompt(
-                new TextPrompt<string>("[[Optional]]Ange [yellow]födelseår[/]:")
-                    .AllowEmpty()
-                    .ValidationErrorMessage("[red]Födelseår måste vara numeriskt och måste vara över 18 år.[/]")
-                    .Validate(input => 
-                        (int.TryParse(input, out _)
-                        && Convert.ToDateTime($"{Convert.ToInt32(input)}-{DateTime.Now.Month}-{DateTime.Now.Day}")
-                        <= Convert.ToDateTime($"{DateTime.Now.Year - 18}-{DateTime.Now.Month}-{DateTime.Now.Day}")
-                        )
-                        || (input == "" && _customerToUpdate.DateOfBirth.Year != null))
-                    );
-            if (_yearOfBirth == null)
-                _yearOfBirth = _customerToUpdate.DateOfBirth.Year.ToString();
+            var _yearOfBirth = UserInputHandler.UserInputYear();
+
+            //string _yearOfBirth = AnsiConsole.Prompt(
+            //    new TextPrompt<string>("[[Optional]]Ange [yellow]födelseår[/]:")
+            //        .AllowEmpty()
+            //        .ValidationErrorMessage("[red]Födelseår måste vara numeriskt och måste vara över 18 år.[/]")
+            //        .Validate(input => 
+            //            (int.TryParse(input, out _)
+            //            && Convert.ToDateTime($"{Convert.ToInt32(input)}-{DateTime.Now.Month}-{DateTime.Now.Day}")
+            //            <= Convert.ToDateTime($"{DateTime.Now.Year - 18}-{DateTime.Now.Month}-{DateTime.Now.Day}")
+            //            )
+            //            || (input == "" && _customerToUpdate.DateOfBirth.Year != null))
+            //        );
+            //if (_yearOfBirth == null)
+            //    _yearOfBirth = Convert.ToString(_customerToUpdate.DateOfBirth.Year);
 
             string _monthOfBirth = AnsiConsole.Prompt(
                 new TextPrompt<string>("Ange [yellow]födelsemånad[/]:")
@@ -169,7 +171,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                         )
                     );
             if (_monthOfBirth == null)
-                _monthOfBirth = _customerToUpdate.DateOfBirth.Month.ToString();
+                _monthOfBirth = Convert.ToString(_customerToUpdate.DateOfBirth.Month);
 
             string _dayOfBirth = AnsiConsole.Prompt(
                 new TextPrompt<string>("Ange [yellow]födelsedag[/]:")
@@ -178,12 +180,12 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                     .Validate(input => 
                         (int.TryParse(input, out _)
                             && Convert.ToInt32(input) > 0
-                            && Convert.ToInt32(input) < DateTime.DaysInMonth(Convert.ToInt32(_yearOfBirth), Convert.ToInt32(_monthOfBirth))
+                            && Convert.ToInt32(input) <= DateTime.DaysInMonth(Convert.ToInt32(_yearOfBirth), Convert.ToInt32(_monthOfBirth))
                         )
                         || (input == "" && _customerToUpdate.DateOfBirth.Day != null))
                     );
             if (_dayOfBirth == null)
-                _dayOfBirth = _customerToUpdate.DateOfBirth.Day.ToString();
+                _dayOfBirth = Convert.ToString(_customerToUpdate.DateOfBirth.Day);
 
             _dateOfBirth = UserInputHandler.UserInputDateTime(Convert.ToInt32(_yearOfBirth), Convert.ToInt32(_monthOfBirth), Convert.ToInt32(_dayOfBirth));
 

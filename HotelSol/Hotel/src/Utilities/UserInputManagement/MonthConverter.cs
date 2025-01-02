@@ -8,10 +8,10 @@ namespace Hotel.src.Utilities.UserInputManagement
 {
     public class MonthConverter
     {
-        public static ushort StringOrIntToMonth(string input)
+        public static int StringOrIntToMonth(string input)
         {
-            ushort _output = 0;
-            if (ushort.TryParse(input, out ushort month))
+            int _output = 0;
+            if (int.TryParse(input, out int month))
             {
                 if (month < 1 || month > 12)
                 {
@@ -30,7 +30,7 @@ namespace Hotel.src.Utilities.UserInputManagement
             return _output;
         }
 
-        public static string ConvertMonthToString(ushort month)
+        public static string ConvertMonthToString(int month)
         {
             switch (month)
             {
@@ -63,7 +63,7 @@ namespace Hotel.src.Utilities.UserInputManagement
             }
         }
 
-        public static ushort ConvertStringToMonth(string month)
+        public static int ConvertStringToMonth(string month)
         {
             switch (month.ToLower())
             {
