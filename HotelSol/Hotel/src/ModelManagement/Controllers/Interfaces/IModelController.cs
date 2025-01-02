@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hotel.src.ModelManagement.Models.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,10 @@ namespace Hotel.src.ModelManagement.Controllers.Interfaces
     {
         void Create();
         void ReadOne();
-        void ReadSpecific();
+        //void ReadSpecific();
         void ReadAll();
         void Update();
+        void Update(IModel modelToUpdate);
         void Delete();
     }
 }

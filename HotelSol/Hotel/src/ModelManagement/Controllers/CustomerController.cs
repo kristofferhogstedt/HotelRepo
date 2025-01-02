@@ -12,6 +12,7 @@ using Hotel.src.FactoryManagement;
 using Hotel.src.ModelManagement.Controllers.Forms;
 using Hotel.src.ModelManagement.Utilities.Displayers;
 using Hotel.src.ModelManagement.Utilities.Selectors;
+using Hotel.src.MenuManagement.Menus;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
@@ -45,7 +46,7 @@ namespace Hotel.src.ModelManagement.Controllers
         public void Create()
         {
             var _customerForm = CustomerRegistrationForm.GetInstance(PreviousMenu);
-            ICustomer _customer = (ICustomer)_customerForm.Run();
+            ICustomer _customer = (ICustomer)_customerForm.CreateForm();
 
             if (_customer == null)
             {
@@ -93,31 +94,25 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             ICustomer _customerToReturn = ModelEntitySelector.Select(CustomerService.GetAll(), 0, PreviousMenu);
             return _customerToReturn;
-            //while (true)
-            //{
-            //    var _customerList = GetSpecific();
-
-            //    if (_customerList.Count == 1)
-            //        _customerToReturn = _customerList[0];
-            //    else
-            //        continue;
-            //}
         }
 
         public void ReadOne()
         {
             var _customer = GetOne();
-            var _customerList = new List<ICustomer> { _customer };
-            CustomerDisplayer.DisplayModelTable(_customerList);
-        }
-
-        public void ReadSpecific()
-        {
             Console.Clear();
-            var _customerList = GetSpecific();
+            CustomerDisplayer.DisplayModel(_customer);
+            Console.WriteLine("Vad vill du göra?");
 
-            CustomerDisplayer.DisplayModelTable(_customerList);
+            var _crudMenu = CustomerCRUDMenu.GetInstance(PreviousMenu);
+            _crudMenu.Run((IModel)_customer);
         }
+
+        //public void ReadSpecific()
+        //{
+        //    var _customerList = GetOne();
+
+        //    CustomerDisplayer.DisplayModelTable(_customerList);
+        //}
 
         public void ReadAll()
         {
@@ -129,7 +124,24 @@ namespace Hotel.src.ModelManagement.Controllers
             var _customerToUpdate = GetOne();
 
             var _customerForm = CustomerRegistrationForm.GetInstance(PreviousMenu);
-            ICustomer _customer = (ICustomer)_customerForm.CreateOrEdit((IModel)_customerToUpdate);
+            ICustomer _customer = (ICustomer)_customerForm.EditForm((IModel)_customerToUpdate);
+
+            if (_customer == null)
+            {
+                Console.WriteLine("Ingen data att spara, återgår...");
+                Thread.Sleep(2000);
+                return;
+            }
+
+            CustomerService.Update(_customer);
+        }
+
+        public void Update(IModel customerToUpdate)
+        {
+            var _customerToUpdate = customerToUpdate;
+
+            var _customerForm = CustomerRegistrationForm.GetInstance(PreviousMenu);
+            ICustomer _customer = (ICustomer)_customerForm.EditForm((IModel)_customerToUpdate);
 
             if (_customer == null)
             {

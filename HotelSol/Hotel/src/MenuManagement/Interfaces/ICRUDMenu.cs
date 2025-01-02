@@ -1,25 +1,20 @@
 ﻿using Hotel.src.ModelManagement.Controllers.Interfaces;
-using Hotel.src.ModelManagement.Controllers;
-using Hotel.src.ModelManagement.Services;
+using Hotel.src.ModelManagement.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using Hotel.src.ModelManagement.Models.Interfaces;
 
 namespace Hotel.src.MenuManagement.Interfaces
 {
-    public interface IMenu
+    public interface ICRUDMenu
     {
         public static IModelController GetInstance()
         {
             return null;
         }
 
-        void Run();
-        //void Run(IModel model);
-        //void Select();
+        void Run(IModel modelToCRUD);
     }
 }

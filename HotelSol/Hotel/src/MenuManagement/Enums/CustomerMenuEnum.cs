@@ -16,7 +16,7 @@ namespace Hotel.src.MenuManagement.Enums
         DisplayCustomer,
         [Description("Se alla kunder")]
         DisplayCustomerAll,
-        [Description("Uppdatera kund")]
+        [Description("Redigera kund")]
         UpdateCustomer,
         [Description("Registrera ny kund")]
         CreateCustomer,

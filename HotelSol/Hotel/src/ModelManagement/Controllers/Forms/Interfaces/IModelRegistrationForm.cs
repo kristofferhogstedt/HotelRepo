@@ -9,8 +9,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Interfaces
 {
     public interface IModelRegistrationForm
     {
-        IModel CreateOrEdit(IModel modelToUpdate);
-        IModel Run();
+        IModel CreateForm();
+        IModel EditForm(IModel modelToUpdate);
         void DisplaySummary();
     }
 }

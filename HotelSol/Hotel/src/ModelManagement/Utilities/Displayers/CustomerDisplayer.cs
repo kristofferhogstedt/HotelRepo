@@ -50,7 +50,7 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             table.AddColumn("E-Post");
             table.AddColumn("Telefon");
 
-            for (int i = 0; i <= customerArray.Length; i++)
+            for (int i = 0; i < customerArray.Length; i++)
             {
                 //calendarContent.Write($"[green]{day,2}[/]   ");
 
@@ -67,7 +67,7 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             void RowContent(int i)
             {
                 table.AddRow(
-                    customerArray[i].ID.ToString(),
+                    $"[red]{customerArray[i].ID.ToString()}[/]",
                     customerArray[i].FirstName,
                     customerArray[i].LastName,
                     customerArray[i].Email,
@@ -99,6 +99,60 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             //Console.WriteLine("Valfri tangent för att återgå till huvudmeny");
             //Console.ReadLine();
             //Console.Clear();
+        }
+
+
+        public static void RenderTable(List<ICustomer> customerList, int indexToHighlight)
+        {
+            var customerArray = customerList.ToArray();
+            var _tableContent = new StringWriter();
+
+            // Kalenderhuvud
+            _tableContent.WriteLine($"[red]{customerList.ElementAt(indexToHighlight).FirstName} {customerList.ElementAt(indexToHighlight).LastName}[/]".ToUpper());
+            _tableContent.WriteLine("ID  Förnamn  Efternamn  Född  E-post  Telefon");
+            _tableContent.WriteLine("─────────────────────────────────────────────");
+
+            //DateTime firstDayOfMonth = new DateTime(selectedDate.Year, selectedDate.Month, 1);
+            //int daysInMonth = DateTime.DaysInMonth(selectedDate.Year, selectedDate.Month);
+            //int startDay = (int)firstDayOfMonth.DayOfWeek;
+            //startDay = startDay == 0 ? 6 : startDay - 1; // Justera för måndag som veckostart
+
+            // Fyll med tomma platser innan första dagen i månaden
+            //for (int i = 0; i < startDay; i++)
+            //{
+            //    _tableContent.Write("     ");
+            //}
+
+            // Skriv ut dagarna
+            for (int i = 0; i < customerArray.Length; i++)
+            {
+                if (i == indexToHighlight)
+                {
+                    // Siffran 2 sätter minimum bredd (även om 1 siffra)
+                    _tableContent.WriteLine($"[green]{customerArray[i].Info}[/]   ");
+                }
+                else
+                {
+                    _tableContent.WriteLine($"{customerArray[i].Info}   ");
+                }
+
+                // Gå till nästa rad efter söndag
+                //if ((startDay + day) % 7 == 0)
+                //{
+                //    _tableContent.WriteLine();
+                //}
+            }
+
+            // Skapa en panel med dubbla kanter
+            var panel = new Panel(_tableContent.ToString())
+            {
+                Border = BoxBorder.Double,
+                Header = new PanelHeader($"[red]{customerArray[indexToHighlight].FirstName} {customerArray[indexToHighlight].LastName}[/]", Justify.Center)
+            };
+
+            AnsiConsole.Write(panel);
+            Console.WriteLine();
+            AnsiConsole.MarkupLine("\nAnvänd piltangenter [blue]\u25C4 \u25B2 \u25BA \u25BC[/] för att \nnavigera och [green]Enter[/] för att välja.");
         }
     }
 }

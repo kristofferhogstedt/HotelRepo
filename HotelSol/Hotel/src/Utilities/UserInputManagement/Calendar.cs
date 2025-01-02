@@ -110,15 +110,15 @@ namespace Hotel.src.Utilities.UserInputManagement
         {
             return DateTime.Now;
         }
-        public static DateTime SetStartDate(ushort year)
+        public static DateTime SetStartDate(int year)
         {
             return new DateTime(year, 1, 1);
         }
-        public static DateTime SetStartDate(ushort year, ushort month)
+        public static DateTime SetStartDate(int year, int month)
         {
             return new DateTime(year, month, 1);
         }
-        public static DateTime SetStartDate(ushort year, ushort month, ushort day)
+        public static DateTime SetStartDate(int year, int month, int day)
         {
             return new DateTime(year, month, day);
         }

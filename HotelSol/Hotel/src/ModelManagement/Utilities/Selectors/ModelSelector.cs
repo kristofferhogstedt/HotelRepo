@@ -14,13 +14,13 @@ namespace Hotel.src.ModelManagement.Utilities.Selectors
     {
         public static ICustomer Select(List<ICustomer> listOfCustomers, int startIndex, IMenu previousMenu)
         {
-
             int _selectedIndex = startIndex;
 
             while (true)
             {
                 Console.Clear();
-                CustomerDisplayer.RenderTableHighlight(listOfCustomers, _selectedIndex);
+                CustomerDisplayer.RenderTable(listOfCustomers, _selectedIndex);
+                //CustomerDisplayer.RenderTableHighlight(listOfCustomers, _selectedIndex);
 
                 // Läsa användarens tangent
                 var _key = Console.ReadKey(true).Key;
@@ -28,10 +28,10 @@ namespace Hotel.src.ModelManagement.Utilities.Selectors
                 switch (_key)
                 {
                     case ConsoleKey.UpArrow:
-                        _selectedIndex = _selectedIndex + 1;
+                        _selectedIndex = --_selectedIndex;
                         break;
                     case ConsoleKey.DownArrow:
-                        _selectedIndex = _selectedIndex - 1;
+                        _selectedIndex = ++_selectedIndex;
                         break;
                     case ConsoleKey.Enter:
                         //AnsiConsole.MarkupLine($"\nFödelsedatum: [green]{_selectedDate:yyyy-MM-dd}[/]");

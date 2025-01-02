@@ -46,7 +46,7 @@ namespace Hotel.src.MenuManagement.Menus
                         _instance.PreviousMenu.Run();
                         break;
                     case CustomerMenuOptions.DisplayCustomer:
-                        _controller.ReadSpecific();
+                        _controller.ReadOne();
                         break;
                     case CustomerMenuOptions.DisplayCustomerAll:
                         _controller.ReadAll();

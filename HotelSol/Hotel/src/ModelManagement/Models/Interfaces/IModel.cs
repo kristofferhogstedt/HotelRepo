@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Models.Interfaces
 {
-    public interface IModel
+    public interface IModel //: ICustomer
     {
 
     }
