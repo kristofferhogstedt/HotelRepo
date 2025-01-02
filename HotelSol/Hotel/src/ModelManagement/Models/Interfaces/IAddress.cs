@@ -1,6 +1,6 @@
 ﻿namespace Hotel.src.ModelManagement.Models.Interfaces
 {
-    public interface IAddress
+    public interface IAddress : IModel
     {
         int ID { get; set; }
         string Country { get; set; }

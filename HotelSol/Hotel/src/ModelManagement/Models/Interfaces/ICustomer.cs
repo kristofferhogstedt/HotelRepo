@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hotel.src.ModelManagement.Models.Interfaces
 {
-    public interface ICustomer
+    public interface ICustomer : IModel
     {
         int ID { get; set; }
         string FirstName { get; set; }

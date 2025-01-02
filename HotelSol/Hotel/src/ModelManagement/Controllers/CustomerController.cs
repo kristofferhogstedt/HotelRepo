@@ -10,6 +10,7 @@ using Hotel.src.ModelManagement.Displayers;
 using Hotel.src.MenuManagement.Interfaces;
 using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.FactoryManagement;
+using Hotel.src.ModelManagement.Controllers.Forms;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
@@ -43,25 +44,16 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void Create()
         {
-            Console.Clear();
-            Console.WriteLine("Kundregistrering");
-            Console.Write("\nFörnamn: ");
-            string _firstName = UserInputHandler.UserInputString(PreviousMenu);
-            Console.Write("\nEfternamn: ");
-            string _lastName = UserInputHandler.UserInputString(PreviousMenu);
-            Console.WriteLine("Födelseår: ");
-            ushort _yearOfBirth = UserInputHandler.UserInputUshort();
-            DateTime _dateOfBirth = UserInputHandler.UserInputDateTime(_yearOfBirth);
-            Console.Write("\nE-post: ");
-            string _email = UserInputHandler.UserInputStringEmail();
-            Console.Write("\nTelefon: ");
-            string? _phoneNumber = UserInputHandler.UserInputStringPhone();
+            var _customerForm = CustomerForm.GetInstance(PreviousMenu);
+            ICustomer _customer = (ICustomer)_customerForm.EditForm();
 
-            Console.WriteLine("\nAdress: ");
-            var _addressController = AddressController.GetInstance(PreviousMenu);
-            var _address = _addressController.Create() as IAddress;
+            if (_customer == null)
+            {
+                Console.WriteLine("Ingen data att spara, återgår...");
+                Thread.Sleep(2000);
+                return;
+            }
 
-            ICustomer _customer = new Customer(_firstName, _lastName, _dateOfBirth, _email, _phoneNumber, (Address)_address);
             CustomerService.Create(_customer);
         }
 
@@ -73,7 +65,7 @@ namespace Hotel.src.ModelManagement.Controllers
             Console.WriteLine($"\nFödelsedatum: {customer.DateOfBirth}");
             Console.WriteLine($"\nE-post: {customer.Email}");
             Console.WriteLine($"\nTelefon: {customer.Phone}");
-            Console.WriteLine($"\nAdress: {customer.Address.StreetAddress} {customer.Address.PostalCode} {customer.Address.City}");
+            Console.WriteLine($"\nAdress: {customer.Address.StreetAddress} {customer.Address.PostalCode} {customer.Address.City} {customer.Address.Country}");
         }
 
         public void ReadOne()
@@ -98,7 +90,19 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void Update()
         {
+            var _customerToUpdate = CustomerController.GetOne();
 
+            var _customerForm = CustomerForm.GetInstance(PreviousMenu);
+            ICustomer _customer = (ICustomer)_customerForm.EditForm(_customerToUpdate);
+
+            if (_customer == null)
+            {
+                Console.WriteLine("Ingen data att spara, återgår...");
+                Thread.Sleep(2000);
+                return;
+            }
+
+            CustomerService.Create(_customer);
         }
 
         //public void Update(DatabaseLair dbLair)

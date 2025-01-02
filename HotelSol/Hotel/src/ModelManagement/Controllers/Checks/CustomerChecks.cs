@@ -9,6 +9,10 @@ namespace Hotel.src.ModelManagement.Controllers.Checks
 {
     public class CustomerChecks
     {
+        public static bool CustomerIsNotNull(ICustomer customer)
+        {
+            return customer != null;
+        }
         public static bool HasBooking(ICustomer customer)
         {
             return customer.Bookings.Any();

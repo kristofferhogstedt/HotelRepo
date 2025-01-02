@@ -34,4 +34,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="src\ModelManagement\Controllers\Enums\" />
+  </ItemGroup>
+
 </Project>

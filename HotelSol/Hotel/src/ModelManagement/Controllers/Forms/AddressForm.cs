@@ -1,18 +1,32 @@
-﻿using Hotel.src.ModelManagement.Models;
+﻿using Hotel.src.FactoryManagement;
+using Hotel.src.FactoryManagement.Interfaces;
+using Hotel.src.MenuManagement.Interfaces;
+using Hotel.src.ModelManagement.Controllers.Forms.Interfaces;
+using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Spectre.Console;
 using System.Diagnostics.Metrics;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms
 {
-    public class AddressForm
+    public class AddressForm : IModelForm, IInstantiable
     {
+        public IMenu PreviousMenu { get; set; }
+        private static IInstantiable _instance;
+        private static readonly object _lock = new object(); // Lock object for thread safety
+
         string _streetAddress;
         string _postalCode;
         string _city;
         string _country;
 
-        public IAddress CreateForm()
+        public static IModelForm GetInstance(IMenu previousMenu)
+        {
+            _instance = InstanceGenerator.GetInstance<AddressForm>(_instance, _lock, previousMenu);
+            return (IModelForm)_instance;
+        }
+
+        public IModel EditForm()
         {
             // Välkomstmeddelande
             AnsiConsole.MarkupLine("[bold green]Adressregistrering[/]");
@@ -35,8 +49,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                     .Validate(input => !string.IsNullOrWhiteSpace(input)));
 
             _country = AnsiConsole.Prompt(
-                new TextPrompt<string>("Ange [yellow]stad[/]:")
-                    .ValidationErrorMessage("[red]Stad får inte vara tomt.[/]")
+                new TextPrompt<string>("Ange [yellow]land[/]:")
+                    .ValidationErrorMessage("[red]Land får inte vara tomt.[/]")
                     .Validate(input => !string.IsNullOrWhiteSpace(input)));
 
             DisplaySummary();
