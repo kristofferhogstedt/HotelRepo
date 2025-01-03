@@ -1,11 +1,4 @@
-﻿using Hotel.Enums;
-using Hotel.src.ModelManagement.Models;
-using Hotel.src.Utilities.Seeding;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Hotel.src.Utilities.Seeding;
 
 namespace Hotel.src.Persistence
 {

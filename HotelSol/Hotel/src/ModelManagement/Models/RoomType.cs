@@ -1,18 +1,66 @@
-﻿using Hotel.Enums;
+﻿using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hotel.src.ModelManagement.Models
 {
     public class RoomType : IRoomType
     {
-        public int ID { get; set; }
-        string Name { get; set; }
-        int Size { get; set; }
+        [Key]
+        public ERoomType ID { get; set; }
+        private string _name;
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                switch (ID)
+                {
+                    case ERoomType.Single:
+                        _name = "Singelrum";
+                        break;
+                    case ERoomType.Double:
+                        _name = "Dubbelrum";
+                        break;
+                    case ERoomType.Family:
+                        _name = "Familjerum";
+                        break;
+                    case ERoomType.Suite:
+                        _name = "Lyxsvit";
+                        break;
+                }
+            }
+        }
+
+        private int _sizeDefault;
+        public int SizeDefault
+        {
+            get
+            {
+                return _sizeDefault;
+            }
+            set
+            {
+                switch (ID)
+                {
+                    case ERoomType.Single:
+                        _sizeDefault = 15;
+                        break;
+                    case ERoomType.Double:
+                        _sizeDefault = 25;
+                        break;
+                    case ERoomType.Family:
+                        _sizeDefault = 30;
+                        break;
+                    case ERoomType.Suite:
+                        _sizeDefault = 45;
+                        break;
+                }
+            }
+        }
 
         private int _numberOfBedsDefault;
         public int NumberOfBedsDefault
@@ -23,18 +71,18 @@ namespace Hotel.src.ModelManagement.Models
             }
             set
             {
-                switch (Name)
+                switch (ID)
                 {
-                    case "Single":
+                    case ERoomType.Single:
                         _numberOfBedsDefault = 1;
                         break;
-                    case "Double":
+                    case ERoomType.Double:
                         _numberOfBedsDefault = 2;
                         break;
-                    case "Family":
+                    case ERoomType.Family:
                         _numberOfBedsDefault = 4;
                         break;
-                    case "Suite":
+                    case ERoomType.Suite:
                         _numberOfBedsDefault = 2;
                         break;
                 }
@@ -50,18 +98,18 @@ namespace Hotel.src.ModelManagement.Models
             }
             set
             {
-                switch (Name)
+                switch (ID)
                 {
-                    case "Single":
+                    case ERoomType.Single:
                         _numberOfBedsDefault = 2;
                         break;
-                    case "Double":
+                    case ERoomType.Double:
                         _numberOfBedsDefault = 4;
                         break;
-                    case "Family":
+                    case ERoomType.Family:
                         _numberOfBedsDefault = 6;
                         break;
-                    case "Suite":
+                    case ERoomType.Suite:
                         _numberOfBedsDefault = 6;
                         break;
                 }

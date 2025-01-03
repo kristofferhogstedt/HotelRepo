@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel.Enums
+namespace Hotel.src.ModelManagement.Models.Enums
 {
     public enum ERoomType
     {

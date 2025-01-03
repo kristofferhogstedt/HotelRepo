@@ -1,4 +1,4 @@
-﻿using Hotel.Enums;
+﻿using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,11 +11,8 @@ namespace Hotel.src.ModelManagement.Models
         public int ID { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
-        //public RoomDetail RoomDetails { get; set; }
-        public ERoomType Type { get; set; }
+        public RoomDetail RoomDetails { get; set; }
         public string Floor { get; set; }
-        public ushort NumberOfBeds { get; set; }
-        public ushort Size { get; set; }
         public DateTime CleanedDate { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -28,7 +25,7 @@ namespace Hotel.src.ModelManagement.Models
 
         public Room(ERoomType roomType)
         {
-            Type = roomType;
+            //Type = roomType;
         }
     }
 }

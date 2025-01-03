@@ -14,6 +14,8 @@ namespace Hotel.src.Persistence
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Room> Rooms { get; set; }
+        public DbSet<RoomType> RoomTypes { get; set; }
+        public DbSet<RoomDetail> RoomDetails { get; set; }
 
         public ApplicationDbContext()
         {

@@ -1,12 +1,19 @@
-﻿using Hotel.Enums;
-using System.Drawing;
+﻿using Hotel.src.ModelManagement.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hotel.src.ModelManagement.Models.Interfaces
 {
     public interface IRoomDetail
     {
+        [Key]
         int ID { get; set; }
-        string TypeID { get; set; }
+
+        [ForeignKey("RoomID")]
+        int RoomID { get; set; }
+
+        [ForeignKey("TypeID")]
+        ERoomType TypeID { get; set; }
         int Size { get; set; }
         int NumberOfBeds { get; set; }
         public DateTime CreatedDate { get; set; }

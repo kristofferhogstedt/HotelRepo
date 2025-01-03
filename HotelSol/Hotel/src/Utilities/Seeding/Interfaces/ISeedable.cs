@@ -13,7 +13,7 @@ namespace Hotel.src.Utilities.Seeding.Interfaces
         static virtual void Seed()
         {
         }
-        public virtual static List<ICustomer> CreateSeed(int num)
+        public virtual static List<ICustomer> CreateSeed(int amount)
         {
             return null;
         }
