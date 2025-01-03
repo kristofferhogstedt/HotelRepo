@@ -1,6 +1,9 @@
-﻿using Hotel.src.ModelManagement.Models.Interfaces;
+﻿using Hotel.src.ModelManagement.Models.Enums;
+using Hotel.src.ModelManagement.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Numerics;
 
 namespace Hotel.src.ModelManagement.Models
 {
@@ -17,6 +20,11 @@ namespace Hotel.src.ModelManagement.Models
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public DateTime? InactivatedDate { get; set; }
+
+        [NotMapped]
+        public EModelType ModelType { get; set; } = EModelType.Booking;
+        [NotMapped]
+        public string Info => $"ID: {ID}, KundID: {CustomerID}, RumID: {RoomID}, Fråndatum: {FromDate}, Tilldatum: {ToDate}";
 
         public Booking()
         {

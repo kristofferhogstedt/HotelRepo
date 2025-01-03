@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Enums
 {
-    public enum CustomerCRUDMenuOptions
+    public enum CRUDMenuOptions
     {
         [Description("Föregående meny")]
         PreviousMenu,
@@ -22,7 +22,7 @@ namespace Hotel.src.MenuManagement.Enums
 
     public static class CRUDMenuEnum
     {
-        public static string ShowCustomerCRUDMenu(this Enum enumValues)
+        public static string ShowCRUDMenu(this Enum enumValues)
         {
             return DescriptionGetter.GetDescription(enumValues);
         }

@@ -1,5 +1,6 @@
 ﻿using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Interfaces;
+using Hotel.src.ModelManagement.Services.Interfaces;
 using Hotel.src.Persistence;
 
 namespace Hotel.src.ModelManagement.Services
@@ -102,7 +103,6 @@ namespace Hotel.src.ModelManagement.Services
                 return _listToReturn;
             }
             return _listToReturn;
-            // Guard clause?
         }
 
         public static void Update(ICustomer modelToUpdate)

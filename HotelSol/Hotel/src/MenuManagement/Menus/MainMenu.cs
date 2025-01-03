@@ -31,17 +31,6 @@ namespace Hotel.src.MenuManagement.Menus
             _instance = FactoryManagement.InstanceGenerator.GetInstance<MainMenu>(_instance, _lock, previousMenu);
 
             return (MainMenu)_instance;
-            //if (_instance == null)
-            //{
-            //    lock (_lock)
-            //    {
-            //        if (_instance == null)
-            //        {
-            //            _instance = new MainMenu(previousMenu);
-            //        }
-            //    }
-            //}
-            //return _instance;
         }
 
         public void Run()
@@ -79,7 +68,7 @@ namespace Hotel.src.MenuManagement.Menus
                         _cleaningMenu.Run();
                         break;
                     case MainMenuOptions.EconomyManagement:
-                        IMenu _economyMenu = EconomyMenu.GetInstance(this);
+                        IMenu _economyMenu = InvoiceMenu.GetInstance(this);
                         _economyMenu.Run();
                         break;
                     case MainMenuOptions.Exit:

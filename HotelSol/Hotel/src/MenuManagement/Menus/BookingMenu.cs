@@ -13,13 +13,13 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Menus
 {
-    public class BookingMenu : IMenu, IInstantiable
+    public class BookingMenu : IMenu, IInstantiable, IControllable
     {
         public IMenu PreviousMenu { get; set; }
         private static IInstantiable _instance;
         private static readonly object _lock = new object();
-        private static IModelController _controller;
-        private EModelType _modelType = EModelType.Booking;
+        public EModelType ModelType { get; set; } = EModelType.Booking;
+        public IModelController ModelController { get; set; }
 
         public static IMenu GetInstance(IMenu previousMenu)
         {
@@ -30,11 +30,11 @@ namespace Hotel.src.MenuManagement.Menus
 
         public void Run()
         {
-            _controller = ModelFactory.GetModelController(_modelType, this);
+            ModelController = ModelFactory.GetModelController(ModelType, this);
 
             while (true)
             {
-                // Sprectre menyval!
+                Console.Clear();
                 var option = AnsiConsole.Prompt(
                     new SelectionPrompt<BookingMenuOptions>()
                         .Title("Start")
@@ -49,7 +49,7 @@ namespace Hotel.src.MenuManagement.Menus
                         PreviousMenu.Run();
                         break;
                     case BookingMenuOptions.DisplayBookings:
-                        _controller.ReadOne();
+                        ModelController.ReadOne();
                         break;
                     case BookingMenuOptions.Exit:
                         Exit.ExitProgram();

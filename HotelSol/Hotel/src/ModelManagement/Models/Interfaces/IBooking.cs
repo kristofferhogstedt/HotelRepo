@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Numerics;
 
 namespace Hotel.src.ModelManagement.Models.Interfaces
 {
-    public interface IBooking
+    public interface IBooking : IModel
     {
         [Key]
         int ID { get; set; }
@@ -16,5 +18,7 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         DateTime CreatedDate { get; set; }
         DateTime? UpdatedDate { get; set; }
         DateTime? InactivatedDate { get; set; }
+        [NotMapped]
+        public string Info { get; }
     }
 }

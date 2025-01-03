@@ -13,6 +13,7 @@ using Hotel.src.ModelManagement.Utilities.Displayers;
 using Hotel.src.ModelManagement.Utilities.Selectors;
 using Hotel.src.MenuManagement.Menus;
 using Hotel.src.MenuManagement.Menus.Interfaces;
+using Hotel.src.ModelManagement.Models.Enums;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
@@ -21,6 +22,7 @@ namespace Hotel.src.ModelManagement.Controllers
         public IMenu PreviousMenu { get; set; }
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
+        public EModelType ModelType { get; set; } = EModelType.Customer;
 
         public CustomerController()
         {
@@ -45,7 +47,7 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void Create()
         {
-            var _customerForm = CustomerRegistrationForm.GetInstance(PreviousMenu);
+            var _customerForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
             ICustomer _customer = (ICustomer)_customerForm.CreateForm();
 
             if (_customer == null)
@@ -92,7 +94,7 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public ICustomer GetOne()
         {
-            ICustomer _customerToReturn = ModelEntitySelector.Select(CustomerService.GetAll(), 0, PreviousMenu);
+            ICustomer _customerToReturn = CustomerEntitySelector.Select(CustomerService.GetAll(), 0, PreviousMenu);
             return _customerToReturn;
         }
 
@@ -123,7 +125,7 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             var _customerToUpdate = GetOne();
 
-            var _customerForm = CustomerRegistrationForm.GetInstance(PreviousMenu);
+            var _customerForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
             ICustomer _customer = (ICustomer)_customerForm.EditForm((IModel)_customerToUpdate);
 
             if (_customer == null)
@@ -140,7 +142,7 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             var _customerToUpdate = customerToUpdate;
 
-            var _customerForm = CustomerRegistrationForm.GetInstance(PreviousMenu);
+            var _customerForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
             ICustomer _customer = (ICustomer)_customerForm.EditForm((IModel)_customerToUpdate);
 
             if (_customer == null)

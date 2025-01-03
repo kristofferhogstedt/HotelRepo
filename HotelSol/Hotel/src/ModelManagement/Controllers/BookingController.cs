@@ -1,18 +1,13 @@
-﻿using Hotel.src.FactoryManagement.Interfaces;
-using Hotel.src.FactoryManagement;
-using Hotel.src.MenuManagement.Menus.Interfaces;
+﻿using Hotel.src.FactoryManagement;
+using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.MenuManagement.Menus;
-using Hotel.src.ModelManagement.Controllers.Forms;
+using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
+using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services;
 using Hotel.src.ModelManagement.Utilities.Displayers;
 using Hotel.src.ModelManagement.Utilities.Selectors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
@@ -21,6 +16,7 @@ namespace Hotel.src.ModelManagement.Controllers
         public IMenu PreviousMenu { get; set; }
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
+        public EModelType ModelType { get; set; } = EModelType.Booking;
 
         public BookingController()
         {
@@ -38,7 +34,7 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void Create()
         {
-            var _modelForm = BookingRegistrationForm.GetInstance(PreviousMenu);
+            var _modelForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
             IBooking _model = (IBooking)_modelForm.CreateForm();
 
             if (_model == null)
@@ -51,20 +47,9 @@ namespace Hotel.src.ModelManagement.Controllers
             BookingService.Create(_model);
         }
 
-        //public void DisplayCurrentCustomerInfo(IBooking model)
-        //{
-        //    Console.Clear();
-        //    Console.WriteLine($"\nFörnamn: {model.FirstName}");
-        //    Console.WriteLine($"\nEfternamn: {model.LastName}");
-        //    Console.WriteLine($"\nFödelsedatum: {model.DateOfBirth}");
-        //    Console.WriteLine($"\nE-post: {model.Email}");
-        //    Console.WriteLine($"\nTelefon: {model.Phone}");
-        //    Console.WriteLine($"\nAdress: {model.Address.StreetAddress} {model.Address.PostalCode} {model.Address.City} {model.Address.Country}");
-        //}
-
         public IBooking GetOne()
         {
-            IBooking _modelToReturn = ModelEntitySelector.Select(BookingService.GetAll(), 0, PreviousMenu);
+            IBooking _modelToReturn = BookingEntitySelector.Select(BookingService.GetAll(), 0, PreviousMenu);
             return _modelToReturn;
         }
 
@@ -75,7 +60,7 @@ namespace Hotel.src.ModelManagement.Controllers
             BookingDisplayer.DisplayModel(_model);
             Console.WriteLine("Vad vill du göra?");
 
-            var _crudMenu = BookingCRUDMenu.GetInstance(PreviousMenu);
+            var _crudMenu = ModelCRUDMenu.GetInstance(PreviousMenu);
             _crudMenu.Run((IModel)_model);
         }
 
@@ -88,7 +73,7 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             var _modelToUpdate = GetOne();
 
-            var _modelForm = BookingRegistrationForm.GetInstance(PreviousMenu);
+            var _modelForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
             IBooking _model = (IBooking)_modelForm.EditForm((IModel)_modelToUpdate);
 
             if (_model == null)
@@ -105,7 +90,7 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             var _modelToUpdate = modelToUpdate;
 
-            var _modelForm = BookingRegistrationForm.GetInstance(PreviousMenu);
+            var _modelForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
             IBooking _model = (IBooking)_modelForm.EditForm((IModel)_modelToUpdate);
 
             if (_model == null)
@@ -115,7 +100,7 @@ namespace Hotel.src.ModelManagement.Controllers
                 return;
             }
 
-            CustomerService.Update(_model);
+            BookingService.Update(_model);
         }
 
         public void Delete()

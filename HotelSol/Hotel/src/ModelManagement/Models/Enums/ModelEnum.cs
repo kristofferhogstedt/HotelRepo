@@ -12,6 +12,9 @@ namespace Hotel.src.ModelManagement.Models.Enums
         Address,
         Booking,
         Room,
-        Invoice
+        RoomDetail,
+        RoomType,
+        Invoice,
+        Cleaning
     }
 }

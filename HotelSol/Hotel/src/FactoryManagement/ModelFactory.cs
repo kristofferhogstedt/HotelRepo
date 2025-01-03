@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.FactoryManagement
 {
-    internal class ModelFactory
+    public class ModelFactory
     {
         //private IApp _app;
 

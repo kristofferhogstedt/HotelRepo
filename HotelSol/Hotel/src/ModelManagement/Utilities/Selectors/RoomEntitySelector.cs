@@ -1,7 +1,6 @@
 ﻿using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Utilities.Displayers;
-using Hotel.src.ModelManagement.Utilities.Selectors.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,19 +9,17 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Utilities.Selectors
 {
-    public class ModelEntitySelector //: IModelEntitySelector
+    public class RoomEntitySelector
     {
-        public static ICustomer Select(List<ICustomer> listOfCustomers, int startIndex, IMenu previousMenu)
+        public static IRoom Select(List<IRoom> entityList, int startIndex, IMenu previousMenu)
         {
             int _selectedIndex = startIndex;
 
             while (true)
             {
                 Console.Clear();
-                CustomerDisplayer.RenderTable(listOfCustomers, _selectedIndex);
-                //CustomerDisplayer.RenderTableHighlight(listOfCustomers, _selectedIndex);
+                //RoomDisplayer.RenderTable(entityList, _selectedIndex);
 
-                // Läsa användarens tangent
                 var _key = Console.ReadKey(true).Key;
 
                 switch (_key)
@@ -34,10 +31,9 @@ namespace Hotel.src.ModelManagement.Utilities.Selectors
                         _selectedIndex = ++_selectedIndex;
                         break;
                     case ConsoleKey.Enter:
-                        //AnsiConsole.MarkupLine($"\nFödelsedatum: [green]{_selectedDate:yyyy-MM-dd}[/]");
-                        return listOfCustomers.ElementAt(_selectedIndex); // Avslutar loopen
+                        return entityList.ElementAt(_selectedIndex);
                     case ConsoleKey.Escape:
-                        previousMenu.Run(); // Avbryter valet
+                        previousMenu.Run();
                         break;
                 }
             }

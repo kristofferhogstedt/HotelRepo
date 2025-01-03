@@ -4,6 +4,5 @@ namespace Hotel.src.ModelManagement.Services.Interfaces
 {
     public interface IRoomService
     {
-        IRoom CreateRoom();
     }
 }

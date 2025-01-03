@@ -8,13 +8,14 @@ using Spectre.Console;
 
 namespace Hotel.src.MenuManagement.Menus
 {
-    public class CustomerMenu : IMenu, IInstantiable
+    public class CustomerMenu : IMenu, IInstantiable, IControllable
     {
         public IMenu PreviousMenu { get; set; }
         private static IInstantiable _instance;
         private static readonly object _lock = new object();
-        private static IModelController _controller;
-        private EModelType _modelType = EModelType.Customer;
+        //private static IModelController ModelController;
+        public EModelType ModelType { get; set; } = EModelType.Customer;
+        public IModelController ModelController { get; set; }
 
         public CustomerMenu()
         {
@@ -29,12 +30,11 @@ namespace Hotel.src.MenuManagement.Menus
 
         public void Run()
         {
-            _controller = ModelFactory.GetModelController(_modelType, this);
+            ModelController = ModelFactory.GetModelController(ModelType, this);
 
             while (true)
             {
                 Console.Clear();
-                // Sprectre menyval!
                 var option = AnsiConsole.Prompt(
                     new SelectionPrompt<CustomerMenuOptions>()
                         .Title("Start")
@@ -48,16 +48,16 @@ namespace Hotel.src.MenuManagement.Menus
                         _instance.PreviousMenu.Run();
                         break;
                     case CustomerMenuOptions.DisplayCustomer:
-                        _controller.ReadOne();
+                        ModelController.ReadOne();
                         break;
                     case CustomerMenuOptions.DisplayCustomerAll:
-                        _controller.ReadAll();
+                        ModelController.ReadAll();
                         break;
                     case CustomerMenuOptions.CreateCustomer:
-                        _controller.Create();
+                        ModelController.Create();
                         break;
                     case CustomerMenuOptions.UpdateCustomer:
-                        _controller.Update();
+                        ModelController.Update();
                         break;
                     case CustomerMenuOptions.Exit:
                         Exit.ExitProgram();

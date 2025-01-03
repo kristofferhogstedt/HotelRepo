@@ -1,6 +1,8 @@
 ﻿using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.MenuManagement.Enums;
 using Hotel.src.MenuManagement.Menus.Interfaces;
+using Hotel.src.ModelManagement.Controllers.Interfaces;
+using Hotel.src.ModelManagement.Models.Enums;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -10,11 +12,13 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Menus
 {
-    public class CleaningMenu : IMenu, IInstantiable
+    public class CleaningMenu : IMenu, IInstantiable, IControllable
     {
         public IMenu PreviousMenu { get; set; }
         private static IInstantiable _instance;
         private static readonly object _lock = new object();
+        public EModelType ModelType { get; set; } = EModelType.Cleaning;
+        public IModelController ModelController { get; set; }
 
         public static IMenu GetInstance(IMenu previousMenu)
         {
@@ -25,6 +29,7 @@ namespace Hotel.src.MenuManagement.Menus
 
         public void Run()
         {
+            //ModelController = ModelFactory.GetModelController(ModelType);
             while (true)
             {
                 // Sprectre menyval!

@@ -1,6 +1,9 @@
-﻿using Hotel.src.FactoryManagement.Interfaces;
+﻿using Hotel.src.FactoryManagement;
+using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.MenuManagement.Enums;
 using Hotel.src.MenuManagement.Menus.Interfaces;
+using Hotel.src.ModelManagement.Controllers.Interfaces;
+using Hotel.src.ModelManagement.Models.Enums;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -10,24 +13,27 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Menus
 {
-    public class EconomyMenu : IMenu, IInstantiable
+    public class InvoiceMenu : IMenu, IInstantiable, IControllable
     {
         public IMenu PreviousMenu { get; set; }
         private static IInstantiable _instance;
         private static readonly object _lock = new object();
+        public EModelType ModelType { get; set; } = EModelType.Invoice;
+        public IModelController ModelController { get; set; }
 
         public static IMenu GetInstance(IMenu previousMenu)
         {
-            _instance = FactoryManagement.InstanceGenerator.GetInstance<EconomyMenu>(_instance, _lock, previousMenu);
+            _instance = FactoryManagement.InstanceGenerator.GetInstance<InvoiceMenu>(_instance, _lock, previousMenu);
 
-            return (EconomyMenu)_instance;
+            return (InvoiceMenu)_instance;
         }
 
         public void Run()
         {
+            ModelController = ModelFactory.GetModelController(ModelType, this);
             while (true)
             {
-                // Sprectre menyval!
+                Console.Clear();
                 var option = AnsiConsole.Prompt(
                     new SelectionPrompt<EconomyMenuOptions>()
                         .Title("Start")

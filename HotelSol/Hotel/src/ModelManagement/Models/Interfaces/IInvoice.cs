@@ -1,4 +1,6 @@
-﻿namespace Hotel.src.ModelManagement.Models.Interfaces
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Hotel.src.ModelManagement.Models.Interfaces
 {
     public interface IInvoice
     {
@@ -12,5 +14,7 @@
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public DateTime? InactivatedDate { get; set; }
+        [NotMapped]
+        public string Info { get; }
     }
 }

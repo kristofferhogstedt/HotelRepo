@@ -1,4 +1,5 @@
-﻿using Hotel.src.ModelManagement.Models.Interfaces;
+﻿using Hotel.src.ModelManagement.Models.Enums;
+using Hotel.src.ModelManagement.Models.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace Hotel.src.ModelManagement.Controllers.Interfaces
 {
     public interface IModelController
     {
+        EModelType ModelType { get; set; }
         void Create();
         void ReadOne();
         //void ReadSpecific();

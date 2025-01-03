@@ -1,4 +1,5 @@
-﻿using Hotel.src.ModelManagement.Models.Interfaces;
+﻿using Hotel.src.ModelManagement.Models.Enums;
+using Hotel.src.ModelManagement.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,6 +20,8 @@ namespace Hotel.src.ModelManagement.Models
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public DateTime? InactivatedDate { get; set; }
+        [NotMapped]
+        public EModelType ModelType { get; set; } = EModelType.Customer;
 
         [NotMapped]
         public string FullName => $"{FirstName} {LastName}";
