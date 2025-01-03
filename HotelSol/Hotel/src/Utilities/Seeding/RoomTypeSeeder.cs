@@ -1,4 +1,5 @@
 ﻿using Hotel.src.ModelManagement.Models;
+using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.Persistence;
 using Hotel.src.Utilities.Seeding.Interfaces;
 using System;
@@ -13,7 +14,7 @@ namespace Hotel.src.Utilities.Seeding
     {
         public static void Seed()
         {
-            if (DatabaseLair.DatabaseContext.Bookings.Any())
+            if (DatabaseLair.DatabaseContext.RoomTypes.Any())
             {
                 return;   // DB already contains data
             }
@@ -31,10 +32,10 @@ namespace Hotel.src.Utilities.Seeding
         {
             var _roomTypes = new List<RoomType>()
             {
-                new RoomType{Name="Single"},
-                new RoomType{Name="Double"},
-                new RoomType{Name="Family"},
-                new RoomType{Name="Suite"}
+                new RoomType{ID=ERoomType.Single, Name="Singelrum"},
+                new RoomType{ID=ERoomType.Double, Name="Dubbelrum"},
+                new RoomType{ID=ERoomType.Family, Name="Familjerum"},
+                new RoomType{ID=ERoomType.Suite, Name="Svit"}
             };
 
             return _roomTypes;

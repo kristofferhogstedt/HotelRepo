@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hotel.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250103150213_initial migration")]
+    [Migration("20250103160534_initial migration")]
     partial class initialmigration
     {
         /// <inheritdoc />
@@ -224,13 +224,41 @@ namespace Hotel.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("Hotel.src.ModelManagement.Models.RoomDetail", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("InactivatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<int>("NumberOfBeds")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoomID")
                         .HasColumnType("int");
 
                     b.Property<int>("Size")
                         .HasColumnType("int");
 
-                    b.Property<int>("Type")
+                    b.Property<int>("TypeID")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -238,7 +266,33 @@ namespace Hotel.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Rooms");
+                    b.HasIndex("RoomID")
+                        .IsUnique();
+
+                    b.ToTable("RoomDetails");
+                });
+
+            modelBuilder.Entity("Hotel.src.ModelManagement.Models.RoomType", b =>
+                {
+                    b.Property<int>("ID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumberOfBedsDefault")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfBedsMax")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SizeDefault")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("RoomTypes");
                 });
 
             modelBuilder.Entity("Hotel.src.ModelManagement.Models.Booking", b =>
@@ -261,9 +315,24 @@ namespace Hotel.Migrations
                     b.Navigation("Address");
                 });
 
+            modelBuilder.Entity("Hotel.src.ModelManagement.Models.RoomDetail", b =>
+                {
+                    b.HasOne("Hotel.src.ModelManagement.Models.Room", null)
+                        .WithOne("RoomDetails")
+                        .HasForeignKey("Hotel.src.ModelManagement.Models.RoomDetail", "RoomID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Hotel.src.ModelManagement.Models.Customer", b =>
                 {
                     b.Navigation("Bookings");
+                });
+
+            modelBuilder.Entity("Hotel.src.ModelManagement.Models.Room", b =>
+                {
+                    b.Navigation("RoomDetails")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

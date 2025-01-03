@@ -24,13 +24,13 @@ namespace Hotel.src.ModelManagement.Controllers
             return _instance;
         }
 
-        public void CreateRoomType(string name, ushort defaultSize, ushort numberOfBedsDefault, ushort numberOfBedsMax)
-        {
-            _roomType.Name = name;
-            _roomType.DefaultSize = defaultSize;
-            _roomType.NumberOfBedsDefault = numberOfBedsDefault;
-            _roomType.NumberOfBedsMax = numberOfBedsMax;
-        }
+        //public void CreateRoomType(string name, ushort defaultSize, ushort numberOfBedsDefault, ushort numberOfBedsMax)
+        //{
+        //    _roomType.Name = name;
+        //    _roomType.DefaultSize = defaultSize;
+        //    _roomType.NumberOfBedsDefault = numberOfBedsDefault;
+        //    _roomType.NumberOfBedsMax = numberOfBedsMax;
+        //}
 
 
 
