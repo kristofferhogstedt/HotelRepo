@@ -9,7 +9,8 @@ namespace Hotel.src.ModelManagement.Models
         [Key]
         public int ID { get; set; }
         [Required]
-        public Customer CustomerID { get; set; }
+        public int CustomerID { get; set; }
+        public int RoomID { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
         public bool IsActive { get; set; }

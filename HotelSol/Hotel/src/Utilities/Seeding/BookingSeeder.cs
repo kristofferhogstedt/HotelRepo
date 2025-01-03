@@ -14,35 +14,57 @@ namespace Hotel.src.Utilities.Seeding
 {
     public class BookingSeeder : ISeedable
     {
-        //public static void Seed()
-        //{
-        //    if (DatabaseLair.DatabaseContext.Bookings.Any())
-        //    {
-        //        return;   // DB already contains data
-        //    }
+        public static void Seed()
+        {
+            if (DatabaseLair.DatabaseContext.Bookings.Any())
+            {
+                return;   // DB already contains data
+            }
 
-        //    var _seededModels = BookingSeeder.CreateSeed(10);
-        //    foreach (var entity in _seededModels)
-        //    {
-        //        DatabaseLair.DatabaseContext.Bookings.Add(entity);
-        //    }
+            var _seededModels = BookingSeeder.CreateSeed(4);
+            foreach (var entity in _seededModels)
+            {
+                DatabaseLair.DatabaseContext.Bookings.Add(entity);
+            }
 
-        //    DatabaseLair.DatabaseContext.SaveChanges();
-        //}
-        //public static List<Booking> CreateSeed(int num)
-        //{
-        //    //var _bookings = new List<IBooking>()
-        //    //{
-        //    //    new Booking{Name="101",Description="Room 101",Type = ERoomType.Single,Floor="1",NumberOfBeds=1,IsActive=true},
-        //    //    new Room{Name="102",Description="Room 102",Type = ERoomType.Double,Floor="1",NumberOfBeds=2,IsActive=true},
-        //    //    new Room{Name="103",Description="Room 103",Type = ERoomType.Double,Floor="1",NumberOfBeds=2,IsActive=true},
-        //    //    new Room{Name="104",Description="Room 104",Type = ERoomType.Single,Floor="1",NumberOfBeds=1,IsActive=true},
-        //    //    new Room{Name="105",Description="Room 105",Type = ERoomType.Single,Floor="1",NumberOfBeds=1,IsActive=true},
-        //    //    new Room{Name="106",Description="Room 106",Type = ERoomType.Double,Floor="1",NumberOfBeds=2,IsActive=true}
-        //    //};
+            DatabaseLair.DatabaseContext.SaveChanges();
+        }
+        public static List<Booking> CreateSeed(int num)
+        {
+            var _bookings = new List<Booking>()
+            {
+                new Booking{CustomerID=1, RoomID=3
+                , CreatedDate=DateTime.Now.AddDays(-10)
+                , FromDate=DateTime.Now.AddDays(10), ToDate=DateTime.Now.AddDays(13)
+                , IsActive=true},
+                new Booking{CustomerID=3, RoomID=3
+                , CreatedDate=DateTime.Now.AddDays(-8)
+                , FromDate=DateTime.Now.AddDays(14), ToDate=DateTime.Now.AddDays(17)
+                , IsActive=true},
+                new Booking{CustomerID=4, RoomID=11
+                , CreatedDate=DateTime.Now.AddDays(-20)
+                , FromDate=DateTime.Now.AddDays(-4), ToDate=DateTime.Now.AddDays(-1)
+                , IsActive=false
+                , InactivatedDate=DateTime.Now.AddDays(-1)
+                , UpdatedDate=DateTime.Now.AddDays(-1)},
+                new Booking{CustomerID=5, RoomID=7
+                , CreatedDate=DateTime.Now.AddDays(-5)
+                , FromDate=DateTime.Now.AddDays(5), ToDate=DateTime.Now.AddDays(7)
+                , IsActive=true
+                , UpdatedDate=DateTime.Now.AddDays(-1)},
+            };
 
-        //    var _bookings = _bookingFaker.Generate(num);
-        //    return _bookings;
-        //}
+            return _bookings;
+
+            //Customer CustomerID { get; set; }
+            //Room RoomID { get; set; }
+            //DateTime FromDate { get; set; }
+            //DateTime ToDate { get; set; }
+            //bool IsActive { get; set; }
+            //DateTime CreatedDate { get; set; }
+            //DateTime? UpdatedDate { get; set; }
+            //DateTime? InactivatedDate { get; set; }
+
+        }
     }
 }

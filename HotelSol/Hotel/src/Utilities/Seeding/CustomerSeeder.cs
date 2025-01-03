@@ -32,14 +32,12 @@ namespace Hotel.src.Utilities.Seeding
         public static List<Customer> CreateSeed(int num)
         {
             var _addressFaker = new Faker<Address>()
-                //.RuleFor(a => a.ID, f => f.IndexFaker + 1)
                 .RuleFor(c => c.Country, f => f.Address.Country())
                 .RuleFor(c => c.City, f => f.Address.City())
                 .RuleFor(c => c.PostalCode, f => f.Address.ZipCode())
                 .RuleFor(c => c.StreetAddress, f => f.Address.StreetAddress());
 
             var _customerFaker = new Faker<Customer>()
-                //.RuleFor(c => c.ID, f => f.IndexFaker + 1)
                 .RuleFor(c => c.FirstName, f => f.Name.FirstName())
                 .RuleFor(c => c.LastName, f => f.Name.LastName())
                 .RuleFor(c => c.DateOfBirth, f => f.Date.Past(18))
@@ -49,14 +47,6 @@ namespace Hotel.src.Utilities.Seeding
                 .RuleFor(c => c.IsActive, f => f.Random.Bool(0.8f))
                 .RuleFor(c => c.CreatedDate, f => f.Date.Past())
                 .RuleFor(c => c.UpdatedDate, f => f.Date.Recent());
-            //.RuleFor(c => c.InactivatedDate, f => f.Date.Past()); // Can this be faked depending on IsActive?
-
-            var _bookingFaker = new Faker<Booking>()
-                .RuleFor(c => c.FromDate, f => f.Date.Recent(180))
-                .RuleFor(c => c.ToDate, f => f.Date.Recent(60))
-                .RuleFor(c => c.IsActive, f => f.Random.Bool(1.0f))
-                .RuleFor(c => c.CustomerID, f => _customerFaker.Generate()
-                );
 
             var _customers = _customerFaker.Generate(num);
             return _customers;
