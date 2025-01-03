@@ -1,6 +1,6 @@
 ﻿using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.MenuManagement.Enums;
-using Hotel.src.MenuManagement.Interfaces;
+using Hotel.src.MenuManagement.Menus.Interfaces;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;

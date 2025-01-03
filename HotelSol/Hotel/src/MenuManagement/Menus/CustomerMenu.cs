@@ -1,7 +1,7 @@
 ﻿using Hotel.src.FactoryManagement;
 using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.MenuManagement.Enums;
-using Hotel.src.MenuManagement.Interfaces;
+using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Spectre.Console;
 

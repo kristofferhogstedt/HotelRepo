@@ -1,5 +1,5 @@
 ﻿using Hotel;
-using Hotel.src.MenuManagement.Interfaces;
+using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.Utilities.ConsoleManagement;
 using Hotel.src.Utilities.UserInputManagement;
 

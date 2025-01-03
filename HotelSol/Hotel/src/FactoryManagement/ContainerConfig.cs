@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using Hotel.src.Interfaces;
 using Hotel.src.MenuManagement.Enums;
-using Hotel.src.MenuManagement.Interfaces;
 using Hotel.src.MenuManagement.Menus;
+using Hotel.src.MenuManagement.Menus.Interfaces;
 
 namespace Hotel.src.FactoryManagement
 {

@@ -1,7 +1,7 @@
 ﻿using Hotel.src.FactoryManagement;
 using Hotel.src.Interfaces;
-using Hotel.src.MenuManagement.Interfaces;
 using Hotel.src.MenuManagement.Menus;
+using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.Persistence;
 using Hotel.src.Persistence.Interfaces;
 using HotelLibrary.Interfaces;

@@ -1,5 +1,5 @@
 ﻿using Hotel.src.Interfaces;
-using Hotel.src.MenuManagement.Interfaces;
+using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
 using System;

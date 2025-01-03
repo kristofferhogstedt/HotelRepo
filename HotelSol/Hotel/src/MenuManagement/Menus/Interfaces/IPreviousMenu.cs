@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hotel.src.MenuManagement.Interfaces
+namespace Hotel.src.MenuManagement.Menus.Interfaces
 {
-    public interface IMenuDestination
+    public interface IPreviousMenu
     {
-        void Instantiate();
+        void Return();
     }
 }

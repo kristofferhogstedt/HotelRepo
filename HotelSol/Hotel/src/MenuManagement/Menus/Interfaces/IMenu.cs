@@ -9,7 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Hotel.src.ModelManagement.Models.Interfaces;
 
-namespace Hotel.src.MenuManagement.Interfaces
+namespace Hotel.src.MenuManagement.Menus.Interfaces
 {
     public interface IMenu
     {

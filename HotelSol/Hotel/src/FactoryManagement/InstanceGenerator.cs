@@ -1,6 +1,6 @@
 ﻿using Hotel.src.FactoryManagement.Interfaces;
-using Hotel.src.MenuManagement.Interfaces;
 using Hotel.src.MenuManagement.Menus;
+using Hotel.src.MenuManagement.Menus.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

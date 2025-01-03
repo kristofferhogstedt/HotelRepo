@@ -1,4 +1,4 @@
-﻿using Hotel.src.MenuManagement.Interfaces;
+﻿using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Utilities.Displayers;
 using Hotel.src.ModelManagement.Utilities.Selectors.Interfaces;
