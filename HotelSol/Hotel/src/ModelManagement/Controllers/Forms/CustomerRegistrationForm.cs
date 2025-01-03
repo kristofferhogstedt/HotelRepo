@@ -174,7 +174,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             if (UserInputHandler.UserInputBool(PreviousMenu))
             {
                 // Address registration form
-                var _addressForm = AddressForm.GetInstance(PreviousMenu);
+                var _addressForm = AddressRegistrationForm.GetInstance(PreviousMenu);
 
                 // If customer exists, and an address, edit it. If not, create a new one.
                 if (Customer != null)
@@ -279,7 +279,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             if (UserInputHandler.UserInputBool(PreviousMenu))
             {
                 // Address registration form
-                var _addressForm = AddressForm.GetInstance(PreviousMenu);
+                var _addressForm = AddressRegistrationForm.GetInstance(PreviousMenu);
 
                 // If customer exists, and an address, edit it. If not, create a new one.
                 if (Customer != null)

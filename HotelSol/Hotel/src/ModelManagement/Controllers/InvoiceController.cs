@@ -1,4 +1,7 @@
-﻿using Hotel.src.ModelManagement.Controllers.Interfaces;
+﻿using Hotel.src.FactoryManagement;
+using Hotel.src.FactoryManagement.Interfaces;
+using Hotel.src.MenuManagement.Menus.Interfaces;
+using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using System;
@@ -9,20 +12,20 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
-    public class InvoiceController : IInvoiceController
+    public class InvoiceController : IInvoiceController, IInstantiable
     {
-        public static IInvoiceController _instance;
-        IInvoice _invoice;
-        public InvoiceController(IInvoice invoice) 
+        public IMenu PreviousMenu { get; set; }
+        public static IInstantiable _instance;
+        private static readonly object _lock = new object(); // Lock object for thread safety
+
+        public InvoiceController() 
         {
-            _invoice = invoice;
         }
 
-        public static IInvoiceController GetInstance()
+        public static IModelController GetInstance(IMenu previousMenu)
         {
-            if (_instance == null)
-                _instance = new InvoiceController(new Invoice());
-            return _instance;
+            _instance = InstanceGenerator.GetInstance<InvoiceController>(_instance, _lock, previousMenu);
+            return (IModelController)_instance;
         }
     }
 }

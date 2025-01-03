@@ -3,6 +3,7 @@ using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.MenuManagement.Enums;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
+using Hotel.src.ModelManagement.Models.Enums;
 using Spectre.Console;
 
 namespace Hotel.src.MenuManagement.Menus
@@ -13,6 +14,7 @@ namespace Hotel.src.MenuManagement.Menus
         private static IInstantiable _instance;
         private static readonly object _lock = new object();
         private static IModelController _controller;
+        private EModelType _modelType = EModelType.Customer;
 
         public CustomerMenu()
         {
@@ -27,7 +29,7 @@ namespace Hotel.src.MenuManagement.Menus
 
         public void Run()
         {
-            _controller = ModelFactory.GetModelController(this);
+            _controller = ModelFactory.GetModelController(_modelType, this);
 
             while (true)
             {

@@ -76,11 +76,16 @@ namespace Hotel.Migrations
                 name: "RoomTypes",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false),
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SizeDefault = table.Column<int>(type: "int", nullable: false),
                     NumberOfBedsDefault = table.Column<int>(type: "int", nullable: false),
-                    NumberOfBedsMax = table.Column<int>(type: "int", nullable: false)
+                    NumberOfBedsMax = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    InactivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {

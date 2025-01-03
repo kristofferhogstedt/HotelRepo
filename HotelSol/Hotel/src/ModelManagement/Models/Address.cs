@@ -18,6 +18,7 @@ namespace Hotel.src.ModelManagement.Models
 
         public Address()
         {
+            CreatedDate = DateTime.Now;
         }
 
         public Address(string country, string city, string postalCode, string streetAddress)
@@ -26,6 +27,7 @@ namespace Hotel.src.ModelManagement.Models
             City = city;
             PostalCode = postalCode;
             StreetAddress = streetAddress;
+            CreatedDate = DateTime.Now;
         }
     }
 }

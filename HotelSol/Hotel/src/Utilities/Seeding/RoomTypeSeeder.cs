@@ -32,10 +32,10 @@ namespace Hotel.src.Utilities.Seeding
         {
             var _roomTypes = new List<RoomType>()
             {
-                new RoomType{ID=ERoomType.Single, Name="Singelrum"},
-                new RoomType{ID=ERoomType.Double, Name="Dubbelrum"},
-                new RoomType{ID=ERoomType.Family, Name="Familjerum"},
-                new RoomType{ID=ERoomType.Suite, Name="Svit"}
+                new RoomType(){Name="Single", NumberOfBedsDefault=-1, NumberOfBedsMax=-1, SizeDefault=-1},
+                new RoomType(){Name="Double", NumberOfBedsDefault=-1, NumberOfBedsMax=-1, SizeDefault=-1},
+                new RoomType(){Name="Family", NumberOfBedsDefault=-1, NumberOfBedsMax=-1, SizeDefault=-1},
+                new RoomType(){Name="Suite", NumberOfBedsDefault=-1, NumberOfBedsMax=-1, SizeDefault=-1}
             };
 
             return _roomTypes;

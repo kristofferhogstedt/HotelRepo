@@ -272,7 +272,19 @@ namespace Hotel.Migrations
             modelBuilder.Entity("Hotel.src.ModelManagement.Models.RoomType", b =>
                 {
                     b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("InactivatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -286,6 +298,9 @@ namespace Hotel.Migrations
 
                     b.Property<int>("SizeDefault")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ID");
 
@@ -315,7 +330,7 @@ namespace Hotel.Migrations
             modelBuilder.Entity("Hotel.src.ModelManagement.Models.RoomDetail", b =>
                 {
                     b.HasOne("Hotel.src.ModelManagement.Models.Room", null)
-                        .WithOne("RoomDetails")
+                        .WithOne("Detail")
                         .HasForeignKey("Hotel.src.ModelManagement.Models.RoomDetail", "RoomID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -328,7 +343,7 @@ namespace Hotel.Migrations
 
             modelBuilder.Entity("Hotel.src.ModelManagement.Models.Room", b =>
                 {
-                    b.Navigation("RoomDetails")
+                    b.Navigation("Detail")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

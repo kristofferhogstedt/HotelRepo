@@ -13,7 +13,7 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         int RoomID { get; set; }
 
         [ForeignKey("TypeID")]
-        ERoomType TypeID { get; set; }
+        int TypeID { get; set; }
         int Size { get; set; }
         int NumberOfBeds { get; set; }
         public DateTime CreatedDate { get; set; }

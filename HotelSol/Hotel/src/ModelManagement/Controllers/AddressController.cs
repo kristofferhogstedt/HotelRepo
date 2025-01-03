@@ -31,18 +31,6 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             _instance = InstanceGenerator.GetInstance<AddressController>(_instance, _lock, previousMenu);
             return (ISupportModelController)_instance;
-
-            //if (_instance == null)
-            //{
-            //    lock (_lock)
-            //    {
-            //        if (_instance == null)
-            //        {
-            //            _instance = new AddressController(previousMenu);
-            //        }
-            //    }
-            //}
-            //return _instance;
         }
 
         public ISupportModel Create()

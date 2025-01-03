@@ -17,11 +17,11 @@ namespace Hotel.src.ModelManagement.Models
 
         public Invoice()
         {
-            CreatedDate = new DateTime();
+            //CreatedDate = new DateTime();
             CreatedDate = DateTime.Now;
 
-            DueDate = new DateTime();
-            DueDate = DateTime.Now.AddDays(30);
+            //Due/*Date = new DateTime();*/
+            DueDate = CreatedDate.AddDays(30);
         }
     }
 }

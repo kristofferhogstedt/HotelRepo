@@ -30,6 +30,7 @@ namespace Hotel.src.ModelManagement.Models
 
         public Customer()
         {
+            CreatedDate = DateTime.Now;
         }
         public Customer(string firstName, string lastName, DateTime dateOfBirth, string email, string phone, Address address)
         {
@@ -39,6 +40,7 @@ namespace Hotel.src.ModelManagement.Models
             Address = address;
             Email = email;
             Phone = phone;
+            CreatedDate = DateTime.Now;
         }
     }
 } 

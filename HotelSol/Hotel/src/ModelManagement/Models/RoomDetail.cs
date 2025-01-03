@@ -14,8 +14,7 @@ namespace Hotel.src.ModelManagement.Models
         public int RoomID { get; set; }
 
         [ForeignKey("RoomType")]
-        public ERoomType TypeID { get; set; }
-
+        public int TypeID { get; set; }
         public int Size { get; set; }
         public int NumberOfBeds { get; set; }
         public bool IsActive { get; set; }
@@ -25,7 +24,7 @@ namespace Hotel.src.ModelManagement.Models
 
         public RoomDetail()
         {
-            //TypeID = roomType;
+            CreatedDate = DateTime.Now;
         }
     }
 }

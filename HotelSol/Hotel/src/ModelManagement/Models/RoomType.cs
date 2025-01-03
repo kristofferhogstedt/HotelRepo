@@ -1,39 +1,15 @@
 ﻿using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hotel.src.ModelManagement.Models
 {
     public class RoomType : IRoomType
     {
         [Key]
-        public ERoomType ID { get; set; }
-        private string _name;
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                switch (ID)
-                {
-                    case ERoomType.Single:
-                        _name = "Singelrum";
-                        break;
-                    case ERoomType.Double:
-                        _name = "Dubbelrum";
-                        break;
-                    case ERoomType.Family:
-                        _name = "Familjerum";
-                        break;
-                    case ERoomType.Suite:
-                        _name = "Lyxsvit";
-                        break;
-                }
-            }
-        }
+        public int ID { get; set; }
+        public string Name { get; set; }
 
         private int _sizeDefault;
         public int SizeDefault
@@ -44,18 +20,18 @@ namespace Hotel.src.ModelManagement.Models
             }
             set
             {
-                switch (ID)
+                switch (Name)
                 {
-                    case ERoomType.Single:
+                    case "Single":
                         _sizeDefault = 15;
                         break;
-                    case ERoomType.Double:
-                        _sizeDefault = 25;
+                    case "Double":
+                        _sizeDefault = 20;
                         break;
-                    case ERoomType.Family:
+                    case "Family":
                         _sizeDefault = 30;
                         break;
-                    case ERoomType.Suite:
+                    case "Suite":
                         _sizeDefault = 45;
                         break;
                 }
@@ -71,18 +47,18 @@ namespace Hotel.src.ModelManagement.Models
             }
             set
             {
-                switch (ID)
+                switch (Name)
                 {
-                    case ERoomType.Single:
+                    case "Single":
                         _numberOfBedsDefault = 1;
                         break;
-                    case ERoomType.Double:
+                    case "Double":
                         _numberOfBedsDefault = 2;
                         break;
-                    case ERoomType.Family:
+                    case "Family":
                         _numberOfBedsDefault = 4;
                         break;
-                    case ERoomType.Suite:
+                    case "Suite":
                         _numberOfBedsDefault = 2;
                         break;
                 }
@@ -98,22 +74,31 @@ namespace Hotel.src.ModelManagement.Models
             }
             set
             {
-                switch (ID)
+                switch (Name)
                 {
-                    case ERoomType.Single:
-                        _numberOfBedsDefault = 2;
+                    case "Single":
+                        _numberOfBedsMax = 2;
                         break;
-                    case ERoomType.Double:
-                        _numberOfBedsDefault = 4;
+                    case "Double":
+                        _numberOfBedsMax = 4;
                         break;
-                    case ERoomType.Family:
-                        _numberOfBedsDefault = 6;
+                    case "Family":
+                        _numberOfBedsMax = 6;
                         break;
-                    case ERoomType.Suite:
-                        _numberOfBedsDefault = 6;
+                    case "Suite":
+                        _numberOfBedsMax = 6;
                         break;
                 }
             }
+        }
+        public bool IsActive { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public DateTime? InactivatedDate { get; set; }
+
+        public RoomType()
+        {
+            CreatedDate = DateTime.Now;
         }
     }
 }

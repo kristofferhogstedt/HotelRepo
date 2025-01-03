@@ -18,9 +18,9 @@ namespace Hotel.src.ModelManagement.Controllers
 {
     public class CustomerController : IModelController, IInstantiable
     {
+        public IMenu PreviousMenu { get; set; }
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
-        public IMenu PreviousMenu { get; set; }
 
         public CustomerController()
         {

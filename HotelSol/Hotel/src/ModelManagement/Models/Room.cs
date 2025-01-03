@@ -11,7 +11,7 @@ namespace Hotel.src.ModelManagement.Models
         public int ID { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public RoomDetail RoomDetails { get; set; }
+        public RoomDetail Detail { get; set; }
         public string Floor { get; set; }
         public DateTime CleanedDate { get; set; }
         public bool IsActive { get; set; }
@@ -20,12 +20,8 @@ namespace Hotel.src.ModelManagement.Models
         public DateTime? InactivatedDate { get; set; }
 
         public Room()
-        { 
-        }
-
-        public Room(ERoomType roomType)
         {
-            //Type = roomType;
+            CreatedDate = DateTime.Now;
         }
     }
 }

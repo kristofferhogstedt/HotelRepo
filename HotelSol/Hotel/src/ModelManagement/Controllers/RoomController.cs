@@ -1,20 +1,19 @@
-﻿using Hotel.src.ModelManagement.Controllers.Interfaces;
+﻿using Hotel.src.FactoryManagement;
+using Hotel.src.FactoryManagement.Interfaces;
+using Hotel.src.MenuManagement.Menus.Interfaces;
+using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models.Interfaces;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
     public class RoomController : IRoomController
     {
-        public static IRoomController _instance;
-        IRoom _room;
+        public IMenu PreviousMenu { get; set; }
+        public static IInstantiable _instance;
+        private static readonly object _lock = new object(); // Lock object for thread safety
 
         public RoomController()
         {
-        }
-
-        public RoomController(IRoom room)
-        {
-            _room = room;
         }
 
         public static IRoomController GetInstance()
@@ -22,6 +21,12 @@ namespace Hotel.src.ModelManagement.Controllers
             if (_instance == null)
                 _instance = new RoomController();
             return _instance;
+        }
+
+        public static IModelController GetInstance(IMenu previousMenu)
+        {
+            _instance = InstanceGenerator.GetInstance<CustomerController>(_instance, _lock, previousMenu);
+            return (IModelController)_instance;
         }
     }
 }

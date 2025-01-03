@@ -14,7 +14,7 @@ using System.Diagnostics.Metrics;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms
 {
-    public class AddressForm : IModelRegistrationForm, IInstantiable
+    public class AddressRegistrationForm : IModelRegistrationForm, IInstantiable
     {
         public IMenu PreviousMenu { get; set; }
         private static IInstantiable _instance;
@@ -41,7 +41,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
         public static IModelRegistrationForm GetInstance(IMenu previousMenu)
         {
-            _instance = InstanceGenerator.GetInstance<AddressForm>(_instance, _lock, previousMenu);
+            _instance = InstanceGenerator.GetInstance<AddressRegistrationForm>(_instance, _lock, previousMenu);
             return (IModelRegistrationForm)_instance;
         }
 

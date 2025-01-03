@@ -1,7 +1,10 @@
 ﻿using Hotel.src.Interfaces;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers;
+using Hotel.src.ModelManagement.Controllers.Forms;
+using Hotel.src.ModelManagement.Controllers.Forms.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
+using Hotel.src.ModelManagement.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +22,39 @@ namespace Hotel.src.FactoryManagement
             //_app = app;
         }
 
-        public static IModelController GetModelController(IMenu previousMenu)
+        public static IModelController GetModelController(EModelType typeOfController, IMenu previousMenu)
         {
-            return CustomerController.GetInstance(previousMenu) as IModelController;
+            switch (typeOfController)
+            {
+                case EModelType.Customer:
+                    return CustomerController.GetInstance(previousMenu);
+                case EModelType.Room:
+                    return RoomController.GetInstance(previousMenu);
+                case EModelType.Booking:
+                    return BookingController.GetInstance(previousMenu);
+                case EModelType.Invoice:
+                    return InvoiceController.GetInstance(previousMenu);
+                default:
+                    return null;
+            }
+            //return CustomerController.GetInstance(previousMenu) as IModelController;
+        }
+        public static IModelRegistrationForm GetModelRegistrationForm(EModelType typeOfForm, IMenu previousMenu)
+        {
+            switch (typeOfForm)
+            {
+                case EModelType.Customer:
+                    return CustomerRegistrationForm.GetInstance(previousMenu);
+                case EModelType.Address:
+                    return AddressRegistrationForm.GetInstance(previousMenu);
+                //case EModelType.Room:
+                //    return RoomRegistrationForm.GetInstance(previousMenu);
+                //case EModelType.Booking:
+                //    return BookingRegistrationForm.GetInstance(previousMenu);
+                default:
+                    return null;
+            }
+            //return CustomerController.GetInstance(previousMenu) as IModelController;
         }
     }
 }
