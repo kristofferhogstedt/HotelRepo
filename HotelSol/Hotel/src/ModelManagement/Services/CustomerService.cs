@@ -11,14 +11,11 @@ namespace Hotel.src.ModelManagement.Services
             try
             {
                 DatabaseLair.DatabaseContext.Customers.Add((Customer)modelToCreate);
+                DatabaseLair.DatabaseContext.SaveChanges();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-            }
-            finally
-            {
-                DatabaseLair.DatabaseContext.SaveChanges();
             }
         }
 
