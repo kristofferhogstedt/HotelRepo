@@ -16,9 +16,9 @@ namespace Hotel.src.MenuManagement.Enums
         [Description("Städhantering")]
         CleaningManagement,
         [Description("Fakturahantering")]
-        EconomyManagement,
-        [Description("Admin")]
-        Admin,
+        InvoiceManagement,
+        //[Description("Admin")]
+        //Admin,
         [Description("Avsluta")]
         Exit
     }

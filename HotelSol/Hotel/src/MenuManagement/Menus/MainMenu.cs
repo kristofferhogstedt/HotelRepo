@@ -67,9 +67,9 @@ namespace Hotel.src.MenuManagement.Menus
                         IMenu _cleaningMenu = CleaningMenu.GetInstance(this);
                         _cleaningMenu.Run();
                         break;
-                    case MainMenuOptions.EconomyManagement:
-                        IMenu _economyMenu = InvoiceMenu.GetInstance(this);
-                        _economyMenu.Run();
+                    case MainMenuOptions.InvoiceManagement:
+                        IMenu _invoiceMenu = InvoiceMenu.GetInstance(this);
+                        _invoiceMenu.Run();
                         break;
                     case MainMenuOptions.Exit:
                         Exit.ExitProgram();

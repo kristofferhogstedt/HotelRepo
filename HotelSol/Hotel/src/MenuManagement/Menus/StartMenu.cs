@@ -36,6 +36,7 @@ namespace Hotel.src.MenuManagement.Menus
                         .AddChoices(Enum.GetValues<StartMenuOptions>())
                     );
 
+
                 switch (option)
                 {
                     case StartMenuOptions.Login:

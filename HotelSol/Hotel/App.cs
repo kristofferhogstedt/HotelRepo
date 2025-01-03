@@ -5,6 +5,7 @@ using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.Persistence;
 using Hotel.src.Persistence.Interfaces;
 using HotelLibrary.Interfaces;
+using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,10 @@ namespace Hotel
             //AppDatabase.CreateDbConnection();
             AppDatabase.SeedDatabase();
             IMenu _startMenu = StartMenu.GetInstance();
+
+            Console.WriteLine();
+            AnsiConsole.MarkupLine("[cyan]Förlåt Richard![/]");
+
             _startMenu.Run();
         }
     }
