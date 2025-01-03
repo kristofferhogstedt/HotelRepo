@@ -2,26 +2,32 @@
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.Utilities.ConsoleManagement;
 using Hotel.src.Utilities.UserInputManagement;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HotelLibrary.Utilities.UserInputManagement
 {
     public class UserInputHandler
     {
-
-        public static void UserInputEscape(IMenu previousMenu)
+        public static ConsoleKey? UserInputEscape(IMenu previousMenu)
         {
             var _key = Console.ReadKey(true).Key;
 
-            switch (_key)
+            if (_key == ConsoleKey.Escape)
             {
-                case ConsoleKey.Escape:
-                    if (previousMenu != null)
-                        previousMenu.Run();
-                    else
-                        Exit.ExitProgram();
-                    break;
-                default:
-                    break;
+                if (previousMenu != null)
+                {
+                    Console.WriteLine("Återgår...");
+                    Thread.Sleep(1000);
+                    Console.Clear();
+                    previousMenu.Run();
+                }
+                else
+                    Exit.ExitProgram();
+                return _key;
+            }
+            else
+            {
+                return _key;
             }
         }
 
@@ -38,45 +44,52 @@ namespace HotelLibrary.Utilities.UserInputManagement
             UserInputEscape(previousMenu);
             return Console.ReadLine();
         }
-        public static string UserInputStringEmail()
+
+        public static string UserInputStringNotNullOrEmpty(IMenu previousMenu)
         {
-            // TODO: Add email validation
-            return Console.ReadLine();
-        }
-        public static string UserInputStringPhone()
-        {
-            // TODO: Add phone validation
-            return Console.ReadLine();
+            var _input = "";
+            while (_input.IsNullOrEmpty())
+            {
+                _input = UserInputString(previousMenu);
+                if (_input.IsNullOrEmpty())
+                {
+                    Console.WriteLine("Får inte vara tomt.");
+                    LineClearer.ClearLastLine(1000);
+                }
+            }
+
+            return _input;
         }
 
-        public static int UserInputInt()
+        public static int UserInputInt(IMenu previousMenu)
         {
             int _output = 0;
-            while (!int.TryParse(Console.ReadLine(), out _output))
+            while (!int.TryParse(UserInputString(previousMenu), out _output))
             {
-                Console.WriteLine("Felaktig inmatning, försök igen.");
+                Console.WriteLine("Felaktig inmatning, måste vara heltal (int).");
+                LineClearer.ClearLine(1000);
             }
 
             return _output;
         }
 
-        public static ushort UserInputUshort()
+        public static ushort UserInputUshort(IMenu previousMenu)
         {
             ushort _output = 0;
-            while (!ushort.TryParse(Console.ReadLine(), out _output))
+            while (!ushort.TryParse(UserInputString(previousMenu), out _output))
             {
-                Console.WriteLine("Felaktig inmatning, försök igen.");
+                Console.WriteLine("Felaktig inmatning, heltal (ushort).");
+                LineClearer.ClearLine(1000);
             }
 
             return _output;
         }
 
-        public static int UserInputYear()
+        public static int UserInputYear(IMenu previousMenu)
         {
             var _output = 0;
-            Console.WriteLine("Ange årtal: ");
 
-            while (!int.TryParse(Console.ReadLine(), out _output) || _output < DateTime.Now.Year - 150 || _output > DateTime.Now.Year + 150)
+            while (!int.TryParse(UserInputString(previousMenu), out _output) || _output !=0 && _output < DateTime.Now.Year - 150 || _output > DateTime.Now.Year + 150 || _output != 0)
             {
                 Console.WriteLine("Felaktig inmatning, Ange ett giltigt årtal (nuvarande år +/- 150).");
                 LineClearer.ClearLastLine(1000);
@@ -85,29 +98,28 @@ namespace HotelLibrary.Utilities.UserInputManagement
             return _output;
         }
 
-        public static int UserInputMonth()
+        public static int UserInputMonth(IMenu previousMenu)
         {
             var _output = 0;
-            Console.WriteLine("Ange månad: ");
 
-            while (!int.TryParse(Console.ReadLine(), out _output) || _output < 1 || _output > 12)
+            while (!int.TryParse(UserInputString(previousMenu), out _output) || _output < 0 || _output > 12 || _output != 0)
             {
                 Console.WriteLine("Felaktig inmatning, Ange ett giltigt månad (1-12).");
+                LineClearer.ClearLastLine(1000);
             }
             return _output;
         }
 
-        public static int UserInputDay(int year, int month)
+        public static int UserInputDay(int year, int month, IMenu previousMenu)
         {
             var _output = 0;
             var _monthString = MonthConverter.ConvertMonthToString(month);
             var _daysInMonth = DateTime.DaysInMonth(year, month);
 
-            Console.WriteLine("Ange dag: ");
-
-            while (!int.TryParse(Console.ReadLine(), out _output) || _output < 1 || _output > _daysInMonth)
+            while (!int.TryParse(UserInputString(previousMenu), out _output) || _output < 0 || _output > _daysInMonth || _output != 0)
             {
                 Console.WriteLine($"Felaktig inmatning, Ange ett giltigt dag (1-{_daysInMonth} för {_monthString} {year}).");
+                LineClearer.ClearLastLine(1000);
             }
             return _output;
         }

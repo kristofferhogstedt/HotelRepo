@@ -1,4 +1,5 @@
-﻿using Hotel.src.ModelManagement.Models;
+﻿using Hotel.src.ModelManagement.Controllers.Forms.Interfaces;
+using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Spectre.Console;
 using System;
@@ -100,7 +101,6 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             //Console.ReadLine();
             //Console.Clear();
         }
-
 
         public static void RenderTable(List<ICustomer> customerList, int indexToHighlight)
         {

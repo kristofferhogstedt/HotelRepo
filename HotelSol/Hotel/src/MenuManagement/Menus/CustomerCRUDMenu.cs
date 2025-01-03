@@ -28,7 +28,32 @@ namespace Hotel.src.MenuManagement.Menus
 
         public void Run()
         {
-            throw new NotImplementedException();
+            while (true)
+            {
+                // Sprectre menyval!
+                var option = AnsiConsole.Prompt(
+                    new SelectionPrompt<CustomerCRUDMenuOptions>()
+                        .Title("Start")
+                        .UseConverter(option => option.ShowCustomerCRUDMenu())
+                        .AddChoices(Enum.GetValues<CustomerCRUDMenuOptions>())
+                    );
+
+                switch (option)
+                {
+                    case CustomerCRUDMenuOptions.PreviousMenu:
+                        PreviousMenu.Run();
+                        break;
+                    case CustomerCRUDMenuOptions.Update:
+                        var _controller = CustomerController.GetInstance(this);
+                        _controller.Create();
+                        break;
+                    case CustomerCRUDMenuOptions.Exit:
+                        Exit.ExitProgram();
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         public void Run(IModel modelToCRUD) 
