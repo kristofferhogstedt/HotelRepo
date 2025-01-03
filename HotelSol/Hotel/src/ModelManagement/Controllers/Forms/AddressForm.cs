@@ -57,34 +57,82 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             }
         }
 
+        //public IModel CreateForm()
+        //{
+        //    // Välkomstmeddelande
+        //    AnsiConsole.MarkupLine("[bold green]Adressregistrering[/]");
+        //    AnsiConsole.WriteLine();
+
+        //    // Hämta information från användaren
+        //    _streetAddress = AnsiConsole.Prompt(
+        //        new TextPrompt<string>("Ange [yellow]gatuadress[/]:")
+        //            .ValidationErrorMessage("[red]Adress måste anges.[/]")
+        //            .Validate(input => !string.IsNullOrWhiteSpace(input)));
+
+        //    _postalCode = AnsiConsole.Prompt(
+        //        new TextPrompt<string>("Ange [yellow]postnummer[/]:")
+        //            .ValidationErrorMessage("[red]Postnumret får bara innehålla siffror.[/]")
+        //            .Validate(input => int.TryParse(input, out _)));
+
+        //    _city = AnsiConsole.Prompt(
+        //        new TextPrompt<string>("Ange [yellow]stad[/]:")
+        //            .ValidationErrorMessage("[red]Stad måste anges.[/]")
+        //            .Validate(input => !string.IsNullOrWhiteSpace(input)));
+
+        //    _country = AnsiConsole.Prompt(
+        //        new TextPrompt<string>("Ange [yellow]land[/]:")
+        //            .ValidationErrorMessage("[red]Land får inte vara tomt.[/]")
+        //            .Validate(input => !string.IsNullOrWhiteSpace(input)));
+
+        //    DisplaySummary();
+
+        //    // Bekräfta kunduppgifter
+        //    bool confirm = AnsiConsole.Confirm("\nÄr alla uppgifter korrekta?");
+
+        //    if (confirm)
+        //    {
+        //        // Meddelande om lyckad registrering
+        //        AnsiConsole.MarkupLine("[bold green]Address registrerad framgångsrikt![/]");
+        //        return new Address(_country, _city, _postalCode, _streetAddress);
+        //    }
+        //    else
+        //    {
+        //        // Meddelande om avbryta
+        //        AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
+        //        Thread.Sleep(2000);
+        //        return null;
+        //    }
+        //}
+
         public IModel CreateForm()
         {
-            // Välkomstmeddelande
-            AnsiConsole.MarkupLine("[bold green]Adressregistrering[/]");
-            AnsiConsole.WriteLine();
+            Console.Clear();
+            DisplaySummary(Address);
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\nAnge [yellow]gatuadress[/]: ");
+            Data01 = UserInputHandler.UserInputString(PreviousMenu);
 
-            // Hämta information från användaren
-            _streetAddress = AnsiConsole.Prompt(
-                new TextPrompt<string>("Ange [yellow]gatuadress[/]:")
-                    .ValidationErrorMessage("[red]Adress måste anges.[/]")
-                    .Validate(input => !string.IsNullOrWhiteSpace(input)));
+            Console.Clear();
+            DisplaySummary(Address);
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\nAnge [yellow]postadress[/]: ");
+            Data02 = UserInputHandler.UserInputString(PreviousMenu);
 
-            _postalCode = AnsiConsole.Prompt(
-                new TextPrompt<string>("Ange [yellow]postnummer[/]:")
-                    .ValidationErrorMessage("[red]Postnumret får bara innehålla siffror.[/]")
-                    .Validate(input => int.TryParse(input, out _)));
+            Console.Clear();
+            DisplaySummary(Address);
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\nAnge [yellow]stad[/]: ");
+            Data03 = UserInputHandler.UserInputString(PreviousMenu);
 
-            _city = AnsiConsole.Prompt(
-                new TextPrompt<string>("Ange [yellow]stad[/]:")
-                    .ValidationErrorMessage("[red]Stad måste anges.[/]")
-                    .Validate(input => !string.IsNullOrWhiteSpace(input)));
+            Console.Clear();
+            DisplaySummary(Address);
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\nAnge [yellow]land[/]: ");
+            Data04 = UserInputHandler.UserInputString(PreviousMenu);
 
-            _country = AnsiConsole.Prompt(
-                new TextPrompt<string>("Ange [yellow]land[/]:")
-                    .ValidationErrorMessage("[red]Land får inte vara tomt.[/]")
-                    .Validate(input => !string.IsNullOrWhiteSpace(input)));
-
-            DisplaySummary();
+            Console.Clear();
+            DisplaySummary(Address);
+            FormDisplayer.DisplayCurrentFormValues(this);
 
             // Bekräfta kunduppgifter
             bool confirm = AnsiConsole.Confirm("\nÄr alla uppgifter korrekta?");
@@ -92,15 +140,16 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             if (confirm)
             {
                 // Meddelande om lyckad registrering
-                AnsiConsole.MarkupLine("[bold green]Address registrerad framgångsrikt![/]");
-                return new Address(_country, _city, _postalCode, _streetAddress);
+                AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
+                this.Address = new Address((string)Data01, (string)Data02, (string)Data03, (string)Data04);
+                return (IModel)this.Address;
             }
             else
             {
                 // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
-                return null;
+                return (IModel)this.Address;
             }
         }
 

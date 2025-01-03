@@ -6,11 +6,11 @@ namespace Hotel.src.ModelManagement.Services
 {
     public class CustomerService //: ICustomerService
     {
-        public static void Create(ICustomer customer)
+        public static void Create(ICustomer modelToCreate)
         {
             try
             {
-                DatabaseLair.DatabaseContext.Customers.Add((Customer)customer);
+                DatabaseLair.DatabaseContext.Customers.Add((Customer)modelToCreate);
             }
             catch (Exception e)
             {
@@ -29,18 +29,35 @@ namespace Hotel.src.ModelManagement.Services
         /// <returns></returns>
         public static ICustomer GetOne(string searchString)
         {
-            ICustomer _customerToReturn = DatabaseLair.DatabaseContext.Customers
-                .First(c => c.FirstName.Contains(searchString) 
-                || c.LastName.Contains(searchString));
+            var _modelToReturn = DatabaseLair.DatabaseContext.Customers
+                .Where(m => m.IsActive == true)
+                .First(m => m.FirstName.Contains(searchString) 
+                || m.LastName.Contains(searchString));
 
-            if (_customerToReturn == null)
+            if (_modelToReturn == null)
             {
                 Console.Clear();
                 DataNotFoundMessage();
                 return null;
             }
 
-            return _customerToReturn;
+            return _modelToReturn;
+        }
+
+        public static ICustomer GetOneByID(int searchID)
+        {
+            var _modelToReturn = DatabaseLair.DatabaseContext.Customers
+                .Where(m => m.IsActive == true)
+                .First(m => m.ID == searchID);
+
+            if (_modelToReturn == null)
+            {
+                Console.Clear();
+                DataNotFoundMessage();
+                return null;
+            }
+
+            return _modelToReturn;
         }
 
         /// <summary>
@@ -48,27 +65,27 @@ namespace Hotel.src.ModelManagement.Services
         /// </summary>
         /// <param name="searchString"></param>
         /// <returns></returns>
-        public static List<ICustomer> GetSpecific(string searchString)
-        {
-            List<ICustomer> _listToReturn;
-            if (searchString == null || searchString == "")
-                _listToReturn = GetAll();
-            else
-                _listToReturn = DatabaseLair.DatabaseContext.Customers
-                .Where(c => c.FirstName.Contains(searchString)
-                || c.LastName.Contains(searchString)
-                || c.Email.Contains(searchString)
-                ).ToList<ICustomer>();
+        //public static List<ICustomer> GetSpecific(string searchString)
+        //{
+        //    List<ICustomer> _listToReturn;
+        //    if (searchString == null || searchString == "")
+        //        _listToReturn = GetAll();
+        //    else
+        //        _listToReturn = DatabaseLair.DatabaseContext.Customers
+        //        .Where(c => c.FirstName.Contains(searchString)
+        //        || c.LastName.Contains(searchString)
+        //        || c.Email.Contains(searchString)
+        //        ).ToList<ICustomer>();
 
-            if (_listToReturn == null)
-            {
-                Console.Clear();
-                DataNotFoundMessage();
-                return null;
-            }
+        //    if (_listToReturn == null)
+        //    {
+        //        Console.Clear();
+        //        DataNotFoundMessage();
+        //        return null;
+        //    }
 
-            return _listToReturn;
-        }
+        //    return _listToReturn;
+        //}
 
         /// <summary>
         /// For fetching all customers
@@ -77,7 +94,9 @@ namespace Hotel.src.ModelManagement.Services
         /// <returns></returns>
         public static List<ICustomer> GetAll()
         {
-            List<ICustomer> _listToReturn = DatabaseLair.DatabaseContext.Customers.ToList<ICustomer>();
+            var _listToReturn = DatabaseLair.DatabaseContext.Customers
+                .Where(m => m.IsActive == true)
+                .ToList<ICustomer>();
 
             if (_listToReturn == null)
             {
@@ -89,15 +108,19 @@ namespace Hotel.src.ModelManagement.Services
             // Guard clause?
         }
 
-        public static void Update(ICustomer customerToUpdate)
+        public static void Update(ICustomer modelToUpdate)
         {
-            DatabaseLair.DatabaseContext.Customers.Update((Customer)customerToUpdate);
+            DatabaseLair.DatabaseContext.Customers.Update((Customer)modelToUpdate);
             DatabaseLair.DatabaseContext.SaveChanges();
         }
 
-        public void Delete()
+        public void Delete(ICustomer modelToDelete)
         {
-
+            var _modelToDelete = (Customer)modelToDelete;
+            _modelToDelete.IsActive = false;
+            _modelToDelete.InactivatedDate = DateTime.Now;
+            DatabaseLair.DatabaseContext.Customers.Update(_modelToDelete);
+            DatabaseLair.DatabaseContext.SaveChanges();
         }
 
         public static void DataNotFoundMessage()

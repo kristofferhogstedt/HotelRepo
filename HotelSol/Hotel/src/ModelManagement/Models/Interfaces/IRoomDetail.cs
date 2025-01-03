@@ -10,5 +10,9 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         ushort DefaultSize { get; set; }
         ushort NumberOfBedsDefault { get; set; }
         ushort NumberOfBedsMax { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public DateTime? InactivatedDate { get; set; }
     }
 }

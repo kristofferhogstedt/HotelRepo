@@ -8,6 +8,29 @@ namespace HotelLibrary.Utilities.UserInputManagement
 {
     public class UserInputHandler
     {
+
+        public static bool UserInputBool(IMenu previousMenu)
+        {
+            var _input = UserInputString(previousMenu).ToLower();
+
+            switch (_input)
+            {
+                case "ja":
+                case "j":
+                case "yes":
+                case "y":
+                    return true;
+                case "nej":
+                case "n":
+                case "no":
+                    return false;
+                default:
+                    Console.WriteLine("Felaktig inmatning, ange Ja eller Nej.");
+                    LineClearer.ClearLastLine(1000);
+                    return UserInputBool(previousMenu);
+            }
+        }
+
         public static ConsoleKey? UserInputEscape(IMenu previousMenu)
         {
             var _key = Console.ReadKey(true).Key;
@@ -83,87 +106,6 @@ namespace HotelLibrary.Utilities.UserInputManagement
             }
 
             return _output;
-        }
-
-        public static int UserInputYear(IMenu previousMenu)
-        {
-            var _output = 0;
-
-            while (!int.TryParse(UserInputString(previousMenu), out _output) || _output !=0 && _output < DateTime.Now.Year - 150 || _output > DateTime.Now.Year + 150 || _output != 0)
-            {
-                Console.WriteLine("Felaktig inmatning, Ange ett giltigt årtal (nuvarande år +/- 150).");
-                LineClearer.ClearLastLine(1000);
-            }
-
-            return _output;
-        }
-
-        public static int UserInputMonth(IMenu previousMenu)
-        {
-            var _output = 0;
-
-            while (!int.TryParse(UserInputString(previousMenu), out _output) || _output < 0 || _output > 12 || _output != 0)
-            {
-                Console.WriteLine("Felaktig inmatning, Ange ett giltigt månad (1-12).");
-                LineClearer.ClearLastLine(1000);
-            }
-            return _output;
-        }
-
-        public static int UserInputDay(int year, int month, IMenu previousMenu)
-        {
-            var _output = 0;
-            var _monthString = MonthConverter.ConvertMonthToString(month);
-            var _daysInMonth = DateTime.DaysInMonth(year, month);
-
-            while (!int.TryParse(UserInputString(previousMenu), out _output) || _output < 0 || _output > _daysInMonth || _output != 0)
-            {
-                Console.WriteLine($"Felaktig inmatning, Ange ett giltigt dag (1-{_daysInMonth} för {_monthString} {year}).");
-                LineClearer.ClearLastLine(1000);
-            }
-            return _output;
-        }
-
-        /// <summary>
-        /// Dateselector with current date as starting point
-        /// </summary>
-        /// <returns></returns>
-        public static DateTime UserInputDateTime()
-        {
-            return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate()));
-        }
-
-        /// <summary>
-        /// Dateselector with user-selected year as starting point
-        /// </summary>
-        /// <param name="year"></param>
-        /// <returns></returns>
-        public static DateTime UserInputDateTime(int year)
-        {
-            return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year)));
-        }
-
-        /// <summary>
-        /// Dateselector with user-selected year and month as starting point
-        /// </summary>
-        /// <param name="year"></param>
-        /// <param name="month"></param>
-        /// <returns></returns>
-        public static DateTime UserInputDateTime(int year, int month)
-        {
-            return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year, month)));
-        }
-
-        /// <summary>
-        /// Dateselector with user-selected year, month and day as starting point
-        /// </summary>
-        /// <param name="year"></param>
-        /// <param name="month"></param>
-        /// <param name="day"></param>
-        /// <returns></returns>
-        public static DateTime UserInputDateTime(int year, int month, int day)
-        {
-            return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year, month, day)));
         }
     }
 }

@@ -69,26 +69,26 @@ namespace Hotel.src.ModelManagement.Controllers
             Console.WriteLine($"\nAdress: {customer.Address.StreetAddress} {customer.Address.PostalCode} {customer.Address.City} {customer.Address.Country}");
         }
 
-        public List<ICustomer> GetSpecific()
-        {
-            string _searchString = "";
-            List<ICustomer> _customerListToReturn;
+        //public List<ICustomer> GetSpecific()
+        //{
+        //    string _searchString = "";
+        //    List<ICustomer> _customerListToReturn;
 
-            while (true)
-            {
-                Console.Clear();
-                CustomerDisplayer.DisplayModelTable(CustomerService.GetSpecific(_searchString));
-                Console.WriteLine("\nAnge sökkriterie (Namn, E-post): ");
-                _searchString = UserInputHandler.UserInputString(PreviousMenu);
-                _customerListToReturn = CustomerService.GetSpecific(_searchString);
-                if (UserInputHandler.UserInputEnter(Console.ReadKey()))
-                    break;
-                else
-                    continue;
-            }
+        //    while (true)
+        //    {
+        //        Console.Clear();
+        //        CustomerDisplayer.DisplayModelTable(CustomerService.GetSpecific(_searchString));
+        //        Console.WriteLine("\nAnge sökkriterie (Namn, E-post): ");
+        //        _searchString = UserInputHandler.UserInputString(PreviousMenu);
+        //        _customerListToReturn = CustomerService.GetSpecific(_searchString);
+        //        if (UserInputHandler.UserInputEnter(Console.ReadKey()))
+        //            break;
+        //        else
+        //            continue;
+        //    }
 
-            return _customerListToReturn;
-        }
+        //    return _customerListToReturn;
+        //}
 
         public ICustomer GetOne()
         {

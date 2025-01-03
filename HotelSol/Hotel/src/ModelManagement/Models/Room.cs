@@ -15,9 +15,12 @@ namespace Hotel.src.ModelManagement.Models
         public ERoomType Type { get; set; }
         public string Floor { get; set; }
         public ushort NumberOfBeds { get; set; }
-        public bool IsActive { get; set; }
         public ushort Size { get; set; }
         public DateTime CleanedDate { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public DateTime? InactivatedDate { get; set; }
 
         public Room()
         { 

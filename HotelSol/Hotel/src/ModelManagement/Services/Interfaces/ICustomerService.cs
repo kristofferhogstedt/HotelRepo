@@ -4,10 +4,10 @@ namespace Hotel.src.ModelManagement.Services.Interfaces
 {
     public interface ICustomerService
     {
-        void Create();
+        void Create(ICustomer customer);
         ICustomer ReadOne();
         List<ICustomer> ReadAll();
-        void Update();
+        void Update(ICustomer customer);
         string GetFullName();
     }
 }

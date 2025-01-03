@@ -49,7 +49,14 @@ namespace Hotel.src.Utilities.Seeding
                 .RuleFor(c => c.IsActive, f => f.Random.Bool(0.8f))
                 .RuleFor(c => c.CreatedDate, f => f.Date.Past())
                 .RuleFor(c => c.UpdatedDate, f => f.Date.Recent());
-                //.RuleFor(c => c.InactivatedDate, f => f.Date.Past()); // Can this be faked depending on IsActive?
+            //.RuleFor(c => c.InactivatedDate, f => f.Date.Past()); // Can this be faked depending on IsActive?
+
+            var _bookingFaker = new Faker<Booking>()
+                .RuleFor(c => c.FromDate, f => f.Date.Recent(180))
+                .RuleFor(c => c.ToDate, f => f.Date.Recent(60))
+                .RuleFor(c => c.IsActive, f => f.Random.Bool(1.0f))
+                .RuleFor(c => c.CustomerID, f => _customerFaker.Generate()
+                );
 
             var _customers = _customerFaker.Generate(num);
             return _customers;

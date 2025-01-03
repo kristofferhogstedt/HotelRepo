@@ -13,6 +13,9 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         ushort NumberOfBeds { get; set; }
         ushort Size { get; set; }
         DateTime CleanedDate { get; set; }
-        bool IsActive { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public DateTime? InactivatedDate { get; set; }
     }
 }

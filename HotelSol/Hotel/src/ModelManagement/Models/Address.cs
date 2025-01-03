@@ -7,10 +7,14 @@ namespace Hotel.src.ModelManagement.Models
     {
         [Key]
         public int ID { get; set; }
-        public string Country { get; set; }
-        public string City { get; set; }
-        public string PostalCode { get; set; }
         public string StreetAddress { get; set; }
+        public string PostalCode { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public DateTime? InactivatedDate { get; set; }
 
         public Address()
         {
