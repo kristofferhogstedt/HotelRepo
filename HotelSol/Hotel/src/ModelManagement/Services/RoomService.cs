@@ -85,7 +85,7 @@ namespace Hotel.src.ModelManagement.Services
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
             }
-            return (IRoom)_listToReturn;
+            return _listToReturn;
             // Guard clause?
         }
 

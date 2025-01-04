@@ -152,7 +152,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             AnsiConsole.MarkupLine("\nAnge [yellow]förnamn[/]: ");
             Data01 = UserInputHandler.UserInputString(PreviousMenu);
             if (Data01.ToString().IsNullOrEmpty())
-                Data01 = Room.FirstName;
+                Data01 = Room.Name;
 
             Console.Clear();
             DisplaySummary(Room);
@@ -160,29 +160,15 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             AnsiConsole.MarkupLine("\nAnge [yellow]efternamn[/]: ");
             Data02 = UserInputHandler.UserInputString(PreviousMenu);
             if (Data02.ToString().IsNullOrEmpty())
-                Data02 = Room.LastName;
+                Data02 = Room.Description;
 
             Console.Clear();
             DisplaySummary(Room);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\nAnge [yellow]födelseår[/]: ");
-            var _yearOfBirth = UserInputHandlerDateTime.UserInputYear(PreviousMenu);
-            if (_yearOfBirth == 0)
-                _yearOfBirth = Room.DateOfBirth.Year;
-
-            AnsiConsole.MarkupLine("\nAnge [yellow]födelsemånad[/]: ");
-            var _monthOfBirth = UserInputHandlerDateTime.UserInputMonth(PreviousMenu);
-            if (_monthOfBirth == 0)
-                _monthOfBirth = Room.DateOfBirth.Month;
-
-            AnsiConsole.MarkupLine("\nAnge [yellow]födelsedag[/]: ");
-            var _dayOfBirth = UserInputHandlerDateTime.UserInputMonth(PreviousMenu);
-            if (_dayOfBirth == 0)
-                _dayOfBirth = Room.DateOfBirth.Day;
-
-            Data03 = Convert.ToDateTime($"{_yearOfBirth}-{_monthOfBirth}-{_dayOfBirth}");
+            Data03 = UserInputHandlerDateTime.UserInputYear(PreviousMenu);
             if (Data03.ToString().IsNullOrEmpty())
-                Data03 = Room.DateOfBirth;
+                Data03 = Room.Floor;
 
             Console.Clear();
             DisplaySummary(Room);
@@ -282,8 +268,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         /// <summary>
         /// Summary of existing customer information
         /// </summary>
-        /// <param name="customer"></param>
-        public void DisplaySummary(IRoom customer)
+        /// <param name="entity"></param>
+        public void DisplaySummary(IRoom entity)
         {
             // Visa sammanfattning
             Console.Clear();
@@ -291,15 +277,15 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             var table = new Table();
             table.AddColumn("[red]Fält[/]");
             table.AddColumn("[red]Värde[/]");
-            table.AddRow("Förnamn", customer.FirstName);
-            table.AddRow("Efternamn", customer.LastName);
-            table.AddRow("Födelsedatum", customer.DateOfBirth.ToString());
-            table.AddRow("E-post", customer.Email);
-            table.AddRow("Telefonnummer", customer.Phone);
-            table.AddRow("Gatuadress", customer.StreetAddress);
-            table.AddRow("Postnummer", customer.PostalCode);
-            table.AddRow("Stad", customer.City);
-            table.AddRow("Land", customer.Country);
+            table.AddRow("Förnamn", entity.FirstName);
+            table.AddRow("Efternamn", entity.LastName);
+            table.AddRow("Födelsedatum", entity.DateOfBirth.ToString());
+            table.AddRow("E-post", entity.Email);
+            table.AddRow("Telefonnummer", entity.Phone);
+            table.AddRow("Gatuadress", entity.StreetAddress);
+            table.AddRow("Postnummer", entity.PostalCode);
+            table.AddRow("Stad", entity.City);
+            table.AddRow("Land", entity.Country);
             AnsiConsole.Write(table);
         }
     }
