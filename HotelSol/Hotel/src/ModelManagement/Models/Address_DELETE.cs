@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hotel.src.ModelManagement.Models
 {
-    public class Address : IAddress, IControllableModel // ISupportModel
+    public class Address_DELETE //: IAddress, IControllableModel // ISupportModel
     {
         [Key]
         public int ID { get; set; }
@@ -33,18 +33,18 @@ namespace Hotel.src.ModelManagement.Models
 
         public string Info => throw new NotImplementedException();
 
-        public Address()
-        {
-            CreatedDate = DateTime.Now;
-        }
+        //public Address()
+        //{
+        //    CreatedDate = DateTime.Now;
+        //}
 
-        public Address(string country, string city, string postalCode, string streetAddress)
-        {
-            Country = country;
-            City = city;
-            PostalCode = postalCode;
-            StreetAddress = streetAddress;
-            CreatedDate = DateTime.Now;
-        }
+        //public Address(string country, string city, string postalCode, string streetAddress)
+        //{
+        //    Country = country;
+        //    City = city;
+        //    PostalCode = postalCode;
+        //    StreetAddress = streetAddress;
+        //    CreatedDate = DateTime.Now;
+        //}
     }
 }

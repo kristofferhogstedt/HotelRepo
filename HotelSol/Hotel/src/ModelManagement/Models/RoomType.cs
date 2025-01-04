@@ -9,6 +9,11 @@ namespace Hotel.src.ModelManagement.Models
     {
         [Key]
         public int ID { get; set; }
+
+        //-------------------------------------
+        public List<RoomDetail> RoomDetails { get; set; }
+        //-------------------------------------
+
         public string Name { get; set; }
 
         private int _sizeDefault;

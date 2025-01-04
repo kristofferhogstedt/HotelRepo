@@ -34,14 +34,15 @@ namespace Hotel.src.ModelManagement.Services
         {
             var _modelToReturn = DatabaseLair.DatabaseContext.Bookings
                 .Where(m => m.IsActive == true)
-                .First(m => m.CustomerID.ToString().Contains(searchString));
+                .First();
+            //    .First(m => m.CustomerID.ToString().Contains(searchString));
 
-            if (_modelToReturn == null)
-            {
-                Console.Clear();
-                ServiceMessager.DataNotFoundMessage();
-                return null;
-            }
+            //if (_modelToReturn == null)
+            //{
+            //    Console.Clear();
+            //    ServiceMessager.DataNotFoundMessage();
+            //    return null;
+            //}
 
             return _modelToReturn;
         }

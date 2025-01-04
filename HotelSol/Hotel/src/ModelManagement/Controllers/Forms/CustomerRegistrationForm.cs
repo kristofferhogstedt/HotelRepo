@@ -8,6 +8,7 @@ using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services;
+using Hotel.src.Utilities.ConsoleManagement;
 using Hotel.src.Utilities.UserInputManagement;
 using Hotel.src.Utilities.UserInputManagement.RegexManagement;
 using HotelLibrary.Utilities.UserInputManagement;
@@ -23,15 +24,15 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public IMenu PreviousMenu { get; set; }
         public EModelType ModelType { get; set; } = EModelType.Customer;
 
-        public object Data01 { get; set; }
-        public object Data02 { get; set; }
-        public object Data03 { get; set; }
-        public object Data04 { get; set; }
-        public object Data05 { get; set; }
-        public object Data06 { get; set; }
-        public object Data07 { get; set; }
-        public object Data08 { get; set; }
-        public object Data09 { get; set; }
+        public object Data01 { get; set; } // First name
+        public object Data02 { get; set; } // Last name
+        public object Data03 { get; set; } // Date of birth
+        public object Data04 { get; set; } // Email
+        public object Data05 { get; set; } // Phone
+        public object Data06 { get; set; } // Street Address
+        public object Data07 { get; set; } // Postal Code
+        public object Data08 { get; set; } // City
+        public object Data09 { get; set; } // Country
         public object Data10 { get; set; }
         public IModelRegistrationForm SubForm { get; set; }
 
@@ -40,7 +41,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public DateTime _dateOfBirth;
         public string _email;
         public string _phone;
-        IAddress _address;
         public ICustomer Customer { get; set; }
 
         public static IModelRegistrationForm GetInstance(IMenu previousMenu)
@@ -49,113 +49,32 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             return (IModelRegistrationForm)_instance;
         }
 
-        //public IModel CreateOrEdit(IModel customerToEdit)
-        //{
-        //    if (customerToEdit == null)
-        //        return CreateForm();
-        //    else
-        //    {
-        //        Customer = (ICustomer)customerToEdit;
-        //        DisplaySummary(Customer);
-        //        return EditForm((IModel)Customer);
-        //    }
-        //}
-
-        //public IModel CreateForm()
-        //{
-
-        //    // Välkomstmeddelande
-        //    AnsiConsole.MarkupLine("[bold green]Kundregistrering[/]");
-        //    AnsiConsole.WriteLine();
-
-        //    // Hämta information från användaren
-        //    _firstName = AnsiConsole.Prompt(
-        //        new TextPrompt<string>("Ange [yellow]förnamn[/]:")
-        //            .ValidationErrorMessage("[red]Namnet får inte vara tomt.[/]")
-        //            .Validate(input => !string.IsNullOrWhiteSpace(input)));
-        //    _lastName = AnsiConsole.Prompt(
-        //        new TextPrompt<string>("Ange [yellow]efternamn[/]:")
-        //            .ValidationErrorMessage("[red]Namnet får inte vara tomt.[/]")
-        //            .Validate(input => !string.IsNullOrWhiteSpace(input)));
-
-        //    string _yearOfBirth = AnsiConsole.Prompt(
-        //        new TextPrompt<string>("Ange [yellow]födelseår[/]:")
-        //            .ValidationErrorMessage("[red]Födelseår måste vara numeriskt.[/]")
-        //            .Validate(input => ushort.TryParse(input, out _)));
-
-        //    string _monthOfBirth = AnsiConsole.Prompt(
-        //        new TextPrompt<string>("Ange [yellow]födelsemånad[/]:")
-        //            .ValidationErrorMessage("[red]Födelsemånad måste vara numeriskt.[/]")
-        //            .Validate(input => ushort.TryParse(input, out _)));
-
-        //    _dateOfBirth = UserInputHandlerDateTime.UserInputDateTime(Convert.ToUInt16(_yearOfBirth), Convert.ToUInt16(_monthOfBirth));
-
-        //    _email = AnsiConsole.Prompt(
-        //        new TextPrompt<string>("Ange [yellow]e-post[/]:")
-        //            .ValidationErrorMessage("[red]Ogiltig e-postadress. Måste innehålla \"@\".[/]")
-        //            .Validate(input => input.Contains("@")));
-
-        //    _phone = AnsiConsole.Prompt(
-        //        new TextPrompt<string>("Ange [yellow]telefonnummer[/]:")
-        //            .ValidationErrorMessage("[red]Telefonnumret måste vara numeriskt![/]")
-        //            .Validate(input => long.TryParse(input, out _)));
-
-        //    // Create or edit Address
-        //    var _addressForm = AddressForm.GetInstance(PreviousMenu);
-
-        //    if (Customer != null)
-        //        _address = (IAddress)_addressForm.EditForm(Customer.Address);
-        //    else
-        //        _address = (IAddress)_addressForm.CreateForm();
-
-
-        //    DisplaySummary();
-
-        //    // Bekräfta kunduppgifter
-        //    bool confirm = AnsiConsole.Confirm("\nÄr alla uppgifter korrekta?");
-
-        //    if (confirm)
-        //    {
-        //        // Meddelande om lyckad registrering
-        //        AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
-        //        Customer = new Customer(_firstName, _lastName, _dateOfBirth, _email, _phone, (Address)_address);
-        //        return (IModel)Customer;
-        //    }
-        //    else
-        //    {
-        //        // Meddelande om avbryta
-        //        AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
-        //        Thread.Sleep(2000);
-        //        PreviousMenu.Run();
-        //        return null;
-        //    }
-        //}
-
-
         public IModel CreateForm()
         {
             Console.Clear();
             DisplaySummary(Customer);
             FormDisplayer.DisplayCurrentFormValues(this);
-            AnsiConsole.MarkupLine("\nAnge [yellow]förnamn[/]: ");
+            AnsiConsole.MarkupLine("\n[yellow]förnamn[/]: ");
             Data01 = UserInputHandler.UserInputString(PreviousMenu);
 
             Console.Clear();
             DisplaySummary(Customer);
             FormDisplayer.DisplayCurrentFormValues(this);
-            AnsiConsole.MarkupLine("\nAnge [yellow]efternamn[/]: ");
+            AnsiConsole.MarkupLine("\n[yellow]efternamn[/]: ");
             Data02 = UserInputHandler.UserInputString(PreviousMenu);
 
             Console.Clear();
             DisplaySummary(Customer);
             FormDisplayer.DisplayCurrentFormValues(this);
-            AnsiConsole.MarkupLine("\nAnge [yellow]födelseår[/]: ");
+            AnsiConsole.MarkupLine("\n[yellow]födelseår[/]: ");
             var _yearOfBirth = UserInputHandlerDateTime.UserInputYear(PreviousMenu);
+            LineClearer.ClearLine(1000);
 
-            AnsiConsole.MarkupLine("\nAnge [yellow]födelsemånad[/]: ");
+            AnsiConsole.MarkupLine("\n[yellow]födelsemånad[/]: ");
             var _monthOfBirth = UserInputHandlerDateTime.UserInputMonth(PreviousMenu);
+            LineClearer.ClearLine(1000);
 
-            AnsiConsole.MarkupLine("\nAnge [yellow]födelsedag[/]: ");
+            AnsiConsole.MarkupLine("\n[yellow]födelsedag[/]: ");
             var _dayOfBirth = UserInputHandlerDateTime.UserInputMonth(PreviousMenu);
 
             Data03 = Convert.ToDateTime($"{_yearOfBirth}-{_monthOfBirth}-{_dayOfBirth}");
@@ -163,21 +82,39 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             DisplaySummary(Customer);
             FormDisplayer.DisplayCurrentFormValues(this);
-            AnsiConsole.MarkupLine("\nAnge [yellow]E-post[/]: ");
+            AnsiConsole.MarkupLine("\n[yellow]E-post[/]: ");
             Data04 = UserInputRegexHandler.UserInputRegexEmail(PreviousMenu);
 
             Console.Clear();
             DisplaySummary(Customer);
             FormDisplayer.DisplayCurrentFormValues(this);
-            AnsiConsole.MarkupLine("\nAnge [yellow]telefonnummer[/]: ");
+            AnsiConsole.MarkupLine("\n[yellow]telefonnummer[/]: ");
             Data05 = UserInputRegexHandler.UserInputRegexPhone(PreviousMenu);
 
+            Console.Clear();
+            DisplaySummary(Customer);
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Gatuadress[/]: ");
+            Data06 = UserInputHandler.UserInputString(PreviousMenu);
 
-            var _addressController = (ISupportModelController)ModelFactory.GetModelController(EModelType.Address, PreviousMenu);
-            // Address registration form
-            //var _addressForm = AddressRegistrationForm.GetInstance(PreviousMenu);
-            var _addressID = _addressController.CreateAndReturnID();
-            Data06 = _addressID;
+            Console.Clear();
+            DisplaySummary(Customer);
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Postnummer[/]: ");
+            Data07 = UserInputRegexHandler.UserInputRegexPostalCode(PreviousMenu);
+
+            Console.Clear();
+            DisplaySummary(Customer);
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Stad[/]: ");
+            Data08 = UserInputHandler.UserInputString(PreviousMenu);
+
+            Console.Clear();
+            DisplaySummary(Customer);
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Land[/]: ");
+            Data09 = UserInputHandler.UserInputString(PreviousMenu);
+
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
 
@@ -188,8 +125,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             {
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
-                this.Customer = new Customer((string)Data01, (string)Data02, (DateTime)Data03, (string)Data04, (string)Data05, (int)Data06);
-                return (IModel)this.Customer;
+                Customer = new Customer((string)Data01, (string)Data02, (DateTime)Data03, (string)Data04
+                    , (string)Data05, (string)Data06, (string)Data07, (string)Data08, (string)Data09);
+                return (IModel)Customer;
             }
             else
             {
@@ -197,7 +135,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
                 CreateForm();
-                return (IModel)this.Customer;
+                return (IModel)Customer;
             }
         }
 
@@ -259,27 +197,37 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             if (Data05.ToString().IsNullOrEmpty())
                 Data05 = Customer.Phone;
 
-            var _addressController = ModelFactory.GetModelController(EModelType.Address, PreviousMenu);
+            Console.Clear();
+            DisplaySummary(Customer);
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Gatuadress[/]: ");
+            Data06 = UserInputHandler.UserInputString(PreviousMenu);
+            if (Data06.ToString().IsNullOrEmpty())
+                Data06 = Customer.StreetAddress;
 
-            _addressController.DisplayCurrentModelInfo(Customer.Address);
-            AnsiConsole.MarkupLine("Uppdatera [yellow]adress[/]?");
-            if (UserInputHandler.UserInputBool(PreviousMenu))
-            {
-                // Address registration form
-                var _addressForm = AddressRegistrationForm.GetInstance(PreviousMenu);
-                _addressForm.Customer = Customer;
+            Console.Clear();
+            DisplaySummary(Customer);
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Postnummer[/]: ");
+            Data07 = UserInputRegexHandler.UserInputRegexPostalCode(PreviousMenu);
+            if (Data07.ToString().IsNullOrEmpty())
+                Data07 = Customer.PostalCode;
 
-                // If customer exists, and an address, edit it. If not, create a new one.
-                if (Customer != null)
-                {
-                    if (Customer.Address != null)
-                        Data06 = (IAddress)_addressForm.EditForm(this.Customer.Address);
-                    else
-                        Data06 = (IAddress)_addressForm.CreateForm();
-                }
-                else
-                    Data06 = (IAddress)_addressForm.CreateForm();
-            }
+            Console.Clear();
+            DisplaySummary(Customer);
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Stad[/]: ");
+            Data08 = UserInputHandler.UserInputString(PreviousMenu);
+            if (Data08.ToString().IsNullOrEmpty())
+                Data08 = Customer.City;
+
+            Console.Clear();
+            DisplaySummary(Customer);
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Land[/]: ");
+            Data09 = UserInputHandler.UserInputString(PreviousMenu);
+            if (Data09.ToString().IsNullOrEmpty())
+                Data09 = Customer.Country;
 
             Console.Clear();
             DisplaySummary(Customer);
@@ -292,8 +240,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             {
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
-                this.Customer = new Customer((string)Data01, (string)Data02, (DateTime)Data03, (string)Data04, (string)Data05, (Address)Data06);
-                return (IModel)this.Customer;
+                Customer = new Customer((string)Data01, (string)Data02, (DateTime)Data03, (string)Data04
+                    , (string)Data05, (string)Data06, (string)Data07, (string)Data08, (string)Data09);
+                return (IModel)Customer;
             }
             else
             {
@@ -301,7 +250,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
                 EditForm(modelToUpdate);
-                return (IModel)this.Customer;
+                return (IModel)Customer;
             }
         }
 
@@ -317,17 +266,13 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             table.AddRow("Förnamn", (string)Data01);
             table.AddRow("Efternamn", (string)Data02);
             table.AddRow("Födelsedatum", Data03.ToString());
-            table.AddRow("E-post", (string)Data05);
+            table.AddRow("E-post", (string)Data04);
             table.AddRow("Telefonnummer", (string)Data05);
-            if (SubForm == null)
-                table.AddRow("Adress", "Ej angiven");
-            else
-            {
-                table.AddRow("Adress", $"{(IAddress)SubForm.Data01}");
-                table.AddRow("Adress", $"{(IAddress)SubForm.Data02}");
-                table.AddRow("Adress", $"{(IAddress)SubForm.Data03}");
-                table.AddRow("Adress", $"{(IAddress)SubForm.Data04}");
-            }
+            table.AddRow("Gatuadress", (string)Data06);
+            table.AddRow("Postnummer", (string)Data07);
+            table.AddRow("Stad", (string)Data08);
+            table.AddRow("Land", (string)Data09);
+
             AnsiConsole.Write(table);
         }
 
@@ -337,8 +282,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         /// <param name="customer"></param>
         public void DisplaySummary(ICustomer customer)
         {
-            var _address = AddressService.GetOneByCustomerID(customer.ID, PreviousMenu);
-
             // Visa sammanfattning
             Console.Clear();
             AnsiConsole.MarkupLine("\n[bold green]Sammanfattning av kundinformation:[/]");
@@ -350,10 +293,10 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             table.AddRow("Födelsedatum", customer.DateOfBirth.ToString());
             table.AddRow("E-post", customer.Email);
             table.AddRow("Telefonnummer", customer.Phone);
-            if (_address == null)
-                table.AddRow("Adress", "Ej angiven");
-            else
-                table.AddRow("Adress", $"{_address.StreetAddress}, {_address.PostalCode} {_address.City}, {_address.Country}");
+            table.AddRow("Gatuadress", customer.StreetAddress);
+            table.AddRow("Postnummer", customer.PostalCode);
+            table.AddRow("Stad", customer.City);
+            table.AddRow("Land", customer.Country);
             AnsiConsole.Write(table);
         }
     }

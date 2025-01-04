@@ -11,7 +11,10 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         string Email { get; set; }
         string Phone { get; set; }
         DateTime DateOfBirth { get; set; }
-        int AddressID { get; set; }
+        string StreetAddress { get; set; }
+        string PostalCode { get; set; }
+        string City { get; set; }
+        string Country { get; set; }
         List<Booking>? Bookings { get; set; }
         bool IsActive { get; set; }
         DateTime CreatedDate { get; set; }

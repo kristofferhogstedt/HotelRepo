@@ -9,9 +9,17 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         [Key]
         int ID { get; set; }
 
+        //-------------------------------------
         [Required]
-        int CustomerID { get; set; }
-        int RoomID { get; set; }
+        [ForeignKey("Customer")]
+        public int CustomerID { get; set; }
+        public Customer Customer { get; set; }
+        [Required]
+        public Room Room { get; set; }
+        [Required]
+        public Invoice Invoice { get; set; }
+        //-------------------------------------
+
         DateTime FromDate { get; set; }
         DateTime ToDate { get; set; }
         bool IsActive { get; set; }

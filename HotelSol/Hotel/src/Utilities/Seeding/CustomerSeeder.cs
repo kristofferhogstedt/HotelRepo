@@ -31,19 +31,16 @@ namespace Hotel.src.Utilities.Seeding
         /// <returns></returns>
         public static List<Customer> CreateSeed(int num)
         {
-            var _addressFaker = new Faker<Address>()
-                .RuleFor(c => c.Country, f => f.Address.Country())
-                .RuleFor(c => c.City, f => f.Address.City())
-                .RuleFor(c => c.PostalCode, f => f.Address.ZipCode())
-                .RuleFor(c => c.StreetAddress, f => f.Address.StreetAddress());
-
             var _customerFaker = new Faker<Customer>()
                 .RuleFor(c => c.FirstName, f => f.Name.FirstName())
                 .RuleFor(c => c.LastName, f => f.Name.LastName())
                 .RuleFor(c => c.DateOfBirth, f => f.Date.Past(18))
                 .RuleFor(c => c.Email, f => f.Internet.Email())
                 .RuleFor(c => c.Phone, f => f.Phone.PhoneNumber())
-                .RuleFor(c => c.Address, f => _addressFaker.Generate())
+                .RuleFor(c => c.StreetAddress, f => f.Address.StreetAddress())
+                .RuleFor(c => c.City, f => f.Address.City())
+                .RuleFor(c => c.PostalCode, f => f.Address.ZipCode())
+                .RuleFor(c => c.Country, f => f.Address.Country())
                 .RuleFor(c => c.IsActive, f => f.Random.Bool(0.8f))
                 .RuleFor(c => c.CreatedDate, f => f.Date.Past())
                 .RuleFor(c => c.UpdatedDate, f => f.Date.Recent());

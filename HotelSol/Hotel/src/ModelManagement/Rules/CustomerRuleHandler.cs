@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Rules
 {
-    public class AddressRuleHandler
+    public class CustomerRuleHandler
     {
-        public static bool ValidateStreetAddressLength(string input)
+        public static bool ValidateFirstNameLength(string input)
         {
             if (input.Length < 3)
             {

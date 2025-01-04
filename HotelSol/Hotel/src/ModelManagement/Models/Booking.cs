@@ -11,9 +11,17 @@ namespace Hotel.src.ModelManagement.Models
     {
         [Key]
         public int ID { get; set; }
+
+        //-------------------------------------
         [Required]
+        [ForeignKey("Customer")]
         public int CustomerID { get; set; }
-        public int RoomID { get; set; }
+        public Customer Customer { get; set; }
+        [Required]
+        public Room Room { get; set; }
+        [Required]
+        public Invoice Invoice { get; set; }
+        //-------------------------------------
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
         public bool IsActive { get; set; }
@@ -24,7 +32,7 @@ namespace Hotel.src.ModelManagement.Models
         [NotMapped]
         public EModelType ModelTypeEnum { get; set; } = EModelType.Booking;
         [NotMapped]
-        public string Info => $"ID: {ID}, KundID: {CustomerID}, RumID: {RoomID}, Fråndatum: {FromDate}, Tilldatum: {ToDate}";
+        public string Info => $"ID: {ID}, Fråndatum: {FromDate}, Tilldatum: {ToDate}";
 
         public Booking()
         {

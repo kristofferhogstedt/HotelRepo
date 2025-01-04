@@ -64,8 +64,9 @@ namespace HotelLibrary.Utilities.UserInputManagement
 
         public static string UserInputString(IMenu previousMenu)
         {
-            UserInputEscape(previousMenu);
-            return Console.ReadLine();
+            var _firstKey = UserInputEscape(previousMenu);
+            var _output = _firstKey + Console.ReadLine();
+            return _output;
         }
 
         public static string UserInputStringNotNullOrEmpty(IMenu previousMenu)

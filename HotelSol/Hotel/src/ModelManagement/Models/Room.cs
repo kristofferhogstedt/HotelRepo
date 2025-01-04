@@ -9,9 +9,14 @@ namespace Hotel.src.ModelManagement.Models
     {
         [Key]
         public int ID { get; set; }
+        //-------------------------------------
+        [ForeignKey("Booking")]
+        public List<Booking>? Bookings { get; set; }
+        public RoomDetail Detail { get; set; }
+        //-------------------------------------
+
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public RoomDetail Detail { get; set; }
         public string Floor { get; set; }
         public DateTime CleanedDate { get; set; }
         public bool IsActive { get; set; }

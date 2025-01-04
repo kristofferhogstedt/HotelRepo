@@ -19,12 +19,12 @@ namespace Hotel.src.Persistence
             RoomTypeSeeder.Seed();
             SeederService.Message("RoomType", DatabaseLair.DatabaseContext.RoomTypes.Any());
 
-            RoomSeeder.Seed();
-            SeederService.Message("Room", DatabaseLair.DatabaseContext.Rooms.Any());
+            //RoomSeeder.Seed();
+            //SeederService.Message("Room", DatabaseLair.DatabaseContext.Rooms.Any());
 
             // Bookings
-            BookingSeeder.Seed();
-            SeederService.Message("Booking", DatabaseLair.DatabaseContext.Bookings.Any());
+            //BookingSeeder.Seed();
+            //SeederService.Message("Booking", DatabaseLair.DatabaseContext.Bookings.Any());
 
             // Invoices
             InvoiceSeeder.Seed();

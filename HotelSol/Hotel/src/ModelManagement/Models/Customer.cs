@@ -9,13 +9,19 @@ namespace Hotel.src.ModelManagement.Models
     {
         [Key]
         public int ID { get; set; }
+        //-------------------------------------
+        public List<Booking>? Bookings { get; set; }
+        //-------------------------------------
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public int AddressID { get; set; }
-        public List<Booking>? Bookings { get; set; }
+        public string StreetAddress { get; set; }
+        public string PostalCode { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
@@ -35,14 +41,17 @@ namespace Hotel.src.ModelManagement.Models
         {
             CreatedDate = DateTime.Now;
         }
-        public Customer(string firstName, string lastName, DateTime dateOfBirth, string email, string phone, int addressID)
+        public Customer(string firstName, string lastName, DateTime dateOfBirth, string email, string phone, string streetAddress, string postalCode, string city, string country)
         {
             FirstName = firstName;
             LastName = lastName;
             DateOfBirth = dateOfBirth;
-            AddressID = addressID;
             Email = email;
             Phone = phone;
+            StreetAddress = streetAddress;
+            PostalCode = postalCode;
+            City = city;
+            Country = country;
             CreatedDate = DateTime.Now;
         }
     }

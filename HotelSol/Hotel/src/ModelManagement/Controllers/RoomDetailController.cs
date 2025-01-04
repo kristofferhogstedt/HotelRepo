@@ -60,6 +60,16 @@ namespace Hotel.src.ModelManagement.Controllers
             throw new NotImplementedException();
         }
 
+        public IModel GetOne()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(IModel modelToDelete)
+        {
+            throw new NotImplementedException();
+        }
+
         //public void CreateRoomType(string name, ushort defaultSize, ushort numberOfBedsDefault, ushort numberOfBedsMax)
         //{
         //    _roomType.Name = name;

@@ -24,7 +24,7 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
                 table.AddRow(
                     entity.ID.ToString(),
                     entity.CustomerID.ToString(),
-                    entity.RoomID.ToString(),
+                    entity.Room.ID.ToString(),
                     entity.FromDate.ToString(),
                     entity.ToDate.ToString()
                     );
@@ -62,7 +62,7 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
                 table.AddRow(
                     $"[red]{_entityArray[i].ID.ToString()}[/]",
                     _entityArray[i].CustomerID.ToString(),
-                    _entityArray[i].RoomID.ToString(),
+                    _entityArray[i].Room.ID.ToString(),
                     _entityArray[i].FromDate.ToString(),
                     _entityArray[i].ToDate.ToString()
                     );
@@ -77,7 +77,7 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             var panel = new Panel($@"
                 Id: {_entity.ID}
                 Namn: {_entity.CustomerID.ToString()}
-                Namn: {_entity.RoomID.ToString()}
+                Namn: {_entity.Room.ID.ToString()}
                 E-post: {_entity.FromDate.ToString()}
                 Telefon: {_entity.ToDate.ToString()}
             ");

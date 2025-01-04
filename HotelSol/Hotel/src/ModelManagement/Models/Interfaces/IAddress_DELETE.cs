@@ -1,6 +1,6 @@
 ﻿namespace Hotel.src.ModelManagement.Models.Interfaces
 {
-    public interface IAddress : IModel
+    public interface IAddress_DELETE //: IModel
     {
         int ID { get; set; }
         string StreetAddress { get; set; }

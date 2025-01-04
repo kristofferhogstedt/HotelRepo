@@ -15,8 +15,9 @@ namespace Hotel.src.Utilities.UserInputManagement.RegexManagement
         {
             while (true)
             {
+                UserInputHandler.UserInputEscape(previousMenu);
                 string _email = UserInputHandler.UserInputString(previousMenu);
-                if (RegexHandler.CheckRegexEmail(_email))
+                if (RegexHandler.CheckRegexMatch(_email, RegexSettings.EmailPattern))
                     return _email;
                 else if (_email == "")
                     return _email;
@@ -32,14 +33,33 @@ namespace Hotel.src.Utilities.UserInputManagement.RegexManagement
         {
             while (true)
             {
-                string _phone = UserInputHandler.UserInputString(previousMenu);
-                if (RegexHandler.CheckRegexPhone(_phone))
-                    return _phone;
-                else if (_phone == "")
-                    return _phone;
+                UserInputHandler.UserInputEscape(previousMenu);
+                string _output = UserInputHandler.UserInputString(previousMenu);
+                if (RegexHandler.CheckRegexMatch(_output, RegexSettings.PhonePattern))
+                    return _output;
+                else if (_output == "")
+                    return _output;
                 else
                 { 
                     Console.WriteLine("Invalid phone number. Please enter a valid phone number.");
+                    LineClearer.ClearLastLine(1000);
+                }
+            }
+        }
+
+        public static string UserInputRegexPostalCode(IMenu previousMenu)
+        {
+            while (true)
+            {
+                UserInputHandler.UserInputEscape(previousMenu);
+                string _output = UserInputHandler.UserInputString(previousMenu);
+                if (RegexHandler.CheckRegexMatch(_output, RegexSettings.PostalCodePattern))
+                    return _output;
+                else if (_output == "")
+                    return _output;
+                else
+                {
+                    Console.WriteLine("Invalid postal code. Please enter a valid one.");
                     LineClearer.ClearLastLine(1000);
                 }
             }

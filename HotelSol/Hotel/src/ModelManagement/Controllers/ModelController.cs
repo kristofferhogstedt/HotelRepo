@@ -14,6 +14,7 @@ using System.Reflection.Metadata;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
+    // NOT IN USE
     public class ModelController<T> : IModelController, IInstantiable where T : IControllableModel
     {
         public IMenu PreviousMenu { get; set; }
@@ -85,6 +86,11 @@ namespace Hotel.src.ModelManagement.Controllers
         }
 
         public IModel GetOne()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(IModel modelToDelete)
         {
             throw new NotImplementedException();
         }

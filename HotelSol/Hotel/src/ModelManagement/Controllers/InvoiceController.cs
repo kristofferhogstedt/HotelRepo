@@ -60,5 +60,15 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             throw new NotImplementedException();
         }
+
+        public IModel GetOne()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(IModel modelToDelete)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

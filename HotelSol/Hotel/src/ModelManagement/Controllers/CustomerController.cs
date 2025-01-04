@@ -145,10 +145,11 @@ namespace Hotel.src.ModelManagement.Controllers
             Console.WriteLine($"\nFödelsedatum: {_customer.DateOfBirth}");
             Console.WriteLine($"\nE-post: {_customer.Email}");
             Console.WriteLine($"\nTelefon: {_customer.Phone}");
+            Console.WriteLine($"\nGatuadress: {_customer.StreetAddress}");
+            Console.WriteLine($"\nPostnummer: {_customer.PostalCode}");
+            Console.WriteLine($"\nStad: {_customer.City}");
+            Console.WriteLine($"\nLand: {_customer.Country}");
 
-            var _address = AddressService.GetOneByCustomerID(_customer.ID, PreviousMenu);
-
-            Console.WriteLine($"\nAdress: {_address.StreetAddress} {_address.PostalCode} {_address.City} {_address.Country}");
         }
     }
 }

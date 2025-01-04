@@ -13,7 +13,7 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
     public interface IModel //: ICustomer
     {
         [NotMapped]
-        public static EModelType ModelTypeEnum { get; set; }
+        public EModelType ModelTypeEnum { get; set; }
 
         string Info { get; }
     }

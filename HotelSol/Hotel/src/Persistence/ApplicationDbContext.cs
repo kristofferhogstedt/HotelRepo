@@ -10,11 +10,10 @@ namespace Hotel.src.Persistence
         private static readonly object _lock = new object();
         private static ApplicationDbContext _instance;
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Address> Addresses { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
-        public DbSet<Room> Rooms { get; set; }
         public DbSet<RoomType> RoomTypes { get; set; }
+        public DbSet<Room> Rooms { get; set; }
         public DbSet<RoomDetail> RoomDetails { get; set; }
 
         public ApplicationDbContext()

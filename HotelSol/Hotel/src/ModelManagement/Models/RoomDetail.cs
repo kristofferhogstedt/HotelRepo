@@ -10,11 +10,18 @@ namespace Hotel.src.ModelManagement.Models
         [Key]
         public int ID { get; set; }
 
-        [ForeignKey("RoomID")]
+        //-------------------------------------
+        [ForeignKey("Room")]
         public int RoomID { get; set; }
+        public Room Room { get; set; }
 
         [ForeignKey("RoomType")]
-        public int TypeID { get; set; }
+        [Required]
+        public int RoomTypeID { get; set; }
+        [Required]
+        public RoomType RoomType { get; set; }
+        //-------------------------------------
+
         public int Size { get; set; }
         public int NumberOfBeds { get; set; }
         public bool IsActive { get; set; }
