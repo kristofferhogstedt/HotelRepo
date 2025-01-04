@@ -1,7 +1,10 @@
-﻿using Hotel.src.FactoryManagement.Interfaces;
+﻿using Hotel.src.FactoryManagement;
+using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.MenuManagement.Enums;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
+using Hotel.src.ModelManagement.Models;
+using Hotel.src.ModelManagement.Models.Enums;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -51,26 +54,27 @@ namespace Hotel.src.MenuManagement.Menus
                     case MainMenuOptions.PreviousMenu:
                         PreviousMenu.Run();
                         break;
-                    case MainMenuOptions.CustomerManagement:
-                        IMenu _customerMenu = CustomerMenu.GetInstance(this);
-                        _customerMenu.Run();
-                        break;
                     case MainMenuOptions.BookingManagement:
-                        IMenu _bookingMenu = BookingMenu.GetInstance(this);
+                        IMenu _bookingMenu = MenuFactory.GetMenu<BookingMenu>(this);
+                        //BookingMenu.GetInstance(this); OLD WAY
                         _bookingMenu.Run();
                         break;
+                    case MainMenuOptions.CustomerManagement:
+                        IMenu _customerMenu = MenuFactory.GetMenu<CustomerMenu>(this);
+                        _customerMenu.Run();
+                        break;
                     case MainMenuOptions.RoomManagement:
-                        IMenu _roomMenu = RoomMenu.GetInstance(this);
+                        IMenu _roomMenu = MenuFactory.GetMenu<RoomMenu>(this);
                         _roomMenu.Run();
                         break;
-                    case MainMenuOptions.CleaningManagement:
-                        IMenu _cleaningMenu = CleaningMenu.GetInstance(this);
-                        _cleaningMenu.Run();
-                        break;
                     case MainMenuOptions.InvoiceManagement:
-                        IMenu _invoiceMenu = InvoiceMenu.GetInstance(this);
+                        IMenu _invoiceMenu = MenuFactory.GetMenu<InvoiceMenu>(this); ;
                         _invoiceMenu.Run();
                         break;
+                    //case MainMenuOptions.CleaningManagement:
+                    //    IMenu _cleaningMenu = CleaningMenu.GetInstance(this);
+                    //    _cleaningMenu.Run();
+                    //    break;
                     case MainMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;

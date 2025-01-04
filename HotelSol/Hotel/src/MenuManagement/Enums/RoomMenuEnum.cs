@@ -10,15 +10,15 @@ namespace Hotel.src.MenuManagement.Enums
 {
     public enum RoomMenuOptions
     {
-        [Description("Föregående meny")]
+        [Description("<--")]
         PreviousMenu,
-        [Description("Visa rum")]
+        [Description("  Visa rum")]
         DisplayRooms,
-        [Description("Uppdatera rum")]
+        [Description("  Uppdatera rum")]
         UpdateRooms,
-        [Description("Registrera nytt rum")]
+        [Description("  Registrera nytt rum")]
         CreateRooms,
-        [Description("Radera rum")]
+        [Description("  Radera rum")]
         DeleteRooms,
         [Description("Avsluta")]
         Exit

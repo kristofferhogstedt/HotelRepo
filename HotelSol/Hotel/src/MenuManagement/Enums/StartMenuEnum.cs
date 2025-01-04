@@ -11,7 +11,7 @@ namespace Hotel.src.MenuManagement.Enums
 {
     public enum StartMenuOptions
     {
-        [Description("Login")]
+        [Description("  Login")]
         Login,
         //[Description("AdminLogin")]
         //AdminLogin,

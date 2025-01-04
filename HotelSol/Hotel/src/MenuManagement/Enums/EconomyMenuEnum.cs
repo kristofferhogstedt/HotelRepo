@@ -10,11 +10,11 @@ namespace Hotel.src.MenuManagement.Enums
 {
     public enum EconomyMenuOptions
     {
-        [Description("Föregående meny")]
+        [Description("<--")]
         PreviousMenu,
-        [Description("Visa fakturor")]
+        [Description("  Visa fakturor")]
         DisplayInvoices,
-        [Description("Uppdatera faktura")]
+        [Description("  Uppdatera faktura")]
         UpdateInvoices,
         [Description("Avsluta")]
         Exit

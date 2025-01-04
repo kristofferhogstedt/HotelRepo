@@ -10,16 +10,16 @@ namespace Hotel.src.MenuManagement.Enums
 {
     public enum BookingMenuOptions
     {
-        [Description("Föregående meny")]
+        [Description("<--")]
         PreviousMenu,
-        [Description("Se bokningar")]
+        [Description("  Visa bokningar")]
         DisplayBookings,
-        [Description("Uppdatera bokningar")]
-        UpdateBookings,
-        [Description("Registrera ny bokning")]
+        [Description("  Registrera ny bokning")]
         CreateBooking,
-        [Description("Radera bokning")]
-        DeleteBooking,
+        //[Description("  Uppdatera bokningar")]
+        //UpdateBookings,
+        //[Description("Radera bokning")]
+        //DeleteBooking,
         [Description("Avsluta")]
         Exit
     }

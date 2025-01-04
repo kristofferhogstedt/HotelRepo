@@ -36,6 +36,8 @@ namespace Hotel
             AnsiConsole.MarkupLine("[cyan]Förlåt Richard![/]");
 
             _startMenu.Run();
+
+            Exit.ExitProgram();
         }
     }
 }

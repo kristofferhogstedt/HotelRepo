@@ -10,11 +10,11 @@ namespace Hotel.src.MenuManagement.Enums
 {
     public enum CRUDMenuOptions
     {
-        [Description("Föregående meny")]
+        [Description("<--")]
         PreviousMenu,
-        [Description("Redigera")]
+        [Description("  Redigera")]
         Update,
-        [Description("Inaktivera")]
+        [Description("  Inaktivera")]
         Inactivate,
         [Description("Avsluta")]
         Exit

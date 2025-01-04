@@ -10,18 +10,18 @@ namespace Hotel.src.MenuManagement.Enums
 {
     public enum CustomerMenuOptions
     {
-        [Description("Föregående meny")]
+        [Description("<--")]
         PreviousMenu,
-        [Description("Se kunder")]
+        [Description("  Visa kunder")]
         DisplayCustomer,
-        [Description("Se alla kunder")]
-        DisplayCustomerAll,
-        [Description("Redigera kund")]
-        UpdateCustomer,
-        [Description("Registrera ny kund")]
+        [Description("  Registrera ny kund")]
         CreateCustomer,
-        [Description("Radera kund")]
-        DeleteCustomer,
+        //[Description("  Se alla kunder")]
+        //DisplayCustomerAll,
+        //[Description("  Redigera kund")]
+        //UpdateCustomer,
+        //[Description("Radera kund")]
+        //DeleteCustomer,
         [Description("Avsluta")]
         Exit
     }

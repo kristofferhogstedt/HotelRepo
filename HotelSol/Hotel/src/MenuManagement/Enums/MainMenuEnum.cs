@@ -5,18 +5,18 @@ namespace Hotel.src.MenuManagement.Enums
 {
     public enum MainMenuOptions
     {
-        [Description("Föregående meny")]
+        [Description("<--")]
         PreviousMenu,
-        [Description("Bokningshantering")]
+        [Description("  Ny bokning")]
         BookingManagement,
-        [Description("Kundhantering")]
-        CustomerManagement,
-        [Description("Rumhantering")]
+        [Description("  Rumhantering")]
         RoomManagement,
-        [Description("Städhantering")]
-        CleaningManagement,
-        [Description("Fakturahantering")]
+        [Description("  Kundhantering")]
+        CustomerManagement,
+        [Description("  Fakturahantering")]
         InvoiceManagement,
+        //[Description("Städhantering")]
+        //CleaningManagement,
         //[Description("Admin")]
         //Admin,
         [Description("Avsluta")]

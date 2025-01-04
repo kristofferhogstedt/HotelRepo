@@ -10,11 +10,11 @@ namespace Hotel.src.MenuManagement.Enums
 {
     public enum CleaningMenuOptions
     {
-        [Description("Föregående meny")]
+        [Description("<-->")]
         PreviousMenu,
-        [Description("Visa utförda städningar")]
+        [Description("  Visa utförda städningar")]
         DisplayRooms,
-        [Description("Registrera ny städning")]
+        [Description("  Registrera ny städning")]
         UpdateRooms,
         [Description("Avsluta")]
         Exit

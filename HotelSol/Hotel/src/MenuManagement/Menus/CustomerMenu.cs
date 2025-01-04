@@ -45,20 +45,20 @@ namespace Hotel.src.MenuManagement.Menus
                 switch (option)
                 {
                     case CustomerMenuOptions.PreviousMenu:
-                        _instance.PreviousMenu.Run();
+                        PreviousMenu.Run();
                         break;
                     case CustomerMenuOptions.DisplayCustomer:
                         ModelController.ReadOne();
                         break;
-                    case CustomerMenuOptions.DisplayCustomerAll:
-                        ModelController.ReadAll();
-                        break;
                     case CustomerMenuOptions.CreateCustomer:
                         ModelController.Create();
                         break;
-                    case CustomerMenuOptions.UpdateCustomer:
-                        ModelController.Update();
-                        break;
+                    //case CustomerMenuOptions.DisplayCustomerAll:
+                    //    ModelController.ReadAll();
+                    //    break;
+                    //case CustomerMenuOptions.UpdateCustomer:
+                    //    ModelController.Update();
+                    //    break;
                     case CustomerMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;
