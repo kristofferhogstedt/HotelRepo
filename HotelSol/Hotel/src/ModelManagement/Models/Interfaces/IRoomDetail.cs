@@ -18,6 +18,5 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         int NumberOfBeds { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
-        public DateTime? InactivatedDate { get; set; }
     }
 }

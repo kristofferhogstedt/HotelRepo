@@ -31,22 +31,20 @@ namespace Hotel.src.Utilities.Seeding
             {
                 new Invoice{BookingID=1, Amount=1000
                 , CreatedDate=DateTime.Now.AddDays(-10)
-                , IsActive=false, InactivatedDate=DateTime.Now.AddDays(-8)
+                , IsInactive=true, InactivatedDate=DateTime.Now.AddDays(-8)
                 , DueDate=DateTime.Now.AddDays(20)
                 , IsPaid=true, PaidDate=DateTime.Now.AddDays(-8)},
                 new Invoice{BookingID=2, Amount=1000
                 , CreatedDate=DateTime.Now.AddDays(-8)
-                , IsActive=true
                 , DueDate=DateTime.Now.AddDays(24)
                 , IsPaid=false},
                 new Invoice{BookingID=3, Amount=1400
                 , CreatedDate=DateTime.Now.AddDays(-20)
-                , IsActive=false, InactivatedDate=DateTime.Now.AddDays(-20)
+                , IsInactive=true, InactivatedDate=DateTime.Now.AddDays(-20)
                 , DueDate=DateTime.Now.AddDays(6)
                 , IsPaid=true, PaidDate=DateTime.Now.AddDays(-20)},
                 new Invoice{BookingID=4, Amount=1000
                 , CreatedDate=DateTime.Now.AddDays(-5)
-                , IsActive=true
                 , DueDate=DateTime.Now.AddDays(15)
                 , IsPaid=false}
             };

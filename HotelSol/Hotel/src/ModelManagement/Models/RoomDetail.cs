@@ -24,12 +24,13 @@ namespace Hotel.src.ModelManagement.Models
 
         public int Size { get; set; }
         public int NumberOfBeds { get; set; }
-        public bool IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
-        public DateTime? InactivatedDate { get; set; }
+
+        //-------------------------------------
         [NotMapped]
         public EModelType ModelType { get; set; } = EModelType.RoomDetail;
+        //-------------------------------------
 
         public RoomDetail()
         {

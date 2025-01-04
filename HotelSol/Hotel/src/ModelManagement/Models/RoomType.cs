@@ -100,8 +100,11 @@ namespace Hotel.src.ModelManagement.Models
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public DateTime? InactivatedDate { get; set; }
+
+        //-------------------------------------
         [NotMapped]
         public EModelType ModelType { get; set; } = EModelType.RoomType;
+        //-------------------------------------
 
         public RoomType()
         {

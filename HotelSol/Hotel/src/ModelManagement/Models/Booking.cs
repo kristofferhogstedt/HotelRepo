@@ -24,15 +24,17 @@ namespace Hotel.src.ModelManagement.Models
         //-------------------------------------
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsInactive { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public DateTime? InactivatedDate { get; set; }
 
+        //-------------------------------------
         [NotMapped]
         public EModelType ModelTypeEnum { get; set; } = EModelType.Booking;
         [NotMapped]
         public string Info => $"ID: {ID}, Fråndatum: {FromDate}, Tilldatum: {ToDate}";
+        //-------------------------------------
 
         public Booking()
         {

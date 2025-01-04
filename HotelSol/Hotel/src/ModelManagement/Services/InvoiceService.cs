@@ -32,7 +32,7 @@ namespace Hotel.src.ModelManagement.Services
         public static IInvoice GetOne(string searchString)
         {
             var _modelToReturn = DatabaseLair.DatabaseContext.Invoices
-                .Where(m => m.IsActive == true)
+                .Where(m => m.IsInactive == false)
                 .First(m => m.BookingID.ToString().Equals(searchString)
                 );
 
@@ -49,7 +49,7 @@ namespace Hotel.src.ModelManagement.Services
         public static IInvoice GetOneByID(int searchID)
         {
             var _modelToReturn = DatabaseLair.DatabaseContext.Invoices
-                .Where(m => m.IsActive == true)
+                .Where(m => m.IsInactive == false)
                 .First(m => m.ID == searchID);
 
             if (_modelToReturn == null)
@@ -70,7 +70,7 @@ namespace Hotel.src.ModelManagement.Services
         public static List<IInvoice> GetAll()
         {
             var _listToReturn = DatabaseLair.DatabaseContext.Invoices
-                .Where(m => m.IsActive == true)
+                .Where(m => m.IsInactive == false)
                 .ToList<IInvoice>();
 
             if (_listToReturn == null)
@@ -92,7 +92,7 @@ namespace Hotel.src.ModelManagement.Services
         public void Delete(IInvoice modelToDelete)
         {
             var _modelToDelete = (Invoice)modelToDelete;
-            _modelToDelete.IsActive = false;
+            _modelToDelete.IsInactive = true;
             _modelToDelete.InactivatedDate = DateTime.Now;
             DatabaseLair.DatabaseContext.Invoices.Update(_modelToDelete);
             DatabaseLair.DatabaseContext.SaveChanges();

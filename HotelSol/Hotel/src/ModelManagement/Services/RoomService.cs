@@ -44,17 +44,31 @@ namespace Hotel.src.ModelManagement.Services
         //    return _modelToReturn;
         //}
 
-        public static IRoom GetOneByID(int searchID)
+        public static IRoom GetOneByID(int searchString)
         {
             var _modelToReturn = DatabaseLair.DatabaseContext.Rooms
-                .Where(m => m.IsActive == true)
-                .First(m => m.ID == searchID);
+                .Where(m => m.IsInactive == false)
+                .First(m => m.ID == searchString);
 
             if (_modelToReturn == null)
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
-                return null;
+            }
+
+            return _modelToReturn;
+        }
+
+        public static IRoom GetOneByRoomNumber(string searchString)
+        {
+            var _modelToReturn = DatabaseLair.DatabaseContext.Rooms
+                .Where(m => m.IsInactive == false)
+                .First(m => m.Name == searchString);
+
+            if (_modelToReturn == null)
+            {
+                Console.Clear();
+                ServiceMessager.DataNotFoundMessage();
             }
 
             return _modelToReturn;
@@ -63,14 +77,13 @@ namespace Hotel.src.ModelManagement.Services
         public static List<IRoom> GetAll()
         {
             var _listToReturn = DatabaseLair.DatabaseContext.Rooms
-                .Where(m => m.IsActive == true)
+                .Where(m => m.IsInactive == false)
                 .ToList<IRoom>();
 
             if (_listToReturn == null)
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
-                return _listToReturn;
             }
             return _listToReturn;
             // Guard clause?
@@ -85,7 +98,7 @@ namespace Hotel.src.ModelManagement.Services
         public void Delete(IRoom modelToDelete)
         {
             var _modelToDelete = (Room)modelToDelete;
-            _modelToDelete.IsActive = false;
+            _modelToDelete.IsInactive = true;
             _modelToDelete.InactivatedDate = DateTime.Now;
             DatabaseLair.DatabaseContext.Rooms.Update(_modelToDelete);
             DatabaseLair.DatabaseContext.SaveChanges();

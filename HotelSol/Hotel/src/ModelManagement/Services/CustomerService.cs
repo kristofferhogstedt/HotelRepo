@@ -29,7 +29,7 @@ namespace Hotel.src.ModelManagement.Services
         public static ICustomer GetOne(string searchString)
         {
             var _modelToReturn = DatabaseLair.DatabaseContext.Customers
-                .Where(m => m.IsActive == true)
+                .Where(m => m.IsInactive == false)
                 .First(m => m.FirstName.Contains(searchString) 
                 || m.LastName.Contains(searchString));
 
@@ -46,7 +46,7 @@ namespace Hotel.src.ModelManagement.Services
         public static ICustomer GetOneByID(int searchID)
         {
             var _modelToReturn = DatabaseLair.DatabaseContext.Customers
-                .Where(m => m.IsActive == true)
+                .Where(m => m.IsInactive == false)
                 .First(m => m.ID == searchID);
 
             if (_modelToReturn == null)
@@ -94,7 +94,7 @@ namespace Hotel.src.ModelManagement.Services
         public static List<ICustomer> GetAll()
         {
             var _listToReturn = DatabaseLair.DatabaseContext.Customers
-                .Where(m => m.IsActive == true)
+                .Where(m => m.IsInactive == false)
                 .ToList<ICustomer>();
 
             if (_listToReturn == null)
@@ -115,7 +115,7 @@ namespace Hotel.src.ModelManagement.Services
         public void Delete(ICustomer modelToDelete)
         {
             var _modelToDelete = (Customer)modelToDelete;
-            _modelToDelete.IsActive = false;
+            _modelToDelete.IsInactive = true;
             _modelToDelete.InactivatedDate = DateTime.Now;
             DatabaseLair.DatabaseContext.Customers.Update(_modelToDelete);
             DatabaseLair.DatabaseContext.SaveChanges();

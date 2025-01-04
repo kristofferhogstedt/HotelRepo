@@ -18,14 +18,17 @@ namespace Hotel.src.ModelManagement.Models
         public DateTime DueDate { get; set; }
         public bool IsPaid { get; set; }
         public DateTime PaidDate { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsInactive { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public DateTime? InactivatedDate { get; set; }
+        
+        //-------------------------------------
         [NotMapped]
         public EModelType ModelType { get; set; } = EModelType.Invoice;
         [NotMapped]
         public string Info => $"ID: {ID}, BokningsID: {BookingID}, Pris: {Amount}, Betald: {IsPaid}";
+        //-------------------------------------
 
         public Invoice()
         {

@@ -15,16 +15,19 @@ namespace Hotel.src.ModelManagement.Models
         public RoomDetail Detail { get; set; }
         //-------------------------------------
 
-        public string? Name { get; set; }
+        public string Name { get; set; }
         public string? Description { get; set; }
         public string Floor { get; set; }
-        public DateTime CleanedDate { get; set; }
-        public bool IsActive { get; set; }
+        public DateTime? CleanedDate { get; set; }
+        public bool IsInactive { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public DateTime? InactivatedDate { get; set; }
+
+        //-------------------------------------
         [NotMapped]
         public EModelType ModelType { get; set; } = EModelType.Room;
+        //-------------------------------------
 
         public Room()
         {

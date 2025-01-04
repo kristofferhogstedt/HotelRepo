@@ -45,7 +45,7 @@ namespace Hotel.Migrations
                     b.Property<DateTime?>("InactivatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("IsInactive")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("ToDate")
@@ -96,7 +96,7 @@ namespace Hotel.Migrations
                     b.Property<DateTime?>("InactivatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("IsInactive")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
@@ -146,7 +146,7 @@ namespace Hotel.Migrations
                     b.Property<DateTime?>("InactivatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("IsInactive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsPaid")
@@ -174,7 +174,7 @@ namespace Hotel.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<DateTime>("CleanedDate")
+                    b.Property<DateTime?>("CleanedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreatedDate")
@@ -190,10 +190,11 @@ namespace Hotel.Migrations
                     b.Property<DateTime?>("InactivatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("IsInactive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
@@ -214,12 +215,6 @@ namespace Hotel.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("InactivatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<int>("NumberOfBeds")
                         .HasColumnType("int");

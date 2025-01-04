@@ -22,20 +22,21 @@ namespace Hotel.src.ModelManagement.Models
         public string PostalCode { get; set; }
         public string City { get; set; }
         public string Country { get; set; }
-        public bool IsActive { get; set; }
+        public bool IsInactive { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public DateTime? InactivatedDate { get; set; }
+        
+        //-------------------------------------
         [NotMapped]
         public EModelType ModelTypeEnum { get; set; } = EModelType.Customer;
-
         [NotMapped]
         public string FullName => $"{FirstName} {LastName}";
         [NotMapped]
         public ushort Age => Convert.ToUInt16(DateTime.Now - DateOfBirth);
         [NotMapped]
         public string Info => $"Namn: {FullName}, Epost: {Email}, Telefon: {Phone}";
-
+        //-------------------------------------
 
         public Customer()
         {
