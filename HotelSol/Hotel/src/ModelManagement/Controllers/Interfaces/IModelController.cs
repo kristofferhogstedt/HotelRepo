@@ -12,8 +12,8 @@ namespace Hotel.src.ModelManagement.Controllers.Interfaces
     {
         EModelType ModelType { get; set; }
         void Create();
+        IModel GetOne();
         void ReadOne();
-        //void ReadSpecific();
         void ReadAll();
         void Update();
         void Update(IModel modelToUpdate);

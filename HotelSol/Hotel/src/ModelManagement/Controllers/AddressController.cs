@@ -3,19 +3,26 @@ using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models;
+using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
+using Hotel.src.ModelManagement.Services;
+using Hotel.src.ModelManagement.Utilities.Selectors;
 using HotelLibrary.Utilities.UserInputManagement;
+using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
-    public class AddressController : ISupportModelController, IInstantiable
+    public class AddressController : IModelController, IInstantiable
     {
         public IMenu PreviousMenu { get; set; }
+        public EModelType ModelType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
 
@@ -33,20 +40,35 @@ namespace Hotel.src.ModelManagement.Controllers
             return (ISupportModelController)_instance;
         }
 
-        public ISupportModel Create()
+        public void Create()
         {
-            Console.Clear();
-            Console.WriteLine("Adressregistrering");
-            Console.Write("\nGatuadress: ");
-            string _street = UserInputHandler.UserInputString(PreviousMenu);
-            Console.Write("\nPostnummer: ");
-            string _zipCode = UserInputHandler.UserInputString(PreviousMenu);
-            Console.Write("\nOrt: ");
-            string _city = UserInputHandler.UserInputString(PreviousMenu);
-            Console.Write("\nLand: ");
-            string _country = UserInputHandler.UserInputString(PreviousMenu);
+            var _modelForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
+            IAddress _entity = (IAddress)_modelForm.CreateForm();
 
-            return new Address(_street, _zipCode, _city, _country);
+            if (_entity == null)
+            {
+                Console.WriteLine("Ingen data att spara, återgår...");
+                Thread.Sleep(2000);
+                return;
+            }
+
+            AddressService.Create(_entity);
+        }
+
+        public IModel GetOne()
+        {
+            ICustomer _customerToReturn = CustomerEntitySelector.Select(CustomerService.GetAll(), 0, PreviousMenu);
+            return _customerToReturn;
+        }
+
+        public void ReadOne()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ReadAll()
+        {
+            throw new NotImplementedException();
         }
 
         public void Update()
@@ -58,5 +80,21 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             throw new NotImplementedException();
         }
+
+        public void Update(IModel modelToUpdate)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void DisplaySummary(IAddress address)
+        {
+            AnsiConsole.MarkupLine($"Adress:");
+            AnsiConsole.MarkupLine($"-----------------");
+            AnsiConsole.MarkupLine($"Gatuadress: {address.StreetAddress}");
+            AnsiConsole.MarkupLine($"Postnummer: {address.PostalCode} {address.City}");
+            AnsiConsole.MarkupLine($"Land: {address.Country}");
+        }
+
     }
 }

@@ -37,6 +37,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         string _postalCode;
         string _city;
         string _country;
+        public ICustomer Customer { get; set; }
         public IAddress Address { get; set; }
 
         public static IModelRegistrationForm GetInstance(IMenu previousMenu)

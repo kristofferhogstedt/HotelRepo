@@ -275,11 +275,15 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             if (Data05.ToString().IsNullOrEmpty())
                 Data05 = Customer.Phone;
 
+            var _addressController = ModelFactory.GetModelController(EModelType.Address, PreviousMenu);
+
+            _addressController.DisplayCurrentModelInfo(Customer.Address);
             AnsiConsole.MarkupLine("Uppdatera [yellow]adress[/]?");
             if (UserInputHandler.UserInputBool(PreviousMenu))
             {
                 // Address registration form
                 var _addressForm = AddressRegistrationForm.GetInstance(PreviousMenu);
+                _addressForm.Customer = Customer;
 
                 // If customer exists, and an address, edit it. If not, create a new one.
                 if (Customer != null)

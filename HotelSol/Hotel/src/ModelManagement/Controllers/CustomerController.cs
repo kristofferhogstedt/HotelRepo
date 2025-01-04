@@ -92,7 +92,7 @@ namespace Hotel.src.ModelManagement.Controllers
         //    return _customerListToReturn;
         //}
 
-        public ICustomer GetOne()
+        public IModel GetOne()
         {
             ICustomer _customerToReturn = CustomerEntitySelector.Select(CustomerService.GetAll(), 0, PreviousMenu);
             return _customerToReturn;

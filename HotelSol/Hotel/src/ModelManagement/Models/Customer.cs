@@ -14,7 +14,7 @@ namespace Hotel.src.ModelManagement.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public Address Address { get; set; }
+        public int AddressID { get; set; }
         public List<Booking>? Bookings { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -35,12 +35,12 @@ namespace Hotel.src.ModelManagement.Models
         {
             CreatedDate = DateTime.Now;
         }
-        public Customer(string firstName, string lastName, DateTime dateOfBirth, string email, string phone, Address address)
+        public Customer(string firstName, string lastName, DateTime dateOfBirth, string email, string phone, int addressID)
         {
             FirstName = firstName;
             LastName = lastName;
             DateOfBirth = dateOfBirth;
-            Address = address;
+            AddressID = addressID;
             Email = email;
             Phone = phone;
             CreatedDate = DateTime.Now;
