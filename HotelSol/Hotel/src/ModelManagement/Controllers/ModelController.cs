@@ -20,7 +20,7 @@ namespace Hotel.src.ModelManagement.Controllers
         public IMenu PreviousMenu { get; set; }
         public static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
-        public EModelType ModelType { get; set; }
+        public EModelType ModelTypeEnum { get; set; }
 
         Type TypeOfT { get; set; } = typeof(T);
         Type ModelTypeOfT { get; set; } 
@@ -47,7 +47,7 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void Create()
         {
-            var _modelForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
+            var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             IModel _entity = (IModel)_modelForm.CreateForm();
 
             if (_entity == null)

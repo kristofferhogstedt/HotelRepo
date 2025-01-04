@@ -22,7 +22,7 @@ namespace Hotel.src.ModelManagement.Controllers
         public IMenu PreviousMenu { get; set; }
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
-        public EModelType ModelType { get; set; } = EModelType.Customer;
+        public EModelType ModelTypeEnum { get; set; } = EModelType.Customer;
 
         public CustomerController()
         {
@@ -40,7 +40,7 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void Create()
         {
-            var _customerForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
+            var _customerForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             ICustomer _customer = (ICustomer)_customerForm.CreateForm();
 
             if (_customer == null)
@@ -79,7 +79,7 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             var _customerToUpdate = BrowseOne();
 
-            var _customerForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
+            var _customerForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             ICustomer _customer = (ICustomer)_customerForm.EditForm((IModel)_customerToUpdate);
 
             if (_customer == null)
@@ -95,7 +95,7 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             var _customerToUpdate = modelToUpdate;
 
-            var _customerForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
+            var _customerForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             ICustomer _customer = (ICustomer)_customerForm.EditForm((IModel)_customerToUpdate);
 
             if (_customer == null)

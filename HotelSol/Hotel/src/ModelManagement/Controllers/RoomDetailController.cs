@@ -18,7 +18,7 @@ namespace Hotel.src.ModelManagement.Controllers
         public IMenu PreviousMenu { get; set; }
         public static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
-        public EModelType ModelType { get; set; } = EModelType.RoomDetail;
+        public EModelType ModelTypeEnum { get; set; } = EModelType.RoomDetail;
 
         public RoomDetailController()
         {

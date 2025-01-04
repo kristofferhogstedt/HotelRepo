@@ -10,6 +10,6 @@ namespace Hotel.src.ModelManagement.Utilities.Selectors.Interfaces
 {
     public interface IModelEntitySelector
     {
-        public ICustomer Select(List<ICustomer> customers, int startIndex, IMenu previousMenu);
+        //public ICustomer Select(List<ICustomer> customers, int startIndex, IMenu previousMenu);
     }
 }

@@ -16,7 +16,7 @@ namespace Hotel.src.ModelManagement.Controllers
     public class InvoiceController : IModelController, IInvoiceController, IInstantiable
     {
         public IMenu PreviousMenu { get; set; }
-        public EModelType ModelType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public EModelType ModelTypeEnum { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety

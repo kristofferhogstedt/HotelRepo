@@ -14,7 +14,7 @@ namespace Hotel.src.ModelManagement.Controllers
     public class RoomController : IModelController, IInstantiable
     {
         public IMenu PreviousMenu { get; set; }
-        public EModelType ModelType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public EModelType ModelTypeEnum { get; set; } = EModelType.Room;
 
         public static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
@@ -31,7 +31,7 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void Create()
         {
-            var _roomForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
+            var _roomForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             IRoom _room = (IRoom)_roomForm.CreateForm();
 
             if (_room == null)
@@ -66,9 +66,21 @@ namespace Hotel.src.ModelManagement.Controllers
             throw new NotImplementedException();
         }
 
-        public void Update(IModel modelToUpdate)
+        public void Update(IModel entityToUpdate)
         {
-            throw new NotImplementedException();
+            var _entityToUpdate = entityToUpdate;
+
+            var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
+            IRoom _Entity = (IRoom)_modelForm.EditForm((IModel)_entityToUpdate);
+
+            if (_Entity == null)
+            {
+                Console.WriteLine("Ingen data att spara, återgår...");
+                Thread.Sleep(2000);
+                return;
+            }
+            else
+                RoomService.Update(_Entity);
         }
 
         public void Delete(IModel modelToDelete)

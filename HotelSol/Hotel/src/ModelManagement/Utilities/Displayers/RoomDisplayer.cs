@@ -18,8 +18,8 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             var _tableContent = new StringWriter();
 
             _tableContent.WriteLine($"[red]{entityList.ElementAt(indexToHighlight).Name},  Våning {entityList.ElementAt(indexToHighlight).Floor}[/]".ToUpper());
-            _tableContent.WriteLine("ID  Förnamn  Efternamn  Född  E-post  Telefon");
-            _tableContent.WriteLine("─────────────────────────────────────────────");
+            _tableContent.WriteLine("ID  Rumsnummer  Beskrivning  Våning");
+            _tableContent.WriteLine("───────────────────────────────────");
 
             for (int i = 0; i < _entityArray.Length; i++)
             {
@@ -65,7 +65,6 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             table.AddColumn("Rumsnummer");
             table.AddColumn("Beskrivning");
             table.AddColumn("Våning");
-            table.AddColumn("Telefon");
 
             foreach (var entity in entityList)
             {

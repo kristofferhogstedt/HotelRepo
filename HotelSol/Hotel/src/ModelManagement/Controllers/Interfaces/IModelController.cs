@@ -10,7 +10,7 @@ namespace Hotel.src.ModelManagement.Controllers.Interfaces
 {
     public interface IModelController
     {
-        EModelType ModelType { get; set; }
+        EModelType ModelTypeEnum { get; set; }
         void Create();
         IModel BrowseOne();
         void ManageOne();

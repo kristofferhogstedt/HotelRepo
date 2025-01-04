@@ -44,34 +44,34 @@ namespace Hotel.src.ModelManagement.Services
         //    return _modelToReturn;
         //}
 
-        public static IRoom GetOneByID(int searchString)
+        public static IModel GetOneByID(int searchString)
         {
-            var _modelToReturn = DatabaseLair.DatabaseContext.Rooms
+            var _entityToReturn = DatabaseLair.DatabaseContext.Rooms
                 .Where(m => m.IsInactive == false)
                 .First(m => m.ID == searchString);
 
-            if (_modelToReturn == null)
+            if (_entityToReturn == null)
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
             }
 
-            return _modelToReturn;
+            return _entityToReturn;
         }
 
-        public static IRoom GetOneByRoomNumber(string searchString)
+        public static IModel GetOneByRoomNumber(string searchString)
         {
-            var _modelToReturn = DatabaseLair.DatabaseContext.Rooms
+            var _entityToReturn = DatabaseLair.DatabaseContext.Rooms
                 .Where(m => m.IsInactive == false)
                 .First(m => m.Name == searchString);
 
-            if (_modelToReturn == null)
+            if (_entityToReturn == null)
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
             }
 
-            return _modelToReturn;
+            return _entityToReturn;
         }
 
         public static List<IRoom> GetAll()
@@ -85,22 +85,22 @@ namespace Hotel.src.ModelManagement.Services
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
             }
-            return _listToReturn;
+            return (IRoom)_listToReturn;
             // Guard clause?
         }
 
-        public static void Update(IRoom modelToUpdate)
+        public static void Update(IRoom entityToUpdate)
         {
-            DatabaseLair.DatabaseContext.Rooms.Update((Room)modelToUpdate);
+            DatabaseLair.DatabaseContext.Rooms.Update((Room)entityToUpdate);
             DatabaseLair.DatabaseContext.SaveChanges();
         }
 
-        public void Delete(IRoom modelToDelete)
+        public void Delete(IRoom entityToDelete)
         {
-            var _modelToDelete = (Room)modelToDelete;
-            _modelToDelete.IsInactive = true;
-            _modelToDelete.InactivatedDate = DateTime.Now;
-            DatabaseLair.DatabaseContext.Rooms.Update(_modelToDelete);
+            var _entityToDelete = (Room)entityToDelete;
+            _entityToDelete.IsInactive = true;
+            _entityToDelete.InactivatedDate = DateTime.Now;
+            DatabaseLair.DatabaseContext.Rooms.Update(_entityToDelete);
             DatabaseLair.DatabaseContext.SaveChanges();
         }
     }
