@@ -43,11 +43,11 @@ namespace Hotel.src.ModelManagement.Controllers
                 Thread.Sleep(2000);
                 return;
             }
-
-            BookingService.Create(_model);
+            else
+                BookingService.Create(_model);
         }
 
-        public IBooking GetOne()
+        public IModel GetOne()
         {
             IBooking _modelToReturn = BookingEntitySelector.Select(BookingService.GetAll(), 0, PreviousMenu);
             return _modelToReturn;
@@ -82,8 +82,8 @@ namespace Hotel.src.ModelManagement.Controllers
                 Thread.Sleep(2000);
                 return;
             }
-
-            BookingService.Update(_model);
+            else
+                BookingService.Update(_model);
         }
 
         public void Update(IModel modelToUpdate)
@@ -99,11 +99,11 @@ namespace Hotel.src.ModelManagement.Controllers
                 Thread.Sleep(2000);
                 return;
             }
-
-            BookingService.Update(_model);
+            else
+                BookingService.Update(_model);
         }
 
-        public void Delete()
+        public void Delete(IModel modelToDelete)
         {
         }
     }

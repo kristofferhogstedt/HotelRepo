@@ -15,8 +15,8 @@ namespace Hotel.src.ModelManagement.Controllers.Interfaces
         IModel GetOne();
         void ReadOne();
         void ReadAll();
-        void Update();
+        //void Update();
         void Update(IModel modelToUpdate);
-        void Delete();
+        void Delete(IModel modelToDelete);
     }
 }

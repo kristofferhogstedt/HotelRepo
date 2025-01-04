@@ -75,7 +75,7 @@ namespace Hotel.src.MenuManagement.Menus
                         PreviousMenu.Run();
                         break;
                     case CRUDMenuOptions.Update:
-                        var _controller = ModelFactory.GetModelController(modelToCRUD.ModelType, this);
+                        var _controller = ModelFactory.GetModelController(modelToCRUD.ModelTypeEnum, this);
                         _controller.Update(modelToCRUD);
                         break;
                     case CRUDMenuOptions.Exit:

@@ -10,10 +10,11 @@ using System.Threading.Tasks;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Services;
+using System.Reflection.Metadata;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
-    public class ModelController<T> : IModelController, IInstantiable where T : new()
+    public class ModelController<T> : IModelController, IInstantiable where T : IControllableModel
     {
         public IMenu PreviousMenu { get; set; }
         public static IInstantiable _instance;
@@ -21,11 +22,16 @@ namespace Hotel.src.ModelManagement.Controllers
         public EModelType ModelType { get; set; }
 
         Type TypeOfT { get; set; } = typeof(T);
-        public Type InterfaceOfT { get; set; } = typeof(T).GetInterfaces().FirstOrDefault();
+        Type ModelTypeOfT { get; set; } 
+        object ServiceTypeOfT { get; set; } 
+        //public var InterfaceOfT { get; set; } = typeof(T).GetInterfaces().FirstOrDefault();
 
 
         public ModelController()
         {
+            ServiceTypeOfT = TypeOfT.GetProperty("ServiceType")?.GetValue(null);
+            //ServiceTypeOfT = TypeOfT.GetProperties().Where(t => t.Name == "ServiceType").FirstOrDefault();
+
         }
 
         /// <summary>
@@ -41,7 +47,7 @@ namespace Hotel.src.ModelManagement.Controllers
         public void Create()
         {
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
-            IAddress _entity = (InterfaceOfT.)_modelForm.CreateForm();
+            IModel _entity = (IModel)_modelForm.CreateForm();
 
             if (_entity == null)
             {
@@ -50,7 +56,7 @@ namespace Hotel.src.ModelManagement.Controllers
                 return;
             }
 
-            AddressService.Create(_entity);
+            //ServiceTypeOfT.Create(_entity);
         }
 
         public void ReadOne()

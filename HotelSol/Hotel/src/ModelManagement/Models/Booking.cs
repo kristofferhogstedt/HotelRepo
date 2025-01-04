@@ -22,7 +22,7 @@ namespace Hotel.src.ModelManagement.Models
         public DateTime? InactivatedDate { get; set; }
 
         [NotMapped]
-        public EModelType ModelType { get; set; } = EModelType.Booking;
+        public EModelType ModelTypeEnum { get; set; } = EModelType.Booking;
         [NotMapped]
         public string Info => $"ID: {ID}, KundID: {CustomerID}, RumID: {RoomID}, Fråndatum: {FromDate}, Tilldatum: {ToDate}";
 

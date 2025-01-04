@@ -71,14 +71,15 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             AnsiConsole.Write(table);
         }
 
-        public static void DisplayModel(IBooking entity)
+        public static void DisplayModel(IModel entity)
         {
+            var _entity = (IBooking)entity;
             var panel = new Panel($@"
-                Id: {entity.ID}
-                Namn: {entity.CustomerID.ToString()}
-                Namn: {entity.RoomID.ToString()}
-                E-post: {entity.FromDate.ToString()}
-                Telefon: {entity.ToDate.ToString()}
+                Id: {_entity.ID}
+                Namn: {_entity.CustomerID.ToString()}
+                Namn: {_entity.RoomID.ToString()}
+                E-post: {_entity.FromDate.ToString()}
+                Telefon: {_entity.ToDate.ToString()}
             ");
             panel.Header = new PanelHeader("Product Info");
             panel.Padding = new Padding(2, 2, 2, 2);

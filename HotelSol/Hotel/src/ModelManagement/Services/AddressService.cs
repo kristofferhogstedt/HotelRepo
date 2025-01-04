@@ -4,12 +4,13 @@ using HotelLibrary.Utilities.UserInputManagement;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.Persistence;
 using Hotel.src.ModelManagement.Utilities.Messagers;
+using Hotel.src.MenuManagement.Menus.Interfaces;
 
 namespace Hotel.src.ModelManagement.Services
 {
     public class AddressService : IAddressService
     {
-        public static void Create(IAddress modelToCreate)
+        public static void Create(IAddress modelToCreate, IMenu previousMenu)
         {
             try
             {
@@ -20,6 +21,10 @@ namespace Hotel.src.ModelManagement.Services
             {
                 Console.WriteLine(e.Message);
             }
+            finally
+            {
+                previousMenu.Run();
+            }
         }
 
         /// <summary>
@@ -27,7 +32,7 @@ namespace Hotel.src.ModelManagement.Services
         /// </summary>
         /// <param name="searchString"></param>
         /// <returns></returns>
-        public static IAddress GetOne(string searchString)
+        public static IAddress GetOne(string searchString, IMenu previousMenu)
         {
             var _modelToReturn = DatabaseLair.DatabaseContext.Addresses
                 .Where(m => m.IsActive == true)
@@ -41,13 +46,13 @@ namespace Hotel.src.ModelManagement.Services
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
-                return null;
+                previousMenu.Run();
             }
 
             return _modelToReturn;
         }
 
-        public static IAddress GetOneByID(int searchID)
+        public static IAddress GetOneByID(int searchID, IMenu previousMenu)
         {
             var _modelToReturn = DatabaseLair.DatabaseContext.Addresses
                 .Where(m => m.IsActive == true)
@@ -57,13 +62,13 @@ namespace Hotel.src.ModelManagement.Services
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
-                return null;
+                previousMenu.Run();
             }
 
             return _modelToReturn;
         }
 
-        public static IAddress GetOneByCustomerID(int searchID)
+        public static IAddress GetOneByCustomerID(int searchID, IMenu previousMenu)
         {
             // Get customer by ID
             var _customerID = DatabaseLair.DatabaseContext.Customers
@@ -79,7 +84,7 @@ namespace Hotel.src.ModelManagement.Services
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
-                return null;
+                previousMenu.Run();
             }
 
             return _modelToReturn;
@@ -90,7 +95,7 @@ namespace Hotel.src.ModelManagement.Services
         /// </summary>
         /// <param name="databaseLair"></param>
         /// <returns></returns>
-        public static List<IAddress> GetAll()
+        public static List<IAddress> GetAll(IMenu previousMenu)
         {
             var _listToReturn = DatabaseLair.DatabaseContext.Addresses
                 .Where(m => m.IsActive == true)
@@ -100,10 +105,9 @@ namespace Hotel.src.ModelManagement.Services
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
-                return _listToReturn;
+                previousMenu.Run();
             }
             return _listToReturn;
-            // Guard clause?
         }
 
         public static void Update(IAddress modelToUpdate)

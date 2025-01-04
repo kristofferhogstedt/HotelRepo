@@ -21,7 +21,7 @@ namespace Hotel.src.ModelManagement.Models
         public DateTime? UpdatedDate { get; set; }
         public DateTime? InactivatedDate { get; set; }
         [NotMapped]
-        public EModelType ModelType { get; set; } = EModelType.Customer;
+        public EModelType ModelTypeEnum { get; set; } = EModelType.Customer;
 
         [NotMapped]
         public string FullName => $"{FirstName} {LastName}";

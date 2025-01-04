@@ -3,9 +3,11 @@ using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Forms.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Forms.Utilities;
+using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
+using Hotel.src.ModelManagement.Services;
 using Hotel.src.Utilities.UserInputManagement;
 using Hotel.src.Utilities.UserInputManagement.RegexManagement;
 using HotelLibrary.Utilities.UserInputManagement;
@@ -170,30 +172,12 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             AnsiConsole.MarkupLine("\nAnge [yellow]telefonnummer[/]: ");
             Data05 = UserInputRegexHandler.UserInputRegexPhone(PreviousMenu);
 
-            AnsiConsole.MarkupLine("Uppdatera [yellow]adress[/]?");
-            if (UserInputHandler.UserInputBool(PreviousMenu))
-            {
-                // Address registration form
-                var _addressForm = AddressRegistrationForm.GetInstance(PreviousMenu);
 
-                // If customer exists, and an address, edit it. If not, create a new one.
-                if (Customer != null)
-                {
-                    if (Customer.Address != null)
-                        Data06 = (IAddress)_addressForm.EditForm(this.Customer.Address);
-                    else
-                        Data06 = (IAddress)_addressForm.CreateForm();
-                }
-                else
-                {
-                    Console.WriteLine("befintlig adress saknas, ny adress kommer skapas");
-                    Thread.Sleep(2000);
-                    Data06 = (IAddress)_addressForm.CreateForm();
-                }
-            }
-            else
-                Data06 = Customer.Address;
-
+            var _addressController = (ISupportModelController)ModelFactory.GetModelController(EModelType.Address, PreviousMenu);
+            // Address registration form
+            //var _addressForm = AddressRegistrationForm.GetInstance(PreviousMenu);
+            var _addressID = _addressController.CreateAndReturnID();
+            Data06 = _addressID;
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
 
@@ -204,7 +188,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             {
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
-                this.Customer = new Customer((string)Data01, (string)Data02, (DateTime)Data03, (string)Data04, (string)Data05, (Address)Data06);
+                this.Customer = new Customer((string)Data01, (string)Data02, (DateTime)Data03, (string)Data04, (string)Data05, (int)Data06);
                 return (IModel)this.Customer;
             }
             else
@@ -353,6 +337,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         /// <param name="customer"></param>
         public void DisplaySummary(ICustomer customer)
         {
+            var _address = AddressService.GetOneByCustomerID(customer.ID, PreviousMenu);
+
             // Visa sammanfattning
             Console.Clear();
             AnsiConsole.MarkupLine("\n[bold green]Sammanfattning av kundinformation:[/]");
@@ -364,10 +350,10 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             table.AddRow("Födelsedatum", customer.DateOfBirth.ToString());
             table.AddRow("E-post", customer.Email);
             table.AddRow("Telefonnummer", customer.Phone);
-            if (customer.Address == null)
+            if (_address == null)
                 table.AddRow("Adress", "Ej angiven");
             else
-                table.AddRow("Adress", $"{customer.Address.StreetAddress} {customer.Address.PostalCode} {customer.Address.City}{customer.Address.Country}");
+                table.AddRow("Adress", $"{_address.StreetAddress}, {_address.PostalCode} {_address.City}, {_address.Country}");
             AnsiConsole.Write(table);
         }
     }

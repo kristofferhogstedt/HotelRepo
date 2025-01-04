@@ -6,6 +6,7 @@ using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services;
+using Hotel.src.ModelManagement.Utilities.Displayers;
 using Hotel.src.ModelManagement.Utilities.Selectors;
 using HotelLibrary.Utilities.UserInputManagement;
 using Spectre.Console;
@@ -42,6 +43,11 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void Create()
         {
+            throw new NotImplementedException();
+        }
+
+        public int CreateAndReturnID()
+        {
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
             IAddress _entity = (IAddress)_modelForm.CreateForm();
 
@@ -49,10 +55,13 @@ namespace Hotel.src.ModelManagement.Controllers
             {
                 Console.WriteLine("Ingen data att spara, återgår...");
                 Thread.Sleep(2000);
-                return;
             }
 
-            AddressService.Create(_entity);
+            AddressService.Create(_entity, PreviousMenu);
+
+
+
+            return _entity.ID;
         }
 
         public IModel GetOne()
@@ -74,7 +83,7 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void ReadAll()
         {
-            throw new NotImplementedException();
+            AddressDisplayer.RenderDeadTable(AddressService.GetAll(PreviousMenu), PreviousMenu);
         }
 
         public void Update()
@@ -82,16 +91,44 @@ namespace Hotel.src.ModelManagement.Controllers
             throw new NotImplementedException();
         }
 
-        public void Delete()
-        {
-            throw new NotImplementedException();
-        }
-
         public void Update(IModel modelToUpdate)
         {
-            throw new NotImplementedException();
+            var _customer = (ICustomer)modelToUpdate;
+
+            var _addressToUpdate = AddressService.GetOneByCustomerID(_customer.ID, PreviousMenu);
+            var _modelForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
+            IAddress _entity;
+
+            if (_addressToUpdate == null)
+                _entity = (IAddress)_modelForm.CreateForm();
+            else
+                _entity = (IAddress)_modelForm.EditForm(_addressToUpdate);
+
+            if (_entity == null)
+            {
+                Console.WriteLine("Ingen data att spara, återgår...");
+                Thread.Sleep(2000);
+                return;
+            }
+            else
+                AddressService.Create(_entity, PreviousMenu);
         }
 
+        public void Delete(IModel modelToDelete)
+        {
+            var _addressToDelete = (IAddress)modelToDelete;
+            DisplaySummary(_addressToDelete);
+            Console.WriteLine("Radera?");
+            var _confirm = UserInputHandler.UserInputBool(PreviousMenu);
+
+            if (_confirm)
+            {
+                AddressService.Delete(_addressToDelete);
+                Console.WriteLine("Adress raderad.");
+                Console.WriteLine("Tryck på valfri tangent för att fortsätta...");
+                Console.ReadKey();
+            }
+        }
 
         public void DisplaySummary(IAddress address)
         {

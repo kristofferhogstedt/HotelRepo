@@ -9,9 +9,6 @@ namespace Hotel.src.ModelManagement.Controllers.Interfaces
 {
     public interface ISupportModelController
     {
-        ISupportModel Create();
-        void Update();
-        void Delete();
-
+        int CreateAndReturnID();
     }
 }

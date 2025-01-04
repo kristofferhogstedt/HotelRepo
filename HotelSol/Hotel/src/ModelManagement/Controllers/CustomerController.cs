@@ -38,13 +38,6 @@ namespace Hotel.src.ModelManagement.Controllers
             return (IModelController)_instance;
         }
 
-        public string CustomerInfoString(ICustomer customer)
-        {
-            Console.WriteLine("Kund: (Namn/ID/E-Post) ");
-            //var _customer = CustomerService.GetOne();
-            return customer.Info;
-        }
-
         public void Create()
         {
             var _customerForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
@@ -56,41 +49,9 @@ namespace Hotel.src.ModelManagement.Controllers
                 Thread.Sleep(2000);
                 return;
             }
-
-            CustomerService.Create(_customer);
+            else
+                CustomerService.Create(_customer);
         }
-
-        public void DisplayCurrentCustomerInfo(ICustomer customer)
-        {
-            Console.Clear();
-            Console.WriteLine($"\nFörnamn: {customer.FirstName}");
-            Console.WriteLine($"\nEfternamn: {customer.LastName}");
-            Console.WriteLine($"\nFödelsedatum: {customer.DateOfBirth}");
-            Console.WriteLine($"\nE-post: {customer.Email}");
-            Console.WriteLine($"\nTelefon: {customer.Phone}");
-            Console.WriteLine($"\nAdress: {customer.Address.StreetAddress} {customer.Address.PostalCode} {customer.Address.City} {customer.Address.Country}");
-        }
-
-        //public List<ICustomer> GetSpecific()
-        //{
-        //    string _searchString = "";
-        //    List<ICustomer> _customerListToReturn;
-
-        //    while (true)
-        //    {
-        //        Console.Clear();
-        //        CustomerDisplayer.DisplayModelTable(CustomerService.GetSpecific(_searchString));
-        //        Console.WriteLine("\nAnge sökkriterie (Namn, E-post): ");
-        //        _searchString = UserInputHandler.UserInputString(PreviousMenu);
-        //        _customerListToReturn = CustomerService.GetSpecific(_searchString);
-        //        if (UserInputHandler.UserInputEnter(Console.ReadKey()))
-        //            break;
-        //        else
-        //            continue;
-        //    }
-
-        //    return _customerListToReturn;
-        //}
 
         public IModel GetOne()
         {
@@ -100,7 +61,7 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void ReadOne()
         {
-            var _customer = GetOne();
+            var _customer = (ICustomer)GetOne();
             Console.Clear();
             CustomerDisplayer.DisplayModel(_customer);
             Console.WriteLine("Vad vill du göra?");
@@ -108,13 +69,6 @@ namespace Hotel.src.ModelManagement.Controllers
             var _crudMenu = CustomerCRUDMenu.GetInstance(PreviousMenu);
             _crudMenu.Run((IModel)_customer);
         }
-
-        //public void ReadSpecific()
-        //{
-        //    var _customerList = GetOne();
-
-        //    CustomerDisplayer.DisplayModelTable(_customerList);
-        //}
 
         public void ReadAll()
         {
@@ -134,13 +88,12 @@ namespace Hotel.src.ModelManagement.Controllers
                 Thread.Sleep(2000);
                 return;
             }
-
-            CustomerService.Update(_customer);
+                CustomerService.Update(_customer);
         }
 
-        public void Update(IModel customerToUpdate)
+        public void Update(IModel modelToUpdate)
         {
-            var _customerToUpdate = customerToUpdate;
+            var _customerToUpdate = modelToUpdate;
 
             var _customerForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
             ICustomer _customer = (ICustomer)_customerForm.EditForm((IModel)_customerToUpdate);
@@ -151,8 +104,8 @@ namespace Hotel.src.ModelManagement.Controllers
                 Thread.Sleep(2000);
                 return;
             }
-
-            CustomerService.Update(_customer);
+            else
+                CustomerService.Update(_customer);
         }
 
         //public void Update(DatabaseLair dbLair)
@@ -171,7 +124,7 @@ namespace Hotel.src.ModelManagement.Controllers
         //    CustomerService.ReadAll(dbContext).ForEach(c => Console.WriteLine(c.DisplayString()));
         //    dbContext.SaveChanges();
         //}
-        public void Delete()
+        public void Delete(IModel modelToDelete)
         {
             //while (true)
             //{
@@ -182,6 +135,20 @@ namespace Hotel.src.ModelManagement.Controllers
             //    CustomerChecks.HasBooking(_customerName);
             //}
 
+        }
+        public void DisplaySummary(IModel modelToDisplay)
+        {
+            var _customer = (ICustomer)modelToDisplay;
+            Console.Clear();
+            Console.WriteLine($"\nFörnamn: {_customer.FirstName}");
+            Console.WriteLine($"\nEfternamn: {_customer.LastName}");
+            Console.WriteLine($"\nFödelsedatum: {_customer.DateOfBirth}");
+            Console.WriteLine($"\nE-post: {_customer.Email}");
+            Console.WriteLine($"\nTelefon: {_customer.Phone}");
+
+            var _address = AddressService.GetOneByCustomerID(_customer.ID, PreviousMenu);
+
+            Console.WriteLine($"\nAdress: {_address.StreetAddress} {_address.PostalCode} {_address.City} {_address.Country}");
         }
     }
 }
