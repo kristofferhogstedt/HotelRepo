@@ -4,9 +4,11 @@ namespace Hotel.src.ModelManagement.Services.Interfaces
 {
     public interface IAddressService
     {
-        void Create(IAddress address);
-        IAddress ReadOne();
-        List<IAddress> ReadAll();
-        void Update(IAddress address);
-    }
+    //    static void Create(IAddress address) { }
+    //    static IAddress ReadOne() {  }
+    //    static IAddress ReadByID(int id) { }
+    //    static IAddress ReadByCustomerID(int id) { }
+    //    static List<IAddress> ReadAll() { }
+    //    static void Update(IAddress address) { }
+    //}
 }

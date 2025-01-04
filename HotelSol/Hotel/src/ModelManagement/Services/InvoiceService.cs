@@ -1,6 +1,7 @@
 ﻿using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services.Interfaces;
+using Hotel.src.ModelManagement.Utilities.Messagers;
 using Hotel.src.Persistence;
 
 namespace Hotel.src.ModelManagement.Services
@@ -38,7 +39,7 @@ namespace Hotel.src.ModelManagement.Services
             if (_modelToReturn == null)
             {
                 Console.Clear();
-                DataNotFoundMessage();
+                ServiceMessager.DataNotFoundMessage();
                 return null;
             }
 
@@ -54,7 +55,7 @@ namespace Hotel.src.ModelManagement.Services
             if (_modelToReturn == null)
             {
                 Console.Clear();
-                DataNotFoundMessage();
+                ServiceMessager.DataNotFoundMessage();
                 return null;
             }
 
@@ -75,7 +76,7 @@ namespace Hotel.src.ModelManagement.Services
             if (_listToReturn == null)
             {
                 Console.Clear();
-                DataNotFoundMessage();
+                ServiceMessager.DataNotFoundMessage();
                 return _listToReturn;
             }
             return _listToReturn;
@@ -95,12 +96,6 @@ namespace Hotel.src.ModelManagement.Services
             _modelToDelete.InactivatedDate = DateTime.Now;
             DatabaseLair.DatabaseContext.Invoices.Update(_modelToDelete);
             DatabaseLair.DatabaseContext.SaveChanges();
-        }
-
-        public static void DataNotFoundMessage()
-        {
-            Console.WriteLine("Data not found");
-            Console.WriteLine("Returning... ");
         }
     }
 }

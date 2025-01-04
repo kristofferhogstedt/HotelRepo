@@ -3,10 +3,11 @@ using Hotel.src.ModelManagement.Services.Interfaces;
 using HotelLibrary.Utilities.UserInputManagement;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.Persistence;
+using Hotel.src.ModelManagement.Utilities.Messagers;
 
 namespace Hotel.src.ModelManagement.Services
 {
-    public class AddressService //: IDataService<Address>
+    public class AddressService : IAddressService
     {
         public static void Create(IAddress modelToCreate)
         {
@@ -39,7 +40,7 @@ namespace Hotel.src.ModelManagement.Services
             if (_modelToReturn == null)
             {
                 Console.Clear();
-                DataNotFoundMessage();
+                ServiceMessager.DataNotFoundMessage();
                 return null;
             }
 
@@ -55,7 +56,29 @@ namespace Hotel.src.ModelManagement.Services
             if (_modelToReturn == null)
             {
                 Console.Clear();
-                DataNotFoundMessage();
+                ServiceMessager.DataNotFoundMessage();
+                return null;
+            }
+
+            return _modelToReturn;
+        }
+
+        public static IAddress GetOneByCustomerID(int searchID)
+        {
+            // Get customer by ID
+            var _customerID = DatabaseLair.DatabaseContext.Customers
+                .Where(m => m.IsActive == true)
+                .First(m => m.ID == searchID).ID;
+
+            // Get address by customer ID
+            var _modelToReturn = DatabaseLair.DatabaseContext.Addresses
+                .Where(m => m.IsActive == true)
+                .First(m => m.ID == _customerID);
+
+            if (_modelToReturn == null)
+            {
+                Console.Clear();
+                ServiceMessager.DataNotFoundMessage();
                 return null;
             }
 
@@ -76,7 +99,7 @@ namespace Hotel.src.ModelManagement.Services
             if (_listToReturn == null)
             {
                 Console.Clear();
-                DataNotFoundMessage();
+                ServiceMessager.DataNotFoundMessage();
                 return _listToReturn;
             }
             return _listToReturn;
@@ -89,7 +112,7 @@ namespace Hotel.src.ModelManagement.Services
             DatabaseLair.DatabaseContext.SaveChanges();
         }
 
-        public void Delete(IAddress modelToDelete)
+        public static void Delete(IAddress modelToDelete)
         {
             var _modelToDelete = (Address)modelToDelete;
             _modelToDelete.IsActive = false;
@@ -98,10 +121,5 @@ namespace Hotel.src.ModelManagement.Services
             DatabaseLair.DatabaseContext.SaveChanges();
         }
 
-        public static void DataNotFoundMessage()
-        {
-            Console.WriteLine("Data not found");
-            Console.WriteLine("Returning... ");
-        }
     }
 }

@@ -57,9 +57,15 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public IModel GetOne()
         {
-            ICustomer _customerToReturn = CustomerEntitySelector.Select(CustomerService.GetAll(), 0, PreviousMenu);
-            return _customerToReturn;
+            //IAddress _entityToReturn = AddressEntitySelector.Select(AddressService.GetAll(), 0, PreviousMenu);
+            //return _entityToReturn;
+            return null;
         }
+
+        //public IModel GetOneByID()
+        //{
+        //    AnsiConsole.MarkupLine("");
+        //}
 
         public void ReadOne()
         {
