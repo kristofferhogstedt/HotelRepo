@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hotel.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250104210036_initial migration")]
+    [Migration("20250104212827_initial migration")]
     partial class initialmigration
     {
         /// <inheritdoc />
@@ -33,9 +33,6 @@ namespace Hotel.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int>("Booking")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -51,6 +48,9 @@ namespace Hotel.Migrations
                     b.Property<bool>("IsInactive")
                         .HasColumnType("bit");
 
+                    b.Property<int>("RoomID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("ToDate")
                         .HasColumnType("datetime2");
 
@@ -59,9 +59,9 @@ namespace Hotel.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("Booking");
-
                     b.HasIndex("CustomerID");
+
+                    b.HasIndex("RoomID");
 
                     b.ToTable("Bookings");
                 });
@@ -284,15 +284,15 @@ namespace Hotel.Migrations
 
             modelBuilder.Entity("Hotel.src.ModelManagement.Models.Booking", b =>
                 {
-                    b.HasOne("Hotel.src.ModelManagement.Models.Room", "Room")
-                        .WithMany("Bookings")
-                        .HasForeignKey("Booking")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Hotel.src.ModelManagement.Models.Customer", "Customer")
                         .WithMany("Bookings")
                         .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Hotel.src.ModelManagement.Models.Room", "Room")
+                        .WithMany("Bookings")
+                        .HasForeignKey("RoomID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

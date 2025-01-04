@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hotel.src.ModelManagement.Models.Interfaces
 {
-    public interface IRoomDetail
+    public interface IRoomDetail : IModel
     {
         [Key]
         int ID { get; set; }

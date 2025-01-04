@@ -49,7 +49,7 @@ namespace Hotel.src.MenuManagement.Menus
                         PreviousMenu.Run();
                         break;
                     case BookingMenuOptions.DisplayBookings:
-                        ModelController.ReadOne();
+                        ModelController.ManageOne();
                         break;
                     case BookingMenuOptions.Exit:
                         Exit.ExitProgram();

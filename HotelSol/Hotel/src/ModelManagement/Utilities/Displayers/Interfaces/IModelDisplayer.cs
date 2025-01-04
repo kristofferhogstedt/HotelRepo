@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hotel.src.ModelManagement.Models.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,6 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers.Interfaces
 {
     public interface IModelDisplayer
     {
-        void DisplayModelTable();
-        void DisplayModel();
+        void RenderTable(List<IModel> entityList, int indexToHighlight);
     }
 }

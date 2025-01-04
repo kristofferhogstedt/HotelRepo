@@ -18,6 +18,7 @@ namespace Hotel.src.ModelManagement.Models
         public int CustomerID { get; set; }
         public Customer Customer { get; set; }
         [Required]
+        public int RoomID { get; set; }
         public Room Room { get; set; }
         [Required]
         public Invoice Invoice { get; set; }

@@ -48,7 +48,7 @@ namespace Hotel.src.MenuManagement.Menus
                         PreviousMenu.Run();
                         break;
                     case CustomerMenuOptions.DisplayCustomer:
-                        ModelController.ReadOne();
+                        ModelController.ManageOne();
                         break;
                     case CustomerMenuOptions.CreateCustomer:
                         ModelController.Create();

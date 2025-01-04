@@ -47,15 +47,15 @@ namespace Hotel.src.ModelManagement.Controllers
                 BookingService.Create(_model);
         }
 
-        public IModel GetOne()
+        public IModel BrowseOne()
         {
             IBooking _modelToReturn = BookingEntitySelector.Select(BookingService.GetAll(), 0, PreviousMenu);
             return _modelToReturn;
         }
 
-        public void ReadOne()
+        public void ManageOne()
         {
-            var _model = GetOne();
+            var _model = BrowseOne();
             Console.Clear();
             BookingDisplayer.DisplayModel(_model);
             Console.WriteLine("Vad vill du göra?");
@@ -71,7 +71,7 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void Update()
         {
-            var _modelToUpdate = GetOne();
+            var _modelToUpdate = BrowseOne();
 
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
             IBooking _model = (IBooking)_modelForm.EditForm((IModel)_modelToUpdate);

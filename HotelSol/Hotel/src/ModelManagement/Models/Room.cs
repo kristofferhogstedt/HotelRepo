@@ -10,9 +10,8 @@ namespace Hotel.src.ModelManagement.Models
         [Key]
         public int ID { get; set; }
         //-------------------------------------
-        [ForeignKey("Booking")]
         public List<Booking>? Bookings { get; set; }
-        public RoomDetail Detail { get; set; }
+        public RoomDetail Details { get; set; }
         //-------------------------------------
 
         public string Name { get; set; }
@@ -26,7 +25,11 @@ namespace Hotel.src.ModelManagement.Models
 
         //-------------------------------------
         [NotMapped]
-        public EModelType ModelType { get; set; } = EModelType.Room;
+        public EModelType ModelTypeEnum { get; set; } = EModelType.Room;
+
+        [NotMapped]
+        public string Info => $"Rumsnummer {Name}, Beskrivning: {Description}, Våning: {Floor}";
+
         //-------------------------------------
 
         public Room()

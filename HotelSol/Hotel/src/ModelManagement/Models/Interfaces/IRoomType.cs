@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Models.Interfaces
 {
-    public interface IRoomType
+    public interface IRoomType : IModel
     {
         [Key]
         int ID { get; set; }

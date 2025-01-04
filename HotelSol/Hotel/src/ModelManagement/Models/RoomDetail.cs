@@ -29,7 +29,11 @@ namespace Hotel.src.ModelManagement.Models
 
         //-------------------------------------
         [NotMapped]
-        public EModelType ModelType { get; set; } = EModelType.RoomDetail;
+        public EModelType ModelTypeEnum { get; set; } = EModelType.RoomDetail;
+
+        [NotMapped]
+        public string Info => throw new NotImplementedException();
+
         //-------------------------------------
 
         public RoomDetail()

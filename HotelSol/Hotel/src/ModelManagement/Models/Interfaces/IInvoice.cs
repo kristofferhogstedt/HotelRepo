@@ -2,7 +2,7 @@
 
 namespace Hotel.src.ModelManagement.Models.Interfaces
 {
-    public interface IInvoice
+    public interface IInvoice : IModel
     {
         int ID { get; set; }
         int BookingID { get; set; }

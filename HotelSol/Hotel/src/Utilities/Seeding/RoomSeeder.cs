@@ -33,16 +33,16 @@ namespace Hotel.src.Utilities.Seeding
         {
             var _rooms = new List<IRoom>()
             {
-                new Room{Name="101",Description="Room 101",Detail = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Single"), NumberOfBeds=1, Size=15},Floor="1"},
-                new Room{Name="102",Description="Room 102",Detail = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Double"), NumberOfBeds=2, Size=20},Floor="1"},
-                new Room{Name="103",Description="Room 103",Detail = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Single"), NumberOfBeds=1, Size=15},Floor="1"},
-                new Room{Name="104",Description="Room 104",Detail = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Single"), NumberOfBeds=1, Size=15},Floor="1"},
-                new Room{Name="201",Description="Room 201",Detail = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Single"), NumberOfBeds=1, Size=15},Floor="2",IsInactive=true},
-                new Room{Name="202",Description="Room 202",Detail = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Double"), NumberOfBeds=2, Size=30},Floor="2"},
-                new Room{Name="203",Description="Room 203",Detail = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Single"), NumberOfBeds=1, Size=15},Floor="2"},
-                new Room{Name="204",Description="Room 204",Detail = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Family"), NumberOfBeds=4, Size=30},Floor="2"},
-                new Room{Name="301",Description="Room 301",Detail = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Family"), NumberOfBeds=5, Size=35},Floor="3"},
-                new Room{Name="302",Description="Room 302",Detail = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Suite"), NumberOfBeds=2, Size=45},Floor="3"},
+                new Room{Name="101",Description="Room 101",Details = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Single"), NumberOfBeds=1, Size=15},Floor="1"},
+                new Room{Name="102",Description="Room 102",Details = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Double"), NumberOfBeds=2, Size=20},Floor="1"},
+                new Room{Name="103",Description="Room 103",Details = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Single"), NumberOfBeds=1, Size=15},Floor="1"},
+                new Room{Name="104",Description="Room 104",Details = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Single"), NumberOfBeds=1, Size=15},Floor="1"},
+                new Room{Name="201",Description="Room 201",Details = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Single"), NumberOfBeds=1, Size=15},Floor="2",IsInactive=true},
+                new Room{Name="202",Description="Room 202",Details = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Double"), NumberOfBeds=2, Size=30},Floor="2"},
+                new Room{Name="203",Description="Room 203",Details = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Single"), NumberOfBeds=1, Size=15},Floor="2"},
+                new Room{Name="204",Description="Room 204",Details = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Family"), NumberOfBeds=4, Size=30},Floor="2"},
+                new Room{Name="301",Description="Room 301",Details = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Family"), NumberOfBeds=5, Size=35},Floor="3"},
+                new Room{Name="302",Description="Room 302",Details = new RoomDetail{RoomType = (RoomType)RoomTypeService.GetOneByRoomType("Suite"), NumberOfBeds=2, Size=45},Floor="3"},
             };
 
             return _rooms;

@@ -18,7 +18,7 @@ namespace Hotel.src.MenuManagement.Menus
         public IMenu PreviousMenu { get; set; }
         private static IInstantiable _instance;
         private static readonly object _lock = new object();
-        public EModelType ModelType { get; set; } = EModelType.Booking;
+        public EModelType ModelType { get; set; } = EModelType.Room;
         public IModelController ModelController { get; set; }
 
         public static IMenu GetInstance(IMenu previousMenu)
@@ -36,7 +36,7 @@ namespace Hotel.src.MenuManagement.Menus
                 Console.Clear();
                 var option = AnsiConsole.Prompt(
                     new SelectionPrompt<RoomMenuOptions>()
-                        .Title("Start")
+                        .Title("Rum")
                         .UseConverter(option => option.ShowRoomMenu())
                         //.UseConverter(option => option.GetDescription()) // Visa beskrivningar istället för enum-namn
                         .AddChoices(Enum.GetValues<RoomMenuOptions>())
@@ -48,7 +48,10 @@ namespace Hotel.src.MenuManagement.Menus
                         PreviousMenu.Run();
                         break;
                     case RoomMenuOptions.DisplayRooms:
-                        PreviousMenu.Run();
+                        ModelController.ManageOne();
+                        break;
+                    case RoomMenuOptions.CreateRoom:
+                        ModelController.Create();
                         break;
                     case RoomMenuOptions.Exit:
                         Exit.ExitProgram();

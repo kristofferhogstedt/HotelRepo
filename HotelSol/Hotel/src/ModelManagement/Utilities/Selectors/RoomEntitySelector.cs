@@ -18,7 +18,7 @@ namespace Hotel.src.ModelManagement.Utilities.Selectors
             while (true)
             {
                 Console.Clear();
-                //RoomDisplayer.RenderTable(entityList, _selectedIndex);
+                RoomDisplayer.RenderTable(entityList, _selectedIndex);
 
                 var _key = Console.ReadKey(true).Key;
 

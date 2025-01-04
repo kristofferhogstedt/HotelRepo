@@ -83,7 +83,7 @@ namespace Hotel.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerID = table.Column<int>(type: "int", nullable: false),
-                    Booking = table.Column<int>(type: "int", nullable: false),
+                    RoomID = table.Column<int>(type: "int", nullable: false),
                     FromDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ToDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsInactive = table.Column<bool>(type: "bit", nullable: false),
@@ -101,8 +101,8 @@ namespace Hotel.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Bookings_Rooms_Booking",
-                        column: x => x.Booking,
+                        name: "FK_Bookings_Rooms_RoomID",
+                        column: x => x.RoomID,
                         principalTable: "Rooms",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -166,14 +166,14 @@ namespace Hotel.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookings_Booking",
-                table: "Bookings",
-                column: "Booking");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Bookings_CustomerID",
                 table: "Bookings",
                 column: "CustomerID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_RoomID",
+                table: "Bookings",
+                column: "RoomID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Invoices_BookingID",

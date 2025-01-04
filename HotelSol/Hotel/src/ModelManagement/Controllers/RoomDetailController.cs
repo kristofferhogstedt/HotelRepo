@@ -35,7 +35,7 @@ namespace Hotel.src.ModelManagement.Controllers
             throw new NotImplementedException();
         }
 
-        public void ReadOne()
+        public void ManageOne()
         {
             throw new NotImplementedException();
         }
@@ -60,7 +60,7 @@ namespace Hotel.src.ModelManagement.Controllers
             throw new NotImplementedException();
         }
 
-        public IModel GetOne()
+        public IModel BrowseOne()
         {
             throw new NotImplementedException();
         }

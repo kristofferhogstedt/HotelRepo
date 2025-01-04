@@ -53,15 +53,15 @@ namespace Hotel.src.ModelManagement.Controllers
                 CustomerService.Create(_customer);
         }
 
-        public IModel GetOne()
+        public IModel BrowseOne()
         {
             ICustomer _customerToReturn = CustomerEntitySelector.Select(CustomerService.GetAll(), 0, PreviousMenu);
             return _customerToReturn;
         }
 
-        public void ReadOne()
+        public void ManageOne()
         {
-            var _customer = (ICustomer)GetOne();
+            var _customer = (ICustomer)BrowseOne();
             Console.Clear();
             CustomerDisplayer.DisplayModel(_customer);
             Console.WriteLine("Vad vill du göra?");
@@ -77,7 +77,7 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void Update()
         {
-            var _customerToUpdate = GetOne();
+            var _customerToUpdate = BrowseOne();
 
             var _customerForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
             ICustomer _customer = (ICustomer)_customerForm.EditForm((IModel)_customerToUpdate);
