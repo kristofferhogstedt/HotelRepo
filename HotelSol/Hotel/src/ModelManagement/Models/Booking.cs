@@ -35,6 +35,14 @@ namespace Hotel.src.ModelManagement.Models
         public EModelType ModelTypeEnum { get; set; } = EModelType.Booking;
         [NotMapped]
         public string Info => $"ID: {ID}, Fråndatum: {FromDate}, Tilldatum: {ToDate}";
+        [NotMapped]
+        public int StayLength 
+        { 
+            get
+            {
+                return DateTime.Compare(ToDate, FromDate);
+            }
+        }
         //-------------------------------------
 
         public Booking()
@@ -42,12 +50,13 @@ namespace Hotel.src.ModelManagement.Models
             CreatedDate = DateTime.Now;
         }
 
-        public Booking(Room room, Customer customer, DateTime fromDate, DateTime toDate)
+        public Booking(Room room, Customer customer, DateTime fromDate, DateTime toDate, Invoice invoice)
         {
             Room = room;
             Customer = customer;
             FromDate = fromDate;
             ToDate = toDate;
+            Invoice = invoice;
             CreatedDate = DateTime.Now;
         }
     }

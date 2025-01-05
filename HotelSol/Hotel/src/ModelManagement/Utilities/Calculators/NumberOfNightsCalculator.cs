@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Utilities.Calculators
 {
-    public class PriceCalculator
+    public class NumberOfNightsCalculator
     {
-        public static double CalculateStayPrice(int nightsBooked, double pricePerNight)
+        public static int calculateNumberOfNights(DateTime fromDate, DateTime toDate)
         {
-            return nightsBooked * pricePerNight;
+            return DateTime.Compare(toDate, fromDate);
         }
     }
 }

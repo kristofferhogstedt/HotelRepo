@@ -51,6 +51,9 @@ namespace Hotel.src.MenuManagement.Menus
                     case BookingMenuOptions.DisplayBookings:
                         ModelController.ManageOne();
                         break;
+                    case BookingMenuOptions.CreateBooking:
+                        ModelController.Create();
+                        break;
                     case BookingMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;

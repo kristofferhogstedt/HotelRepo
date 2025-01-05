@@ -32,5 +32,7 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         //-------------------------------------
         [NotMapped]
         public string Info { get; }
+        [NotMapped]
+        string StayLength { get; }
     }
 }

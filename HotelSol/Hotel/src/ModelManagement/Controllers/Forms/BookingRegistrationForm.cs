@@ -8,6 +8,7 @@ using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services;
+using Hotel.src.ModelManagement.Utilities.Calculators;
 using Hotel.src.ModelManagement.Utilities.Displayers;
 using Hotel.src.ModelManagement.Validations;
 using Hotel.src.Utilities.UserInputManagement;
@@ -69,15 +70,20 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             AnsiConsole.MarkupLine("\n[yellow]Rum[/]: ");
             var _roomController = ModelFactory.GetModelController(EModelType.Room, PreviousMenu);
             Data03 = _roomController.BrowseOne();
+            var _room = (IRoom)Data03;
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Kund[/]: ");
             var _customerController = ModelFactory.GetModelController(EModelType.Customer, PreviousMenu);
             Data04 = _customerController.BrowseOne();
+            var _customer = (ICustomer)Data04;
+
+            var _numberOfNights = NumberOfNightsCalculator.calculateNumberOfNights((DateTime)Data02, (DateTime)Data01);
+            var _price = PriceCalculator.CalculateStayPrice(_numberOfNights, _room.Details.Price);
 
             // Create Invoice 
-            Data05 = new Invoice();
+            Data05 = new Invoice(Booking.Room.Details.RoomType, _price);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -89,7 +95,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             {
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
-                Booking = new Booking((Room)Data01, (Customer)Data02, (DateTime)Data03, (DateTime)Data04);
+                Booking = new Booking((Room)Data03, (Customer)Data04, (DateTime)Data01, (DateTime)Data02, (Invoice)Data05);
                 return (IModel)Booking;
             }
             else
@@ -104,7 +110,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
         public IModel EditForm(IModel entityToUpdate)
         {
-            Booking = (IBooking)entityToUpdate;
+            var ExistingBooking = (IBooking)entityToUpdate;
             IsAnEdit = true;
 
             Console.Clear();
@@ -112,14 +118,14 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             AnsiConsole.MarkupLine("\n[yellow]Från-datum[/]: ");
             Data01 = BookingValidator.ValidateFromDate(false, PreviousMenu);
             if (Data01 == null)
-                Data01 = Booking.FromDate;
+                Data01 = ExistingBooking.FromDate;
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Till-datum[/]: ");
             Data02 = BookingValidator.ValidateToDate(false, PreviousMenu);
             if (Data02 == null)
-                Data02 = Booking.FromDate;
+                Data02 = ExistingBooking.FromDate;
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -127,7 +133,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             var _roomController = ModelFactory.GetModelController(EModelType.Room, PreviousMenu);
             Data03 = _roomController.BrowseOne();
             if (Data03 == null)
-                Data03 = Booking.Room;
+                Data03 = ExistingBooking.Room;
+            var _room = (IRoom)Data03;
+
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -135,11 +143,16 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             var _customerController = ModelFactory.GetModelController(EModelType.Customer, PreviousMenu);
             Data04 = _customerController.BrowseOne();
             if (Data04 == null)
-                Data04 = Booking.Customer;
+                Data04 = ExistingBooking.Customer;
+            var _customer = (ICustomer)Data03;
+
+
+            var _numberOfNights = NumberOfNightsCalculator.calculateNumberOfNights((DateTime)Data02, (DateTime)Data01);
+            var _price = PriceCalculator.CalculateStayPrice(_numberOfNights, _room.Details.Price);
 
             // Create Invoice 
-            InvoiceService.Delete(Booking.Invoice);
-            Data05 = new Invoice(Booking.Room.Details.RoomType, Booking.Room.Details.Price);
+            InvoiceService.Delete(ExistingBooking.Invoice);
+            Data05 = new Invoice(_room.Details.RoomType, _price);
 
 
             Console.Clear();
@@ -152,7 +165,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             {
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
-                Booking = new Booking((Room)Data01, (Customer)Data02, (DateTime)Data03, (DateTime)Data04);
+                Booking = new Booking((Room)Data03, (Customer)Data04, (DateTime)Data01, (DateTime)Data02, (Invoice)Data05);
                 return (IModel)Booking;
             }
             else
