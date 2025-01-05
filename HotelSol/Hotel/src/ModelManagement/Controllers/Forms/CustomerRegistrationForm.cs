@@ -34,14 +34,18 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public object Data08 { get; set; } // City
         public object Data09 { get; set; } // Country
         public object Data10 { get; set; }
-        public IModelRegistrationForm SubForm { get; set; }
+        public IModelRegistrationForm? RelatedForm { get; set; }
+        public void AssignRelatedForm(IModelRegistrationForm relatedForm)
+        {
+            throw new NotImplementedException();
+        }
 
         public string _firstName;
         public string _lastName;
         public DateTime _dateOfBirth;
         public string _email;
         public string _phone;
-        public ICustomer Customer { get; set; }
+        public ICustomer Customer { get; set; } 
 
         public static IModelRegistrationForm GetInstance(IMenu previousMenu)
         {
@@ -299,5 +303,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             table.AddRow("Land", customer.Country);
             AnsiConsole.Write(table);
         }
+
     }
 }

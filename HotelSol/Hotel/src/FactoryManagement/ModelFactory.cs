@@ -47,6 +47,8 @@ namespace Hotel.src.FactoryManagement
                 //    return BookingRegistrationForm.GetInstance(previousMenu);
                 case EModelType.Room:
                     return RoomRegistrationForm.GetInstance(previousMenu);
+                case EModelType.RoomDetails:
+                    return RoomDetailsRegistrationForm.GetInstance(previousMenu);
                 case EModelType.Customer:
                     return CustomerRegistrationForm.GetInstance(previousMenu);
                 default:

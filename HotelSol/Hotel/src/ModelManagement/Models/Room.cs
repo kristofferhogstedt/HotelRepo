@@ -11,12 +11,12 @@ namespace Hotel.src.ModelManagement.Models
         public int ID { get; set; }
         //-------------------------------------
         public List<Booking>? Bookings { get; set; }
-        public RoomDetail Details { get; set; }
+        public RoomDetails Details { get; set; }
         //-------------------------------------
 
         public string Name { get; set; }
         public string? Description { get; set; }
-        public string Floor { get; set; }
+        public int Floor { get; set; }
         public DateTime? CleanedDate { get; set; }
         public bool IsInactive { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -34,6 +34,14 @@ namespace Hotel.src.ModelManagement.Models
 
         public Room()
         {
+            CreatedDate = DateTime.Now;
+        }
+        public Room(string name, string description, int floor, RoomDetails roomDetails)
+        {
+            Name = name;
+            Description = description; 
+            Floor = floor;
+            Details = roomDetails;
             CreatedDate = DateTime.Now;
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Rules
 {
-    public class CustomerRuleHandler
+    public class CustomerValidator
     {
         public static bool ValidateFirstNameLength(string input)
         {

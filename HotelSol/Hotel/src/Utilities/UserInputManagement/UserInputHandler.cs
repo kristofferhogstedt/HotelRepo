@@ -31,7 +31,7 @@ namespace HotelLibrary.Utilities.UserInputManagement
             }
         }
 
-        public static ConsoleKey? UserInputEscape(IMenu previousMenu)
+        public static ConsoleKey UserInputEscape(IMenu previousMenu)
         {
             var _key = Console.ReadKey(true).Key;
 
@@ -54,9 +54,9 @@ namespace HotelLibrary.Utilities.UserInputManagement
             }
         }
 
-        public static bool UserInputEnter(ConsoleKeyInfo consoleKeyInput)
+        public static bool UserInputEnter(ConsoleKey firstKey)
         {
-            if (consoleKeyInput.Key == ConsoleKey.Enter)
+            if (firstKey == ConsoleKey.Enter)
                 return true;
             else
                 return false;
@@ -65,7 +65,13 @@ namespace HotelLibrary.Utilities.UserInputManagement
         public static string UserInputString(IMenu previousMenu)
         {
             var _firstKey = UserInputEscape(previousMenu);
-            var _output = _firstKey + Console.ReadLine();
+            string _output = "";
+
+            if (!UserInputEnter(_firstKey))
+            {
+                Console.Write(_firstKey);
+                _output = _firstKey + Console.ReadLine();
+            }
             return _output;
         }
 

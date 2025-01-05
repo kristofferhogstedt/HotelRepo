@@ -11,7 +11,7 @@ namespace Hotel.src.ModelManagement.Models
         public int ID { get; set; }
 
         //-------------------------------------
-        public List<RoomDetail> RoomDetails { get; set; }
+        public List<RoomDetails> RoomDetails { get; set; }
         //-------------------------------------
 
         public string Name { get; set; }
@@ -38,6 +38,32 @@ namespace Hotel.src.ModelManagement.Models
                         break;
                     case "Suite":
                         _sizeDefault = 45;
+                        break;
+                }
+            }
+        }
+        private int _sizeMax;
+        public int SizeMax
+        {
+            get
+            {
+                return _sizeMax;
+            }
+            set
+            {
+                switch (Name)
+                {
+                    case "Single":
+                        _sizeMax = 20;
+                        break;
+                    case "Double":
+                        _sizeMax = 25;
+                        break;
+                    case "Family":
+                        _sizeMax = 40;
+                        break;
+                    case "Suite":
+                        _sizeMax = 60;
                         break;
                 }
             }

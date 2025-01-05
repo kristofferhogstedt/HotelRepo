@@ -15,6 +15,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Interfaces
         IModel EditForm(IModel modelToUpdate);
         void DisplaySummary();
         EModelType ModelType { get; set; }
+        public IModelRegistrationForm? RelatedForm { get; set; }
+        public void AssignRelatedForm(IModelRegistrationForm relatedForm);
 
         object Data01 { get; set; }
         object Data02 { get; set; }
@@ -26,6 +28,5 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Interfaces
         object Data08 { get; set; }
         object Data09 { get; set; }
         object Data10 { get; set; }
-        IModelRegistrationForm SubForm { get; set; }
     }
 }

@@ -1,18 +1,19 @@
 ﻿using Hotel.src.ModelManagement.Models.Enums;
-using Hotel.src.ModelManagement.Models.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Hotel.src.ModelManagement.Models
+namespace Hotel.src.ModelManagement.Models.Interfaces
 {
-    public class RoomDetail : IRoomDetail
+    public interface IRoomDetails : IModel
     {
         [Key]
-        public int ID { get; set; }
+        int ID { get; set; }
 
         //-------------------------------------
         [ForeignKey("Room")]
+        [Required]
         public int RoomID { get; set; }
+        [Required]
         public Room Room { get; set; }
 
         [ForeignKey("RoomType")]
@@ -22,23 +23,9 @@ namespace Hotel.src.ModelManagement.Models
         public RoomType RoomType { get; set; }
         //-------------------------------------
 
-        public int Size { get; set; }
-        public int NumberOfBeds { get; set; }
+        int Size { get; set; }
+        int NumberOfBeds { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
-
-        //-------------------------------------
-        [NotMapped]
-        public EModelType ModelTypeEnum { get; set; } = EModelType.RoomDetail;
-
-        [NotMapped]
-        public string Info => throw new NotImplementedException();
-
-        //-------------------------------------
-
-        public RoomDetail()
-        {
-            CreatedDate = DateTime.Now;
-        }
     }
 }

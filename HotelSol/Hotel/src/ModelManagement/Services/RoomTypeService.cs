@@ -26,5 +26,20 @@ namespace Hotel.src.ModelManagement.Services
 
             return _modelToReturn;
         }
+
+        public static List<IRoomType> GetAll()
+        {
+            var _listToReturn = DatabaseLair.DatabaseContext.RoomTypes
+                .ToList<IRoomType>();
+
+            if (_listToReturn == null)
+            {
+                Console.Clear();
+                ServiceMessager.DataNotFoundMessage();
+            }
+            return _listToReturn;
+            // Guard clause?
+        }
+
     }
 }
