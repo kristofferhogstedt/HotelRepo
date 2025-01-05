@@ -83,7 +83,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             var _price = PriceCalculator.CalculateStayPrice(_numberOfNights, _room.Details.Price);
 
             // Create Invoice 
-            Data05 = new Invoice(Booking.Room.Details.RoomType, _price);
+            Data05 = new Invoice(_room.Details.RoomType, _price);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -144,7 +144,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Data04 = _customerController.BrowseOne();
             if (Data04 == null)
                 Data04 = ExistingBooking.Customer;
-            var _customer = (ICustomer)Data03;
+            var _customer = (ICustomer)Data04;
 
 
             var _numberOfNights = NumberOfNightsCalculator.calculateNumberOfNights((DateTime)Data02, (DateTime)Data01);
