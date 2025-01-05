@@ -18,11 +18,11 @@ namespace Hotel.src.ModelManagement.Models
         public DateTime DueDate { get; set; }
         public bool IsPaid { get; set; }
         public DateTime PaidDate { get; set; }
-        public bool IsInactive { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
+        public bool IsInactive { get; set; }
         public DateTime? InactivatedDate { get; set; }
-        
+
         //-------------------------------------
         [NotMapped]
         public EModelType ModelTypeEnum { get; set; } = EModelType.Invoice;

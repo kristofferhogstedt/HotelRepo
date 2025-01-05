@@ -14,17 +14,31 @@ namespace Hotel.src.ModelManagement.Services
     {
         public static IRoomType GetOneByRoomType(string searchString)
         {
-            var _modelToReturn = (IRoomType)DatabaseLair.DatabaseContext.RoomTypes
-                .First(m => m.Name == searchString);
+            var _entitylToReturn = (IRoomType)DatabaseLair.DatabaseContext.RoomTypes
+                .First(e => e.Name == searchString);
 
-            if (_modelToReturn == null)
+            if (_entitylToReturn == null)
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
                 return null;
             }
 
-            return _modelToReturn;
+            return _entitylToReturn;
+        }
+        public static IRoomType GetOneByID(int searchString)
+        {
+            var _entityToReturn = (IRoomType)DatabaseLair.DatabaseContext.RoomTypes
+                .First(e => e.ID == searchString);
+
+            if (_entityToReturn == null)
+            {
+                Console.Clear();
+                ServiceMessager.DataNotFoundMessage();
+                return null;
+            }
+
+            return _entityToReturn;
         }
 
         public static List<IRoomType> GetAll()
@@ -40,6 +54,5 @@ namespace Hotel.src.ModelManagement.Services
             return _listToReturn;
             // Guard clause?
         }
-
     }
 }

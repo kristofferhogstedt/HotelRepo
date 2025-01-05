@@ -23,6 +23,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         private static readonly object _lock = new object(); // Lock object for thread safety
         public IMenu PreviousMenu { get; set; }
         public EModelType ModelType { get; set; } = EModelType.Customer;
+        public IModelRegistrationForm? RelatedForm { get; set; }
+        public EModelType RelatedFormModelType { get; set; }
 
         public object Data01 { get; set; } // First name
         public object Data02 { get; set; } // Last name
@@ -34,19 +36,19 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public object Data08 { get; set; } // City
         public object Data09 { get; set; } // Country
         public object Data10 { get; set; }
-        public IModelRegistrationForm? RelatedForm { get; set; }
-        public EModelType RelatedFormModelType { get; set; }
+
         public void AssignRelatedForm(IModelRegistrationForm relatedForm)
         {
             throw new NotImplementedException();
         }
 
-        public string _firstName;
-        public string _lastName;
-        public DateTime _dateOfBirth;
-        public string _email;
-        public string _phone;
+        //public string _firstName;
+        //public string _lastName;
+        //public DateTime _dateOfBirth;
+        //public string _email;
+        //public string _phone;
         public ICustomer Customer { get; set; } 
+        public bool IsAnEdit { get; set; }
 
         public static IModelRegistrationForm GetInstance(IMenu previousMenu)
         {

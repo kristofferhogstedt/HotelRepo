@@ -26,9 +26,9 @@ namespace Hotel.Migrations
                     PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsInactive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsInactive = table.Column<bool>(type: "bit", nullable: false),
                     InactivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -46,9 +46,9 @@ namespace Hotel.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Floor = table.Column<int>(type: "int", nullable: false),
                     CleanedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsInactive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsInactive = table.Column<bool>(type: "bit", nullable: false),
                     InactivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -67,9 +67,9 @@ namespace Hotel.Migrations
                     SizeMax = table.Column<int>(type: "int", nullable: false),
                     NumberOfBedsDefault = table.Column<int>(type: "int", nullable: false),
                     NumberOfBedsMax = table.Column<int>(type: "int", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsInactive = table.Column<bool>(type: "bit", nullable: false),
                     InactivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -87,9 +87,9 @@ namespace Hotel.Migrations
                     RoomID = table.Column<int>(type: "int", nullable: false),
                     FromDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ToDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsInactive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsInactive = table.Column<bool>(type: "bit", nullable: false),
                     InactivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -120,7 +120,9 @@ namespace Hotel.Migrations
                     Size = table.Column<int>(type: "int", nullable: false),
                     NumberOfBeds = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsInactive = table.Column<bool>(type: "bit", nullable: false),
+                    InactivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -150,9 +152,9 @@ namespace Hotel.Migrations
                     DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsPaid = table.Column<bool>(type: "bit", nullable: false),
                     PaidDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsInactive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsInactive = table.Column<bool>(type: "bit", nullable: false),
                     InactivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>

@@ -23,6 +23,11 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         private static readonly object _lock = new object(); // Lock object for thread safety
         public IMenu PreviousMenu { get; set; }
         public EModelType ModelType { get; set; } = EModelType.RoomDetails;
+        public IModelRegistrationForm? RelatedForm { get; set; }
+        public EModelType RelatedFormModelType { get; set; } = EModelType.Room;
+        public IRoomDetails RoomDetails { get; set; }
+        public IRoomType RoomType { get; set; }
+        public bool IsAnEdit { get; set; }
 
         public object Data01 { get; set; } // First name
         public object Data02 { get; set; } // Last name
@@ -34,15 +39,11 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public object Data08 { get; set; } // City
         public object Data09 { get; set; } // Country
         public object Data10 { get; set; }
-        public IModelRegistrationForm? RelatedForm { get; set; }
-        public EModelType RelatedFormModelType { get; set; } = EModelType.Room;
+
         public void AssignRelatedForm(IModelRegistrationForm relatedForm)
         {
             RelatedForm = relatedForm;
         }
-
-        public IRoomDetails RoomDetails { get; set; }
-        public IRoomType RoomType { get; set; }
 
         public static IModelRegistrationForm GetInstance(IMenu previousMenu)
         {
@@ -68,12 +69,12 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine($"\n[yellow]Storlek[/] (default {RoomType.SizeDefault}): ");
-            Data02 = RoomDetailsValidator.ValidateRoomSize(RoomType, PreviousMenu);
+            Data02 = RoomDetailsValidator.ValidateRoomSize(RoomType, false, PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine($"\n[yellow]Antal sängar[/] (default {RoomType.NumberOfBedsDefault}): ");
-            Data03 = RoomDetailsValidator.ValidateNumberOfBeds(RoomType, PreviousMenu);
+            Data03 = RoomDetailsValidator.ValidateNumberOfBeds(RoomType, false, PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -121,14 +122,14 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine($"\n[yellow]Storlek[/] (default {RoomType.SizeDefault}): ");
-            Data02 = RoomDetailsValidator.ValidateRoomSize(RoomType, PreviousMenu);
+            Data02 = RoomDetailsValidator.ValidateRoomSize(RoomType, true, PreviousMenu);
             if (Data02 == null)
                 Data02 = RoomDetails.Size;
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine($"\n[yellow]Antal sängar[/] (default {RoomType.NumberOfBedsDefault}): ");
-            Data03 = RoomDetailsValidator.ValidateNumberOfBeds(RoomType, PreviousMenu);
+            Data03 = RoomDetailsValidator.ValidateNumberOfBeds(RoomType, true, PreviousMenu);
             if (Data03 == null)
                 Data03 = RoomDetails.NumberOfBeds;
 

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Hotel.src.MenuManagement.Menus.Interfaces;
+using HotelLibrary.Utilities.UserInputManagement;
+using HotelLibrary.Utilities.UserInputManagement.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +11,10 @@ namespace Hotel.src.ModelManagement.Rules
 {
     public class CustomerValidator
     {
-        public static bool ValidateFirstNameLength(string input)
+        public static string ValidateFirstName(string input, bool isAnEdit, IMenu previousMenu)
         {
-            if (input.Length < 3)
-            {
-                return false;
-            }
-            return true;
+            var _userInput = UserInputHandler.UserInputStringNotNullOrEmpty(previousMenu);
+            return _userInput;
         }
     }
 }

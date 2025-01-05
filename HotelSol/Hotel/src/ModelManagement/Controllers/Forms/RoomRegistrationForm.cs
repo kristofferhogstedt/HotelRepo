@@ -18,6 +18,10 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         private static readonly object _lock = new object(); // Lock object for thread safety
         public IMenu PreviousMenu { get; set; }
         public EModelType ModelType { get; set; } = EModelType.Room;
+        public IModelRegistrationForm? RelatedForm { get; set; }
+        public EModelType RelatedFormModelType { get; set; } = EModelType.RoomDetails;
+        public IRoom Room { get; set; }
+        public bool IsAnEdit { get; set; }
 
         public object Data01 { get; set; } // First name
         public object Data02 { get; set; } // Last name
@@ -29,15 +33,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public object Data08 { get; set; } // City
         public object Data09 { get; set; } // Country
         public object Data10 { get; set; }
-        public IModelRegistrationForm? RelatedForm { get; set; }
-        public EModelType RelatedFormModelType { get; set; } = EModelType.RoomDetails;
-
-        public string _firstName;
-        public string _lastName;
-        public DateTime _dateOfBirth;
-        public string _email;
-        public string _phone;
-        public IRoom Room { get; set; }
 
         public void AssignRelatedForm(IModelRegistrationForm relatedForm)
         {
@@ -52,10 +47,11 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
         public IModel CreateForm()
         {
+            IsAnEdit = false;
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Rumsnummer[/]: ");
-            Data01 = RoomValidator.ValidateRoomNumber(PreviousMenu);
+            Data01 = RoomValidator.ValidateRoomNumber(false, PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -65,7 +61,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Våning[/]: ");
-            Data03 = RoomValidator.ValidateFloor(PreviousMenu);
+            Data03 = RoomValidator.ValidateFloor(false, PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -100,12 +96,13 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public IModel EditForm(IModel modelToUpdate)
         {
             Room = (IRoom)modelToUpdate;
+            IsAnEdit = true;
 
             Console.Clear();
             DisplaySummary(Room);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Rumsnummer[/]: ");
-            Data01 = RoomValidator.ValidateRoomNumber(PreviousMenu);
+            Data01 = RoomValidator.ValidateRoomNumber(true, PreviousMenu);
             if (Data01 == null)
                 Data01 = Room.Name;
 
@@ -121,8 +118,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             DisplaySummary(Room);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Våning[/]: ");
-            Data03 = RoomValidator.ValidateFloor(PreviousMenu);
-            if (Data03 == null)
+            Data03 = RoomValidator.ValidateFloor(true, PreviousMenu);
+            if ((int)Data03 == -1)
                 Data03 = Room.Floor;
 
             Console.Clear();
@@ -141,8 +138,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
             if (confirm)
             {
-                // Meddelande om lyckad registrering
-                AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
                 Room = new Room((string)Data01, (string)Data02, (int)Data03, (RoomDetails)Data04);
                 return (IModel)Room;
             }

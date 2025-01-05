@@ -30,37 +30,35 @@ namespace Hotel.src.ModelManagement.Services
         /// </summary>
         /// <param name="searchString"></param>
         /// <returns></returns>
-        public static IBooking GetOne(string searchString)
+        public static IModel GetOne(string searchString)
         {
-            var _modelToReturn = DatabaseLair.DatabaseContext.Bookings
+            var _entityToReturn = DatabaseLair.DatabaseContext.Bookings
                 .Where(m => m.IsInactive == false)
                 .First();
-            //    .First(m => m.CustomerID.ToString().Contains(searchString));
 
-            //if (_modelToReturn == null)
-            //{
-            //    Console.Clear();
-            //    ServiceMessager.DataNotFoundMessage();
-            //    return null;
-            //}
+            _entityToReturn = (Booking)GetSubDataRoom(_entityToReturn);
+            _entityToReturn = (Booking)GetSubDataCustomer(_entityToReturn);
 
-            return _modelToReturn;
+            return _entityToReturn;
         }
 
-        public static IBooking GetOneByID(int searchID)
+        public static IModel GetOneByID(int searchID)
         {
-            var _modelToReturn = DatabaseLair.DatabaseContext.Bookings
+            var _entityToReturn = DatabaseLair.DatabaseContext.Bookings
                 .Where(m => m.IsInactive == false)
                 .First(m => m.ID == searchID);
 
-            if (_modelToReturn == null)
+            _entityToReturn = (Booking)GetSubDataRoom(_entityToReturn);
+            _entityToReturn = (Booking)GetSubDataCustomer(_entityToReturn);
+
+            if (_entityToReturn == null)
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
                 return null;
             }
 
-            return _modelToReturn;
+            return _entityToReturn;
         }
 
         /// <summary>
@@ -74,6 +72,9 @@ namespace Hotel.src.ModelManagement.Services
                 .Where(m => m.IsInactive == false)
                 .ToList<IBooking>();
 
+            _listToReturn = GetSubDataRoom(_listToReturn);
+            _listToReturn = GetSubDataCustomer(_listToReturn);
+
             if (_listToReturn == null)
             {
                 Console.Clear();
@@ -84,19 +85,61 @@ namespace Hotel.src.ModelManagement.Services
             // Guard clause?
         }
 
-        public static void Update(IBooking modelToUpdate)
+        public static void Update(IBooking entityToUpdate)
         {
-            DatabaseLair.DatabaseContext.Bookings.Update((Booking)modelToUpdate);
+            DatabaseLair.DatabaseContext.Bookings.Update((Booking)entityToUpdate);
             DatabaseLair.DatabaseContext.SaveChanges();
         }
 
-        public void Delete(IBooking modelToDelete)
+        public void Delete(IBooking entityToDelete)
         {
-            var _modelToDelete = (Booking)modelToDelete;
-            _modelToDelete.IsInactive = true;
-            _modelToDelete.InactivatedDate = DateTime.Now;
-            DatabaseLair.DatabaseContext.Bookings.Update(_modelToDelete);
+            var _entityToDelete = (Booking)entityToDelete;
+            _entityToDelete.IsInactive = true;
+            _entityToDelete.InactivatedDate = DateTime.Now;
+            DatabaseLair.DatabaseContext.Bookings.Update(_entityToDelete);
             DatabaseLair.DatabaseContext.SaveChanges();
+        }
+
+
+        // Getters for subdata
+        //----------------------------------------------
+
+        // Room
+        public static IModel GetSubDataRoom(IModel entity)
+        {
+            var _entityToReturn = (IBooking)entity;
+            _entityToReturn.Room = (Room)RoomService.GetOneByID(_entityToReturn.RoomID);
+            return _entityToReturn;
+        }
+
+        public static List<IBooking> GetSubDataRoom(List<IBooking> entityList)
+        {
+            var _listToReturn = new List<IBooking>();
+            foreach (IBooking entity in entityList)
+            {
+                entity.Room = (Room)RoomService.GetOneByID(entity.RoomID);
+                _listToReturn.Add(entity);
+            };
+            return _listToReturn;
+        }
+
+        // Customer
+        public static IModel GetSubDataCustomer(IModel entity)
+        {
+            var _entityToReturn = (IBooking)entity;
+            _entityToReturn.Customer = (Customer)CustomerService.GetOneByID(_entityToReturn.CustomerID);
+            return _entityToReturn;
+        }
+
+        public static List<IBooking> GetSubDataCustomer(List<IBooking> entityList)
+        {
+            var _listToReturn = new List<IBooking>();
+            foreach (Booking entity in entityList)
+            {
+                entity.Customer = (Customer)CustomerService.GetOneByID(entity.CustomerID);
+                _listToReturn.Add(entity);
+            };
+            return _listToReturn;
         }
     }
 }

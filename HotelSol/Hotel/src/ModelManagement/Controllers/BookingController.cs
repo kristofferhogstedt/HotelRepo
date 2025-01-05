@@ -3,6 +3,7 @@ using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.MenuManagement.Menus;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
+using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services;
@@ -49,7 +50,11 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public IModel BrowseOne()
         {
-            IBooking _modelToReturn = BookingEntitySelector.Select(BookingService.GetAll(), 0, PreviousMenu);
+            List<IBooking> _listToBrowse = new List<IBooking>();
+            foreach (IBooking e in BookingService.GetAll())
+                _listToBrowse.Add(e);
+
+            var _modelToReturn = BookingEntitySelector.Select(_listToBrowse, 0, PreviousMenu);
             return _modelToReturn;
         }
 
@@ -66,7 +71,12 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void ReadAll()
         {
-            BookingDisplayer.DisplayModelTable(BookingService.GetAll());
+            List<IBooking> _listToDisplay = new List<IBooking>();
+            foreach (IBooking e in BookingService.GetAll())
+            {
+                _listToDisplay.Add(e);
+            }
+            BookingDisplayer.DisplayModelTable(_listToDisplay);
         }
 
         public void Update()

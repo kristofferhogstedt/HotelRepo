@@ -12,7 +12,7 @@ namespace Hotel.src.ModelManagement.Utilities.Selectors
     public class BookingEntitySelector
     {
         public static IBooking Select(List<IBooking> entityList, int startIndex, IMenu previousMenu)
-        {
+        {            
             int _selectedIndex = startIndex;
 
             while (true)

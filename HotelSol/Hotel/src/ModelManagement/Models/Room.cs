@@ -18,9 +18,9 @@ namespace Hotel.src.ModelManagement.Models
         public string? Description { get; set; }
         public int Floor { get; set; }
         public DateTime? CleanedDate { get; set; }
-        public bool IsInactive { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
+        public bool IsInactive { get; set; }
         public DateTime? InactivatedDate { get; set; }
 
         //-------------------------------------

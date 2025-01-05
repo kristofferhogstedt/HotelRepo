@@ -29,37 +29,59 @@ namespace Hotel.src.ModelManagement.Services
         /// </summary>
         /// <param name="searchString"></param>
         /// <returns></returns>
-        public static IInvoice GetOne(string searchString)
+        public static IModel GetOne(string searchString)
         {
-            var _modelToReturn = DatabaseLair.DatabaseContext.Invoices
+            var _entityToReturn = (IModel)DatabaseLair.DatabaseContext.Invoices
                 .Where(m => m.IsInactive == false)
                 .First(m => m.BookingID.ToString().Equals(searchString)
                 );
 
-            if (_modelToReturn == null)
+            _entityToReturn = GetSubData(_entityToReturn); // Get subdata
+
+            if (_entityToReturn == null)
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
                 return null;
             }
 
-            return _modelToReturn;
+            return _entityToReturn;
         }
 
-        public static IInvoice GetOneByID(int searchID)
+        public static IModel GetOneByID(int searchID)
         {
-            var _modelToReturn = DatabaseLair.DatabaseContext.Invoices
+            var _entityToReturn = (IModel)DatabaseLair.DatabaseContext.Invoices
                 .Where(m => m.IsInactive == false)
                 .First(m => m.ID == searchID);
 
-            if (_modelToReturn == null)
+            _entityToReturn = GetSubData(_entityToReturn); // Get subdata
+
+            if (_entityToReturn == null)
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
                 return null;
             }
 
-            return _modelToReturn;
+            return _entityToReturn;
+        }
+
+        public static IModel GetOneByBookingID(int searchID)
+        {
+            var _entityToReturn = (IModel)DatabaseLair.DatabaseContext.Invoices
+                .Where(m => m.IsInactive == false)
+                .First(m => m.BookingID == searchID);
+            
+            _entityToReturn = GetSubData(_entityToReturn); // Get subdata
+
+            if (_entityToReturn == null)
+            {
+                Console.Clear();
+                ServiceMessager.DataNotFoundMessage();
+                return null;
+            }
+
+            return _entityToReturn;
         }
 
         /// <summary>
@@ -73,6 +95,8 @@ namespace Hotel.src.ModelManagement.Services
                 .Where(m => m.IsInactive == false)
                 .ToList<IInvoice>();
 
+            _listToReturn = GetSubData(_listToReturn); // Get subdata
+
             if (_listToReturn == null)
             {
                 Console.Clear();
@@ -83,19 +107,42 @@ namespace Hotel.src.ModelManagement.Services
             // Guard clause?
         }
 
-        public static void Update(IInvoice modelToUpdate)
+        public static void Update(IInvoice entityToUpdate)
         {
-            DatabaseLair.DatabaseContext.Invoices.Update((Invoice)modelToUpdate);
+            DatabaseLair.DatabaseContext.Invoices.Update((Invoice)entityToUpdate);
             DatabaseLair.DatabaseContext.SaveChanges();
         }
 
-        public void Delete(IInvoice modelToDelete)
+        public void Delete(IInvoice entityToDelete)
         {
-            var _modelToDelete = (Invoice)modelToDelete;
-            _modelToDelete.IsInactive = true;
-            _modelToDelete.InactivatedDate = DateTime.Now;
-            DatabaseLair.DatabaseContext.Invoices.Update(_modelToDelete);
+            var _entityToDelete = (Invoice)entityToDelete;
+            _entityToDelete.IsInactive = true;
+            _entityToDelete.InactivatedDate = DateTime.Now;
+            DatabaseLair.DatabaseContext.Invoices.Update(_entityToDelete);
             DatabaseLair.DatabaseContext.SaveChanges();
+        }
+
+
+        // Getters for subdata
+        //----------------------------------------------
+        
+        // Booking
+        public static IModel GetSubData(IModel entity)
+        {
+            var _entityToReturn = (Invoice)entity;
+            _entityToReturn.Booking = (Booking)BookingService.GetOneByID(_entityToReturn.BookingID);
+            return _entityToReturn;
+        }
+
+        public static List<IInvoice> GetSubData(List<IInvoice> entityList)
+        {
+            var _listToReturn = new List<IInvoice>();
+            foreach (Invoice entity in entityList)
+            {
+                entity.Booking = (Booking)BookingService.GetOneByID(entity.BookingID);
+                _listToReturn.Add(entity);
+            };
+            return _listToReturn;
         }
     }
 }

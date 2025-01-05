@@ -8,10 +8,9 @@
         int Floor { get; set; }
         RoomDetails Details { get; set; }
         DateTime? CleanedDate { get; set; }
-        public bool IsInactive { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
+        public bool IsInactive { get; set; }
         public DateTime? InactivatedDate { get; set; }
-
     }
 }

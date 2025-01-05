@@ -8,11 +8,11 @@ namespace Hotel.src.ModelManagement.Services
 {
     public class CustomerService //: ICustomerService
     {
-        public static void Create(ICustomer modelToCreate)
+        public static void Create(ICustomer entityToCreate)
         {
             try
             {
-                DatabaseLair.DatabaseContext.Customers.Add((Customer)modelToCreate);
+                DatabaseLair.DatabaseContext.Customers.Add((Customer)entityToCreate);
                 DatabaseLair.DatabaseContext.SaveChanges();
             }
             catch (Exception e)
@@ -28,35 +28,35 @@ namespace Hotel.src.ModelManagement.Services
         /// <returns></returns>
         public static ICustomer GetOne(string searchString)
         {
-            var _modelToReturn = DatabaseLair.DatabaseContext.Customers
+            var _entityToReturn = DatabaseLair.DatabaseContext.Customers
                 .Where(m => m.IsInactive == false)
                 .First(m => m.FirstName.Contains(searchString) 
                 || m.LastName.Contains(searchString));
 
-            if (_modelToReturn == null)
+            if (_entityToReturn == null)
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
                 return null;
             }
 
-            return _modelToReturn;
+            return _entityToReturn;
         }
 
         public static ICustomer GetOneByID(int searchID)
         {
-            var _modelToReturn = DatabaseLair.DatabaseContext.Customers
+            var _entityToReturn = DatabaseLair.DatabaseContext.Customers
                 .Where(m => m.IsInactive == false)
                 .First(m => m.ID == searchID);
 
-            if (_modelToReturn == null)
+            if (_entityToReturn == null)
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
                 return null;
             }
 
-            return _modelToReturn;
+            return _entityToReturn;
         }
 
         /// <summary>
@@ -106,18 +106,18 @@ namespace Hotel.src.ModelManagement.Services
             return _listToReturn;
         }
 
-        public static void Update(ICustomer modelToUpdate)
+        public static void Update(ICustomer entityToUpdate)
         {
-            DatabaseLair.DatabaseContext.Customers.Update((Customer)modelToUpdate);
+            DatabaseLair.DatabaseContext.Customers.Update((Customer)entityToUpdate);
             DatabaseLair.DatabaseContext.SaveChanges();
         }
 
-        public void Delete(ICustomer modelToDelete)
+        public void Delete(ICustomer entityToDelete)
         {
-            var _modelToDelete = (Customer)modelToDelete;
-            _modelToDelete.IsInactive = true;
-            _modelToDelete.InactivatedDate = DateTime.Now;
-            DatabaseLair.DatabaseContext.Customers.Update(_modelToDelete);
+            var _entityToDelete = (Customer)entityToDelete;
+            _entityToDelete.IsInactive = true;
+            _entityToDelete.InactivatedDate = DateTime.Now;
+            DatabaseLair.DatabaseContext.Customers.Update(_entityToDelete);
             DatabaseLair.DatabaseContext.SaveChanges();
         }
     }

@@ -18,6 +18,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Interfaces
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; }
         public void AssignRelatedForm(IModelRegistrationForm relatedForm);
+        public bool IsAnEdit { get; set; }
 
         object Data01 { get; set; }
         object Data02 { get; set; }

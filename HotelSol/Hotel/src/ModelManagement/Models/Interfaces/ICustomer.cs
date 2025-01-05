@@ -16,10 +16,10 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         string City { get; set; }
         string Country { get; set; }
         List<Booking>? Bookings { get; set; }
-        bool IsInactive { get; set; }
         DateTime CreatedDate { get; set; }
         DateTime? UpdatedDate { get; set; }
-        DateTime? InactivatedDate { get; set; }
+        public bool IsInactive { get; set; }
+        public DateTime? InactivatedDate { get; set; }
 
 
         //-------------------------------------

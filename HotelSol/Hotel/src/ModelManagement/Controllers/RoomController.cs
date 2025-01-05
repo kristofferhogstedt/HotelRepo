@@ -46,7 +46,10 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public IModel BrowseOne()
         {
-            IRoom _modelToReturn = RoomEntitySelector.Select(RoomService.GetAll(), 0, PreviousMenu);
+            List<IRoom> _ListToBrowse = new List<IRoom>();
+            foreach (IRoom e in RoomService.GetAll())
+                _ListToBrowse.Add(e);
+            IRoom _modelToReturn = RoomEntitySelector.Select(_ListToBrowse, 0, PreviousMenu);
             return _modelToReturn;
         }
 

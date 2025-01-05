@@ -10,9 +10,9 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         DateTime DueDate { get; set; }
         bool IsPaid { get; set; }
         DateTime PaidDate { get; set; }
-        public bool IsInactive { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
+        public bool IsInactive { get; set; }
         public DateTime? InactivatedDate { get; set; }
 
         //-------------------------------------

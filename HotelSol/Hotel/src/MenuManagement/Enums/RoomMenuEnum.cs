@@ -14,14 +14,14 @@ namespace Hotel.src.MenuManagement.Enums
         PreviousMenu,
         [Description("  Visa rum")]
         DisplayRooms,
-        [Description("  Uppdatera rum")]
-        UpdateRooms,
         [Description("  Registrera nytt rum")]
         CreateRoom,
-        [Description("  Radera rum")]
-        DeleteRooms,
         [Description("Avsluta")]
         Exit
+        //[Description("  Uppdatera rum")]
+        //UpdateRooms,
+        //[Description("  Radera rum")]
+        //DeleteRooms,
     }
 
     public static class RoomMenuEnum

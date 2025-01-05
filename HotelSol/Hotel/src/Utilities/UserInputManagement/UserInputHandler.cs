@@ -54,6 +54,14 @@ namespace HotelLibrary.Utilities.UserInputManagement
             }
         }
 
+        public static bool UserInputEsc(ConsoleKey firstKey)
+        {
+            if (firstKey == ConsoleKey.Escape)
+                return true;
+            else
+                return false;
+        }
+
         public static bool UserInputEnter(ConsoleKey firstKey)
         {
             if (firstKey == ConsoleKey.Enter)
@@ -64,14 +72,15 @@ namespace HotelLibrary.Utilities.UserInputManagement
 
         public static string UserInputString(IMenu previousMenu)
         {
-            var _firstKey = UserInputEscape(previousMenu);
+            var _firstKey = Console.ReadKey(true).Key; //UserInputEscape(previousMenu);
             string _output = "";
 
-            if (!UserInputEnter(_firstKey))
-            {
-                Console.Write(_firstKey);
-                _output = _firstKey + Console.ReadLine();
-            }
+            if (UserInputEsc(_firstKey))
+                _output = "";
+            else if (UserInputEnter(_firstKey))
+                _output = "-1";
+            else
+                _output = Console.ReadLine();
             return _output;
         }
 
@@ -93,11 +102,11 @@ namespace HotelLibrary.Utilities.UserInputManagement
 
         public static int UserInputInt(IMenu previousMenu)
         {
-            int _output = 0;
+            int _output = -1;
             while (!int.TryParse(UserInputString(previousMenu), out _output))
             {
                 Console.WriteLine("Felaktig inmatning, måste vara heltal (int).");
-                LineClearer.ClearLine(1000);
+                LineClearer.ClearLastLine(1000);
             }
 
             return _output;
@@ -109,7 +118,7 @@ namespace HotelLibrary.Utilities.UserInputManagement
             while (!ushort.TryParse(UserInputString(previousMenu), out _output))
             {
                 Console.WriteLine("Felaktig inmatning, heltal (ushort).");
-                LineClearer.ClearLine(1000);
+                LineClearer.ClearLastLine(1000);
             }
 
             return _output;

@@ -24,10 +24,10 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
 
         DateTime FromDate { get; set; }
         DateTime ToDate { get; set; }
-        bool IsInactive { get; set; }
         DateTime CreatedDate { get; set; }
         DateTime? UpdatedDate { get; set; }
-        DateTime? InactivatedDate { get; set; }
+        public bool IsInactive { get; set; }
+        public DateTime? InactivatedDate { get; set; }
 
         //-------------------------------------
         [NotMapped]

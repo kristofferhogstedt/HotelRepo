@@ -19,5 +19,7 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         int NumberOfBedsDefault { get; set; }
         int NumberOfBedsMax { get; set; }
         List<RoomDetails> RoomDetails { get; set; }
+        public bool IsInactive { get; set; }
+        public DateTime? InactivatedDate { get; set; }
     }
 }

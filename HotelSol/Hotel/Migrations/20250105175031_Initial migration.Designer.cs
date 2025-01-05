@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hotel.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250105144425_Initial migration")]
+    [Migration("20250105175031_Initial migration")]
     partial class Initialmigration
     {
         /// <inheritdoc />
@@ -218,6 +218,12 @@ namespace Hotel.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("InactivatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsInactive")
+                        .HasColumnType("bit");
+
                     b.Property<int>("NumberOfBeds")
                         .HasColumnType("int");
 
@@ -257,7 +263,7 @@ namespace Hotel.Migrations
                     b.Property<DateTime?>("InactivatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("IsInactive")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")

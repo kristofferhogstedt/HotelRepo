@@ -7,7 +7,7 @@ namespace Hotel.src.MenuManagement.Enums
     {
         [Description("<--")]
         PreviousMenu,
-        [Description("  Ny bokning")]
+        [Description("  Bokningar")]
         BookingManagement,
         [Description("  Rumhantering")]
         RoomManagement,

@@ -35,18 +35,18 @@ namespace Hotel.src.MenuManagement.Menus
             {
                 Console.Clear();
                 var option = AnsiConsole.Prompt(
-                    new SelectionPrompt<EconomyMenuOptions>()
+                    new SelectionPrompt<InvoiceMenuOptions>()
                         .Title("Start")
-                        .UseConverter(option => option.ShowEconomyMenu())
-                        .AddChoices(Enum.GetValues<EconomyMenuOptions>())
+                        .UseConverter(option => option.ShowInvoiceMenu())
+                        .AddChoices(Enum.GetValues<InvoiceMenuOptions>())
                     );
 
                 switch (option)
                 {
-                    case EconomyMenuOptions.PreviousMenu:
+                    case InvoiceMenuOptions.PreviousMenu:
                         PreviousMenu.Run();
                         break;
-                    case EconomyMenuOptions.Exit:
+                    case InvoiceMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;
                     default:
