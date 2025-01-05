@@ -10,7 +10,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
 {
     public class FormLabelMapper
     {
-        public static string CustomerLabelMapData01(IModelRegistrationForm registrationForm)
+        public static string LabelMapData01(IModelRegistrationForm registrationForm)
         {
             switch (registrationForm.ModelType)
             {
@@ -18,11 +18,13 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
                     return "Förnamn";
                 case EModelType.Address:
                     return "Gatuaddress";
+                case EModelType.Room:
+                    return "Rumsnummer";
                 default:
                     return "";
             }
         }
-        public static string CustomerLabelMapData02(IModelRegistrationForm registrationForm)
+        public static string LabelMapData02(IModelRegistrationForm registrationForm)
         {
             switch (registrationForm.ModelType)
             {
@@ -30,11 +32,13 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
                     return "Efternamn";
                 case EModelType.Address:
                     return "Postnummer";
+                case EModelType.Room:
+                    return "Beskrivning";
                 default:
                     return "";
             }
         }
-        public static string CustomerLabelMapData03(IModelRegistrationForm registrationForm)
+        public static string LabelMapData03(IModelRegistrationForm registrationForm)
         {
             switch (registrationForm.ModelType)
             {
@@ -42,11 +46,13 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
                     return "Födelsedatum";
                 case EModelType.Address:
                     return "Stad";
+                case EModelType.Room:
+                    return "Våning";
                 default:
                     return "";
             }
         }
-        public static string CustomerLabelMapData04(IModelRegistrationForm registrationForm)
+        public static string LabelMapData04(IModelRegistrationForm registrationForm)
         {
             switch (registrationForm.ModelType)
             {
@@ -58,7 +64,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
                     return "";
             }
         }
-        public static string CustomerLabelMapData05(IModelRegistrationForm registrationForm)
+        public static string LabelMapData05(IModelRegistrationForm registrationForm)
         {
             switch (registrationForm.ModelType)
             {
@@ -68,7 +74,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
                     return "";
             }
         }
-        public static string CustomerLabelMapData06(IModelRegistrationForm registrationForm)
+        public static string LabelMapData06(IModelRegistrationForm registrationForm)
         {
             switch (registrationForm.ModelType)
             {

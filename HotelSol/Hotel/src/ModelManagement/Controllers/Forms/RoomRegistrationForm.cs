@@ -6,6 +6,7 @@ using Hotel.src.ModelManagement.Controllers.Forms.Utilities;
 using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
+using Hotel.src.ModelManagement.Validations;
 using HotelLibrary.Utilities.UserInputManagement;
 using Spectre.Console;
 
@@ -29,6 +30,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public object Data09 { get; set; } // Country
         public object Data10 { get; set; }
         public IModelRegistrationForm? RelatedForm { get; set; }
+        public EModelType RelatedFormModelType { get; set; } = EModelType.RoomDetails;
 
         public string _firstName;
         public string _lastName;
@@ -44,7 +46,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
         public static IModelRegistrationForm GetInstance(IMenu previousMenu)
         {
-            _instance = InstanceGenerator.GetInstance<CustomerRegistrationForm>(_instance, _lock, previousMenu);
+            _instance = InstanceGenerator.GetInstance<RoomRegistrationForm>(_instance, _lock, previousMenu);
             return (IModelRegistrationForm)_instance;
         }
 
@@ -53,7 +55,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Rumsnummer[/]: ");
-            Data01 = RoomValidations.RoomNumberValidation(PreviousMenu);
+            Data01 = RoomValidator.ValidateRoomNumber(PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -63,14 +65,14 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Våning[/]: ");
-            Data03 = UserInputHandler.UserInputInt(PreviousMenu);
+            Data03 = RoomValidator.ValidateFloor(PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
-            var _roomDetailsForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
-            _roomDetailsForm.AssignRelatedForm(this);
+            RelatedForm = ModelFactory.GetModelRegistrationForm(RelatedFormModelType, PreviousMenu);
+            RelatedForm.AssignRelatedForm(this);
 
-            Data04 = _roomDetailsForm.CreateForm(); // start RoomDetail registration form
+            Data04 = RelatedForm.CreateForm(); // start RoomDetail registration form
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -103,7 +105,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             DisplaySummary(Room);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Rumsnummer[/]: ");
-            Data01 = RoomValidations.RoomNumberValidation(PreviousMenu);
+            Data01 = RoomValidator.ValidateRoomNumber(PreviousMenu);
             if (Data01 == null)
                 Data01 = Room.Name;
 
@@ -119,16 +121,16 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             DisplaySummary(Room);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Våning[/]: ");
-            Data03 = UserInputHandler.UserInputInt(PreviousMenu);
+            Data03 = RoomValidator.ValidateFloor(PreviousMenu);
             if (Data03 == null)
                 Data03 = Room.Floor;
 
             Console.Clear();
             DisplaySummary(Room);
             FormDisplayer.DisplayCurrentFormValues(this);
-            var _roomDetailsForm = ModelFactory.GetModelRegistrationForm(ModelType, PreviousMenu);
-            _roomDetailsForm.AssignRelatedForm(this);
-            Data04 = _roomDetailsForm.CreateForm(); // start RoomDetail registration form
+            RelatedForm = ModelFactory.GetModelRegistrationForm(RelatedFormModelType, PreviousMenu);
+            RelatedForm.AssignRelatedForm(this);
+            Data04 = RelatedForm.CreateForm(); // start RoomDetail registration form
 
             Console.Clear();
             DisplaySummary(Room);
@@ -165,11 +167,11 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             table.AddColumn("[red]Värde[/]");
             table.AddRow("Rumsnummer", (string)Data01);
             table.AddRow("Beskrivning", (string)Data02);
-            table.AddRow("Våning", Data03.ToString());
+            table.AddRow("Våning", (string)Data03);
 
             // Room Details
-            table.AddRow("Typ", (string)SubForm.Data01);
-            table.AddRow("Storlek", (string)SubForm.Data02);
+            table.AddRow("Typ", (string)RelatedForm.Data01);
+            table.AddRow("Storlek", (string)RelatedForm.Data02);
             table.AddRow("Antal sängar", (string)Data03);
 
             AnsiConsole.Write(table);

@@ -35,6 +35,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public object Data09 { get; set; } // Country
         public object Data10 { get; set; }
         public IModelRegistrationForm? RelatedForm { get; set; }
+        public EModelType RelatedFormModelType { get; set; } = EModelType.Room;
         public void AssignRelatedForm(IModelRegistrationForm relatedForm)
         {
             RelatedForm = relatedForm;
@@ -163,6 +164,11 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             var table = new Table();
             table.AddColumn("[red]Fält[/]");
             table.AddColumn("[red]Värde[/]");
+            table.AddRow("Rumsnummer", (string)RelatedForm.Data01);
+            table.AddRow("Beskrivning", (string)RelatedForm.Data02);
+            table.AddRow("Våning", (string)RelatedForm.Data03);
+
+            // RoomDetails
             table.AddRow("Rumstyp", (string)Data01);
             table.AddRow("Storlek", (string)Data02);
             table.AddRow("Antal sängar", (string)Data03);
@@ -182,6 +188,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             var table = new Table();
             table.AddColumn("[red]Fält[/]");
             table.AddColumn("[red]Värde[/]");
+            table.AddRow("Rumsnummer", entity.Room.Name);
+            table.AddRow("Beskrivning", entity.Room.Description);
+            table.AddRow("Våning", entity.Room.Floor.ToString());
             table.AddRow("Rumstyp", entity.RoomType.Name);
             table.AddRow("Storlek", entity.Size.ToString());
             table.AddRow("Antal sängar", entity.NumberOfBeds.ToString());

@@ -72,7 +72,7 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
                     entity.ID.ToString(),
                     entity.Name,
                     entity.Description,
-                    entity.Floor
+                    entity.Floor.ToString()
                     );
             }
 

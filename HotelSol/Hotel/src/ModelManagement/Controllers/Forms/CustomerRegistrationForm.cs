@@ -35,6 +35,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public object Data09 { get; set; } // Country
         public object Data10 { get; set; }
         public IModelRegistrationForm? RelatedForm { get; set; }
+        public EModelType RelatedFormModelType { get; set; }
         public void AssignRelatedForm(IModelRegistrationForm relatedForm)
         {
             throw new NotImplementedException();
