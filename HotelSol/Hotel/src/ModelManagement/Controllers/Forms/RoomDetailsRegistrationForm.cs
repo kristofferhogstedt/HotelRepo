@@ -99,39 +99,39 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
         public IModel EditForm(IModel modelToUpdate)
         {
-            RoomDetails = (IRoomType)modelToUpdate;
+            RoomDetails = (IRoomDetails)modelToUpdate;
 
             Console.Clear();
-            DisplaySummary(RoomDetails);
             FormDisplayer.DisplayCurrentFormValues(this);
-            AnsiConsole.MarkupLine("\n[yellow]Rumsnummer[/]: ");
-            Data01 = RoomValidations.RoomNumberValidation(PreviousMenu);
+            AnsiConsole.MarkupLine("\n[yellow]Rumtyp[/]: ");
+            Data01 = RoomDetailsValidator.ValidateRoomType(PreviousMenu);
             if (Data01 == null)
-                Data01 = RoomDetails.Name;
+                Data01 = RoomDetails.RoomType;            
+            
+            if (Data01 != null)
+                RoomType = Data01 as IRoomType;
+            else
+            {
+                Console.WriteLine("Fel vid val av rumstyp, återgår till föregående meny... Kontakta admin om problemet kvarstår.");
+                Thread.Sleep(3000);
+                PreviousMenu.Run();
+            }
 
             Console.Clear();
-            DisplaySummary(RoomDetails);
             FormDisplayer.DisplayCurrentFormValues(this);
-            AnsiConsole.MarkupLine("\n[yellow]Beskrivning[/]: ");
-            Data02 = UserInputHandler.UserInputString(PreviousMenu);
+            AnsiConsole.MarkupLine($"\n[yellow]Storlek[/] (default {RoomType.SizeDefault}): ");
+            Data02 = RoomDetailsValidator.ValidateRoomSize(RoomType, PreviousMenu);
             if (Data02 == null)
-                Data02 = RoomDetails.Description;
+                Data02 = RoomDetails.Size;
 
             Console.Clear();
-            DisplaySummary(RoomDetails);
             FormDisplayer.DisplayCurrentFormValues(this);
-            AnsiConsole.MarkupLine("\n[yellow]Våning[/]: ");
-            Data03 = UserInputHandler.UserInputInt(PreviousMenu);
+            AnsiConsole.MarkupLine($"\n[yellow]Antal sängar[/] (default {RoomType.NumberOfBedsDefault}): ");
+            Data03 = RoomDetailsValidator.ValidateNumberOfBeds(RoomType, PreviousMenu);
             if (Data03 == null)
-                Data03 = RoomDetails.Floor;
+                Data03 = RoomDetails.NumberOfBeds;
 
             Console.Clear();
-            DisplaySummary(RoomDetails);
-            FormDisplayer.DisplayCurrentFormValues(this);
-            Data04 = RoomDetailRegistrationForm.CreateForm(PreviousMenu); // start RoomDetail registration form
-
-            Console.Clear();
-            DisplaySummary(RoomDetails);
             FormDisplayer.DisplayCurrentFormValues(this);
 
             // Bekräfta kunduppgifter
@@ -141,7 +141,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             {
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
-                RoomDetails = new Room((string)Data01, (string)Data02, (int)Data03, (RoomDetails)Data04);
+                RoomDetails = new RoomDetails((IRoomType)Data01, (int)Data02, (int)Data03);
                 return (IModel)RoomDetails;
             }
             else
@@ -149,7 +149,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
-                EditForm(modelToUpdate);
+                CreateForm();
                 return (IModel)RoomDetails;
             }
         }
@@ -163,13 +163,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             var table = new Table();
             table.AddColumn("[red]Fält[/]");
             table.AddColumn("[red]Värde[/]");
-            table.AddRow("Rumsnummer", (string)Data01);
-            table.AddRow("Beskrivning", (string)Data02);
-            table.AddRow("Våning", Data03.ToString());
-
-            // Room Details
-            table.AddRow("Typ", (string)SubForm.Data01);
-            table.AddRow("Storlek", (string)SubForm.Data02);
+            table.AddRow("Rumstyp", (string)Data01);
+            table.AddRow("Storlek", (string)Data02);
             table.AddRow("Antal sängar", (string)Data03);
 
             AnsiConsole.Write(table);
@@ -179,20 +174,17 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         /// Summary of existing customer information
         /// </summary>
         /// <param name="entity"></param>
-        public void DisplaySummary(IRoom entity)
+        public void DisplaySummary(IRoomDetails entity)
         {
             // Visa sammanfattning
             Console.Clear();
-            AnsiConsole.MarkupLine("\n[bold green]Sammanfattning av kundinformation:[/]");
+            AnsiConsole.MarkupLine("\n[bold green]Sammanfattning:[/]");
             var table = new Table();
             table.AddColumn("[red]Fält[/]");
             table.AddColumn("[red]Värde[/]");
-            table.AddRow("Rumsnummer", entity.Name);
-            table.AddRow("Beskrivning", entity.Description);
-            table.AddRow("Våning", entity.Floor.ToString());
-            table.AddRow("Typ", entity.Details.RoomType.Name);
-            table.AddRow("Storlek", entity.Details.Size.ToString());
-            table.AddRow("Antal sängar", entity.Details.NumberOfBeds.ToString());
+            table.AddRow("Rumstyp", entity.RoomType.Name);
+            table.AddRow("Storlek", entity.Size.ToString());
+            table.AddRow("Antal sängar", entity.NumberOfBeds.ToString());
             AnsiConsole.Write(table);
         }
     }
