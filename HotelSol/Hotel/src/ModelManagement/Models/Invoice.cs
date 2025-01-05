@@ -33,10 +33,14 @@ namespace Hotel.src.ModelManagement.Models
 
         public Invoice()
         {
-            //CreatedDate = new DateTime();
             CreatedDate = DateTime.Now;
+            DueDate = CreatedDate.AddDays(30);
+        }
 
-            //Due/*Date = new DateTime();*/
+        public Invoice(IRoomType roomType, double amount)
+        {
+            Amount = amount;
+            CreatedDate = DateTime.Now;
             DueDate = CreatedDate.AddDays(30);
         }
     }

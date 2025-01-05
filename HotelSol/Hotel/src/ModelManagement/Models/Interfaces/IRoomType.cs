@@ -14,6 +14,7 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         [Key]
         int ID { get; set; }
         string Name { get; set; }
+        double PriceDefault { get; set; }
         int SizeDefault { get; set; }
         int SizeMax { get; set; }
         int NumberOfBedsDefault { get; set; }

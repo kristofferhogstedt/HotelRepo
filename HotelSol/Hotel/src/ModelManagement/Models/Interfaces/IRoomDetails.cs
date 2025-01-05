@@ -23,6 +23,7 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         public RoomType RoomType { get; set; }
         //-------------------------------------
 
+        double Price { get; set; }
         int Size { get; set; }
         int NumberOfBeds { get; set; }
         public DateTime CreatedDate { get; set; }

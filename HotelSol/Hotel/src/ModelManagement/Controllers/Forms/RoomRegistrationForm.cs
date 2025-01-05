@@ -168,6 +168,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             table.AddRow("Typ", (string)RelatedForm.Data01);
             table.AddRow("Storlek", (string)RelatedForm.Data02);
             table.AddRow("Antal sängar", (string)Data03);
+            table.AddRow("Typ", (string)RelatedForm.Data04);
 
             AnsiConsole.Write(table);
         }
@@ -190,6 +191,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             table.AddRow("Typ", entity.Details.RoomType.Name);
             table.AddRow("Storlek", entity.Details.Size.ToString());
             table.AddRow("Antal sängar", entity.Details.NumberOfBeds.ToString());
+            table.AddRow("Pris", entity.Details.Price.ToString());
             AnsiConsole.Write(table);
         }
     }

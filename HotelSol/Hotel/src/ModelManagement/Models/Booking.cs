@@ -41,5 +41,14 @@ namespace Hotel.src.ModelManagement.Models
         {
             CreatedDate = DateTime.Now;
         }
+
+        public Booking(Room room, Customer customer, DateTime fromDate, DateTime toDate)
+        {
+            Room = room;
+            Customer = customer;
+            FromDate = fromDate;
+            ToDate = toDate;
+            CreatedDate = DateTime.Now;
+        }
     }
 }

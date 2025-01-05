@@ -15,6 +15,32 @@ namespace Hotel.src.ModelManagement.Models
         //-------------------------------------
 
         public string Name { get; set; }
+        private double _priceDefault;
+        public double PriceDefault
+        {
+            get
+            {
+                return _priceDefault;
+            }
+            set
+            {
+                switch (Name)
+                {
+                    case "Single":
+                        _priceDefault = 800;
+                        break;
+                    case "Double":
+                        _priceDefault = 1000;
+                        break;
+                    case "Family":
+                        _priceDefault = 1500;
+                        break;
+                    case "Suite":
+                        _priceDefault = 2500;
+                        break;
+                }
+            }
+        }
 
         private int _sizeDefault;
         public int SizeDefault

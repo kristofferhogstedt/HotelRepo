@@ -63,6 +63,7 @@ namespace Hotel.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PriceDefault = table.Column<double>(type: "float", nullable: false),
                     SizeDefault = table.Column<int>(type: "int", nullable: false),
                     SizeMax = table.Column<int>(type: "int", nullable: false),
                     NumberOfBedsDefault = table.Column<int>(type: "int", nullable: false),
@@ -117,6 +118,7 @@ namespace Hotel.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoomID = table.Column<int>(type: "int", nullable: false),
                     RoomTypeID = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
                     Size = table.Column<int>(type: "int", nullable: false),
                     NumberOfBeds = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),

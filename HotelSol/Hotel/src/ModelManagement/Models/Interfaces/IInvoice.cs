@@ -6,6 +6,7 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
     {
         int ID { get; set; }
         int BookingID { get; set; }
+        Booking Booking { get; set; }
         double Amount { get; set; }
         DateTime DueDate { get; set; }
         bool IsPaid { get; set; }

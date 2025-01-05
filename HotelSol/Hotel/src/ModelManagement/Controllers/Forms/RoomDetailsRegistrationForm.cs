@@ -76,6 +76,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             AnsiConsole.MarkupLine($"\n[yellow]Antal sängar[/] (default {RoomType.NumberOfBedsDefault}): ");
             Data03 = RoomDetailsValidator.ValidateNumberOfBeds(RoomType, false, PreviousMenu);
 
+            Data04 = RoomType.PriceDefault;
+
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
 
@@ -173,6 +175,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             table.AddRow("Rumstyp", (string)Data01);
             table.AddRow("Storlek", (string)Data02);
             table.AddRow("Antal sängar", (string)Data03);
+            table.AddRow("Pris", (string)Data04);
 
             AnsiConsole.Write(table);
         }
@@ -195,6 +198,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             table.AddRow("Rumstyp", entity.RoomType.Name);
             table.AddRow("Storlek", entity.Size.ToString());
             table.AddRow("Antal sängar", entity.NumberOfBeds.ToString());
+            table.AddRow("Pris", entity.Price.ToString());
             AnsiConsole.Write(table);
         }
     }

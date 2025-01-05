@@ -113,7 +113,7 @@ namespace Hotel.src.ModelManagement.Services
             DatabaseLair.DatabaseContext.SaveChanges();
         }
 
-        public void Delete(IInvoice entityToDelete)
+        public static void Delete(IInvoice entityToDelete)
         {
             var _entityToDelete = (Invoice)entityToDelete;
             _entityToDelete.IsInactive = true;

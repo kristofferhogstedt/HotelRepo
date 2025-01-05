@@ -7,7 +7,9 @@ using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
+using Hotel.src.ModelManagement.Services;
 using Hotel.src.ModelManagement.Utilities.Displayers;
+using Hotel.src.ModelManagement.Validations;
 using Hotel.src.Utilities.UserInputManagement;
 using Hotel.src.Utilities.UserInputManagement.RegexManagement;
 using HotelLibrary.Utilities.UserInputManagement;
@@ -16,172 +18,193 @@ using Spectre.Console;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms
 {
-    //public class BookingRegistrationForm : IModelRegistrationForm, IInstantiable
-    //{
-    //    public IMenu PreviousMenu { get; set; }
-    //    private static IInstantiable _instance;
-    //    private static readonly object _lock = new object(); // Lock object for thread safety
-    //    public object Data01 { get; set; }
-    //    public object Data02 { get; set; }
-    //    public object Data03 { get; set; }
-    //    public object Data04 { get; set; }
-    //    public object Data05 { get; set; }
-    //    public object Data06 { get; set; }
-    //    public object Data07 { get; set; }
-    //    public object Data08 { get; set; }
-    //    public object Data09 { get; set; }
-    //    public object Data10 { get; set; }
-    //    public IModelRegistrationForm SubForm { get; set; }
-    //    public EModelType ModelType { get; set; }
-    //    public IBooking Model { get; set; }
+    public class BookingRegistrationForm : IModelRegistrationForm, IInstantiable
+    {
+        private static IInstantiable _instance;
+        private static readonly object _lock = new object(); // Lock object for thread safety
+        public IMenu PreviousMenu { get; set; }
+        public EModelType ModelType { get; set; } = EModelType.Booking;
+        public IModelRegistrationForm? RelatedForm { get; set; }
+        public EModelType RelatedFormModelType { get; set; } = EModelType.Customer;
+        public IBooking Booking { get; set; }
+        public bool IsAnEdit { get; set; }
 
-    //    public static IModelRegistrationForm GetInstance(IMenu previousMenu)
-    //    {
-    //        _instance = InstanceGenerator.GetInstance<ModelRegistrationForm>(_instance, _lock, previousMenu);
-    //        return (IModelRegistrationForm)_instance;
-    //    }
+        public object Data01 { get; set; } // First name
+        public object Data02 { get; set; } // Last name
+        public object Data03 { get; set; } // Date of birth
+        public object Data04 { get; set; } // Email
+        public object Data05 { get; set; } // Phone
+        public object Data06 { get; set; } // Street Address
+        public object Data07 { get; set; } // Postal Code
+        public object Data08 { get; set; } // City
+        public object Data09 { get; set; } // Country
+        public object Data10 { get; set; }
 
-    //    public IModel CreateForm()
-    //    {
-    //        throw new NotImplementedException();
-    //    }
+        public void AssignRelatedForm(IModelRegistrationForm relatedForm)
+        {
+            RelatedForm = relatedForm;
+        }
 
-    //    public IModel EditForm(IModel modelToUpdate)
-    //    {
-    //        Model = (IBooking)modelToUpdate;
+        public static IModelRegistrationForm GetInstance(IMenu previousMenu)
+        {
+            _instance = InstanceGenerator.GetInstance<BookingRegistrationForm>(_instance, _lock, previousMenu);
+            return (IModelRegistrationForm)_instance;
+        }
 
-    //        Console.Clear();
-    //        DisplaySummary(Model);
-    //        FormDisplayer.DisplayCurrentFormValues(this);
-    //        var _roomController = (IRoomController)ModelFactory.GetModelController(EModelType.Room, PreviousMenu);
-    //        AnsiConsole.MarkupLine("\nAnge [yellow]Rum[/]: ");
-    //        Data01 = _roomController.GetOne().ID; // Fetch ID from room
-    //        if (Data01.ToString().IsNullOrEmpty())
-    //            Data01 = Model.RoomID;
+        public IModel CreateForm()
+        {
+            IsAnEdit = false;
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Från-datum[/]: ");
+            Data01 = BookingValidator.ValidateFromDate(false, PreviousMenu);
+
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Till-datum[/]: ");
+            Data02 = BookingValidator.ValidateToDate(false, PreviousMenu);
+
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Rum[/]: ");
+            var _roomController = ModelFactory.GetModelController(EModelType.Room, PreviousMenu);
+            Data03 = _roomController.BrowseOne();
+
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Kund[/]: ");
+            var _customerController = ModelFactory.GetModelController(EModelType.Customer, PreviousMenu);
+            Data04 = _customerController.BrowseOne();
+
+            // Create Invoice 
+            Data05 = new Invoice();
+
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
+
+            // Bekräfta kunduppgifter
+            bool confirm = AnsiConsole.Confirm("\nÄr alla uppgifter korrekta?");
+
+            if (confirm)
+            {
+                // Meddelande om lyckad registrering
+                AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
+                Booking = new Booking((Room)Data01, (Customer)Data02, (DateTime)Data03, (DateTime)Data04);
+                return (IModel)Booking;
+            }
+            else
+            {
+                // Meddelande om avbryta
+                AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
+                Thread.Sleep(2000);
+                CreateForm();
+                return (IModel)Booking;
+            }
+        }
+
+        public IModel EditForm(IModel entityToUpdate)
+        {
+            Booking = (IBooking)entityToUpdate;
+            IsAnEdit = true;
+
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Från-datum[/]: ");
+            Data01 = BookingValidator.ValidateFromDate(false, PreviousMenu);
+            if (Data01 == null)
+                Data01 = Booking.FromDate;
+
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Till-datum[/]: ");
+            Data02 = BookingValidator.ValidateToDate(false, PreviousMenu);
+            if (Data02 == null)
+                Data02 = Booking.FromDate;
+
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Rum[/]: ");
+            var _roomController = ModelFactory.GetModelController(EModelType.Room, PreviousMenu);
+            Data03 = _roomController.BrowseOne();
+            if (Data03 == null)
+                Data03 = Booking.Room;
+
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Kund[/]: ");
+            var _customerController = ModelFactory.GetModelController(EModelType.Customer, PreviousMenu);
+            Data04 = _customerController.BrowseOne();
+            if (Data04 == null)
+                Data04 = Booking.Customer;
+
+            // Create Invoice 
+            InvoiceService.Delete(Booking.Invoice);
+            Data05 = new Invoice(Booking.Room.Details.RoomType, Booking.Room.Details.Price);
 
 
-    //    //public int CustomerID { get; set; }
-    //    //public int RoomID { get; set; }
-    //    //public DateTime FromDate { get; set; }
-    //    //public DateTime ToDate { get; set; }
-    //    //public bool IsActive { get; set; }
-    //    //public DateTime CreatedDate { get; set; }
-    //    //public DateTime? UpdatedDate { get; set; }
-    //    //public DateTime? InactivatedDate { get; set; }
-    //    Console.Clear();
-    //        DisplaySummary(Model);
-    //        FormDisplayer.DisplayCurrentFormValues(this);
-    //        AnsiConsole.MarkupLine("\nAnge [yellow]efternamn[/]: ");
-    //        Data02 = UserInputHandler.UserInputString(PreviousMenu);
-    //        if (Data02.ToString().IsNullOrEmpty())
-    //            Data02 = Model.LastName;
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
 
-    //        Console.Clear();
-    //        DisplaySummary(Model);
-    //        FormDisplayer.DisplayCurrentFormValues(this);
-    //        AnsiConsole.MarkupLine("\nAnge [yellow]födelseår[/]: ");
-    //        var _yearOfBirth = UserInputHandlerDateTime.UserInputYear(PreviousMenu);
-    //        if (_yearOfBirth == 0)
-    //            _yearOfBirth = Model.DateOfBirth.Year;
+            // Bekräfta kunduppgifter
+            bool confirm = AnsiConsole.Confirm("\nÄr alla uppgifter korrekta?");
 
-    //        AnsiConsole.MarkupLine("\nAnge [yellow]födelsemånad[/]: ");
-    //        var _monthOfBirth = UserInputHandlerDateTime.UserInputMonth(PreviousMenu);
-    //        if (_monthOfBirth == 0)
-    //            _monthOfBirth = Model.DateOfBirth.Month;
+            if (confirm)
+            {
+                // Meddelande om lyckad registrering
+                AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
+                Booking = new Booking((Room)Data01, (Customer)Data02, (DateTime)Data03, (DateTime)Data04);
+                return (IModel)Booking;
+            }
+            else
+            {
+                // Meddelande om avbryta
+                AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
+                Thread.Sleep(2000);
+                CreateForm();
+                return (IModel)Booking;
+            }
+        }
 
-    //        AnsiConsole.MarkupLine("\nAnge [yellow]födelsedag[/]: ");
-    //        var _dayOfBirth = UserInputHandlerDateTime.UserInputMonth(PreviousMenu);
-    //        if (_dayOfBirth == 0)
-    //            _dayOfBirth = Model.DateOfBirth.Day;
+        public void DisplaySummary()
+        {
+            // Room
+            Console.Clear();
+            FormDisplayer.DisplayFormHeader();
+            AnsiConsole.MarkupLine("\n[bold green]Sammanfattning:[/]");
+            var table = new Table();
+            table.AddColumn("[red]Fält[/]");
+            table.AddColumn("[red]Värde[/]");
+            table.AddRow("Rumsnummer", (string)Data01);
+            table.AddRow("Beskrivning", (string)Data02);
+            table.AddRow("Våning", (string)Data03);
 
-    //        Data03 = Convert.ToDateTime($"{_yearOfBirth}-{_monthOfBirth}-{_dayOfBirth}");
-    //        if (Data03.ToString().IsNullOrEmpty())
-    //            Data03 = Model.DateOfBirth;
+            // Room Details
+            table.AddRow("Typ", (string)RelatedForm.Data01);
+            table.AddRow("Storlek", (string)RelatedForm.Data02);
+            table.AddRow("Antal sängar", (string)Data03);
 
-    //        Console.Clear();
-    //        DisplaySummary(Model);
-    //        FormDisplayer.DisplayCurrentFormValues(this);
-    //        AnsiConsole.MarkupLine("\nAnge [yellow]E-post[/]: ");
-    //        Data04 = UserInputRegexHandler.UserInputRegexEmail(PreviousMenu);
-    //        if (Data04.ToString().IsNullOrEmpty())
-    //            Data04 = Model.Email;
+            AnsiConsole.Write(table);
+        }
 
-    //        Console.Clear();
-    //        DisplaySummary(Model);
-    //        FormDisplayer.DisplayCurrentFormValues(this);
-    //        AnsiConsole.MarkupLine("\nAnge [yellow]telefonnummer[/]: ");
-    //        Data05 = UserInputRegexHandler.UserInputRegexPhone(PreviousMenu);
-    //        if (Data05.ToString().IsNullOrEmpty())
-    //            Data05 = Model.Phone;
-
-    //        AnsiConsole.MarkupLine("Uppdatera [yellow]adress[/]?");
-    //        if (UserInputHandler.UserInputBool(PreviousMenu))
-    //        {
-    //            // Address registration form
-    //            var _addressForm = AddressRegistrationForm.GetInstance(PreviousMenu);
-
-    //            // If customer exists, and an address, edit it. If not, create a new one.
-    //            if (Model != null)
-    //            {
-    //                if (Model.Address != null)
-    //                    Data06 = (IAddress)_addressForm.EditForm(this.Model.Address);
-    //                else
-    //                    Data06 = (IAddress)_addressForm.CreateForm();
-    //            }
-    //            else
-    //                Data06 = (IAddress)_addressForm.CreateForm();
-    //        }
-
-    //        Console.Clear();
-    //        DisplaySummary(Model);
-    //        FormDisplayer.DisplayCurrentFormValues(this);
-
-    //        // Bekräfta kunduppgifter
-    //        bool confirm = AnsiConsole.Confirm("\nÄr alla uppgifter korrekta?");
-
-    //        if (confirm)
-    //        {
-    //            // Meddelande om lyckad registrering
-    //            AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
-    //            this.Model = new Customer((string)Data01, (string)Data02, (DateTime)Data03, (string)Data04, (string)Data05, (Address)Data06);
-    //            return (IModel)this.Model;
-    //        }
-    //        else
-    //        {
-    //            // Meddelande om avbryta
-    //            AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
-    //            Thread.Sleep(2000);
-    //            EditForm(modelToUpdate);
-    //            return (IModel)this.Model;
-    //        }
-    //    }
-    //    //public void DisplaySummary(IModel entity)
-    //    //{
-    //    //    // Visa sammanfattning
-    //    //    Console.Clear();
-    //    //    AnsiConsole.MarkupLine("\n[bold green]Sammanfattning av kundinformation:[/]");
-    //    //    var table = new Table();
-    //    //    table.AddColumn("[red]Fält[/]");
-    //    //    table.AddColumn("[red]Värde[/]");
-    //    //    table.AddRow("Förnamn", entity.FirstName);
-    //    //    table.AddRow("Efternamn", entity.LastName);
-    //    //    table.AddRow("Födelsedatum", entity.DateOfBirth.ToString());
-    //    //    table.AddRow("E-post", entity.Email);
-    //    //    table.AddRow("Telefonnummer", entity.Phone);
-    //    //    if (entity.Address == null)
-    //    //        table.AddRow("Adress", "Ej angiven");
-    //    //    else
-    //    //        table.AddRow("Adress", $"{entity.Address.StreetAddress} {entity.Address.PostalCode} {entity.Address.City}{entity.Address.Country}");
-    //    //    AnsiConsole.Write(table);
-    //    //}
-
-    //    public void DisplaySummary()
-    //    {
-            
-    //    }
-    //    public void DisplaySummary(IModel entity)
-    //    {
-    //        ModelInfoDisplayer.DisplayModelInfo(entity);
-    //    }
-    //}
+        /// <summary>
+        /// Summary of existing customer information
+        /// </summary>
+        /// <param name="entity"></param>
+        public void DisplaySummary(IRoom entity)
+        {
+            // Visa sammanfattning
+            Console.Clear();
+            AnsiConsole.MarkupLine("\n[bold green]Sammanfattning av kundinformation:[/]");
+            var table = new Table();
+            table.AddColumn("[red]Fält[/]");
+            table.AddColumn("[red]Värde[/]");
+            table.AddRow("Rumsnummer", entity.Name);
+            table.AddRow("Beskrivning", entity.Description);
+            table.AddRow("Våning", entity.Floor.ToString());
+            table.AddRow("Typ", entity.Details.RoomType.Name);
+            table.AddRow("Storlek", entity.Details.Size.ToString());
+            table.AddRow("Antal sängar", entity.Details.NumberOfBeds.ToString());
+            AnsiConsole.Write(table);
+        }
+    }
 }
