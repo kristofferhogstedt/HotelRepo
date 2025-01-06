@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using Hotel.src.MenuManagement.Menus.Interfaces;
+using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Hotel.src.Utilities.UserInputManagement
             return _selectedDate;
         }
 
-        public static DateTime DateSelector(DateTime startDate)
+        public static DateTime DateSelector(DateTime startDate, IMenu previousMenu)
         {
             // Startdatum (början av månaden)
             //DateTime _currentDate = DateTime.Now;
@@ -49,6 +50,7 @@ namespace Hotel.src.Utilities.UserInputManagement
                         //AnsiConsole.MarkupLine($"\nFödelsedatum: [green]{_selectedDate:yyyy-MM-dd}[/]");
                         return _selectedDate; // Avslutar loopen
                     case ConsoleKey.Escape:
+                        previousMenu.Run();
                         return DateTime.MinValue; // Avbryter valet
                 }
             }

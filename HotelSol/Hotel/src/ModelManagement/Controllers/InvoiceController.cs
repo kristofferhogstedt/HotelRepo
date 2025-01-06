@@ -39,18 +39,18 @@ namespace Hotel.src.ModelManagement.Controllers
             InvoiceService.Create((IInvoice)entityToCreate);
         }
 
-        public IModel BrowseOne()
+        public IModel BrowseOne(bool isInactive)
         {
             List<IInvoice> _ListToBrowse = new List<IInvoice>();
-            foreach (IInvoice e in InvoiceService.GetAll())
+            foreach (IInvoice e in InvoiceService.GetAll(isInactive))
                 _ListToBrowse.Add(e);
             IInvoice _modelToReturn = InvoiceEntitySelector.Select(_ListToBrowse, 0, PreviousMenu);
             return _modelToReturn;
         }
 
-        public void ManageOne()
+        public void ManageOne(bool isInactive)
         {
-            var _invoice = (IInvoice)BrowseOne();
+            var _invoice = (IInvoice)BrowseOne(isInactive);
             Console.Clear();
             InvoiceDisplayer.DisplayModel(_invoice);
             Console.WriteLine("Vad vill du göra?");
@@ -59,9 +59,9 @@ namespace Hotel.src.ModelManagement.Controllers
             _crudMenu.Run((IModel)_invoice);
         }
 
-        public void ReadAll()
+        public void ReadAll(bool isInactive)
         {
-            InvoiceDisplayer.DisplayModelTable(InvoiceService.GetAll());
+            InvoiceDisplayer.DisplayModelTable(InvoiceService.GetAll(isInactive));
         }
 
         public void Update(IModel entityToUpdate)

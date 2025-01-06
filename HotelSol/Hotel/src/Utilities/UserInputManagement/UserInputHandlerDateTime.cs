@@ -51,9 +51,9 @@ namespace Hotel.src.Utilities.UserInputManagement
         /// Dateselector with current date as starting point
         /// </summary>
         /// <returns></returns>
-        public static DateTime UserInputDateTime()
+        public static DateTime UserInputDateTime(IMenu previousMenu)
         {
-            return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate()));
+            return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate()), previousMenu);
         }
 
         /// <summary>
@@ -61,9 +61,9 @@ namespace Hotel.src.Utilities.UserInputManagement
         /// </summary>
         /// <param name="year"></param>
         /// <returns></returns>
-        public static DateTime UserInputDateTime(int year)
+        public static DateTime UserInputDateTime(int year, IMenu previousMenu)
         {
-            return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year)));
+            return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year)), previousMenu);
         }
 
         /// <summary>
@@ -72,9 +72,9 @@ namespace Hotel.src.Utilities.UserInputManagement
         /// <param name="year"></param>
         /// <param name="month"></param>
         /// <returns></returns>
-        public static DateTime UserInputDateTime(int year, int month)
+        public static DateTime UserInputDateTime(int year, int month, IMenu previousMenu)
         {
-            return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year, month)));
+            return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year, month)), previousMenu);
         }
 
         /// <summary>
@@ -84,9 +84,9 @@ namespace Hotel.src.Utilities.UserInputManagement
         /// <param name="month"></param>
         /// <param name="day"></param>
         /// <returns></returns>
-        public static DateTime UserInputDateTime(int year, int month, int day)
+        public static DateTime UserInputDateTime(int year, int month, int day, IMenu previousMenu)
         {
-            return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year, month, day)));
+            return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year, month, day)), previousMenu);
         }
     }
 }

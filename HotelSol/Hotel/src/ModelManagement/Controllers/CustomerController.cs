@@ -58,15 +58,15 @@ namespace Hotel.src.ModelManagement.Controllers
             CustomerService.Create((ICustomer)entityToCreate);
         }
 
-        public IModel BrowseOne()
+        public IModel BrowseOne(bool isInactive)
         {
-            ICustomer _customerToReturn = CustomerEntitySelector.Select(CustomerService.GetAll(), 0, PreviousMenu);
+            ICustomer _customerToReturn = CustomerEntitySelector.Select(CustomerService.GetAll(isInactive), 0, PreviousMenu);
             return _customerToReturn;
         }
 
-        public void ManageOne()
+        public void ManageOne(bool isInactive)
         {
-            var _customer = (ICustomer)BrowseOne();
+            var _customer = (ICustomer)BrowseOne(isInactive);
             Console.Clear();
             CustomerDisplayer.DisplayModel(_customer);
             Console.WriteLine("Vad vill du göra?");
@@ -76,18 +76,18 @@ namespace Hotel.src.ModelManagement.Controllers
             _crudMenu.Run((IModel)_customer);
         }
 
-        public void ReadAll()
+        public void ReadAll(bool isInactive)
         {
-            CustomerDisplayer.DisplayModelTable(CustomerService.GetAll());
+            CustomerDisplayer.DisplayModelTable(CustomerService.GetAll(isInactive));
         }
 
         public void Update()
         {
-            var _customerToUpdate = BrowseOne();
+            //var _customerToUpdate = BrowseOne();
 
-            var _customerForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-            _customerForm.EditForm((IModel)_customerToUpdate);
-            //ICustomer _customer = (ICustomer)_customerForm.EditForm((IModel)_customerToUpdate);
+            //var _customerForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
+            //_customerForm.EditForm((IModel)_customerToUpdate);
+            ////ICustomer _customer = (ICustomer)_customerForm.EditForm((IModel)_customerToUpdate);
 
             //if (_customer == null)
             //{

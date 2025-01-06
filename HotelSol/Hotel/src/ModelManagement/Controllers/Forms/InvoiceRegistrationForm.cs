@@ -17,6 +17,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HotelLibrary.Utilities.UserInputManagement;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
+using Hotel.src.MenuManagement.Menus;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms
 {
@@ -25,6 +26,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
         public IMenu PreviousMenu { get; set; }
+        public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
         public EModelType ModelType { get; set; } = EModelType.Invoice;
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; } 
@@ -97,8 +99,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 NewEntity.UpdatedDate = DateTime.Now;
 
                 InvoiceService.Update(NewEntity);
-                PreviousMenu.Run();
-
+                MainMenu.Run();
             }
             else
             {

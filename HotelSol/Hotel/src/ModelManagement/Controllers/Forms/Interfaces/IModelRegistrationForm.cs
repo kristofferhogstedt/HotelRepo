@@ -1,4 +1,5 @@
-﻿using Hotel.src.ModelManagement.Controllers.Interfaces;
+﻿using Hotel.src.MenuManagement.Menus.Interfaces;
+using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using System;
@@ -11,7 +12,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Interfaces
 {
     public interface IModelRegistrationForm
     {
-        //ICustomer Customer { get; set; }
+        IMenu MainMenu { get; set; }
         EModelType ModelType { get; set; }
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; }

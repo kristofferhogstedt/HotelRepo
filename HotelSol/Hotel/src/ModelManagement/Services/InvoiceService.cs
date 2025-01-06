@@ -30,14 +30,14 @@ namespace Hotel.src.ModelManagement.Services
         /// </summary>
         /// <param name="searchString"></param>
         /// <returns></returns>
-        public static IModel GetOne(string searchString)
+        public static IModel GetOne(string searchString, bool isInactive)
         {
             var _entityToReturn = (IModel)DatabaseLair.DatabaseContext.Invoices
-                .Where(m => m.IsInactive == false)
+                .Where(m => m.IsInactive == isInactive)
                 .First(m => m.BookingID.ToString().Equals(searchString)
                 );
 
-            _entityToReturn = GetSubData(_entityToReturn); // Get subdata
+            _entityToReturn = GetSubData(_entityToReturn, isInactive); // Get subdata
 
             if (_entityToReturn == null)
             {
@@ -49,13 +49,13 @@ namespace Hotel.src.ModelManagement.Services
             return _entityToReturn;
         }
 
-        public static IModel GetOneByID(int searchID)
+        public static IModel GetOneByID(int searchID, bool isInactive)
         {
             var _entityToReturn = (IModel)DatabaseLair.DatabaseContext.Invoices
-                .Where(m => m.IsInactive == false)
+                .Where(m => m.IsInactive == isInactive)
                 .First(m => m.ID == searchID);
 
-            _entityToReturn = GetSubData(_entityToReturn); // Get subdata
+            _entityToReturn = GetSubData(_entityToReturn, isInactive); // Get subdata
 
             if (_entityToReturn == null)
             {
@@ -67,13 +67,13 @@ namespace Hotel.src.ModelManagement.Services
             return _entityToReturn;
         }
 
-        public static IModel GetOneByBookingID(int searchID)
+        public static IModel GetOneByBookingID(int searchID, bool isInactive)
         {
             var _entityToReturn = (IModel)DatabaseLair.DatabaseContext.Invoices
-                .Where(m => m.IsInactive == false)
+                .Where(m => m.IsInactive == isInactive)
                 .First(m => m.BookingID == searchID);
             
-            _entityToReturn = GetSubData(_entityToReturn); // Get subdata
+            _entityToReturn = GetSubData(_entityToReturn, isInactive); // Get subdata
 
             if (_entityToReturn == null)
             {
@@ -90,13 +90,13 @@ namespace Hotel.src.ModelManagement.Services
         /// </summary>
         /// <param name="databaseLair"></param>
         /// <returns></returns>
-        public static List<IInvoice> GetAll()
+        public static List<IInvoice> GetAll(bool isInactive)
         {
             var _listToReturn = DatabaseLair.DatabaseContext.Invoices
-                .Where(m => m.IsInactive == false)
+                .Where(m => m.IsInactive == isInactive)
                 .ToList<IInvoice>();
 
-            _listToReturn = GetSubData(_listToReturn); // Get subdata
+            _listToReturn = GetSubData(_listToReturn, isInactive); // Get subdata
 
             if (_listToReturn == null)
             {
@@ -141,19 +141,19 @@ namespace Hotel.src.ModelManagement.Services
         //----------------------------------------------
         
         // Booking
-        public static IModel GetSubData(IModel entity)
+        public static IModel GetSubData(IModel entity, bool isInactive)
         {
             var _entityToReturn = (Invoice)entity;
-            _entityToReturn.Booking = (Booking)BookingService.GetOneByID(_entityToReturn.BookingID);
+            _entityToReturn.Booking = (Booking)BookingService.GetOneByID(_entityToReturn.BookingID, isInactive);
             return _entityToReturn;
         }
 
-        public static List<IInvoice> GetSubData(List<IInvoice> entityList)
+        public static List<IInvoice> GetSubData(List<IInvoice> entityList, bool isInactive)
         {
             var _listToReturn = new List<IInvoice>();
             foreach (Invoice entity in entityList)
             {
-                entity.Booking = (Booking)BookingService.GetOneByID(entity.BookingID);
+                entity.Booking = (Booking)BookingService.GetOneByID(entity.BookingID, isInactive);
                 _listToReturn.Add(entity);
             };
             return _listToReturn;

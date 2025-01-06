@@ -49,18 +49,18 @@ namespace Hotel.src.ModelManagement.Controllers
             RoomService.Create((IRoom)entityToCreate);
         }
 
-        public IModel BrowseOne()
+        public IModel BrowseOne(bool isInactive)
         {
             List<IRoom> _ListToBrowse = new List<IRoom>();
-            foreach (IRoom e in RoomService.GetAll())
+            foreach (IRoom e in RoomService.GetAll(isInactive))
                 _ListToBrowse.Add(e);
             IRoom _modelToReturn = RoomEntitySelector.Select(_ListToBrowse, 0, PreviousMenu);
             return _modelToReturn;
         }
 
-        public void ManageOne()
+        public void ManageOne(bool isInactive)
         {
-            var _room = (IRoom)BrowseOne();
+            var _room = (IRoom)BrowseOne(isInactive);
             Console.Clear();
             RoomDisplayer.DisplayModel(_room);
             Console.WriteLine("Vad vill du göra?");
@@ -69,7 +69,7 @@ namespace Hotel.src.ModelManagement.Controllers
             _crudMenu.Run((IModel)_room);
         }
 
-        public void ReadAll()
+        public void ReadAll(bool IsInactive)
         {
             throw new NotImplementedException();
         }

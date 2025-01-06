@@ -13,9 +13,9 @@ namespace Hotel.src.ModelManagement.Controllers.Interfaces
         EModelType ModelTypeEnum { get; set; }
         void Create();
         void Create(IModel entityToCreate);
-        IModel BrowseOne();
-        void ManageOne();
-        void ReadAll();
+        IModel BrowseOne(bool isInactive);
+        void ManageOne(bool isInactive);
+        void ReadAll(bool isInactive);
         //void Update();
         void Update(IModel modelToUpdate);
         void Delete(IModel modelToDelete);

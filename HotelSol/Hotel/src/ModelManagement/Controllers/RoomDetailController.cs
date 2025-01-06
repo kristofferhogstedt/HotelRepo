@@ -41,12 +41,12 @@ namespace Hotel.src.ModelManagement.Controllers
             RoomDetailsService.Create((IRoomDetails)entityToCreate);
         }
 
-        public void ManageOne()
+        public void ManageOne(bool IsInactive)
         {
             throw new NotImplementedException();
         }
 
-        public void ReadAll()
+        public void ReadAll(bool IsInactive)
         {
             throw new NotImplementedException();
         }
@@ -66,7 +66,7 @@ namespace Hotel.src.ModelManagement.Controllers
             throw new NotImplementedException();
         }
 
-        public IModel BrowseOne()
+        public IModel BrowseOne(bool IsInactive)
         {
             throw new NotImplementedException();
         }

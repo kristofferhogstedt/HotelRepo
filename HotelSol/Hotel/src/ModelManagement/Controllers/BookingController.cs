@@ -55,19 +55,19 @@ namespace Hotel.src.ModelManagement.Controllers
             BookingService.Create((IBooking)entityToCreate);
         }
 
-        public IModel BrowseOne()
+        public IModel BrowseOne(bool isInactive)
         {
             List<IBooking> _listToBrowse = new List<IBooking>();
-            foreach (IBooking e in BookingService.GetAll())
+            foreach (IBooking e in BookingService.GetAll(isInactive))
                 _listToBrowse.Add(e);
 
             var _modelToReturn = BookingEntitySelector.Select(_listToBrowse, 0, PreviousMenu);
             return _modelToReturn;
         }
 
-        public void ManageOne()
+        public void ManageOne(bool isInactive)
         {
-            var _model = BrowseOne();
+            var _model = BrowseOne(isInactive);
             Console.Clear();
             BookingDisplayer.DisplayModel(_model);
             Console.WriteLine("Vad vill du göra?");
@@ -76,19 +76,20 @@ namespace Hotel.src.ModelManagement.Controllers
             _crudMenu.Run((IModel)_model);
         }
 
-        public void ReadAll()
+        public void ReadAll(bool isInactive)
         {
             List<IBooking> _listToDisplay = new List<IBooking>();
-            foreach (IBooking e in BookingService.GetAll())
+            foreach (IBooking e in BookingService.GetAll(isInactive))
             {
                 _listToDisplay.Add(e);
             }
             BookingDisplayer.DisplayModelTable(_listToDisplay);
         }
 
-        public void Update()
+        // NOT IN USE??
+        public void Update(bool isInactive)
         {
-            var _modelToUpdate = BrowseOne();
+            var _modelToUpdate = BrowseOne(isInactive);
 
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             _modelForm.EditForm((IModel)_modelToUpdate);

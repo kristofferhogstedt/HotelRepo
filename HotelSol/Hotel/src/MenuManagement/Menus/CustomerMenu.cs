@@ -1,5 +1,6 @@
 ﻿using Hotel.src.FactoryManagement;
 using Hotel.src.FactoryManagement.Interfaces;
+using Hotel.src.Interfaces;
 using Hotel.src.MenuManagement.Enums;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
@@ -8,7 +9,7 @@ using Spectre.Console;
 
 namespace Hotel.src.MenuManagement.Menus
 {
-    public class CustomerMenu : IMenu, IInstantiable, IControllable
+    public class CustomerMenu : IMenu, IInstantiable, IControllable, IHandleInactives
     {
         public IMenu PreviousMenu { get; set; }
         private static IInstantiable _instance;
@@ -16,6 +17,7 @@ namespace Hotel.src.MenuManagement.Menus
         //private static IModelController ModelController;
         public EModelType ModelType { get; set; } = EModelType.Customer;
         public IModelController ModelController { get; set; }
+        public bool HandleInactive { get; set; }
 
         public CustomerMenu()
         {
@@ -48,7 +50,8 @@ namespace Hotel.src.MenuManagement.Menus
                         PreviousMenu.Run();
                         break;
                     case CustomerMenuOptions.DisplayCustomer:
-                        ModelController.ManageOne();
+                        HandleInactive = false;
+                        ModelController.ManageOne(HandleInactive);
                         break;
                     case CustomerMenuOptions.CreateCustomer:
                         ModelController.Create();

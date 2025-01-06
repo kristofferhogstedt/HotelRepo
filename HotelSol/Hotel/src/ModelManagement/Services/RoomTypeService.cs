@@ -26,7 +26,23 @@ namespace Hotel.src.ModelManagement.Services
 
             return _entitylToReturn;
         }
-        public static IRoomType GetOneByID(int searchString)
+        public static IRoomType GetOneByID(int searchString, bool isInactive)
+        {
+            var _entityToReturn = (IRoomType)DatabaseLair.DatabaseContext.RoomTypes
+                .Where(e => e.IsInactive == isInactive)
+                .First(e => e.ID == searchString);
+
+            if (_entityToReturn == null)
+            {
+                Console.Clear();
+                ServiceMessager.DataNotFoundMessage();
+                return null;
+            }
+
+            return _entityToReturn;
+        }
+
+        public static IRoomType GetOneByIDSeed(int searchString)
         {
             var _entityToReturn = (IRoomType)DatabaseLair.DatabaseContext.RoomTypes
                 .First(e => e.ID == searchString);
@@ -41,9 +57,10 @@ namespace Hotel.src.ModelManagement.Services
             return _entityToReturn;
         }
 
-        public static List<IRoomType> GetAll()
+        public static List<IRoomType> GetAll(bool isInactive)
         {
             var _listToReturn = DatabaseLair.DatabaseContext.RoomTypes
+                .Where(e => e.IsInactive == isInactive)
                 .ToList<IRoomType>();
 
             if (_listToReturn == null)

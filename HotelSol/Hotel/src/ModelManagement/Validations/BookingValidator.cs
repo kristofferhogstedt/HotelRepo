@@ -14,7 +14,7 @@ namespace Hotel.src.ModelManagement.Validations
     {
         public static DateTime ValidateFromDate(bool isAnEdit, IMenu previousMenu)
         {
-            var _dateToReturn = UserInputHandlerDateTime.UserInputDateTime();
+            var _dateToReturn = UserInputHandlerDateTime.UserInputDateTime(previousMenu);
             
             if (isAnEdit && _dateToReturn == DateTime.MinValue)
                 return DateTime.MinValue;
@@ -23,7 +23,7 @@ namespace Hotel.src.ModelManagement.Validations
         }
         public static DateTime ValidateToDate(bool isAnEdit, IMenu previousMenu)
         {
-            var _dateToReturn = UserInputHandlerDateTime.UserInputDateTime();
+            var _dateToReturn = UserInputHandlerDateTime.UserInputDateTime(previousMenu);
 
             if (isAnEdit && _dateToReturn == DateTime.MinValue)
                 return DateTime.MinValue;

@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using Hotel.src.ModelManagement.Validations;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Services;
+using Hotel.src.MenuManagement.Menus;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms
 {
@@ -24,6 +25,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
         public IMenu PreviousMenu { get; set; }
+        public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
         public EModelType ModelType { get; set; } = EModelType.RoomDetails;
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; } = EModelType.Room;
@@ -102,6 +104,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
                 NewEntity = new RoomDetails((IRoomType)Data01, (int)Data02, (int)Data03);
+
                 return (IModel)NewEntity;
             }
             else
@@ -109,8 +112,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
-                CreateForm();
-                return (IModel)NewEntity;
+
+                PreviousMenu.Run();
+                return null;
             }
         }
 

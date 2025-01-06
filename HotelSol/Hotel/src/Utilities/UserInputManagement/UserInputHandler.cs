@@ -75,7 +75,8 @@ namespace HotelLibrary.Utilities.UserInputManagement
             string _output = "";
 
             if (UserInputEsc(_firstKey))
-                _output = "";
+                previousMenu.Run();
+            //_output = "";
             else if (UserInputEnter(_firstKey))
                 _output = "-1";
             else

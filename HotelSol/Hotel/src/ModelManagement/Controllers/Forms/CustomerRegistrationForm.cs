@@ -1,5 +1,6 @@
 ﻿using Hotel.src.FactoryManagement;
 using Hotel.src.FactoryManagement.Interfaces;
+using Hotel.src.MenuManagement.Menus;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Forms.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Forms.Utilities;
@@ -24,6 +25,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
         public IMenu PreviousMenu { get; set; }
+        public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
         public EModelType ModelType { get; set; } = EModelType.Customer;
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; }
@@ -131,8 +133,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
                 NewEntity = new Customer((string)Data01, (string)Data02, (DateTime)Data03, (string)Data04
                     , (string)Data05, (string)Data06, (string)Data07, (string)Data08, (string)Data09);
-                
-                ModelController.Create((IModel)NewEntity);
+
+                CustomerService.Update(NewEntity);
+                MainMenu.Run();
             }
             else
             {
@@ -254,7 +257,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 { ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
                 
                 CustomerService.Update(NewEntity);
-                PreviousMenu.Run();
+                MainMenu.Run();
             }
             else
             {

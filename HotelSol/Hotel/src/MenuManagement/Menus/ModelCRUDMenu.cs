@@ -18,6 +18,7 @@ namespace Hotel.src.MenuManagement.Menus
     public class ModelCRUDMenu: IMenu, ICRUDMenu, IInstantiable
     {
         public IMenu PreviousMenu { get; set; }
+        public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
         private static IInstantiable _instance;
         private static readonly object _lock = new object();
         IModel _model;
@@ -31,31 +32,34 @@ namespace Hotel.src.MenuManagement.Menus
 
         public void Run()
         {
-            while (true)
-            {
-                var option = AnsiConsole.Prompt(
-                    new SelectionPrompt<CRUDMenuOptions>()
-                        .Title("Start")
-                        .UseConverter(option => option.ShowCRUDMenu())
-                        .AddChoices(Enum.GetValues<CRUDMenuOptions>())
-                    );
+            Console.WriteLine("Återgår till huvudmeny");
+            Thread.Sleep(2000);
+            MainMenu.Run();
+            //while (true)
+            //{
+            //    var option = AnsiConsole.Prompt(
+            //        new SelectionPrompt<CRUDMenuOptions>()
+            //            .Title("Start")
+            //            .UseConverter(option => option.ShowCRUDMenu())
+            //            .AddChoices(Enum.GetValues<CRUDMenuOptions>())
+            //        );
 
-                switch (option)
-                {
-                    case CRUDMenuOptions.PreviousMenu:
-                        PreviousMenu.Run();
-                        break;
-                    //case CRUDMenuOptions.Update:
-                    //    var _controller = ModelFactory.GetModelController(, this);
-                    //    _controller.Create();
-                    //    break;
-                    case CRUDMenuOptions.Exit:
-                        Exit.ExitProgram();
-                        break;
-                    default:
-                        break;
-                }
-            }
+            //    switch (option)
+            //    {
+            //        case CRUDMenuOptions.PreviousMenu:
+            //            PreviousMenu.Run();
+            //            break;
+            //        //case CRUDMenuOptions.Update:
+            //        //    var _controller = ModelFactory.GetModelController(, this);
+            //        //    _controller.Create();
+            //        //    break;
+            //        case CRUDMenuOptions.Exit:
+            //            Exit.ExitProgram();
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //}
         }
 
         public void Run(IModel modelToCRUD)

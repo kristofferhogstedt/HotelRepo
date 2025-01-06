@@ -1,5 +1,6 @@
 ﻿using Hotel.src.FactoryManagement;
 using Hotel.src.FactoryManagement.Interfaces;
+using Hotel.src.MenuManagement.Menus;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Forms.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Forms.Utilities;
@@ -24,13 +25,14 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
         public IMenu PreviousMenu { get; set; }
-        public IMenu MainMenu { get; set; } = MenuFactory.GetMenu(MainMenu)
+        public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
         public EModelType ModelType { get; set; } = EModelType.Booking;
         public IModelRegistrationForm? RelatedForm { get; set; }
-        public EModelType RelatedFormModelType { get; set; } = EModelType.Customer;
+        public EModelType RelatedFormModelType { get; set; } = EModelType.Booking;
         public IModelController ModelController { get; set; }
         public IBooking NewEntity { get; set; }
         public bool IsAnEdit { get; set; }
+        public bool HandleInactive { get; set; } = false;
 
         public object Data01 { get; set; } // First name
         public object Data02 { get; set; } // Last name
@@ -56,7 +58,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
         public void CreateForm()
         {
-            ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
+            //ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
             IsAnEdit = false;
 
             Console.Clear();
@@ -73,14 +75,14 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Rum[/]: ");
             var _roomController = ModelFactory.GetModelController(EModelType.Room, PreviousMenu);
-            Data03 = _roomController.BrowseOne();
+            Data03 = _roomController.BrowseOne(HandleInactive);
             var _room = (IRoom)Data03;
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Kund[/]: ");
             var _customerController = ModelFactory.GetModelController(EModelType.Customer, PreviousMenu);
-            Data04 = _customerController.BrowseOne();
+            Data04 = _customerController.BrowseOne(HandleInactive);
             var _customer = (ICustomer)Data04;
 
             var _numberOfNights = NumberOfNightsCalculator.calculateNumberOfNights((DateTime)Data02, (DateTime)Data01);
@@ -100,8 +102,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
                 NewEntity = new Booking((Room)Data03, (Customer)Data04, (DateTime)Data01, (DateTime)Data02, (Invoice)Data05);
-                
-                ModelController.Update((IModel)NewEntity);
+
+                BookingService.Update(NewEntity);
+                MainMenu.Run();
             }
             else
             {
@@ -137,7 +140,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Rum[/]: ");
             var _roomController = ModelFactory.GetModelController(EModelType.Room, PreviousMenu);
-            Data03 = _roomController.BrowseOne();
+            Data03 = _roomController.BrowseOne(HandleInactive);
             if (CopyChecker.CheckCopyValue(Data03))
                 Data03 = ExistingEntity.Room;
             var _room = (IRoom)Data03;
@@ -147,7 +150,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Kund[/]: ");
             var _customerController = ModelFactory.GetModelController(EModelType.Customer, PreviousMenu);
-            Data04 = _customerController.BrowseOne();
+            Data04 = _customerController.BrowseOne(HandleInactive);
             if (CopyChecker.CheckCopyValue(Data04))
                 Data04 = ExistingEntity.Customer;
             var _customer = (ICustomer)Data04;
@@ -174,7 +177,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 { ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
 
                 BookingService.Update(NewEntity);
-                PreviousMenu.Run();
+                MainMenu.Run();
             }
             else
             {
