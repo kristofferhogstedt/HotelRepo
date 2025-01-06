@@ -128,11 +128,15 @@ namespace Hotel.src.ModelManagement.Services
             if (existingEntity != null)
             {
                 DatabaseLair.DatabaseContext.Entry(existingEntity).CurrentValues.SetValues(entityToUpdate);
+
+                DatabaseLair.DatabaseContext.SaveChanges();
+                Console.WriteLine("Uppdatering lyckad!");
             }
             else
             {
                 Create(entityToUpdate);
             }
+
         }
 
         public void Delete(IRoom entityToDelete)

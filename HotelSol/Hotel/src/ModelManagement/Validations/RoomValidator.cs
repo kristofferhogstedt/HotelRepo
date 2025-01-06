@@ -1,6 +1,7 @@
 ﻿using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services;
+using Hotel.src.Utilities.UserInputManagement;
 using HotelLibrary.Utilities.UserInputManagement;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -19,7 +20,7 @@ namespace Hotel.src.ModelManagement.Validations
             {
                 var _userInput = UserInputHandler.UserInputString(previousMenu);
 
-                if (isAnEdit && _userInput == "-1")
+                if (isAnEdit && InputChecker.UserInputIsEnter(_userInput.ToString()))
                     return _userInput;
                 else if (RoomService.GetAll().Any(e => e.Name == _userInput))
                     Console.WriteLine($"Rumsnummer {_userInput} finns redan, ange nytt");
@@ -36,7 +37,7 @@ namespace Hotel.src.ModelManagement.Validations
             {
                 var _userInput = UserInputHandler.UserInputInt(previousMenu);
 
-                if (isAnEdit && _userInput == -1)
+                if (isAnEdit && InputChecker.UserInputIsEnter(_userInput.ToString()))
                     return _userInput;
                 else if (_userInput < Settings.FloorsMax)
                     return _userInput;

@@ -20,6 +20,8 @@ namespace Hotel.src.FactoryManagement
             
             switch (_typeOfT)
             {
+                case nameof(MainMenu):
+                    return (T)MainMenu.GetInstance(previousMenu);
                 case nameof(BookingMenu):
                     return (T)BookingMenu.GetInstance(previousMenu);
                 case nameof(RoomMenu):

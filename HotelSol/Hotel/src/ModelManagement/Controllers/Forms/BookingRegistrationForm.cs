@@ -24,11 +24,12 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
         public IMenu PreviousMenu { get; set; }
+        public IMenu MainMenu { get; set; } = MenuFactory.GetMenu(MainMenu)
         public EModelType ModelType { get; set; } = EModelType.Booking;
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; } = EModelType.Customer;
         public IModelController ModelController { get; set; }
-        public IBooking Booking { get; set; }
+        public IBooking NewEntity { get; set; }
         public bool IsAnEdit { get; set; }
 
         public object Data01 { get; set; } // First name
@@ -98,9 +99,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             {
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
-                Booking = new Booking((Room)Data03, (Customer)Data04, (DateTime)Data01, (DateTime)Data02, (Invoice)Data05);
+                NewEntity = new Booking((Room)Data03, (Customer)Data04, (DateTime)Data01, (DateTime)Data02, (Invoice)Data05);
                 
-                ModelController.Update((IModel)Booking);
+                ModelController.Update((IModel)NewEntity);
             }
             else
             {
@@ -114,7 +115,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
         public void EditForm(IModel entityToUpdate)
         {
-            var ExistingBooking = (IBooking)entityToUpdate;
+            var ExistingEntity = (IBooking)entityToUpdate;
             ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
             IsAnEdit = true;
 
@@ -122,23 +123,23 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Från-datum[/]: ");
             Data01 = BookingValidator.ValidateFromDate(false, PreviousMenu);
-            if (Data01 == null)
-                Data01 = ExistingBooking.FromDate;
+            if (CopyChecker.CheckCopyValue(Data01))
+                Data01 = ExistingEntity.FromDate;
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Till-datum[/]: ");
             Data02 = BookingValidator.ValidateToDate(false, PreviousMenu);
-            if (Data02 == null)
-                Data02 = ExistingBooking.FromDate;
+            if (CopyChecker.CheckCopyValue(Data02))
+                Data02 = ExistingEntity.FromDate;
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Rum[/]: ");
             var _roomController = ModelFactory.GetModelController(EModelType.Room, PreviousMenu);
             Data03 = _roomController.BrowseOne();
-            if (Data03 == null)
-                Data03 = ExistingBooking.Room;
+            if (CopyChecker.CheckCopyValue(Data03))
+                Data03 = ExistingEntity.Room;
             var _room = (IRoom)Data03;
 
 
@@ -147,8 +148,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             AnsiConsole.MarkupLine("\n[yellow]Kund[/]: ");
             var _customerController = ModelFactory.GetModelController(EModelType.Customer, PreviousMenu);
             Data04 = _customerController.BrowseOne();
-            if (Data04 == null)
-                Data04 = ExistingBooking.Customer;
+            if (CopyChecker.CheckCopyValue(Data04))
+                Data04 = ExistingEntity.Customer;
             var _customer = (ICustomer)Data04;
 
 
@@ -156,9 +157,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             var _price = PriceCalculator.CalculateStayPrice(_numberOfNights, _room.Details.Price);
 
             // Create Invoice 
-            InvoiceService.Delete(ExistingBooking.Invoice);
+            InvoiceService.Delete(ExistingEntity.Invoice);
             Data05 = new Invoice(_room.Details.RoomType, _price);
-
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -170,9 +170,11 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             {
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
-                Booking = new Booking((Room)Data03, (Customer)Data04, (DateTime)Data01, (DateTime)Data02, (Invoice)Data05);
+                NewEntity = new Booking((Room)Data03, (Customer)Data04, (DateTime)Data01, (DateTime)Data02, (Invoice)Data05)
+                { ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
 
-                ModelController.Update((IModel)Booking);
+                BookingService.Update(NewEntity);
+                PreviousMenu.Run();
             }
             else
             {

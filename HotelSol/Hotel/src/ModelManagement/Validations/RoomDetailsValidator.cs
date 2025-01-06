@@ -1,20 +1,23 @@
 ﻿using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services;
+using Hotel.src.Utilities.UserInputManagement;
 using HotelLibrary.Utilities.UserInputManagement;
 
 namespace Hotel.src.ModelManagement.Validations
 {
     public class RoomDetailsValidator
     {
-        public static IRoomType ValidateRoomType(IMenu previousMenu)
+        public static IRoomType ValidateRoomType(IRoomType existingEntityRooMType, bool isAnEdit, IMenu previousMenu)
         {
             var _allRoomTypes = RoomTypeService.GetAll();
             while (true)
             {
                 var _userInput = UserInputHandler.UserInputString(previousMenu).ToLower();
 
-                if (_allRoomTypes.Any(e => e.Name.ToLower() == _userInput))
+                if (isAnEdit && InputChecker.UserInputIsEnter(_userInput.ToString()))
+                    return existingEntityRooMType;
+                else if (_allRoomTypes.Any(e => e.Name.ToLower() == _userInput))
                     return _allRoomTypes.First(e => e.Name.ToLower() == _userInput);
                 else
                 {
@@ -32,7 +35,7 @@ namespace Hotel.src.ModelManagement.Validations
             {
                 var _userInput = UserInputHandler.UserInputInt(previousMenu);
 
-                if (isAnEdit && _userInput == -1)
+                if (isAnEdit && InputChecker.UserInputIsEnter(_userInput.ToString()))
                     return _userInput;
                 else if (_userInput < roomType.SizeMax)
                     return _userInput;
@@ -50,7 +53,7 @@ namespace Hotel.src.ModelManagement.Validations
             {
                 var _userInput = UserInputHandler.UserInputInt(previousMenu);
 
-                if (isAnEdit && _userInput == -1)
+                if (isAnEdit && InputChecker.UserInputIsEnter(_userInput.ToString()))
                     return _userInput;
                 else if (_userInput < roomType.NumberOfBedsMax)
                     return _userInput;

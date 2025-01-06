@@ -7,6 +7,7 @@ using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
+using Hotel.src.ModelManagement.Services;
 using Hotel.src.ModelManagement.Validations;
 using HotelLibrary.Utilities.UserInputManagement;
 using Spectre.Console;
@@ -22,7 +23,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; } = EModelType.RoomDetails;
         public IModelController ModelController { get; set; }
-        public IRoom Room { get; set; }
+        public IRoom NewEntity { get; set; }
         public bool IsAnEdit { get; set; }
 
         public object Data01 { get; set; } // First name
@@ -84,9 +85,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             {
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
-                Room = new Room((string)Data01, (string)Data02, (int)Data03, (RoomDetails)Data04);
+                NewEntity = new Room((string)Data01, (string)Data02, (int)Data03, (RoomDetails)Data04);
 
-                ModelController.Update((IModel)Room);
+                ModelController.Update((IModel)NewEntity);
             }
             else
             {
@@ -97,46 +98,46 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             }
         }
 
-        public void EditForm(IModel modelToUpdate)
+        public void EditForm(IModel entityToUpdate)
         {
-            var ExistingRoom = (IRoom)modelToUpdate;
+            var ExistingEntity = (IRoom)entityToUpdate;
             ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
             IsAnEdit = true;
 
             Console.Clear();
-            DisplaySummary(ExistingRoom);
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Rumsnummer[/]: ");
             Data01 = RoomValidator.ValidateRoomNumber(true, PreviousMenu);
-            if (Data01 == null)
-                Data01 = ExistingRoom.Name;
+            if (CopyChecker.CheckCopyValue(Data01))
+                Data01 = ExistingEntity.Name;
 
             Console.Clear();
-            DisplaySummary(ExistingRoom);
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Beskrivning[/]: ");
             Data02 = UserInputHandler.UserInputString(PreviousMenu);
-            if (Data02 == null)
-                Data02 = ExistingRoom.Description;
+            if (CopyChecker.CheckCopyValue(Data02))
+                Data02 = ExistingEntity.Description;
 
             Console.Clear();
-            DisplaySummary(ExistingRoom);
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Våning[/]: ");
             Data03 = RoomValidator.ValidateFloor(true, PreviousMenu);
-            if ((int)Data03 == -1)
-                Data03 = ExistingRoom.Floor;
+            if (CopyChecker.CheckCopyValue(Data03))
+                Data03 = ExistingEntity.Floor;
 
             Console.Clear();
-            DisplaySummary(ExistingRoom);
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             RelatedForm = ModelFactory.GetModelRegistrationForm(RelatedFormModelType, PreviousMenu);
             RelatedForm.AssignRelatedForm(this);
-            Data04 = RelatedForm.EditAndReturnForm(ExistingRoom.Details); // start RoomDetail registration form
+            Data04 = RelatedForm.EditAndReturnForm(ExistingEntity.Details); // start RoomDetail registration form
 
             Console.Clear();
             Console.WriteLine("Tidigare värden: ");
-            DisplaySummary(ExistingRoom);
+            DisplaySummary(ExistingEntity);
             Console.WriteLine("Nya värden: ");
             FormDisplayer.DisplayCurrentFormValues(this);
 
@@ -145,8 +146,11 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
             if (confirm)
             {
-                Room = new Room((string)Data01, (string)Data02, (int)Data03, (RoomDetails)Data04);
-                ModelController.Update((IModel)Room);
+                NewEntity = new Room((string)Data01, (string)Data02, (int)Data03, (RoomDetails)Data04)
+                { ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
+
+                RoomService.Update((Room)NewEntity);
+                PreviousMenu.Run();
             }
             else
             {

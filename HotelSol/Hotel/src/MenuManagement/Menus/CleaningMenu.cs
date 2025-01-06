@@ -32,6 +32,7 @@ namespace Hotel.src.MenuManagement.Menus
             //ModelController = ModelFactory.GetModelController(ModelType);
             while (true)
             {
+                Console.Clear();
                 // Sprectre menyval!
                 var option = AnsiConsole.Prompt(
                     new SelectionPrompt<CleaningMenuOptions>()

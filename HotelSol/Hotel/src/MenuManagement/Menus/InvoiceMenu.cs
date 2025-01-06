@@ -30,6 +30,7 @@ namespace Hotel.src.MenuManagement.Menus
 
         public void Run()
         {
+            Console.Clear();
             ModelController = ModelFactory.GetModelController(ModelType, this);
             while (true)
             {

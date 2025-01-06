@@ -98,9 +98,9 @@ namespace Hotel.src.ModelManagement.Controllers
             //    CustomerService.Update(_customer);
         }
 
-        public void Update(IModel modelToUpdate)
+        public void Update(IModel entityToUpdate)
         {
-            var _customerToUpdate = modelToUpdate;
+            var _customerToUpdate = entityToUpdate;
 
             var _customerForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             _customerForm.EditForm((IModel)_customerToUpdate);

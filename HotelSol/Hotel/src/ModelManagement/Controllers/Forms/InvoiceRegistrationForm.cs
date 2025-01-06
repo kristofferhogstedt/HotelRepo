@@ -30,7 +30,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public EModelType RelatedFormModelType { get; set; } 
         public IModelController ModelController { get; set; }
         public bool IsAnEdit { get; set; }
-        public IInvoice Invoice { get; set; }
+        public IInvoice NewEntity { get; set; }
 
         public object Data01 { get; set; } // First name
         public object Data02 { get; set; } // Last name
@@ -66,15 +66,22 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
         public void EditForm(IModel entityToUpdate)
         {
-            var ExistingInvoice = (IInvoice)entityToUpdate;
-            ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
+            var ExistingEntity = (IInvoice)entityToUpdate;
+            //ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
             IsAnEdit = true;
+            NewEntity = ExistingEntity;
 
-            IsAnEdit = false;
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Är fakturan betald?[/]: ");
             Data01 = UserInputHandler.UserInputBool(PreviousMenu);
+            if (CopyChecker.CheckCopyValue(Data01))
+                Data09 = ExistingEntity.IsPaid;
+            else if ((bool)Data01 == true)
+            {
+                NewEntity.IsPaid = (bool)Data01;
+                NewEntity.PaidDate = DateTime.Now;
+            }
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -85,12 +92,13 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             if (confirm)
             {
                 // Meddelande om lyckad registrering
-                ExistingInvoice.IsPaid = true;
-                ExistingInvoice.PaidDate = DateTime.Now;
-                ExistingInvoice.UpdatedDate = DateTime.Now;
-                InvoiceService.Delete(ExistingInvoice);
-                AnsiConsole.MarkupLine("[bold green]Fakturaändring registrerad framgångsrikt![/]");
-                ModelController.Update(entityToUpdate);
+                //InvoiceService.Delete(ExistingEntity);
+                //NewEntity = ExistingEntity;
+                NewEntity.UpdatedDate = DateTime.Now;
+
+                InvoiceService.Update(NewEntity);
+                PreviousMenu.Run();
+
             }
             else
             {

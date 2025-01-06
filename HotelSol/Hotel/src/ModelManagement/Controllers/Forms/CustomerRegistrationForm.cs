@@ -50,7 +50,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         //public DateTime _dateOfBirth;
         //public string _email;
         //public string _phone;
-        public ICustomer Customer { get; set; } 
+        public ICustomer NewEntity { get; set; } 
         public bool IsAnEdit { get; set; }
 
         public static IModelRegistrationForm GetInstance(IMenu previousMenu)
@@ -129,10 +129,10 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             {
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
-                Customer = new Customer((string)Data01, (string)Data02, (DateTime)Data03, (string)Data04
+                NewEntity = new Customer((string)Data01, (string)Data02, (DateTime)Data03, (string)Data04
                     , (string)Data05, (string)Data06, (string)Data07, (string)Data08, (string)Data09);
                 
-                ModelController.Create((IModel)Customer);
+                ModelController.Create((IModel)NewEntity);
             }
             else
             {
@@ -145,99 +145,99 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
         public void EditForm(IModel modelToUpdate)
         {
-            var ExistingCustomer = (ICustomer)modelToUpdate;
+            var ExistingEntity = (ICustomer)modelToUpdate;
             ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
             IsAnEdit = true;
 
             Console.Clear();
-            DisplaySummary(ExistingCustomer);
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\nAnge [yellow]förnamn[/]: ");
             Data01 = UserInputHandler.UserInputString(PreviousMenu);
-            if (CopyValue(Data01))
-                Data01 = ExistingCustomer.FirstName;
+            if (CopyChecker.CheckCopyValue(Data01))
+                Data01 = ExistingEntity.FirstName;
 
             Console.Clear();
-            DisplaySummary(ExistingCustomer);
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\nAnge [yellow]efternamn[/]: ");
             Data02 = UserInputHandler.UserInputString(PreviousMenu);
-            if (CopyValue(Data02))
-                Data02 = ExistingCustomer.LastName;
+            if (CopyChecker.CheckCopyValue(Data02))
+                Data02 = ExistingEntity.LastName;
 
             Console.Clear();
-            DisplaySummary(ExistingCustomer);
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\nAnge [yellow]födelseår[/]: ");
             var _yearOfBirth = UserInputHandlerDateTime.UserInputYear(PreviousMenu);
-            if (CopyValue(_yearOfBirth))
-                _yearOfBirth = ExistingCustomer.DateOfBirth.Year;
+            if (CopyChecker.CheckCopyValue(_yearOfBirth))
+                _yearOfBirth = ExistingEntity.DateOfBirth.Year;
 
             AnsiConsole.MarkupLine("\nAnge [yellow]födelsemånad[/]: ");
             var _monthOfBirth = UserInputHandlerDateTime.UserInputMonth(PreviousMenu);
-            if (CopyValue(_monthOfBirth))
-                _monthOfBirth = ExistingCustomer.DateOfBirth.Month;
+            if (CopyChecker.CheckCopyValue(_monthOfBirth))
+                _monthOfBirth = ExistingEntity.DateOfBirth.Month;
 
             AnsiConsole.MarkupLine("\nAnge [yellow]födelsedag[/]: ");
             var _dayOfBirth = UserInputHandlerDateTime.UserInputMonth(PreviousMenu);
-            if (CopyValue(_dayOfBirth))
-                _dayOfBirth = ExistingCustomer.DateOfBirth.Day;
+            if (CopyChecker.CheckCopyValue(_dayOfBirth))
+                _dayOfBirth = ExistingEntity.DateOfBirth.Day;
 
             Data03 = Convert.ToDateTime($"{_yearOfBirth}-{_monthOfBirth}-{_dayOfBirth}");
-            if (CopyValue(Data03))
-                Data03 = ExistingCustomer.DateOfBirth;
+            if (CopyChecker.CheckCopyValue(Data03))
+                Data03 = ExistingEntity.DateOfBirth;
 
             Console.Clear();
-            DisplaySummary(ExistingCustomer);
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\nAnge [yellow]E-post[/]: ");
             Data04 = CustomerValidator.ValidateEmail(IsAnEdit, PreviousMenu);
-            if (CopyValue(Data04))
-                Data04 = ExistingCustomer.Email;
+            if (CopyChecker.CheckCopyValue(Data04))
+                Data04 = ExistingEntity.Email;
 
             Console.Clear();
-            DisplaySummary(ExistingCustomer);
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\nAnge [yellow]telefonnummer[/]: ");
             Data05 = CustomerValidator.ValidatePhone(IsAnEdit, PreviousMenu);
-            if (CopyValue(Data05))
-                Data05 = ExistingCustomer.Phone;
+            if (CopyChecker.CheckCopyValue(Data05))
+                Data05 = ExistingEntity.Phone;
 
             Console.Clear();
-            DisplaySummary(ExistingCustomer);
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Gatuadress[/]: ");
             Data06 = UserInputHandler.UserInputString(PreviousMenu);
-            if (CopyValue(Data06))
-                Data06 = ExistingCustomer.StreetAddress;
+            if (CopyChecker.CheckCopyValue(Data06))
+                Data06 = ExistingEntity.StreetAddress;
 
             Console.Clear();
-            DisplaySummary(ExistingCustomer);
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Postnummer[/]: ");
             Data07 = CustomerValidator.ValidatePostalCode(IsAnEdit, PreviousMenu);
-            if (CopyValue(Data07))
-                Data07 = ExistingCustomer.PostalCode;
+            if (CopyChecker.CheckCopyValue(Data07))
+                Data07 = ExistingEntity.PostalCode;
 
             Console.Clear();
-            DisplaySummary(ExistingCustomer);
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Stad[/]: ");
             Data08 = UserInputHandler.UserInputString(PreviousMenu);
-            if (CopyValue(Data08))
-                Data08 = ExistingCustomer.City;
+            if (CopyChecker.CheckCopyValue(Data08))
+                Data08 = ExistingEntity.City;
 
             Console.Clear();
-            DisplaySummary(ExistingCustomer);
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Land[/]: ");
             Data09 = UserInputHandler.UserInputString(PreviousMenu);
-            if (CopyValue(Data09))
-                Data09 = ExistingCustomer.Country;
+            if (CopyChecker.CheckCopyValue(Data09))
+                Data09 = ExistingEntity.Country;
 
             Console.Clear();
             Console.WriteLine("Tidigare värden: ");
-            DisplaySummary(ExistingCustomer);
+            DisplaySummary(ExistingEntity);
             Console.WriteLine("Nya värden: ");
             FormDisplayer.DisplayCurrentFormValues(this);
 
@@ -249,11 +249,11 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
 
-                Customer = new Customer((string)Data01, (string)Data02, (DateTime)Data03, (string)Data04
+                NewEntity = new Customer((string)Data01, (string)Data02, (DateTime)Data03, (string)Data04
                     , (string)Data05, (string)Data06, (string)Data07, (string)Data08, (string)Data09)
-                { ID = ExistingCustomer.ID };
+                { ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
                 
-                CustomerService.Update(Customer);
+                CustomerService.Update(NewEntity);
                 PreviousMenu.Run();
             }
             else

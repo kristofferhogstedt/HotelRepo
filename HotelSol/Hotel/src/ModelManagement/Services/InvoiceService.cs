@@ -3,6 +3,7 @@ using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services.Interfaces;
 using Hotel.src.ModelManagement.Utilities.Messagers;
 using Hotel.src.Persistence;
+using Spectre.Console;
 
 namespace Hotel.src.ModelManagement.Services
 {
@@ -116,6 +117,9 @@ namespace Hotel.src.ModelManagement.Services
             if (existingEntity != null)
             {
                 DatabaseLair.DatabaseContext.Entry(existingEntity).CurrentValues.SetValues(entityToUpdate);
+
+                DatabaseLair.DatabaseContext.SaveChanges();
+                Console.WriteLine("Uppdatering lyckad!");
             }
             else
             {
