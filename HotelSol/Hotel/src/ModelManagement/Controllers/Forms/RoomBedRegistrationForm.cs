@@ -68,7 +68,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Antal sängar[/]: ");
-            Data03 = RoomDetailsValidator.ValidateNumberOfBeds(_roomType, IsAnEdit, PreviousMenu);
+            Data03 = RoomDetailsValidator.ValidateNumberOfBeds(_roomType, ExistingEntity.Size, IsAnEdit, PreviousMenu);
             if (CopyChecker.CheckCopyValue(Data03))
                 Data03 = ExistingEntity.NumberOfBeds;
 

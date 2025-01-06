@@ -1,4 +1,8 @@
 ﻿using Hotel.src.MenuManagement.Menus.Interfaces;
+using Hotel.src.ModelManagement.Models;
+using Hotel.src.ModelManagement.Services;
+using Hotel.src.Utilities.ConsoleManagement;
+using HotelLibrary.Utilities.UserInputManagement.Interfaces;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -24,6 +28,9 @@ namespace Hotel.src.Utilities.UserInputManagement
             //DateTime _currentDate = SetStartDate();
             DateTime _selectedDate = startDate;
 
+            var _isInactive = false;
+            var _existingBookings = BookingService.GetAll(_isInactive);
+
             while (true)
             {
                 Console.Clear();
@@ -48,7 +55,14 @@ namespace Hotel.src.Utilities.UserInputManagement
                         break;
                     case ConsoleKey.Enter:
                         //AnsiConsole.MarkupLine($"\nFödelsedatum: [green]{_selectedDate:yyyy-MM-dd}[/]");
-                        return _selectedDate; // Avslutar loopen
+                        if (_existingBookings.Any(b => b.FromDate < _selectedDate && b.ToDate > _selectedDate))
+                        {
+                            Console.WriteLine("Rummet är redan bokat under detta datum, försök igen");
+                            LineClearer.ClearLastLine(1000);
+                            break;
+                        }
+                        else
+                            return _selectedDate; // Avslutar loopen
                     case ConsoleKey.Escape:
                         previousMenu.Run();
                         return DateTime.MinValue; // Avbryter valet

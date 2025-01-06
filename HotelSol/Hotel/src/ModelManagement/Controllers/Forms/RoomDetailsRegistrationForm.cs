@@ -89,7 +89,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine($"\n[yellow]Antal sängar[/] (default {RoomType.NumberOfBedsDefault}): ");
-            Data03 = RoomDetailsValidator.ValidateNumberOfBeds(RoomType, false, PreviousMenu);
+            Data03 = RoomDetailsValidator.ValidateNumberOfBeds(RoomType, (int)Data02, false, PreviousMenu);
 
             Data04 = RoomType.PriceDefault;
 
@@ -152,7 +152,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine($"\n[yellow]Antal sängar[/] (default {RoomType.NumberOfBedsDefault}): ");
-            Data03 = RoomDetailsValidator.ValidateNumberOfBeds(RoomType, true, PreviousMenu);
+            Data03 = RoomDetailsValidator.ValidateNumberOfBeds(RoomType, (int)Data02, true, PreviousMenu);
             if (CopyChecker.CheckCopyValue(Data03))
                 Data03 = ExistingEntity.NumberOfBeds;
 
