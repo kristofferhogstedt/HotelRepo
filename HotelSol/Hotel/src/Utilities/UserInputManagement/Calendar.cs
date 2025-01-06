@@ -1,6 +1,7 @@
 ﻿using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Services;
+using Hotel.src.ModelManagement.Validations;
 using Hotel.src.Utilities.ConsoleManagement;
 using HotelLibrary.Utilities.UserInputManagement.Interfaces;
 using Spectre.Console;
@@ -21,7 +22,7 @@ namespace Hotel.src.Utilities.UserInputManagement
             return _selectedDate;
         }
 
-        public static DateTime DateSelector(DateTime startDate, IMenu previousMenu)
+        public static DateTime DateSelector(int roomID, DateTime startDate, bool isAnEdit, IMenu previousMenu)
         {
             // Startdatum (början av månaden)
             //DateTime _currentDate = DateTime.Now;
@@ -34,7 +35,7 @@ namespace Hotel.src.Utilities.UserInputManagement
             while (true)
             {
                 Console.Clear();
-                RenderCalendar(_selectedDate);
+                RenderCalendar(_selectedDate, _existingBookings);
 
                 // Läsa användarens tangent
                 var _key = Console.ReadKey(true).Key;
@@ -55,12 +56,8 @@ namespace Hotel.src.Utilities.UserInputManagement
                         break;
                     case ConsoleKey.Enter:
                         //AnsiConsole.MarkupLine($"\nFödelsedatum: [green]{_selectedDate:yyyy-MM-dd}[/]");
-                        if (_existingBookings.Any(b => b.FromDate < _selectedDate && b.ToDate > _selectedDate))
-                        {
-                            Console.WriteLine("Rummet är redan bokat under detta datum, försök igen");
-                            LineClearer.ClearLastLine(1000);
+                        if (BookingValidator.ValidateOccupiedDate(roomID, _selectedDate, isAnEdit, previousMenu))
                             break;
-                        }
                         else
                             return _selectedDate; // Avslutar loopen
                     case ConsoleKey.Escape:
@@ -70,7 +67,7 @@ namespace Hotel.src.Utilities.UserInputManagement
             }
         }
 
-        private static void RenderCalendar(DateTime selectedDate)
+        private static void RenderCalendar(DateTime selectedDate, List<Booking> existingBookings)
         {
             var calendarContent = new StringWriter();
 

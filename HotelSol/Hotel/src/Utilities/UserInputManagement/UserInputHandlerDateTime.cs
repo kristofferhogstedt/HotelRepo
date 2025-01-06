@@ -51,42 +51,42 @@ namespace Hotel.src.Utilities.UserInputManagement
         /// Dateselector with current date as starting point
         /// </summary>
         /// <returns></returns>
-        public static DateTime UserInputDateTime(IMenu previousMenu)
+        public static DateTime UserInputDateTime(int roomID, bool isAnEdit, IMenu previousMenu)
         {
-            return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate()), previousMenu);
+            return Calendar.DateSelector(roomID, Calendar.StartDate(Calendar.SetStartDate()), isAnEdit, previousMenu);
         }
 
-        /// <summary>
-        /// Dateselector with user-selected year as starting point
-        /// </summary>
-        /// <param name="year"></param>
-        /// <returns></returns>
-        public static DateTime UserInputDateTime(int year, IMenu previousMenu)
-        {
-            return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year)), previousMenu);
-        }
+        ///// <summary>
+        ///// Dateselector with user-selected year as starting point
+        ///// </summary>
+        ///// <param name="year"></param>
+        ///// <returns></returns>
+        //public static DateTime UserInputDateTime(int year, IMenu previousMenu)
+        //{
+        //    return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year)), previousMenu);
+        //}
 
-        /// <summary>
-        /// Dateselector with user-selected year and month as starting point
-        /// </summary>
-        /// <param name="year"></param>
-        /// <param name="month"></param>
-        /// <returns></returns>
-        public static DateTime UserInputDateTime(int year, int month, IMenu previousMenu)
-        {
-            return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year, month)), previousMenu);
-        }
+        ///// <summary>
+        ///// Dateselector with user-selected year and month as starting point
+        ///// </summary>
+        ///// <param name="year"></param>
+        ///// <param name="month"></param>
+        ///// <returns></returns>
+        //public static DateTime UserInputDateTime(int year, int month, IMenu previousMenu)
+        //{
+        //    return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year, month)), previousMenu);
+        //}
 
-        /// <summary>
-        /// Dateselector with user-selected year, month and day as starting point
-        /// </summary>
-        /// <param name="year"></param>
-        /// <param name="month"></param>
-        /// <param name="day"></param>
-        /// <returns></returns>
-        public static DateTime UserInputDateTime(int year, int month, int day, IMenu previousMenu)
-        {
-            return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year, month, day)), previousMenu);
-        }
+        ///// <summary>
+        ///// Dateselector with user-selected year, month and day as starting point
+        ///// </summary>
+        ///// <param name="year"></param>
+        ///// <param name="month"></param>
+        ///// <param name="day"></param>
+        ///// <returns></returns>
+        //public static DateTime UserInputDateTime(int year, int month, int day, IMenu previousMenu)
+        //{
+        //    return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year, month, day)), previousMenu);
+        //}
     }
 }

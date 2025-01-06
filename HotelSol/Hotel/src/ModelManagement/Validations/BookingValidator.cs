@@ -14,18 +14,18 @@ namespace Hotel.src.ModelManagement.Validations
 {
     public class BookingValidator
     {
-        public static DateTime ValidateFromDate(bool isAnEdit, IMenu previousMenu)
+        public static DateTime ValidateFromDate(int roomID, bool isAnEdit, IMenu previousMenu)
         {
-            var _dateToReturn = UserInputHandlerDateTime.UserInputDateTime(previousMenu);
+            var _dateToReturn = UserInputHandlerDateTime.UserInputDateTime(roomID, isAnEdit, previousMenu);
 
             if (isAnEdit && _dateToReturn == DateTime.MinValue)
                 return DateTime.MinValue;
             else
                 return _dateToReturn;
         }
-        public static DateTime ValidateToDate(bool isAnEdit, IMenu previousMenu)
+        public static DateTime ValidateToDate(int roomID, bool isAnEdit, IMenu previousMenu)
         {
-            var _dateToReturn = UserInputHandlerDateTime.UserInputDateTime(previousMenu);
+            var _dateToReturn = UserInputHandlerDateTime.UserInputDateTime(roomID, isAnEdit, previousMenu);
 
             if (isAnEdit && _dateToReturn == DateTime.MinValue)
                 return DateTime.MinValue;
@@ -33,14 +33,28 @@ namespace Hotel.src.ModelManagement.Validations
                 return _dateToReturn;
         }
 
-        public static DateTime ValidateOccupiedDate(int roomID, DateTime dateToValidate, bool isAnEdit, IMenu previousMenu)
+        public static bool ValidateOccupiedDate(int roomID, DateTime dateToValidate, bool isAnEdit, IMenu previousMenu)
+        {
+            var _isInactive = false;
+            var _existingBookings = BookingService.GetAll(_isInactive);
+
+                if (_existingBookings.Any(b => b.RoomID == roomID && b.FromDate <= dateToValidate && b.ToDate > dateToValidate) && isAnEdit == false)
+                {
+                    Console.WriteLine("Rummet är redan bokat under detta datum, försök igen");
+                    LineClearer.ClearLastLine(1000);
+                    return false;
+                }
+                else
+                    return true;
+        }
+        public static DateTime ValidateOccupiedDateBACKUP(int roomID, DateTime dateToValidate, bool isAnEdit, IMenu previousMenu)
         {
             var _isInactive = false;
             var _existingBookings = BookingService.GetAll(_isInactive);
 
             while (true)
             {
-                var _userInput = UserInputHandlerDateTime.UserInputDateTime(previousMenu);
+                var _userInput = UserInputHandlerDateTime.UserInputDateTime(roomID, isAnEdit, previousMenu);
 
                 if (_existingBookings.Any(b => b.RoomID == roomID && b.FromDate < _userInput && b.ToDate > _userInput))
                 {
