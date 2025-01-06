@@ -1,6 +1,7 @@
 ﻿using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Utilities.Displayers;
+using Hotel.src.ModelManagement.Utilities.Selectors.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +29,11 @@ namespace Hotel.src.ModelManagement.Utilities.Selectors
                 {
                     case ConsoleKey.UpArrow:
                         _selectedIndex = --_selectedIndex;
+                        TopAndBottomAdjuster.AdjustTopBottom(ref _selectedIndex, entityList.Count);
                         break;
                     case ConsoleKey.DownArrow:
                         _selectedIndex = ++_selectedIndex;
+                        TopAndBottomAdjuster.AdjustTopBottom(ref _selectedIndex, entityList.Count);
                         break;
                     case ConsoleKey.Enter:
                         //AnsiConsole.MarkupLine($"\nFödelsedatum: [green]{_selectedDate:yyyy-MM-dd}[/]");
