@@ -20,6 +20,12 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
                     return "Gatuaddress";
                 case EModelType.Room:
                     return "Rumsnummer";
+                case EModelType.RoomDetails:
+                    return "Rumstyp";
+                case EModelType.Booking:
+                    return "Från-datum";
+                case EModelType.Invoice:
+                    return "Faktura betald";
                 default:
                     return "";
             }
@@ -34,6 +40,10 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
                     return "Postnummer";
                 case EModelType.Room:
                     return "Beskrivning";
+                case EModelType.RoomDetails:
+                    return "Storlek";
+                case EModelType.Booking:
+                    return "Till-datum";
                 default:
                     return "";
             }
@@ -48,6 +58,10 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
                     return "Stad";
                 case EModelType.Room:
                     return "Våning";
+                case EModelType.RoomDetails:
+                    return "Antal sängar";
+                case EModelType.Booking:
+                    return "Rum";
                 default:
                     return "";
             }
@@ -60,6 +74,12 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
                     return "E-post";
                 case EModelType.Address:
                     return "Land";
+                case EModelType.Room:
+                    return "Våning";
+                case EModelType.RoomDetails:
+                    return "Rumsnummer";
+                case EModelType.Booking:
+                    return "Kund";
                 default:
                     return "";
             }
@@ -75,6 +95,46 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
             }
         }
         public static string LabelMapData06(IModelRegistrationForm registrationForm)
+        {
+            switch (registrationForm.ModelType)
+            {
+                case EModelType.Customer:
+                    return "Address";
+                default:
+                    return "";
+            }
+        }
+        public static string LabelMapData07(IModelRegistrationForm registrationForm)
+        {
+            switch (registrationForm.ModelType)
+            {
+                case EModelType.Customer:
+                    return "Address";
+                default:
+                    return "";
+            }
+        }
+        public static string LabelMapData08(IModelRegistrationForm registrationForm)
+        {
+            switch (registrationForm.ModelType)
+            {
+                case EModelType.Customer:
+                    return "Address";
+                default:
+                    return "";
+            }
+        }
+        public static string LabelMapData09(IModelRegistrationForm registrationForm)
+        {
+            switch (registrationForm.ModelType)
+            {
+                case EModelType.Customer:
+                    return "Address";
+                default:
+                    return "";
+            }
+        }
+        public static string LabelMapData10(IModelRegistrationForm registrationForm)
         {
             switch (registrationForm.ModelType)
             {

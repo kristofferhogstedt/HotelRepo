@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Controllers.Interfaces
 {
-    public interface IRoomController
+    public interface IRoomController : IModelController
     {
-        IRoom GetOne();
+        public void UpdateBeds(IModel entityToUpdate);
+
     }
 }

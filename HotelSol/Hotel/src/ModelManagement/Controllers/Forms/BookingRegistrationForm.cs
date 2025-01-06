@@ -196,18 +196,19 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
         public void DisplaySummary()
         {
-            // Room
+            // Booking
             Console.Clear();
             FormDisplayer.DisplayFormHeader();
             AnsiConsole.MarkupLine("\n[bold green]Sammanfattning:[/]");
             var table = new Table();
             table.AddColumn("[red]Fält[/]");
             table.AddColumn("[red]Värde[/]");
-            table.AddRow("Rumsnummer", (string)Data01);
-            table.AddRow("Beskrivning", (string)Data02);
-            table.AddRow("Våning", (string)Data03);
+            table.AddRow("Från-datum", (string)Data01);
+            table.AddRow("Till-datum", (string)Data02);
+            table.AddRow("Rum", (string)Data03);
+            table.AddRow("Kund", (string)Data04);
 
-            // Room Details
+            // Invoice Details
             table.AddRow("Typ", (string)RelatedForm.Data01);
             table.AddRow("Storlek", (string)RelatedForm.Data02);
             table.AddRow("Antal sängar", (string)Data03);

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Menus
 {
-    public class ModelCRUDMenu: IMenu, ICRUDMenu, IInstantiable
+    public class ModelCRUDMenu : IMenu, ICRUDMenu, IInstantiable
     {
         public IMenu PreviousMenu { get; set; }
         public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
@@ -62,9 +62,18 @@ namespace Hotel.src.MenuManagement.Menus
             //}
         }
 
-        public void Run(IModel modelToCRUD)
+        public void Run(IModel entityToCRUD)
         {
-            Console.Clear();
+            switch (entityToCRUD.ModelTypeEnum)
+            {
+                case EModelType.Room:
+                    RoomCRUDMenu(entityToCRUD);
+                    break;
+                default:
+                    GeneralCRUDMenu(entityToCRUD);
+                    break;
+            }
+
             while (true)
             {
                 var option = AnsiConsole.Prompt(
@@ -80,10 +89,74 @@ namespace Hotel.src.MenuManagement.Menus
                         PreviousMenu.Run();
                         break;
                     case CRUDMenuOptions.Update:
-                        var _controller = ModelFactory.GetModelController(modelToCRUD.ModelTypeEnum, this);
-                        _controller.Update(modelToCRUD);
+                        var _controller = ModelFactory.GetModelController(entityToCRUD.ModelTypeEnum, this);
+                        _controller.Update(entityToCRUD);
                         break;
                     case CRUDMenuOptions.Exit:
+                        Exit.ExitProgram();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        public void GeneralCRUDMenu(IModel entityToCRUD)
+        {
+
+            while (true)
+            {
+                var option = AnsiConsole.Prompt(
+                    new SelectionPrompt<CRUDMenuOptions>()
+                        .Title("Start")
+                        .UseConverter(option => option.ShowCRUDMenu())
+                        .AddChoices(Enum.GetValues<CRUDMenuOptions>())
+                    );
+
+                switch (option)
+                {
+                    case CRUDMenuOptions.PreviousMenu:
+                        PreviousMenu.Run();
+                        break;
+                    case CRUDMenuOptions.Update:
+                        var _controller = ModelFactory.GetModelController(entityToCRUD.ModelTypeEnum, this);
+                        _controller.Update(entityToCRUD);
+                        break;
+                    case CRUDMenuOptions.Exit:
+                        Exit.ExitProgram();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        public void RoomCRUDMenu(IModel entityToCrud)
+        {
+            var _controller = (IRoomController)ModelFactory.GetModelController(entityToCrud.ModelTypeEnum, this);
+            while (true)
+            {
+                var option = AnsiConsole.Prompt(
+                    new SelectionPrompt<RoomCRUDMenuOptions>()
+                        .Title("Start")
+                        .UseConverter(option => option.ShowCRUDMenu())
+                        .AddChoices(Enum.GetValues<RoomCRUDMenuOptions>())
+                    );
+
+                switch (option)
+                {
+                    case RoomCRUDMenuOptions.PreviousMenu:
+                        PreviousMenu.Run();
+                        break;
+                    case RoomCRUDMenuOptions.Update:
+                        _controller.Update(entityToCrud);
+                        break;
+                    case RoomCRUDMenuOptions.UpdateBeds:
+                        var _roomToCrud = (IRoom)entityToCrud;
+                        var _roomDetailsToCRUD = _roomToCrud.Details;
+                        _controller.UpdateBeds(_roomDetailsToCRUD);
+                        break;
+                    case RoomCRUDMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;
                     default:

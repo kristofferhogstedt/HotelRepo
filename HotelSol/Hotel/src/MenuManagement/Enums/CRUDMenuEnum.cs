@@ -20,6 +20,20 @@ namespace Hotel.src.MenuManagement.Enums
         Exit
     }
 
+    public enum RoomCRUDMenuOptions
+    {
+        [Description("<--")]
+        PreviousMenu,
+        [Description("  Redigera")]
+        Update,
+        [Description("  Lägg till/ta bort säng")]
+        UpdateBeds,
+        [Description("  Inaktivera")]
+        Inactivate,
+        [Description("Avsluta")]
+        Exit
+    }
+
     public static class CRUDMenuEnum
     {
         public static string ShowCRUDMenu(this Enum enumValues)

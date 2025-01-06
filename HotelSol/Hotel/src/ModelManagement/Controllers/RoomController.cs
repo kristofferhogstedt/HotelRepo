@@ -2,6 +2,7 @@
 using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.MenuManagement.Menus;
 using Hotel.src.MenuManagement.Menus.Interfaces;
+using Hotel.src.ModelManagement.Controllers.Forms;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
@@ -11,7 +12,7 @@ using Hotel.src.ModelManagement.Utilities.Selectors;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
-    public class RoomController : IModelController, IInstantiable
+    public class RoomController : IModelController, IInstantiable, IRoomController
     {
         public IMenu PreviousMenu { get; set; }
         public EModelType ModelTypeEnum { get; set; } = EModelType.Room;
@@ -90,6 +91,15 @@ namespace Hotel.src.ModelManagement.Controllers
             //}
             //else
             //    RoomService.Update(_Entity);
+        }
+
+        public void UpdateBeds(IModel entityToUpdate)
+        {
+            var _entityToUpdate = entityToUpdate;
+            var _roomBedModelTypeEnum = EModelType.RoomBed;
+
+            var _modelForm = ModelFactory.GetModelRegistrationForm(_roomBedModelTypeEnum, PreviousMenu);
+            _modelForm.EditForm((IModel)_entityToUpdate);
         }
 
         public void Delete(IModel modelToDelete)
