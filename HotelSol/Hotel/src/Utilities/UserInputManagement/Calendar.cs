@@ -1,5 +1,6 @@
 ﻿using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Models;
+using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services;
 using Hotel.src.ModelManagement.Validations;
 using Hotel.src.Utilities.ConsoleManagement;
@@ -35,7 +36,7 @@ namespace Hotel.src.Utilities.UserInputManagement
             while (true)
             {
                 Console.Clear();
-                RenderCalendar(_selectedDate, _existingBookings);
+                RenderCalendar(_selectedDate, roomID, _existingBookings);
 
                 // Läsa användarens tangent
                 var _key = Console.ReadKey(true).Key;
@@ -56,8 +57,12 @@ namespace Hotel.src.Utilities.UserInputManagement
                         break;
                     case ConsoleKey.Enter:
                         //AnsiConsole.MarkupLine($"\nFödelsedatum: [green]{_selectedDate:yyyy-MM-dd}[/]");
-                        if (BookingValidator.ValidateOccupiedDate(roomID, _selectedDate, isAnEdit, previousMenu))
+                        if (BookingValidator.ValidateOccupiedDate(roomID, _selectedDate, isAnEdit))
+                        {
+                            Console.WriteLine("Rummet är redan bokat under detta datum, försök igen");
+                            LineClearer.ClearLastLine(1000);
                             break;
+                        }
                         else
                             return _selectedDate; // Avslutar loopen
                     case ConsoleKey.Escape:
@@ -67,7 +72,7 @@ namespace Hotel.src.Utilities.UserInputManagement
             }
         }
 
-        private static void RenderCalendar(DateTime selectedDate, List<Booking> existingBookings)
+        private static void RenderCalendar(DateTime selectedDate, int roomID, List<IBooking> existingBookings)
         {
             var calendarContent = new StringWriter();
 
@@ -90,11 +95,15 @@ namespace Hotel.src.Utilities.UserInputManagement
             // Skriv ut dagarna
             for (int day = 1; day <= daysInMonth; day++)
             {
+                var _occupiedDayHighlight = Convert.ToDateTime(day + selectedDate.Month + selectedDate.Year);
+
                 if (day == selectedDate.Day)
                 {
                     // Siffran 2 sätter minimum bredd (även om 1 siffra)
                     calendarContent.Write($"[green]{day,2}[/]   ");
                 }
+                else if (day == _occupiedDayHighlight.Day)
+                    calendarContent.Write($"[red]{day,2}[/]   ");
                 else
                 {
                     calendarContent.Write($"{day,2}   ");
