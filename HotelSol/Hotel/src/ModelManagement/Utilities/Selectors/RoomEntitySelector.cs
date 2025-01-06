@@ -26,15 +26,29 @@ namespace Hotel.src.ModelManagement.Utilities.Selectors
                 {
                     case ConsoleKey.UpArrow:
                         _selectedIndex = --_selectedIndex;
+                        AdjustTopBottom(ref _selectedIndex, entityList.Count);
                         break;
                     case ConsoleKey.DownArrow:
                         _selectedIndex = ++_selectedIndex;
+                        AdjustTopBottom(ref _selectedIndex, entityList.Count);
                         break;
                     case ConsoleKey.Enter:
                         return entityList.ElementAt(_selectedIndex);
                     case ConsoleKey.Escape:
                         previousMenu.Run();
                         break;
+                }
+            }
+
+            void AdjustTopBottom(ref int selectedIndex, int listLength)
+            {
+                if (selectedIndex < 0)
+                {
+                    selectedIndex = listLength - 1;
+                }
+                else if (selectedIndex >= listLength)
+                {
+                    selectedIndex = 0;
                 }
             }
         }

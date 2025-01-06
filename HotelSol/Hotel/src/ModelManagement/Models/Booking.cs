@@ -67,10 +67,30 @@ namespace Hotel.src.ModelManagement.Models
             CreatedDate = DateTime.Now;
         }
 
+        public Booking(int roomID, int customerID, DateTime fromDate, DateTime toDate)
+        {
+            RoomID = roomID;
+            CustomerID = customerID;
+            FromDate = fromDate;
+            ToDate = toDate;
+            CreatedDate = DateTime.Now;
+        }
+
+
         public Booking(Room room, Customer customer, DateTime fromDate, DateTime toDate, Invoice invoice)
         {
             Room = room;
             Customer = customer;
+            FromDate = fromDate;
+            ToDate = toDate;
+            Invoice = invoice;
+            CreatedDate = DateTime.Now;
+        }
+
+        public Booking(int roomID, int customerID, DateTime fromDate, DateTime toDate, Invoice invoice)
+        {
+            RoomID = roomID;
+            CustomerID = customerID;
             FromDate = fromDate;
             ToDate = toDate;
             Invoice = invoice;

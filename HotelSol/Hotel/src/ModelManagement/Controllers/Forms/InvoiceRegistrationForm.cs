@@ -84,6 +84,12 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 NewEntity.IsPaid = (bool)Data01;
                 NewEntity.PaidDate = DateTime.Now;
             }
+            else
+            {
+                NewEntity.IsPaid = (bool)Data01;
+                NewEntity.PaidDate = null;
+            }
+
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);

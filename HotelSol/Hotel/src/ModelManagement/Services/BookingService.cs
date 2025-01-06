@@ -196,5 +196,30 @@ namespace Hotel.src.ModelManagement.Services
             };
             return _listToReturn;
         }
+        public static List<IBooking> GetSubDataCustomerSeed(List<IBooking> entityList)
+        {
+            var _listToReturn = new List<IBooking>();
+            foreach (Booking entity in entityList)
+            {
+                entity.Customer = (Customer)CustomerService.GetOneByIDSeed(entity.CustomerID);
+                _listToReturn.Add(entity);
+            };
+            return _listToReturn;
+        }
+
+        // Invoice
+
+        public static IModel GetSubDataInvoice(IModel entity, bool isInactive)
+        {
+            var _entityToReturn = (IBooking)entity;
+            _entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingID(_entityToReturn.ID, isInactive);
+            return _entityToReturn;
+        }
+        public static IModel GetSubDataInvoiceSeed(IModel entity)
+        {
+            var _entityToReturn = (IBooking)entity;
+            _entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingIDSeed(_entityToReturn.ID);
+            return _entityToReturn;
+        }
     }
 }

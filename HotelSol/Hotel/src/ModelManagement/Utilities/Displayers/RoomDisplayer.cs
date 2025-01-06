@@ -13,11 +13,18 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
     {      
         public static void RenderTable(List<IRoom> entityList, int indexToHighlight)
         {
-
             var _entityArray = entityList.ToArray();
             var _tableContent = new StringWriter();
+            //if (indexToHighlight < 0)
+            //{
+            //    indexToHighlight = _entityArray.Length-1;
+            //}
+            //else if (indexToHighlight >= _entityArray.Length)
+            //{
+            //    indexToHighlight = 0;
+            //}
 
-            _tableContent.WriteLine($"[red]{entityList.ElementAt(indexToHighlight).Name},  Våning {entityList.ElementAt(indexToHighlight).Floor}[/]".ToUpper());
+            _tableContent.WriteLine($"[red]{indexToHighlight} - {entityList.ElementAt(indexToHighlight).Name},  Våning {entityList.ElementAt(indexToHighlight).Floor}[/]".ToUpper());
             _tableContent.WriteLine("ID  Rumsnummer  Beskrivning  Våning");
             _tableContent.WriteLine("───────────────────────────────────");
 

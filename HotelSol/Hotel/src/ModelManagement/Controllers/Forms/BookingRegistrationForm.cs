@@ -140,27 +140,24 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Rum[/]: ");
             var _roomController = ModelFactory.GetModelController(EModelType.Room, PreviousMenu);
-            Data03 = _roomController.BrowseOne(HandleInactive);
+            var _room = (IRoom)_roomController.BrowseOne(HandleInactive);
+            Data03 = _room.ID;
             if (CopyChecker.CheckCopyValue(Data03))
-                Data03 = ExistingEntity.Room;
-            var _room = (IRoom)Data03;
-
+                Data03 = ExistingEntity.RoomID;
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Kund[/]: ");
             var _customerController = ModelFactory.GetModelController(EModelType.Customer, PreviousMenu);
-            Data04 = _customerController.BrowseOne(HandleInactive);
+            var _customer = (ICustomer)_customerController.BrowseOne(HandleInactive);
+            Data04 = _customer.ID;
             if (CopyChecker.CheckCopyValue(Data04))
                 Data04 = ExistingEntity.Customer;
-            var _customer = (ICustomer)Data04;
-
 
             var _numberOfNights = NumberOfNightsCalculator.calculateNumberOfNights((DateTime)Data02, (DateTime)Data01);
             var _price = PriceCalculator.CalculateStayPrice(_numberOfNights, _room.Details.Price);
 
             // Create Invoice 
-            InvoiceService.Delete(ExistingEntity.Invoice);
             Data05 = new Invoice(_room.Details.RoomType, _price);
 
             Console.Clear();
@@ -173,7 +170,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             {
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
-                NewEntity = new Booking((Room)Data03, (Customer)Data04, (DateTime)Data01, (DateTime)Data02, (Invoice)Data05)
+                NewEntity = new Booking((int)Data03, (int)Data04, (DateTime)Data01, (DateTime)Data02, (Invoice)Data05)
                 { ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
 
                 BookingService.Update(NewEntity);

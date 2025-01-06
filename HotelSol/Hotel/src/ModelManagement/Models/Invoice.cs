@@ -16,20 +16,10 @@ namespace Hotel.src.ModelManagement.Models
         //-------------------------------------
 
         private double _amount;
-        public double Amount 
-        { 
-            get
-            {
-                return _amount;
-            }
-            set
-            {
-                _amount = PriceCalculator.CalculateStayPrice(Booking.StayLength, Booking.Room.Details.Price);
-            }
-        }
+        public double Amount { get; set; }
         public DateTime DueDate { get; set; }
         public bool IsPaid { get; set; }
-        public DateTime PaidDate { get; set; }
+        public DateTime? PaidDate { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool IsInactive { get; set; }

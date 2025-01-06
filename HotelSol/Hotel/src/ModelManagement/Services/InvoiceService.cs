@@ -85,6 +85,24 @@ namespace Hotel.src.ModelManagement.Services
             return _entityToReturn;
         }
 
+        public static IModel GetOneByBookingIDSeed(int searchID)
+        {
+            var _entityToReturn = (IModel)DatabaseLair.DatabaseContext.Invoices
+                .First(m => m.BookingID == searchID);
+
+            _entityToReturn = GetSubDataSeed(_entityToReturn); // Get subdata
+
+            if (_entityToReturn == null)
+            {
+                Console.Clear();
+                ServiceMessager.DataNotFoundMessage();
+                return null;
+            }
+
+            return _entityToReturn;
+        }
+
+
         /// <summary>
         /// For fetching all customers
         /// </summary>
@@ -145,6 +163,12 @@ namespace Hotel.src.ModelManagement.Services
         {
             var _entityToReturn = (Invoice)entity;
             _entityToReturn.Booking = (Booking)BookingService.GetOneByID(_entityToReturn.BookingID, isInactive);
+            return _entityToReturn;
+        }
+        public static IModel GetSubDataSeed(IModel entity)
+        {
+            var _entityToReturn = (Invoice)entity;
+            _entityToReturn.Booking = (Booking)BookingService.GetOneByIDSeed(_entityToReturn.BookingID);
             return _entityToReturn;
         }
 
