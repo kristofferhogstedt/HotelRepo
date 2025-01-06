@@ -3,6 +3,7 @@ using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Forms.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Forms.Utilities;
+using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
@@ -20,6 +21,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public EModelType ModelType { get; set; } = EModelType.Room;
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; } = EModelType.RoomDetails;
+        public IModelController ModelController { get; set; }
         public IRoom Room { get; set; }
         public bool IsAnEdit { get; set; }
 
@@ -45,9 +47,11 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             return (IModelRegistrationForm)_instance;
         }
 
-        public IModel CreateForm()
+        public void CreateForm()
         {
+            ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
             IsAnEdit = false;
+
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Rumsnummer[/]: ");
@@ -68,7 +72,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             RelatedForm = ModelFactory.GetModelRegistrationForm(RelatedFormModelType, PreviousMenu);
             RelatedForm.AssignRelatedForm(this);
 
-            Data04 = RelatedForm.CreateForm(); // start RoomDetail registration form
+            Data04 = RelatedForm.CreateAndReturnForm(); // start RoomDetail registration form
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -81,56 +85,59 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
                 Room = new Room((string)Data01, (string)Data02, (int)Data03, (RoomDetails)Data04);
-                return (IModel)Room;
+
+                ModelController.Update((IModel)Room);
             }
             else
             {
                 // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
-                CreateForm();
-                return (IModel)Room;
+                PreviousMenu.Run();
             }
         }
 
-        public IModel EditForm(IModel modelToUpdate)
+        public void EditForm(IModel modelToUpdate)
         {
-            Room = (IRoom)modelToUpdate;
+            var ExistingRoom = (IRoom)modelToUpdate;
+            ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
             IsAnEdit = true;
 
             Console.Clear();
-            DisplaySummary(Room);
+            DisplaySummary(ExistingRoom);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Rumsnummer[/]: ");
             Data01 = RoomValidator.ValidateRoomNumber(true, PreviousMenu);
             if (Data01 == null)
-                Data01 = Room.Name;
+                Data01 = ExistingRoom.Name;
 
             Console.Clear();
-            DisplaySummary(Room);
+            DisplaySummary(ExistingRoom);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Beskrivning[/]: ");
             Data02 = UserInputHandler.UserInputString(PreviousMenu);
             if (Data02 == null)
-                Data02 = Room.Description;
+                Data02 = ExistingRoom.Description;
 
             Console.Clear();
-            DisplaySummary(Room);
+            DisplaySummary(ExistingRoom);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Våning[/]: ");
             Data03 = RoomValidator.ValidateFloor(true, PreviousMenu);
             if ((int)Data03 == -1)
-                Data03 = Room.Floor;
+                Data03 = ExistingRoom.Floor;
 
             Console.Clear();
-            DisplaySummary(Room);
+            DisplaySummary(ExistingRoom);
             FormDisplayer.DisplayCurrentFormValues(this);
             RelatedForm = ModelFactory.GetModelRegistrationForm(RelatedFormModelType, PreviousMenu);
             RelatedForm.AssignRelatedForm(this);
-            Data04 = RelatedForm.CreateForm(); // start RoomDetail registration form
+            Data04 = RelatedForm.EditAndReturnForm(ExistingRoom.Details); // start RoomDetail registration form
 
             Console.Clear();
-            DisplaySummary(Room);
+            Console.WriteLine("Tidigare värden: ");
+            DisplaySummary(ExistingRoom);
+            Console.WriteLine("Nya värden: ");
             FormDisplayer.DisplayCurrentFormValues(this);
 
             // Bekräfta kunduppgifter
@@ -139,16 +146,24 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             if (confirm)
             {
                 Room = new Room((string)Data01, (string)Data02, (int)Data03, (RoomDetails)Data04);
-                return (IModel)Room;
+                ModelController.Update((IModel)Room);
             }
             else
             {
                 // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
-                EditForm(modelToUpdate);
-                return (IModel)Room;
+                PreviousMenu.Run();
             }
+        }
+
+        public IModel CreateAndReturnForm()
+        {
+            throw new NotImplementedException();
+        }
+        public IModel EditAndReturnForm(IModel modelToUpdate)
+        {
+            throw new NotImplementedException();
         }
 
         public void DisplaySummary()

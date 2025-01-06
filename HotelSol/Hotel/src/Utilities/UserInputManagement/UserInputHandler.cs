@@ -26,8 +26,7 @@ namespace HotelLibrary.Utilities.UserInputManagement
                     return false;
                 default:
                     Console.WriteLine("Felaktig inmatning, ange Ja eller Nej.");
-                    LineClearer.ClearLastLine(1000);
-                    return UserInputBool(previousMenu);
+                    return false;
             }
         }
 
@@ -84,6 +83,7 @@ namespace HotelLibrary.Utilities.UserInputManagement
             return _output;
         }
 
+
         public static string UserInputStringNotNullOrEmpty(IMenu previousMenu)
         {
             var _input = "";
@@ -93,7 +93,6 @@ namespace HotelLibrary.Utilities.UserInputManagement
                 if (_input.IsNullOrEmpty())
                 {
                     Console.WriteLine("Får inte vara tomt.");
-                    LineClearer.ClearLastLine(1000);
                 }
             }
 
@@ -106,7 +105,6 @@ namespace HotelLibrary.Utilities.UserInputManagement
             while (!int.TryParse(UserInputString(previousMenu), out _output))
             {
                 Console.WriteLine("Felaktig inmatning, måste vara heltal (int).");
-                LineClearer.ClearLastLine(1000);
             }
 
             return _output;
@@ -118,7 +116,6 @@ namespace HotelLibrary.Utilities.UserInputManagement
             while (!ushort.TryParse(UserInputString(previousMenu), out _output))
             {
                 Console.WriteLine("Felaktig inmatning, heltal (ushort).");
-                LineClearer.ClearLastLine(1000);
             }
 
             return _output;

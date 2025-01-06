@@ -1,4 +1,5 @@
-﻿using Hotel.src.ModelManagement.Models.Enums;
+﻿using Hotel.src.ModelManagement.Controllers.Interfaces;
+using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,14 +12,11 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Interfaces
     public interface IModelRegistrationForm
     {
         //ICustomer Customer { get; set; }
-        IModel CreateForm();
-        IModel EditForm(IModel modelToUpdate);
-        void DisplaySummary();
         EModelType ModelType { get; set; }
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; }
-        public void AssignRelatedForm(IModelRegistrationForm relatedForm);
         public bool IsAnEdit { get; set; }
+        public IModelController ModelController { get; set; }
 
         object Data01 { get; set; }
         object Data02 { get; set; }
@@ -30,5 +28,13 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Interfaces
         object Data08 { get; set; }
         object Data09 { get; set; }
         object Data10 { get; set; }
+        public void AssignRelatedForm(IModelRegistrationForm relatedForm);
+        //IModel CreateForm();
+        //IModel EditForm(IModel modelToUpdate);
+        void CreateForm();
+        void EditForm(IModel modelToUpdate);
+        IModel CreateAndReturnForm();
+        IModel EditAndReturnForm(IModel modelToUpdate);
+        void DisplaySummary();
     }
 }

@@ -36,16 +36,23 @@ namespace Hotel.src.ModelManagement.Controllers
         public void Create()
         {
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-            IBooking _model = (IBooking)_modelForm.CreateForm();
+            _modelForm.CreateForm();
 
-            if (_model == null)
-            {
-                Console.WriteLine("Ingen data att spara, återgår...");
-                Thread.Sleep(2000);
-                return;
-            }
-            else
-                BookingService.Create(_model);
+            //IBooking _model = (IBooking)_modelForm.CreateForm();
+
+            //if (_model == null)
+            //{
+            //    Console.WriteLine("Ingen data att spara, återgår...");
+            //    Thread.Sleep(2000);
+            //    return;
+            //}
+            //else
+            //    BookingService.Create(_model);
+        }
+
+        public void Create(IModel entityToCreate)
+        {
+            BookingService.Create((IBooking)entityToCreate);
         }
 
         public IModel BrowseOne()
@@ -84,16 +91,18 @@ namespace Hotel.src.ModelManagement.Controllers
             var _modelToUpdate = BrowseOne();
 
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-            IBooking _model = (IBooking)_modelForm.EditForm((IModel)_modelToUpdate);
+            _modelForm.EditForm((IModel)_modelToUpdate);
 
-            if (_model == null)
-            {
-                Console.WriteLine("Ingen data att spara, återgår...");
-                Thread.Sleep(2000);
-                return;
-            }
-            else
-                BookingService.Update(_model);
+            //IBooking _model = (IBooking)_modelForm.EditForm((IModel)_modelToUpdate);
+
+            //if (_model == null)
+            //{
+            //    Console.WriteLine("Ingen data att spara, återgår...");
+            //    Thread.Sleep(2000);
+            //    return;
+            //}
+            //else
+            //    BookingService.Update(_model);
         }
 
         public void Update(IModel modelToUpdate)
@@ -101,16 +110,17 @@ namespace Hotel.src.ModelManagement.Controllers
             var _modelToUpdate = modelToUpdate;
 
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-            IBooking _model = (IBooking)_modelForm.EditForm((IModel)_modelToUpdate);
+            _modelForm.EditForm((IModel)_modelToUpdate);
+            //IBooking _model = (IBooking)_modelForm.EditForm((IModel)_modelToUpdate);
 
-            if (_model == null)
-            {
-                Console.WriteLine("Ingen data att spara, återgår...");
-                Thread.Sleep(2000);
-                return;
-            }
-            else
-                BookingService.Update(_model);
+            //if (_model == null)
+            //{
+            //    Console.WriteLine("Ingen data att spara, återgår...");
+            //    Thread.Sleep(2000);
+            //    return;
+            //}
+            //else
+            //    BookingService.Update(_model);
         }
 
         public void Delete(IModel modelToDelete)

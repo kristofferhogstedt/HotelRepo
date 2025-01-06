@@ -32,16 +32,21 @@ namespace Hotel.src.ModelManagement.Controllers
         public void Create()
         {
             var _roomForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-            IRoom _room = (IRoom)_roomForm.CreateForm();
+            //IRoom _room = (IRoom)
+            _roomForm.CreateForm();
 
-            if (_room == null)
-            {
-                Console.WriteLine("Ingen data att spara, återgår...");
-                Thread.Sleep(2000);
-                return;
-            }
-            else
-                RoomService.Create(_room);
+            //if (_room == null)
+            //{
+            //    Console.WriteLine("Ingen data att spara, återgår...");
+            //    Thread.Sleep(2000);
+            //    return;
+            //}
+            //else
+            //    RoomService.Create(_room);
+        }
+        public void Create(IModel entityToCreate)
+        {
+            RoomService.Create((IRoom)entityToCreate);
         }
 
         public IModel BrowseOne()
@@ -74,16 +79,17 @@ namespace Hotel.src.ModelManagement.Controllers
             var _entityToUpdate = entityToUpdate;
 
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-            IRoom _Entity = (IRoom)_modelForm.EditForm((IModel)_entityToUpdate);
+            _modelForm.EditForm((IModel)_entityToUpdate);
+            //IRoom _Entity = (IRoom)_modelForm.EditForm((IModel)_entityToUpdate);
 
-            if (_Entity == null)
-            {
-                Console.WriteLine("Ingen data att spara, återgår...");
-                Thread.Sleep(2000);
-                return;
-            }
-            else
-                RoomService.Update(_Entity);
+            //if (_Entity == null)
+            //{
+            //    Console.WriteLine("Ingen data att spara, återgår...");
+            //    Thread.Sleep(2000);
+            //    return;
+            //}
+            //else
+            //    RoomService.Update(_Entity);
         }
 
         public void Delete(IModel modelToDelete)

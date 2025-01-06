@@ -109,8 +109,17 @@ namespace Hotel.src.ModelManagement.Services
 
         public static void Update(IInvoice entityToUpdate)
         {
-            DatabaseLair.DatabaseContext.Invoices.Update((Invoice)entityToUpdate);
-            DatabaseLair.DatabaseContext.SaveChanges();
+            var existingEntity = DatabaseLair.DatabaseContext.Invoices
+                .FirstOrDefault(c => c.ID == entityToUpdate.ID);
+
+            if (existingEntity != null)
+            {
+                DatabaseLair.DatabaseContext.Entry(existingEntity).CurrentValues.SetValues(entityToUpdate);
+            }
+            else
+            {
+                Create(entityToUpdate);
+            }
         }
 
         public static void Delete(IInvoice entityToDelete)

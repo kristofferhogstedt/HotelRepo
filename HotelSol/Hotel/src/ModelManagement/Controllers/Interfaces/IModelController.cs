@@ -12,6 +12,7 @@ namespace Hotel.src.ModelManagement.Controllers.Interfaces
     {
         EModelType ModelTypeEnum { get; set; }
         void Create();
+        void Create(IModel entityToCreate);
         IModel BrowseOne();
         void ManageOne();
         void ReadAll();

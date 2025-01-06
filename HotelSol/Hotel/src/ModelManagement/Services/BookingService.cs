@@ -118,8 +118,17 @@ namespace Hotel.src.ModelManagement.Services
 
         public static void Update(IBooking entityToUpdate)
         {
-            DatabaseLair.DatabaseContext.Bookings.Update((Booking)entityToUpdate);
-            DatabaseLair.DatabaseContext.SaveChanges();
+            var existingEntity = DatabaseLair.DatabaseContext.Bookings
+                .FirstOrDefault(c => c.ID == entityToUpdate.ID);
+
+            if (existingEntity != null)
+            {
+                DatabaseLair.DatabaseContext.Entry(existingEntity).CurrentValues.SetValues(entityToUpdate);
+            }
+            else
+            {
+                Create(entityToUpdate);
+            }
         }
 
         public void Delete(IBooking entityToDelete)

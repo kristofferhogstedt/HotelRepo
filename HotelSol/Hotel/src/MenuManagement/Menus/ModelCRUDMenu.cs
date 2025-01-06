@@ -59,7 +59,8 @@ namespace Hotel.src.MenuManagement.Menus
         }
 
         public void Run(IModel modelToCRUD)
-        {            
+        {
+            Console.Clear();
             while (true)
             {
                 var option = AnsiConsole.Prompt(

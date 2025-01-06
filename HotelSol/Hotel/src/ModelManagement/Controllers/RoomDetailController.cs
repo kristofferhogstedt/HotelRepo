@@ -5,6 +5,7 @@ using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
+using Hotel.src.ModelManagement.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,11 @@ namespace Hotel.src.ModelManagement.Controllers
         public void Create()
         {
             throw new NotImplementedException();
+        }
+
+        public void Create(IModel entityToCreate)
+        {
+            RoomDetailsService.Create((IRoomDetails)entityToCreate);
         }
 
         public void ManageOne()

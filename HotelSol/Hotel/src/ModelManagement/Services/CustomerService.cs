@@ -3,6 +3,7 @@ using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services.Interfaces;
 using Hotel.src.ModelManagement.Utilities.Messagers;
 using Hotel.src.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hotel.src.ModelManagement.Services
 {
@@ -127,7 +128,19 @@ namespace Hotel.src.ModelManagement.Services
 
         public static void Update(ICustomer entityToUpdate)
         {
-            DatabaseLair.DatabaseContext.Customers.Update((Customer)entityToUpdate);
+            var existingEntity = DatabaseLair.DatabaseContext.Customers
+                .FirstOrDefault(c => c.ID == entityToUpdate.ID);
+
+            if (existingEntity != null)
+            {
+                DatabaseLair.DatabaseContext.Entry(existingEntity).CurrentValues.SetValues(entityToUpdate);
+            }
+            else
+            {
+                DatabaseLair.DatabaseContext.Customers.Add((Customer)entityToUpdate);
+            }
+
+            //DatabaseLair.DatabaseContext.Customers.Update((Customer)entityToUpdate);
             DatabaseLair.DatabaseContext.SaveChanges();
         }
 

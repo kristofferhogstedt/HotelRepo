@@ -120,8 +120,17 @@ namespace Hotel.src.ModelManagement.Services
 
         public static void Update(IRoomDetails entityToUpdate)
         {
-            DatabaseLair.DatabaseContext.RoomDetails.Update((RoomDetails)entityToUpdate);
-            DatabaseLair.DatabaseContext.SaveChanges();
+            var existingEntity = DatabaseLair.DatabaseContext.RoomDetails
+                .FirstOrDefault(c => c.ID == entityToUpdate.ID);
+
+            if (existingEntity != null)
+            {
+                DatabaseLair.DatabaseContext.Entry(existingEntity).CurrentValues.SetValues(entityToUpdate);
+            }
+            else
+            {
+                Create(entityToUpdate);
+            }
         }
 
         public void Delete(IRoomDetails entityToDelete)

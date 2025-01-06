@@ -41,16 +41,21 @@ namespace Hotel.src.ModelManagement.Controllers
         public void Create()
         {
             var _customerForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-            ICustomer _customer = (ICustomer)_customerForm.CreateForm();
+            _customerForm.CreateForm();
+            //ICustomer _customer = (ICustomer)_customerForm.CreateForm();
 
-            if (_customer == null)
-            {
-                Console.WriteLine("Ingen data att spara, återgår...");
-                Thread.Sleep(2000);
-                return;
-            }
-            else
-                CustomerService.Create(_customer);
+            //if (_customer == null)
+            //{
+            //    Console.WriteLine("Ingen data att spara, återgår...");
+            //    Thread.Sleep(2000);
+            //    return;
+            //}
+            //else
+            //    CustomerService.Create(_customer);
+        }
+        public void Create(IModel entityToCreate)
+        {
+            CustomerService.Create((ICustomer)entityToCreate);
         }
 
         public IModel BrowseOne()
@@ -66,7 +71,8 @@ namespace Hotel.src.ModelManagement.Controllers
             CustomerDisplayer.DisplayModel(_customer);
             Console.WriteLine("Vad vill du göra?");
 
-            var _crudMenu = CustomerCRUDMenu.GetInstance(PreviousMenu);
+            //var _crudMenu = CustomerCRUDMenu.GetInstance(PreviousMenu);
+            var _crudMenu = ModelCRUDMenu.GetInstance(PreviousMenu);
             _crudMenu.Run((IModel)_customer);
         }
 
@@ -80,15 +86,16 @@ namespace Hotel.src.ModelManagement.Controllers
             var _customerToUpdate = BrowseOne();
 
             var _customerForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-            ICustomer _customer = (ICustomer)_customerForm.EditForm((IModel)_customerToUpdate);
+            _customerForm.EditForm((IModel)_customerToUpdate);
+            //ICustomer _customer = (ICustomer)_customerForm.EditForm((IModel)_customerToUpdate);
 
-            if (_customer == null)
-            {
-                Console.WriteLine("Ingen data att spara, återgår...");
-                Thread.Sleep(2000);
-                return;
-            }
-                CustomerService.Update(_customer);
+            //if (_customer == null)
+            //{
+            //    Console.WriteLine("Ingen data att spara, återgår...");
+            //    Thread.Sleep(2000);
+            //    return;
+            //}
+            //    CustomerService.Update(_customer);
         }
 
         public void Update(IModel modelToUpdate)
@@ -96,16 +103,17 @@ namespace Hotel.src.ModelManagement.Controllers
             var _customerToUpdate = modelToUpdate;
 
             var _customerForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-            ICustomer _customer = (ICustomer)_customerForm.EditForm((IModel)_customerToUpdate);
+            _customerForm.EditForm((IModel)_customerToUpdate);
+            //ICustomer _customer = (ICustomer)_customerForm.EditForm((IModel)_customerToUpdate);
 
-            if (_customer == null)
-            {
-                Console.WriteLine("Ingen data att spara, återgår...");
-                Thread.Sleep(2000);
-                return;
-            }
-            else
-                CustomerService.Update(_customer);
+            //if (_customer == null)
+            //{
+            //    Console.WriteLine("Ingen data att spara, återgår...");
+            //    Thread.Sleep(2000);
+            //    return;
+            //}
+            //else
+            //    CustomerService.Update(_customer);
         }
 
         //public void Update(DatabaseLair dbLair)

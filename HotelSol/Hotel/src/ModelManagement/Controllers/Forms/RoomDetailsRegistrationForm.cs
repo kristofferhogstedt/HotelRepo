@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Hotel.src.ModelManagement.Validations;
+using Hotel.src.ModelManagement.Controllers.Interfaces;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms
 {
@@ -27,6 +28,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public EModelType RelatedFormModelType { get; set; } = EModelType.Room;
         public IRoomDetails RoomDetails { get; set; }
         public IRoomType RoomType { get; set; }
+        public IModelController ModelController { get; set; }
         public bool IsAnEdit { get; set; }
 
         public object Data01 { get; set; } // First name
@@ -51,7 +53,17 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             return (IModelRegistrationForm)_instance;
         }
 
-        public IModel CreateForm()
+        public void CreateForm()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditForm(IModel modelToUpdate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IModel CreateAndReturnForm()
         {
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -101,17 +113,19 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             }
         }
 
-        public IModel EditForm(IModel modelToUpdate)
+        public IModel EditAndReturnForm(IModel entityToUpdate)
         {
-            RoomDetails = (IRoomDetails)modelToUpdate;
+            var ExistingRoomDetails = (IRoomDetails)entityToUpdate;
+            ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
 
             Console.Clear();
+            DisplaySummary(ExistingRoomDetails);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Rumtyp[/]: ");
             Data01 = RoomDetailsValidator.ValidateRoomType(PreviousMenu);
             if (Data01 == null)
-                Data01 = RoomDetails.RoomType;            
-            
+                Data01 = ExistingRoomDetails.RoomType;
+
             if (Data01 != null)
                 RoomType = Data01 as IRoomType;
             else
@@ -122,20 +136,25 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             }
 
             Console.Clear();
+            DisplaySummary(ExistingRoomDetails);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine($"\n[yellow]Storlek[/] (default {RoomType.SizeDefault}): ");
             Data02 = RoomDetailsValidator.ValidateRoomSize(RoomType, true, PreviousMenu);
             if (Data02 == null)
-                Data02 = RoomDetails.Size;
+                Data02 = ExistingRoomDetails.Size;
 
             Console.Clear();
+            DisplaySummary(ExistingRoomDetails);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine($"\n[yellow]Antal sängar[/] (default {RoomType.NumberOfBedsDefault}): ");
             Data03 = RoomDetailsValidator.ValidateNumberOfBeds(RoomType, true, PreviousMenu);
             if (Data03 == null)
-                Data03 = RoomDetails.NumberOfBeds;
+                Data03 = ExistingRoomDetails.NumberOfBeds;
 
             Console.Clear();
+            Console.WriteLine("Tidigare värden: ");
+            DisplaySummary(ExistingRoomDetails);
+            Console.WriteLine("Nya värden: ");
             FormDisplayer.DisplayCurrentFormValues(this);
 
             // Bekräfta kunduppgifter

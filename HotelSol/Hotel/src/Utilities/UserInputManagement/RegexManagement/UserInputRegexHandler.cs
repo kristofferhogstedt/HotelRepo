@@ -11,21 +11,16 @@ namespace Hotel.src.Utilities.UserInputManagement.RegexManagement
 {
     public class UserInputRegexHandler
     {
-        public static string UserInputRegexEmail(IMenu previousMenu)
+        public static bool UserInputRegexEmail(string input, IMenu previousMenu)
         {
-            while (true)
+            UserInputHandler.UserInputEscape(previousMenu);
+            if (RegexHandler.CheckRegexMatch(input, RegexSettings.EmailPattern))
+                return true;
+            else
             {
-                UserInputHandler.UserInputEscape(previousMenu);
-                string _email = UserInputHandler.UserInputString(previousMenu);
-                if (RegexHandler.CheckRegexMatch(_email, RegexSettings.EmailPattern))
-                    return _email;
-                else if (_email == "")
-                    return _email;
-                else
-                {
-                    Console.WriteLine("Invalid email. Please enter a valid email.");
-                    LineClearer.ClearLastLine(1000);
-                }
+                Console.WriteLine("Invalid email. Please enter a valid email.");
+                LineClearer.ClearLastLine(1000);
+                return false;
             }
         }
 
@@ -40,7 +35,7 @@ namespace Hotel.src.Utilities.UserInputManagement.RegexManagement
                 else if (_output == "")
                     return _output;
                 else
-                { 
+                {
                     Console.WriteLine("Invalid phone number. Please enter a valid phone number.");
                     LineClearer.ClearLastLine(1000);
                 }

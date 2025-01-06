@@ -27,6 +27,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public EModelType ModelType { get; set; } = EModelType.Booking;
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; } = EModelType.Customer;
+        public IModelController ModelController { get; set; }
         public IBooking Booking { get; set; }
         public bool IsAnEdit { get; set; }
 
@@ -52,9 +53,11 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             return (IModelRegistrationForm)_instance;
         }
 
-        public IModel CreateForm()
+        public void CreateForm()
         {
+            ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
             IsAnEdit = false;
+
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Från-datum[/]: ");
@@ -96,21 +99,23 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
                 Booking = new Booking((Room)Data03, (Customer)Data04, (DateTime)Data01, (DateTime)Data02, (Invoice)Data05);
-                return (IModel)Booking;
+                
+                ModelController.Update((IModel)Booking);
             }
             else
             {
                 // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
-                CreateForm();
-                return (IModel)Booking;
+
+                PreviousMenu.Run();
             }
         }
 
-        public IModel EditForm(IModel entityToUpdate)
+        public void EditForm(IModel entityToUpdate)
         {
             var ExistingBooking = (IBooking)entityToUpdate;
+            ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
             IsAnEdit = true;
 
             Console.Clear();
@@ -166,16 +171,25 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
                 Booking = new Booking((Room)Data03, (Customer)Data04, (DateTime)Data01, (DateTime)Data02, (Invoice)Data05);
-                return (IModel)Booking;
+
+                ModelController.Update((IModel)Booking);
             }
             else
             {
                 // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
-                CreateForm();
-                return (IModel)Booking;
+                PreviousMenu.Run();
             }
+        }
+
+        public IModel CreateAndReturnForm()
+        {
+            throw new NotImplementedException();
+        }
+        public IModel EditAndReturnForm(IModel modelToUpdate)
+        {
+            throw new NotImplementedException();
         }
 
         public void DisplaySummary()

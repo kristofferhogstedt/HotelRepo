@@ -34,6 +34,11 @@ namespace Hotel.src.ModelManagement.Controllers
             throw new NotImplementedException();
         }
 
+        public void Create(IModel entityToCreate)
+        {
+            InvoiceService.Create((IInvoice)entityToCreate);
+        }
+
         public IModel BrowseOne()
         {
             List<IInvoice> _ListToBrowse = new List<IInvoice>();
@@ -64,16 +69,17 @@ namespace Hotel.src.ModelManagement.Controllers
             var _entityToUpdate = entityToUpdate;
 
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-            IInvoice _Entity = (IInvoice)_modelForm.EditForm((IModel)_entityToUpdate);
+            _modelForm.EditForm((IModel)_entityToUpdate);
+            //IInvoice _Entity = (IInvoice)_modelForm.EditForm((IModel)_entityToUpdate);
 
-            if (_Entity == null)
-            {
-                Console.WriteLine("Ingen data att spara, återgår...");
-                Thread.Sleep(2000);
-                return;
-            }
-            else
-                InvoiceService.Update(_Entity);
+            //if (_Entity == null)
+            //{
+            //    Console.WriteLine("Ingen data att spara, återgår...");
+            //    Thread.Sleep(2000);
+            //    return;
+            //}
+            //else
+            //    InvoiceService.Update(_Entity);
         }
 
         public void Delete()

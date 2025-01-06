@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HotelLibrary.Utilities.UserInputManagement;
+using Hotel.src.ModelManagement.Controllers.Interfaces;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms
 {
@@ -27,8 +28,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public EModelType ModelType { get; set; } = EModelType.Invoice;
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; } 
-        public IInvoice Invoice{ get; set; }
+        public IModelController ModelController { get; set; }
         public bool IsAnEdit { get; set; }
+        public IInvoice Invoice { get; set; }
 
         public object Data01 { get; set; } // First name
         public object Data02 { get; set; } // Last name
@@ -57,7 +59,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public IModel CreateForm()
+        public void CreateForm()
         {
             throw new NotImplementedException();
         }
@@ -65,6 +67,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public void EditForm(IModel entityToUpdate)
         {
             var ExistingInvoice = (IInvoice)entityToUpdate;
+            ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
             IsAnEdit = true;
 
             IsAnEdit = false;
@@ -87,16 +90,25 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 ExistingInvoice.UpdatedDate = DateTime.Now;
                 InvoiceService.Delete(ExistingInvoice);
                 AnsiConsole.MarkupLine("[bold green]Fakturaändring registrerad framgångsrikt![/]");
-                PreviousMenu.Run();
+                ModelController.Update(entityToUpdate);
             }
             else
             {
                 // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
-                CreateForm();
+
                 PreviousMenu.Run();
             }
+        }
+
+        public IModel CreateAndReturnForm()
+        {
+            throw new NotImplementedException();
+        }
+        public IModel EditAndReturnForm(IModel modelToUpdate)
+        {
+            throw new NotImplementedException();
         }
 
         public void DisplaySummary()
