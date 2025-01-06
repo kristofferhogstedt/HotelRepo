@@ -13,11 +13,6 @@ namespace Hotel.src.ModelManagement.Rules
 {
     public class CustomerValidator
     {
-        public static string ValidateFirstName(string input, bool isAnEdit, IMenu previousMenu)
-        {
-            var _userInput = UserInputHandler.UserInputStringNotNullOrEmpty(previousMenu);
-            return _userInput;
-        }
         public static string ValidateEmail(bool isAnEdit, IMenu previousMenu)
         {
             while (true)
@@ -30,6 +25,34 @@ namespace Hotel.src.ModelManagement.Rules
                     return _userInput;
                 else
                     Console.WriteLine($"Felaktig e-post angiven, måste vara i format \"abc123@abc123.abc\"");
+            }
+        }
+        public static string ValidatePhone(bool isAnEdit, IMenu previousMenu)
+        {
+            while (true)
+            {
+                var _userInput = UserInputHandler.UserInputString(previousMenu);
+
+                if (isAnEdit && InputChecker.UserInputIsEnter(_userInput))
+                    return _userInput;
+                else if (UserInputRegexHandler.UserInputRegexPhone(_userInput, previousMenu))
+                    return _userInput;
+                else
+                    Console.WriteLine($"Felaktig e-post angiven, måste vara i format \"abc123@abc123.abc\"");
+            }
+        }
+        public static string ValidatePostalCode(bool isAnEdit, IMenu previousMenu)
+        {
+            while (true)
+            {
+                var _userInput = UserInputHandler.UserInputString(previousMenu);
+
+                if (isAnEdit && InputChecker.UserInputIsEnter(_userInput))
+                    return _userInput;
+                else if (UserInputRegexHandler.UserInputRegexPostalCode(_userInput, previousMenu))
+                    return _userInput;
+                else
+                    Console.WriteLine($"Felaktigt postnummer angiven, måste vara i format \"12345\"");
             }
         }
     }

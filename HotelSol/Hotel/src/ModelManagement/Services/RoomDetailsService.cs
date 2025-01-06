@@ -122,6 +122,7 @@ namespace Hotel.src.ModelManagement.Services
         {
             var existingEntity = DatabaseLair.DatabaseContext.RoomDetails
                 .FirstOrDefault(c => c.ID == entityToUpdate.ID);
+            entityToUpdate.UpdatedDate = DateTime.Now;
 
             if (existingEntity != null)
             {

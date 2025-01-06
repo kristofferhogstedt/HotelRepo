@@ -92,12 +92,12 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]E-post[/]: ");
-            Data04 = CustomerValidator.ValidateEmail(false, PreviousMenu);
+            Data04 = CustomerValidator.ValidateEmail(IsAnEdit, PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]telefonnummer[/]: ");
-            Data05 = UserInputRegexHandler.UserInputRegexPhone(PreviousMenu);
+            Data05 = CustomerValidator.ValidatePhone(IsAnEdit, PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -107,7 +107,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Postnummer[/]: ");
-            Data07 = UserInputRegexHandler.UserInputRegexPostalCode(PreviousMenu);
+            Data07 = CustomerValidator.ValidatePostalCode(IsAnEdit, PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -191,7 +191,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             DisplaySummary(ExistingCustomer);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\nAnge [yellow]E-post[/]: ");
-            Data04 = CustomerValidator.ValidateEmail(false, PreviousMenu);
+            Data04 = CustomerValidator.ValidateEmail(IsAnEdit, PreviousMenu);
             if (CopyValue(Data04))
                 Data04 = ExistingCustomer.Email;
 
@@ -199,7 +199,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             DisplaySummary(ExistingCustomer);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\nAnge [yellow]telefonnummer[/]: ");
-            Data05 = UserInputRegexHandler.UserInputRegexPhone(PreviousMenu);
+            Data05 = CustomerValidator.ValidatePhone(IsAnEdit, PreviousMenu);
             if (CopyValue(Data05))
                 Data05 = ExistingCustomer.Phone;
 
@@ -215,7 +215,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             DisplaySummary(ExistingCustomer);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Postnummer[/]: ");
-            Data07 = UserInputRegexHandler.UserInputRegexPostalCode(PreviousMenu);
+            Data07 = CustomerValidator.ValidatePostalCode(IsAnEdit, PreviousMenu);
             if (CopyValue(Data07))
                 Data07 = ExistingCustomer.PostalCode;
 

@@ -13,7 +13,6 @@ namespace Hotel.src.Utilities.UserInputManagement.RegexManagement
     {
         public static bool UserInputRegexEmail(string input, IMenu previousMenu)
         {
-            UserInputHandler.UserInputEscape(previousMenu);
             if (RegexHandler.CheckRegexMatch(input, RegexSettings.EmailPattern))
                 return true;
             else
@@ -24,39 +23,27 @@ namespace Hotel.src.Utilities.UserInputManagement.RegexManagement
             }
         }
 
-        public static string UserInputRegexPhone(IMenu previousMenu)
+        public static bool UserInputRegexPhone(string input, IMenu previousMenu)
         {
-            while (true)
+            if (RegexHandler.CheckRegexMatch(input, RegexSettings.PhonePattern))
+                return true;
+            else
             {
-                UserInputHandler.UserInputEscape(previousMenu);
-                string _output = UserInputHandler.UserInputString(previousMenu);
-                if (RegexHandler.CheckRegexMatch(_output, RegexSettings.PhonePattern))
-                    return _output;
-                else if (_output == "")
-                    return _output;
-                else
-                {
-                    Console.WriteLine("Invalid phone number. Please enter a valid phone number.");
-                    LineClearer.ClearLastLine(1000);
-                }
+                Console.WriteLine("Invalid phone number. Please enter a valid email.");
+                LineClearer.ClearLastLine(1000);
+                return false;
             }
         }
 
-        public static string UserInputRegexPostalCode(IMenu previousMenu)
+        public static bool UserInputRegexPostalCode(string input, IMenu previousMenu)
         {
-            while (true)
+            if (RegexHandler.CheckRegexMatch(input, RegexSettings.PostalCodePattern))
+                return true;
+            else
             {
-                UserInputHandler.UserInputEscape(previousMenu);
-                string _output = UserInputHandler.UserInputString(previousMenu);
-                if (RegexHandler.CheckRegexMatch(_output, RegexSettings.PostalCodePattern))
-                    return _output;
-                else if (_output == "")
-                    return _output;
-                else
-                {
-                    Console.WriteLine("Invalid postal code. Please enter a valid one.");
-                    LineClearer.ClearLastLine(1000);
-                }
+                Console.WriteLine("Invalid Postal code. Please enter a valid email.");
+                LineClearer.ClearLastLine(1000);
+                return false;
             }
         }
     }
