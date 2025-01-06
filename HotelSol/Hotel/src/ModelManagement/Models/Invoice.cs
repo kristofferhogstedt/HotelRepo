@@ -1,5 +1,6 @@
 ﻿using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
+using Hotel.src.ModelManagement.Utilities.Calculators;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
 
@@ -14,7 +15,18 @@ namespace Hotel.src.ModelManagement.Models
         public Booking Booking { get; set; }
         //-------------------------------------
 
-        public double Amount { get; set; }
+        private double _amount;
+        public double Amount 
+        { 
+            get
+            {
+                return _amount;
+            }
+            set
+            {
+                _amount = PriceCalculator.CalculateStayPrice(Booking.StayLength, Booking.Room.Details.Price);
+            }
+        }
         public DateTime DueDate { get; set; }
         public bool IsPaid { get; set; }
         public DateTime PaidDate { get; set; }
@@ -42,6 +54,18 @@ namespace Hotel.src.ModelManagement.Models
             Amount = amount;
             CreatedDate = DateTime.Now;
             DueDate = CreatedDate.AddDays(30);
+        }
+        public Invoice(IBooking booking)
+        {
+            Booking = (Booking)booking;
+            CreatedDate = DateTime.Now;
+            DueDate = CreatedDate.AddDays(30);
+        }
+
+
+        public double GetAmount() 
+        { 
+            return PriceCalculator.CalculateStayPrice(Booking.StayLength, Booking.Room.Details.Price); 
         }
     }
 }

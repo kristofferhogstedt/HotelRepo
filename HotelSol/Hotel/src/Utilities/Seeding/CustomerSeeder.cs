@@ -41,7 +41,7 @@ namespace Hotel.src.Utilities.Seeding
                 .RuleFor(c => c.City, f => f.Address.City())
                 .RuleFor(c => c.PostalCode, f => f.Address.ZipCode())
                 .RuleFor(c => c.Country, f => f.Address.Country())
-                .RuleFor(c => c.IsInactive, f => f.Random.Bool(0.2f))
+                //.RuleFor(c => c.IsInactive, f => f.Random.Bool(0.2f))
                 .RuleFor(c => c.CreatedDate, f => f.Date.Past())
                 .RuleFor(c => c.UpdatedDate, f => f.Date.Recent());
 

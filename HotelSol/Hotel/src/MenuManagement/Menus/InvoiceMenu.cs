@@ -46,6 +46,9 @@ namespace Hotel.src.MenuManagement.Menus
                     case InvoiceMenuOptions.PreviousMenu:
                         PreviousMenu.Run();
                         break;
+                    case InvoiceMenuOptions.DisplayInvoices:
+                        ModelController.ManageOne();
+                        break;
                     case InvoiceMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;

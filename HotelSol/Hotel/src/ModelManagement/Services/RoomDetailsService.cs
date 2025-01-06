@@ -42,10 +42,52 @@ namespace Hotel.src.ModelManagement.Services
             return _entityToReturn;
         }
 
+        /// <summary>
+        /// For seeder functionality to not care about IsInactive
+        /// </summary>
+        /// <param name="searchID"></param>
+        /// <returns></returns>
+        public static IRoomDetails GetOneByIDSeed(int searchString)
+        {
+            var _entityToReturn = (IRoomDetails)DatabaseLair.DatabaseContext.RoomDetails
+                .First(m => m.ID == searchString);
+
+            _entityToReturn = GetSubDataRoomType(_entityToReturn); // Get subdata
+
+            if (_entityToReturn == null)
+            {
+                Console.Clear();
+                ServiceMessager.DataNotFoundMessage();
+            }
+
+            return _entityToReturn;
+        }
+
         public static IRoomDetails GetOneByRoomID(int searchString)
         {
             var _entityToReturn = (IRoomDetails)DatabaseLair.DatabaseContext.RoomDetails
                 .Where(e => e.IsInactive == false)
+                .First(m => m.RoomID == searchString);
+
+            _entityToReturn = GetSubDataRoomType(_entityToReturn); // Get subdata
+
+            if (_entityToReturn == null)
+            {
+                Console.Clear();
+                ServiceMessager.DataNotFoundMessage();
+            }
+
+            return _entityToReturn;
+        }
+
+        /// <summary>
+        /// For seeder functionality to not care about IsInactive
+        /// </summary>
+        /// <param name="searchID"></param>
+        /// <returns></returns>
+        public static IRoomDetails GetOneByRoomIDSeed(int searchString)
+        {
+            var _entityToReturn = (IRoomDetails)DatabaseLair.DatabaseContext.RoomDetails
                 .First(m => m.RoomID == searchString);
 
             _entityToReturn = GetSubDataRoomType(_entityToReturn); // Get subdata

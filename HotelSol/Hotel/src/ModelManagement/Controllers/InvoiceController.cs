@@ -1,27 +1,25 @@
 ﻿using Hotel.src.FactoryManagement;
 using Hotel.src.FactoryManagement.Interfaces;
+using Hotel.src.MenuManagement.Menus;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
-using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Hotel.src.ModelManagement.Services;
+using Hotel.src.ModelManagement.Utilities.Displayers;
+using Hotel.src.ModelManagement.Utilities.Selectors;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
     public class InvoiceController : IModelController, IInvoiceController, IInstantiable
     {
         public IMenu PreviousMenu { get; set; }
-        public EModelType ModelTypeEnum { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public EModelType ModelTypeEnum { get; set; } = EModelType.Invoice;
 
         public static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
 
-        public InvoiceController() 
+        public InvoiceController()
         {
         }
 
@@ -36,24 +34,46 @@ namespace Hotel.src.ModelManagement.Controllers
             throw new NotImplementedException();
         }
 
+        public IModel BrowseOne()
+        {
+            List<IInvoice> _ListToBrowse = new List<IInvoice>();
+            foreach (IInvoice e in InvoiceService.GetAll())
+                _ListToBrowse.Add(e);
+            IInvoice _modelToReturn = InvoiceEntitySelector.Select(_ListToBrowse, 0, PreviousMenu);
+            return _modelToReturn;
+        }
+
         public void ManageOne()
         {
-            throw new NotImplementedException();
+            var _invoice = (IInvoice)BrowseOne();
+            Console.Clear();
+            InvoiceDisplayer.DisplayModel(_invoice);
+            Console.WriteLine("Vad vill du göra?");
+
+            var _crudMenu = ModelCRUDMenu.GetInstance(PreviousMenu);
+            _crudMenu.Run((IModel)_invoice);
         }
 
         public void ReadAll()
         {
-            throw new NotImplementedException();
+            InvoiceDisplayer.DisplayModelTable(InvoiceService.GetAll());
         }
 
-        public void Update()
+        public void Update(IModel entityToUpdate)
         {
-            throw new NotImplementedException();
-        }
+            var _entityToUpdate = entityToUpdate;
 
-        public void Update(IModel modelToUpdate)
-        {
-            throw new NotImplementedException();
+            var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
+            IInvoice _Entity = (IInvoice)_modelForm.EditForm((IModel)_entityToUpdate);
+
+            if (_Entity == null)
+            {
+                Console.WriteLine("Ingen data att spara, återgår...");
+                Thread.Sleep(2000);
+                return;
+            }
+            else
+                InvoiceService.Update(_Entity);
         }
 
         public void Delete()
@@ -61,14 +81,10 @@ namespace Hotel.src.ModelManagement.Controllers
             throw new NotImplementedException();
         }
 
-        public IModel BrowseOne()
-        {
-            throw new NotImplementedException();
-        }
 
-        public void Delete(IModel modelToDelete)
+        public void Delete(IModel entityToDelete)
         {
-            throw new NotImplementedException();
+            InvoiceService.Delete((IInvoice)entityToDelete);
         }
     }
 }

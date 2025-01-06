@@ -50,6 +50,23 @@ namespace Hotel.src.ModelManagement.Models
             CreatedDate = DateTime.Now;
         }
 
+        /// <summary>
+        /// Constructor for seeder where Invoice is registered afterwards
+        /// </summary>
+        /// <param name="room"></param>
+        /// <param name="customer"></param>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
+        /// <param name="invoice"></param>
+        public Booking(Room room, Customer customer, DateTime fromDate, DateTime toDate)
+        {
+            Room = room;
+            Customer = customer;
+            FromDate = fromDate;
+            ToDate = toDate;
+            CreatedDate = DateTime.Now;
+        }
+
         public Booking(Room room, Customer customer, DateTime fromDate, DateTime toDate, Invoice invoice)
         {
             Room = room;

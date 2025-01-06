@@ -64,6 +64,26 @@ namespace Hotel.src.ModelManagement.Services
 
             return _entityToReturn;
         }
+        /// <summary>
+        /// For seeder functionality to not care about IsInactive
+        /// </summary>
+        /// <param name="searchID"></param>
+        /// <returns></returns>
+        public static IModel GetOneByIDSeed(int searchString)
+        {
+            var _entityToReturn = (IRoom)DatabaseLair.DatabaseContext.Rooms
+                .First(e => e.ID == searchString);
+
+            _entityToReturn = GetSubDataSeed(_entityToReturn); // Get subdata
+
+            if (_entityToReturn == null)
+            {
+                Console.Clear();
+                ServiceMessager.DataNotFoundMessage();
+            }
+
+            return _entityToReturn;
+        }
 
         public static IRoom GetOneByRoomNumber(string searchString)
         {
@@ -122,6 +142,13 @@ namespace Hotel.src.ModelManagement.Services
             var _entityToReturn = entity;
             // Get corresponding RoomDetails from db
             _entityToReturn.Details = (RoomDetails)RoomDetailsService.GetOneByRoomID(_entityToReturn.ID);
+            return _entityToReturn;
+        }
+        public static IRoom GetSubDataSeed(IRoom entity)
+        {
+            var _entityToReturn = entity;
+            // Get corresponding RoomDetails from db
+            _entityToReturn.Details = (RoomDetails)RoomDetailsService.GetOneByRoomIDSeed(_entityToReturn.ID);
             return _entityToReturn;
         }
 

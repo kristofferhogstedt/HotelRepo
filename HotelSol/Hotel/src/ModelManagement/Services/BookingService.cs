@@ -44,12 +44,43 @@ namespace Hotel.src.ModelManagement.Services
 
         public static IModel GetOneByID(int searchID)
         {
-            var _entityToReturn = DatabaseLair.DatabaseContext.Bookings
+            IModel _entityToReturn = null;
+
+            if (DatabaseLair.DatabaseContext.Bookings
                 .Where(m => m.IsInactive == false)
+                .Any(m => m.ID == searchID))
+            {
+                _entityToReturn = DatabaseLair.DatabaseContext.Bookings
+                    .Where(m => m.IsInactive == false)
+                    .First(m => m.ID == searchID);
+
+                _entityToReturn = (Booking)GetSubDataRoom(_entityToReturn);
+                _entityToReturn = (Booking)GetSubDataCustomer(_entityToReturn);
+            }
+
+
+            if (_entityToReturn == null)
+            {
+                Console.Clear();
+                ServiceMessager.DataNotFoundMessage();
+                return null;
+            }
+
+            return _entityToReturn;
+        }
+
+        /// <summary>
+        /// For seeder functionality to not care about IsInactive
+        /// </summary>
+        /// <param name="searchID"></param>
+        /// <returns></returns>
+        public static IModel GetOneByIDSeed(int searchID)
+        {
+            var _entityToReturn = DatabaseLair.DatabaseContext.Bookings
                 .First(m => m.ID == searchID);
 
-            _entityToReturn = (Booking)GetSubDataRoom(_entityToReturn);
-            _entityToReturn = (Booking)GetSubDataCustomer(_entityToReturn);
+            _entityToReturn = (Booking)GetSubDataRoomSeed(_entityToReturn);
+            _entityToReturn = (Booking)GetSubDataCustomerSeed(_entityToReturn);
 
             if (_entityToReturn == null)
             {
@@ -111,6 +142,12 @@ namespace Hotel.src.ModelManagement.Services
             _entityToReturn.Room = (Room)RoomService.GetOneByID(_entityToReturn.RoomID);
             return _entityToReturn;
         }
+        public static IModel GetSubDataRoomSeed(IModel entity)
+        {
+            var _entityToReturn = (IBooking)entity;
+            _entityToReturn.Room = (Room)RoomService.GetOneByIDSeed(_entityToReturn.RoomID);
+            return _entityToReturn;
+        }
 
         public static List<IBooking> GetSubDataRoom(List<IBooking> entityList)
         {
@@ -128,6 +165,12 @@ namespace Hotel.src.ModelManagement.Services
         {
             var _entityToReturn = (IBooking)entity;
             _entityToReturn.Customer = (Customer)CustomerService.GetOneByID(_entityToReturn.CustomerID);
+            return _entityToReturn;
+        }
+        public static IModel GetSubDataCustomerSeed(IModel entity)
+        {
+            var _entityToReturn = (IBooking)entity;
+            _entityToReturn.Customer = (Customer)CustomerService.GetOneByIDSeed(_entityToReturn.CustomerID);
             return _entityToReturn;
         }
 

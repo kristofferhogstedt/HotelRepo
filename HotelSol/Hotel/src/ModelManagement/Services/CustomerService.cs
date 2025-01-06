@@ -58,6 +58,25 @@ namespace Hotel.src.ModelManagement.Services
 
             return _entityToReturn;
         }
+        /// <summary>
+        /// For seeder functionality to not care about IsInactive
+        /// </summary>
+        /// <param name="searchID"></param>
+        /// <returns></returns>
+        public static ICustomer GetOneByIDSeed(int searchID)
+        {
+            var _entityToReturn = DatabaseLair.DatabaseContext.Customers
+                .First(m => m.ID == searchID);
+
+            if (_entityToReturn == null)
+            {
+                Console.Clear();
+                ServiceMessager.DataNotFoundMessage();
+                return null;
+            }
+
+            return _entityToReturn;
+        }
 
         /// <summary>
         /// For fetching list of specific customers based on search string
