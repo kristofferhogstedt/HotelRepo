@@ -11,15 +11,18 @@ namespace Hotel.src.Utilities.UserInputManagement
     {
         public static List<DateTime> SplitDates(IBooking booking)
         {
-            var _fromDate = Convert.ToInt32(booking.FromDate.Date);
-            var _toDate = Convert.ToInt32(booking.ToDate.Date);
+            var _fromDate = booking.FromDate.Date;
+            var _toDate = booking.ToDate.Date;
+            var _dayCounter = _fromDate;
+            DateTime _individualDate;
 
             List<DateTime> _individualDatesList = new List<DateTime>();
 
-            for (int d = _fromDate; d <= _toDate; d++)
+            for (int d = _dayCounter.Day; d <= _toDate.Day; d++)
             {
-                var _individualDate = Convert.ToDateTime(d);
+                _individualDate = _dayCounter;
                 _individualDatesList.Add(_individualDate);
+                _dayCounter = _dayCounter.AddDays(1);
             }
 
             return _individualDatesList;
