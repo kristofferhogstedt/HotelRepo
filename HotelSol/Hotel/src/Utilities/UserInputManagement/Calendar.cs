@@ -86,6 +86,13 @@ namespace Hotel.src.Utilities.UserInputManagement
             int startDay = (int)firstDayOfMonth.DayOfWeek;
             startDay = startDay == 0 ? 6 : startDay - 1; // Justera för måndag som veckostart
 
+            List<DateTime> _occupiedDates = new List<DateTime>();
+            
+            foreach (var b in existingBookings)
+            {
+                _occupiedDates = BookedDateSplitter.SplitDates(b);
+            }
+
             // Fyll med tomma platser innan första dagen i månaden
             for (int i = 0; i < startDay; i++)
             {
@@ -102,7 +109,7 @@ namespace Hotel.src.Utilities.UserInputManagement
                     // Siffran 2 sätter minimum bredd (även om 1 siffra)
                     calendarContent.Write($"[green]{day,2}[/]   ");
                 }
-                else if (day == _occupiedDayHighlight.Day)
+                else if (_occupiedDates.Any(d => d.Day == day))
                     calendarContent.Write($"[red]{day,2}[/]   ");
                 else
                 {
