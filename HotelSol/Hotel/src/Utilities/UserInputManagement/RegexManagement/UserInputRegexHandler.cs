@@ -17,8 +17,8 @@ namespace Hotel.src.Utilities.UserInputManagement.RegexManagement
                 return true;
             else
             {
-                Console.WriteLine("Invalid email. Please enter a valid email.");
-                LineClearer.ClearLastLine(1000);
+                //Console.WriteLine("Invalid email. Please enter a valid email.");
+                //LineClearer.ClearLastLine(1000);
                 return false;
             }
         }
@@ -29,8 +29,8 @@ namespace Hotel.src.Utilities.UserInputManagement.RegexManagement
                 return true;
             else
             {
-                Console.WriteLine("Invalid phone number. Please enter a valid email.");
-                LineClearer.ClearLastLine(1000);
+                //Console.WriteLine("Invalid phone number. Please enter a valid email.");
+                //LineClearer.ClearLastLine(1000);
                 return false;
             }
         }
@@ -41,8 +41,8 @@ namespace Hotel.src.Utilities.UserInputManagement.RegexManagement
                 return true;
             else
             {
-                Console.WriteLine("Invalid Postal code. Please enter a valid email.");
-                LineClearer.ClearLastLine(1000);
+                //Console.WriteLine("Invalid Postal code. Please enter a valid email.");
+                //LineClearer.ClearLastLine(1000);
                 return false;
             }
         }

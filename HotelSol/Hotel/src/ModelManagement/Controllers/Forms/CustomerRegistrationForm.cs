@@ -17,6 +17,7 @@ using HotelLibrary.Utilities.UserInputManagement;
 using HotelLibrary.Utilities.Validation;
 using Microsoft.IdentityModel.Tokens;
 using Spectre.Console;
+using System.Net.WebSockets;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms
 {
@@ -69,25 +70,52 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]förnamn[/]: ");
-            Data01 = UserInputHandler.UserInputString(PreviousMenu);
+            Data01 = UserInputHandler.UserInputStringNotNullOrEmpty(PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]efternamn[/]: ");
-            Data02 = UserInputHandler.UserInputString(PreviousMenu);
+            Data02 = UserInputHandler.UserInputStringNotNullOrEmpty(PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]födelseår[/]: ");
-            var _yearOfBirth = UserInputHandlerDateTime.UserInputYear(PreviousMenu);
+            var _yearOfBirth = 0;
+            while (true)
+            {
+                _yearOfBirth = UserInputHandlerDateTime.UserInputYear(PreviousMenu);
+                if (_yearOfBirth == -1)
+                    Console.WriteLine("Måste anges.");
+                else
+                    break;
+            }
             LineClearer.ClearLine(1000);
 
             AnsiConsole.MarkupLine("\n[yellow]födelsemånad[/]: ");
-            var _monthOfBirth = UserInputHandlerDateTime.UserInputMonth(PreviousMenu);
+            var _monthOfBirth = 0;
+            while (true)
+            {
+                _monthOfBirth = UserInputHandlerDateTime.UserInputMonth(PreviousMenu);
+                if (_monthOfBirth == -1)
+                {
+                    Console.WriteLine("Måste anges.");
+                    LineClearer.ClearLine(1000);
+                }
+                else
+                    break;
+            }
             LineClearer.ClearLine(1000);
 
             AnsiConsole.MarkupLine("\n[yellow]födelsedag[/]: ");
-            var _dayOfBirth = UserInputHandlerDateTime.UserInputMonth(PreviousMenu);
+            var _dayOfBirth = 0;
+            while (true)
+            {
+                _dayOfBirth = UserInputHandlerDateTime.UserInputDay(_yearOfBirth, _monthOfBirth, PreviousMenu);
+                if (_dayOfBirth == -1)
+                    Console.WriteLine("Måste anges.");
+                else
+                    break;
+            }
 
             Data03 = Convert.ToDateTime($"{_yearOfBirth}-{_monthOfBirth}-{_dayOfBirth}");
 
@@ -104,7 +132,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Gatuadress[/]: ");
-            Data06 = UserInputHandler.UserInputString(PreviousMenu);
+            Data06 = UserInputHandler.UserInputStringNotNullOrEmpty(PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -114,12 +142,12 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Stad[/]: ");
-            Data08 = UserInputHandler.UserInputString(PreviousMenu);
+            Data08 = UserInputHandler.UserInputStringNotNullOrEmpty(PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Land[/]: ");
-            Data09 = UserInputHandler.UserInputString(PreviousMenu);
+            Data09 = UserInputHandler.UserInputStringNotNullOrEmpty(PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -130,7 +158,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             if (confirm)
             {
                 // Meddelande om lyckad registrering
-                AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
+                //AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
                 NewEntity = new Customer((string)Data01, (string)Data02, (DateTime)Data03, (string)Data04
                     , (string)Data05, (string)Data06, (string)Data07, (string)Data08, (string)Data09);
 

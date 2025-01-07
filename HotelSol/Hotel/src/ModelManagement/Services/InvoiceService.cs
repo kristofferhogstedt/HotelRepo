@@ -14,6 +14,8 @@ namespace Hotel.src.ModelManagement.Services
             try
             {
                 DatabaseLair.DatabaseContext.Invoices.Add((Invoice)modelToCreate);
+                Console.WriteLine("Skapande lyckat!");
+                Thread.Sleep(1000);
             }
             catch (Exception e)
             {

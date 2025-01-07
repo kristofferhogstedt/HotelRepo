@@ -60,7 +60,7 @@ namespace Hotel.src.ModelManagement.Validations
                 //else if (_userInput < roomDetails.RoomType.NumberOfBedsMax)
                 //    return _userInput;
                 var _bedsMaxByRoomSize = (roomSize / 10);
-                if (_userInput >= _bedsMaxByRoomSize || _userInput >= roomType.NumberOfBedsMax)
+                if (_userInput > _bedsMaxByRoomSize || _userInput > roomType.NumberOfBedsMax)
                 {
                     Console.WriteLine($"Antal bäddar överstiger maxgränsen för detta rum ({_bedsMaxByRoomSize})");
                     LineClearer.ClearLastLine(1000);

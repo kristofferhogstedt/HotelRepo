@@ -19,6 +19,8 @@ namespace Hotel.src.ModelManagement.Services
             {
                 DatabaseLair.DatabaseContext.RoomDetails.Add((RoomDetails)entityToCreate);
                 DatabaseLair.DatabaseContext.SaveChanges();
+                Console.WriteLine("Skapande lyckat!");
+                Thread.Sleep(1000);
             }
             catch (Exception e)
             {
@@ -130,6 +132,7 @@ namespace Hotel.src.ModelManagement.Services
 
                 DatabaseLair.DatabaseContext.SaveChanges();
                 Console.WriteLine("Uppdatering lyckad!");
+                Thread.Sleep(1000);
             }
             else
             {

@@ -102,6 +102,11 @@ namespace Hotel.src.Utilities.UserInputManagement
                         _occupiedDatesPerBooking = BookedDateSplitter.SplitDates(b);
                         _occupiedDatesPerBooking.ForEach(d => _occupiedDatesForThisBooking.Add(d));
                     }
+                    else
+                    {
+                        _occupiedDatesPerBooking = BookedDateSplitter.SplitDates(b);
+                        _occupiedDatesPerBooking.ForEach(d => _occupiedDates.Add(d));
+                    }
                 }
                 else
                 {

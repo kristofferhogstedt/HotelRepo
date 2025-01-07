@@ -138,6 +138,7 @@ namespace Hotel.src.ModelManagement.Services
 
                 DatabaseLair.DatabaseContext.SaveChanges();
                 Console.WriteLine("Uppdatering lyckad!");
+                Thread.Sleep(1000);
             }
             else
             {

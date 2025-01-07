@@ -87,13 +87,14 @@ namespace HotelLibrary.Utilities.UserInputManagement
 
         public static string UserInputStringNotNullOrEmpty(IMenu previousMenu)
         {
-            var _input = "";
-            while (_input.IsNullOrEmpty())
+            var _input = "-1";
+            while (_input.IsNullOrEmpty() || _input=="-1")
             {
                 _input = UserInputString(previousMenu);
-                if (_input.IsNullOrEmpty())
+                if (_input.IsNullOrEmpty() || _input == "-1")
                 {
                     Console.WriteLine("Får inte vara tomt.");
+                    LineClearer.ClearLine(1000);
                 }
             }
 

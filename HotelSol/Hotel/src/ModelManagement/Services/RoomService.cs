@@ -17,7 +17,8 @@ namespace Hotel.src.ModelManagement.Services
                 DatabaseLair.DatabaseContext.SaveChanges();
 
                 // Meddelande om lyckad registrering
-                AnsiConsole.MarkupLine("[bold green]Rum registrerat framgångsrikt![/]");
+                Console.WriteLine("Skapande lyckat!");
+                Thread.Sleep(1000);
             }
             catch (Exception e)
             {
@@ -131,6 +132,7 @@ namespace Hotel.src.ModelManagement.Services
 
                 DatabaseLair.DatabaseContext.SaveChanges();
                 Console.WriteLine("Uppdatering lyckad!");
+                Thread.Sleep(1000);
             }
             else
             {
