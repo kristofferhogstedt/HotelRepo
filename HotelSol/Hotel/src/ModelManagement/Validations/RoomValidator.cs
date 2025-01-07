@@ -17,6 +17,7 @@ namespace Hotel.src.ModelManagement.Validations
         public static string ValidateRoomNumber(bool isAnEdit, IMenu previousMenu)
         {
             var _isInactive = false;
+            bool _getRelatedObjects = true;
 
             while (true)
             {
@@ -24,7 +25,7 @@ namespace Hotel.src.ModelManagement.Validations
 
                 if (isAnEdit && InputChecker.UserInputIsEnter(_userInput.ToString()))
                     return _userInput;
-                else if (RoomService.GetAll(_isInactive).Any(e => e.Name == _userInput))
+                else if (RoomService.GetAll(_getRelatedObjects, _isInactive).Any(e => e.Name == _userInput))
                     Console.WriteLine($"Rumsnummer {_userInput} finns redan, ange nytt");
                 else if (_userInput.Length <= 0 || _userInput.Length > 3)
                     Console.WriteLine("Rumsnummer får inte vara tomt och måste vara kortare än 3 siffror");

@@ -29,26 +29,27 @@ namespace Hotel.src.Utilities.Seeding
 
         public static List<Invoice> CreateSeed(int num)
         {
+            bool _getRelatedObjects = false; // Seeders should not get related data
             // Invoice(Booking)
             var _bookings = new List<Invoice>()
             {
-                new Invoice((Booking)BookingService.GetOneByIDSeed(1)) 
+                new Invoice((Booking)BookingService.GetOneByIDSeed(1, _getRelatedObjects)) 
                 {CreatedDate=DateTime.Now.AddDays(-10), IsInactive=true, InactivatedDate=DateTime.Now.AddDays(-8)
                 , DueDate=DateTime.Now.AddDays(20), IsPaid=true, PaidDate=DateTime.Now.AddDays(-8)},
 
-                new Invoice((Booking)BookingService.GetOneByIDSeed(2))
+                new Invoice((Booking)BookingService.GetOneByIDSeed(2, _getRelatedObjects))
                 {CreatedDate=DateTime.Now.AddDays(-8), DueDate=DateTime.Now.AddDays(24)
                 , IsPaid=false},
 
-                new Invoice((Booking)BookingService.GetOneByIDSeed(3))
+                new Invoice((Booking)BookingService.GetOneByIDSeed(3, _getRelatedObjects))
                 {CreatedDate=DateTime.Now.AddDays(-20), IsInactive=true, InactivatedDate=DateTime.Now.AddDays(-20)
                 , DueDate=DateTime.Now.AddDays(6), IsPaid=true, PaidDate=DateTime.Now.AddDays(-20)},
 
-                new Invoice((Booking)BookingService.GetOneByIDSeed(4))
+                new Invoice((Booking)BookingService.GetOneByIDSeed(4, _getRelatedObjects))
                 {CreatedDate=DateTime.Now.AddDays(-5)
                 , DueDate=DateTime.Now.AddDays(15), IsPaid=false},
 
-                new Invoice((Booking)BookingService.GetOneByIDSeed(5))
+                new Invoice((Booking)BookingService.GetOneByIDSeed(5, _getRelatedObjects))
                 {CreatedDate=DateTime.Now.AddDays(-39)
                 , DueDate=DateTime.Now.AddDays(-9), IsPaid=false
                 , UpdatedDate=DateTime.Now.AddDays(-9)},

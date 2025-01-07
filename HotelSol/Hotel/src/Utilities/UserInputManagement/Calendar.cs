@@ -87,7 +87,8 @@ namespace Hotel.src.Utilities.UserInputManagement
             startDay = startDay == 0 ? 6 : startDay - 1; // Justera för måndag som veckostart
 
             var _isInactive = false;
-            var _existingBookings = BookingService.GetAll(_isInactive).Where(b => b.RoomID == roomID);
+            bool _getRelatedObjects = true;
+            var _existingBookings = BookingService.GetAll(_getRelatedObjects, _isInactive).Where(b => b.RoomID == roomID);
             var _occupiedDatesPerBooking = new List<DateTime>();
             var _occupiedDates = new List<DateTime>();
             var _occupiedDatesForThisBooking = new List<DateTime>();

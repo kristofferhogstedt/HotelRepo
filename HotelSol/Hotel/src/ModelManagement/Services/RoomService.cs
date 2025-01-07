@@ -50,7 +50,7 @@ namespace Hotel.src.ModelManagement.Services
         //    return _modelToReturn;
         //}
 
-        public static IModel GetOneByID(int searchString, bool isInactive)
+        public static IModel GetOneByID(int searchString, bool getRelatedObjects, bool isInactive)
         {
             var _entityToReturn = (IRoom)DatabaseLair.DatabaseContext.Rooms
                 .Where(e => e.IsInactive == isInactive)
@@ -71,7 +71,7 @@ namespace Hotel.src.ModelManagement.Services
         /// </summary>
         /// <param name="searchID"></param>
         /// <returns></returns>
-        public static IModel GetOneByIDSeed(int searchString)
+        public static IModel GetOneByIDSeed(int searchString, bool getRelatedObjects)
         {
             var _entityToReturn = (IRoom)DatabaseLair.DatabaseContext.Rooms
                 .First(e => e.ID == searchString);
@@ -87,7 +87,7 @@ namespace Hotel.src.ModelManagement.Services
             return _entityToReturn;
         }
 
-        public static IRoom GetOneByRoomNumber(string searchString, bool isInactive)
+        public static IRoom GetOneByRoomNumber(string searchString, bool getRelatedObjects, bool isInactive)
         {
             var _entityToReturn = (IRoom)DatabaseLair.DatabaseContext.Rooms
                 .Where(e => e.IsInactive == isInactive)
@@ -104,7 +104,7 @@ namespace Hotel.src.ModelManagement.Services
             return _entityToReturn;
         }
 
-        public static List<IRoom> GetAll(bool isInactive)
+        public static List<IRoom> GetAll(bool getRelatedObjects, bool isInactive)
         {
             var _listOfRooms = DatabaseLair.DatabaseContext.Rooms
                 .Where(e => e.IsInactive == isInactive)
@@ -171,15 +171,17 @@ namespace Hotel.src.ModelManagement.Services
         public static IRoom GetSubData(IRoom entity, bool isInactive)
         {
             var _entityToReturn = entity;
+            bool _getRelatedObjects = false;
             // Get corresponding RoomDetails from db
-            _entityToReturn.Details = (RoomDetails)RoomDetailsService.GetOneByRoomID(_entityToReturn.ID, isInactive);
+            _entityToReturn.Details = (RoomDetails)RoomDetailsService.GetOneByRoomID(_entityToReturn.ID, _getRelatedObjects, isInactive);
             return _entityToReturn;
         }
         public static IRoom GetSubDataSeed(IRoom entity)
         {
             var _entityToReturn = entity;
+            bool _getRelatedObjects = false;
             // Get corresponding RoomDetails from db
-            _entityToReturn.Details = (RoomDetails)RoomDetailsService.GetOneByRoomIDSeed(_entityToReturn.ID);
+            _entityToReturn.Details = (RoomDetails)RoomDetailsService.GetOneByRoomIDSeed(_entityToReturn.ID, _getRelatedObjects);
             return _entityToReturn;
         }
 
@@ -187,9 +189,10 @@ namespace Hotel.src.ModelManagement.Services
         {
             // Get corresponding RoomDetails from db
             var _listToReturn = new List<IRoom>();
+            bool _getRelatedObjects = false;
             foreach (IRoom room in entityList)
             {
-                room.Details = (RoomDetails)RoomDetailsService.GetOneByRoomID(room.ID, isInactive);
+                room.Details = (RoomDetails)RoomDetailsService.GetOneByRoomID(room.ID, _getRelatedObjects, isInactive);
                 _listToReturn.Add(room);
             };
             return _listToReturn;

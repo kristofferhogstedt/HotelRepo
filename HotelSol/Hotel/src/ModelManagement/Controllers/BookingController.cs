@@ -18,6 +18,7 @@ namespace Hotel.src.ModelManagement.Controllers
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
         public EModelType ModelTypeEnum { get; set; } = EModelType.Booking;
+        public bool GetRelatedObjects { get; set; } = true;
 
         public BookingController()
         {
@@ -58,7 +59,7 @@ namespace Hotel.src.ModelManagement.Controllers
         public IModel BrowseOne(bool isInactive)
         {
             List<IBooking> _listToBrowse = new List<IBooking>();
-            foreach (IBooking e in BookingService.GetAll(isInactive))
+            foreach (IBooking e in BookingService.GetAll(GetRelatedObjects, isInactive))
                 _listToBrowse.Add(e);
 
             var _modelToReturn = BookingEntitySelector.Select(_listToBrowse, 0, PreviousMenu);
@@ -79,7 +80,7 @@ namespace Hotel.src.ModelManagement.Controllers
         public void ReadAll(bool isInactive)
         {
             List<IBooking> _listToDisplay = new List<IBooking>();
-            foreach (IBooking e in BookingService.GetAll(isInactive))
+            foreach (IBooking e in BookingService.GetAll(GetRelatedObjects, isInactive))
             {
                 _listToDisplay.Add(e);
             }

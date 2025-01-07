@@ -25,22 +25,23 @@ namespace Hotel.src.Utilities.Seeding
         }
         public static List<Booking> CreateSeed()
         {
+            bool _getRelatedObjects = false; // Seeders should not get related objects
             // Booking(Room, Customer, FromDate, ToDate)
             var _bookings = new List<Booking>()
             {
-                new Booking((Room)RoomService.GetOneByIDSeed(1), (Customer)CustomerService.GetOneByIDSeed(1), DateTime.Now.AddDays(10), DateTime.Now.AddDays(13)),
+                new Booking((Room)RoomService.GetOneByIDSeed(1, _getRelatedObjects), (Customer)CustomerService.GetOneByIDSeed(1, _getRelatedObjects), DateTime.Now.AddDays(10), DateTime.Now.AddDays(13)),
                                 
-                new Booking((Room)RoomService.GetOneByIDSeed(3), (Customer)CustomerService.GetOneByIDSeed(2), DateTime.Now.AddDays(14), DateTime.Now.AddDays(17)),
+                new Booking((Room)RoomService.GetOneByIDSeed(3, _getRelatedObjects), (Customer)CustomerService.GetOneByIDSeed(2, _getRelatedObjects), DateTime.Now.AddDays(14), DateTime.Now.AddDays(17)),
                 
-                new Booking((Room)RoomService.GetOneByIDSeed(9), (Customer)CustomerService.GetOneByIDSeed(4), DateTime.Now.AddDays(-4), DateTime.Now.AddDays(-1))
+                new Booking((Room)RoomService.GetOneByIDSeed(9, _getRelatedObjects), (Customer)CustomerService.GetOneByIDSeed(4, _getRelatedObjects), DateTime.Now.AddDays(-4), DateTime.Now.AddDays(-1))
                 { IsInactive=true
                 , InactivatedDate=DateTime.Now.AddDays(-1)
                 , UpdatedDate=DateTime.Now.AddDays(-1)},
 
-                new Booking((Room)RoomService.GetOneByIDSeed(7), (Customer)CustomerService.GetOneByIDSeed(5), DateTime.Now.AddDays(5), DateTime.Now.AddDays(7))
+                new Booking((Room)RoomService.GetOneByIDSeed(7, _getRelatedObjects), (Customer)CustomerService.GetOneByIDSeed(5, _getRelatedObjects), DateTime.Now.AddDays(5), DateTime.Now.AddDays(7))
                 { UpdatedDate=DateTime.Now.AddDays(-1) },
                                 
-                new Booking((Room)RoomService.GetOneByIDSeed(4), (Customer)CustomerService.GetOneByIDSeed(6), DateTime.Now.AddDays(1), DateTime.Now.AddDays(3))
+                new Booking((Room)RoomService.GetOneByIDSeed(4, _getRelatedObjects), (Customer)CustomerService.GetOneByIDSeed(6, _getRelatedObjects), DateTime.Now.AddDays(1), DateTime.Now.AddDays(3))
                 { CreatedDate=DateTime.Now.AddDays(-39)
                 , IsInactive=true, InactivatedDate=DateTime.Now.AddDays(-9)
                 , UpdatedDate=DateTime.Now.AddDays(-9) },

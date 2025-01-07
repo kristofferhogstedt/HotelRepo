@@ -23,6 +23,7 @@ namespace Hotel.src.ModelManagement.Controllers
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
         public EModelType ModelTypeEnum { get; set; } = EModelType.Customer;
+        public bool GetRelatedObjects { get; set; } = true;
 
         public CustomerController()
         {
@@ -60,7 +61,7 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public IModel BrowseOne(bool isInactive)
         {
-            ICustomer _customerToReturn = CustomerEntitySelector.Select(CustomerService.GetAll(isInactive), 0, PreviousMenu);
+            ICustomer _customerToReturn = CustomerEntitySelector.Select(CustomerService.GetAll(GetRelatedObjects, isInactive), 0, PreviousMenu);
             return _customerToReturn;
         }
 
@@ -78,7 +79,7 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void ReadAll(bool isInactive)
         {
-            CustomerDisplayer.DisplayModelTable(CustomerService.GetAll(isInactive));
+            CustomerDisplayer.DisplayModelTable(CustomerService.GetAll(GetRelatedObjects, isInactive));
         }
 
         public void Update()

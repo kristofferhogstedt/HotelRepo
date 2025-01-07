@@ -29,7 +29,7 @@ namespace Hotel.src.ModelManagement.Services
         /// </summary>
         /// <param name="searchString"></param>
         /// <returns></returns>
-        public static ICustomer GetOne(string searchString, bool isInactive)
+        public static ICustomer GetOne(string searchString, bool getRelatedObjects, bool isInactive)
         {
             var _entityToReturn = DatabaseLair.DatabaseContext.Customers
                 .Where(m => m.IsInactive == isInactive)
@@ -46,7 +46,7 @@ namespace Hotel.src.ModelManagement.Services
             return _entityToReturn;
         }
 
-        public static ICustomer GetOneByID(int searchID, bool isInactive)
+        public static ICustomer GetOneByID(int searchID, bool getRelatedObjects, bool isInactive)
         {
             var _entityToReturn = DatabaseLair.DatabaseContext.Customers
                 .Where(m => m.IsInactive == isInactive)
@@ -66,7 +66,7 @@ namespace Hotel.src.ModelManagement.Services
         /// </summary>
         /// <param name="searchID"></param>
         /// <returns></returns>
-        public static ICustomer GetOneByIDSeed(int searchID)
+        public static ICustomer GetOneByIDSeed(int searchID, bool getRelatedObjects)
         {
             var _entityToReturn = DatabaseLair.DatabaseContext.Customers
                 .First(m => m.ID == searchID);
@@ -113,7 +113,7 @@ namespace Hotel.src.ModelManagement.Services
         /// </summary>
         /// <param name="databaseLair"></param>
         /// <returns></returns>
-        public static List<ICustomer> GetAll(bool isInactive)
+        public static List<ICustomer> GetAll(bool getRelatedObjects, bool isInactive)
         {
             var _listToReturn = DatabaseLair.DatabaseContext.Customers
                 .Where(m => m.IsInactive == isInactive)

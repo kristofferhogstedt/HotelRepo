@@ -19,6 +19,7 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
+        public bool GetRelatedObjects { get; set; } = true;
 
         public RoomController()
         {
@@ -53,7 +54,7 @@ namespace Hotel.src.ModelManagement.Controllers
         public IModel BrowseOne(bool isInactive)
         {
             List<IRoom> _ListToBrowse = new List<IRoom>();
-            foreach (IRoom e in RoomService.GetAll(isInactive))
+            foreach (IRoom e in RoomService.GetAll(GetRelatedObjects, isInactive))
                 _ListToBrowse.Add(e);
             IRoom _modelToReturn = RoomEntitySelector.Select(_ListToBrowse, 0, PreviousMenu);
             return _modelToReturn;

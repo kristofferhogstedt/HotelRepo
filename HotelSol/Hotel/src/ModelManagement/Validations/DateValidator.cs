@@ -19,7 +19,8 @@ namespace Hotel.src.ModelManagement.Validations
         public static bool ValidateOccupiedDate(int roomID, IBooking? booking, DateTime dateToValidate, bool isAnEdit)
         {
             var _isInactive = false;
-            var _existingBookings = BookingService.GetAll(_isInactive).Where(b => b.RoomID == roomID);
+            bool _getRelatedObjects = true;
+            var _existingBookings = BookingService.GetAll(_getRelatedObjects, _isInactive).Where(b => b.RoomID == roomID);
 
             var _occupiedDatesPerBooking = new List<DateTime>();
             var _occupiedDatesPerRoom = new List<DateTime>();

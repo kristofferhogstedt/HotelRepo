@@ -31,6 +31,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; }
         public IModelController ModelController { get; set; }
+        public bool GetRelatedObjects { get; set; } = true;
 
         public object Data01 { get; set; } // First name
         public object Data02 { get; set; } // Last name
@@ -298,7 +299,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             var ExistingEntity = (ICustomer)entityToDelete;
             IsAnEdit = true;
 
-            if (BookingService.GetAll(false).Any(b => b.CustomerID == ExistingEntity.ID))
+            if (BookingService.GetAll(GetRelatedObjects, false).Any(b => b.CustomerID == ExistingEntity.ID))
             {
                 AnsiConsole.MarkupLine($"[Red]Användare {ExistingEntity.FullName} har en aktiv rumsbokning och kan inte inaktiveras. [/]");
                 return;

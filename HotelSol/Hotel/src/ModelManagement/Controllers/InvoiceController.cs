@@ -18,6 +18,7 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
+        public bool GetRelatedObjects { get; set; } = true;
 
         public InvoiceController()
         {
@@ -42,7 +43,7 @@ namespace Hotel.src.ModelManagement.Controllers
         public IModel BrowseOne(bool isInactive)
         {
             List<IInvoice> _ListToBrowse = new List<IInvoice>();
-            foreach (IInvoice e in InvoiceService.GetAll(isInactive))
+            foreach (IInvoice e in InvoiceService.GetAll(GetRelatedObjects, isInactive))
                 _ListToBrowse.Add(e);
             IInvoice _modelToReturn = InvoiceEntitySelector.Select(_ListToBrowse, 0, PreviousMenu);
             return _modelToReturn;
@@ -61,7 +62,7 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void ReadAll(bool isInactive)
         {
-            InvoiceDisplayer.DisplayModelTable(InvoiceService.GetAll(isInactive));
+            InvoiceDisplayer.DisplayModelTable(InvoiceService.GetAll(GetRelatedObjects, isInactive));
         }
 
         public void Update(IModel entityToUpdate)

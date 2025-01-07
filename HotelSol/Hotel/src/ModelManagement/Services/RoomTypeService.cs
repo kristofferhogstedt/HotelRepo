@@ -12,7 +12,7 @@ namespace Hotel.src.ModelManagement.Services
 {
     public class RoomTypeService
     {
-        public static IRoomType GetOneByRoomType(string searchString)
+        public static IRoomType GetOneByRoomType(string searchString, bool getRelatedObjects)
         {
             var _entitylToReturn = (IRoomType)DatabaseLair.DatabaseContext.RoomTypes
                 .First(e => e.Name == searchString);
@@ -26,7 +26,7 @@ namespace Hotel.src.ModelManagement.Services
 
             return _entitylToReturn;
         }
-        public static IRoomType GetOneByID(int searchString, bool isInactive)
+        public static IRoomType GetOneByID(int searchString, bool getRelatedObjects, bool isInactive)
         {
             var _entityToReturn = (IRoomType)DatabaseLair.DatabaseContext.RoomTypes
                 .Where(e => e.IsInactive == isInactive)
@@ -42,7 +42,7 @@ namespace Hotel.src.ModelManagement.Services
             return _entityToReturn;
         }
 
-        public static IRoomType GetOneByIDSeed(int searchString)
+        public static IRoomType GetOneByIDSeed(int searchString, bool getRelatedObjects)
         {
             var _entityToReturn = (IRoomType)DatabaseLair.DatabaseContext.RoomTypes
                 .First(e => e.ID == searchString);
@@ -57,7 +57,7 @@ namespace Hotel.src.ModelManagement.Services
             return _entityToReturn;
         }
 
-        public static List<IRoomType> GetAll(bool isInactive)
+        public static List<IRoomType> GetAll(bool getRelatedObjects, bool isInactive)
         {
             var _listToReturn = DatabaseLair.DatabaseContext.RoomTypes
                 .Where(e => e.IsInactive == isInactive)

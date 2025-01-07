@@ -13,7 +13,8 @@ namespace Hotel.src.ModelManagement.Validations
         public static IRoomType ValidateRoomType(IRoomType existingEntityRooMType, bool isAnEdit, IMenu previousMenu)
         {
             var _isInactive = false;
-            var _allRoomTypes = RoomTypeService.GetAll(_isInactive);
+            bool _getRelatedObjects = true;
+            var _allRoomTypes = RoomTypeService.GetAll(_getRelatedObjects, _isInactive);
             while (true)
             {
                 var _userInput = UserInputHandler.UserInputString(previousMenu).ToLower();

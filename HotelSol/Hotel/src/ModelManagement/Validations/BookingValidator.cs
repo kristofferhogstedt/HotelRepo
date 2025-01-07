@@ -70,7 +70,8 @@ namespace Hotel.src.ModelManagement.Validations
         public static DateTime ValidateOccupiedDateBACKUP(int roomID, IBooking? booking, DateTime dateToValidate, bool isAnEdit, IMenu previousMenu)
         {
             var _isInactive = false;
-            var _existingBookings = BookingService.GetAll(_isInactive);
+            bool _getRelatedObjects = true;
+            var _existingBookings = BookingService.GetAll(_getRelatedObjects, _isInactive);
 
             while (true)
             {

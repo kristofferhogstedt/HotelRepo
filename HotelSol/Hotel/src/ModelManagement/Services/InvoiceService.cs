@@ -31,7 +31,7 @@ namespace Hotel.src.ModelManagement.Services
         /// </summary>
         /// <param name="searchString"></param>
         /// <returns></returns>
-        public static IModel GetOne(string searchString, bool isInactive)
+        public static IModel GetOne(string searchString, bool getRelatedObjects, bool isInactive)
         {
             var _entityToReturn = (IModel)DatabaseLair.DatabaseContext.Invoices
                 .Where(m => m.IsInactive == isInactive)
@@ -50,7 +50,7 @@ namespace Hotel.src.ModelManagement.Services
             return _entityToReturn;
         }
 
-        public static IModel GetOneByID(int searchID, bool isInactive)
+        public static IModel GetOneByID(int searchID, bool getRelatedObjects, bool isInactive)
         {
             var _entityToReturn = (IModel)DatabaseLair.DatabaseContext.Invoices
                 .Where(m => m.IsInactive == isInactive)
@@ -68,7 +68,7 @@ namespace Hotel.src.ModelManagement.Services
             return _entityToReturn;
         }
 
-        public static IModel GetOneByBookingID(int searchID, bool isInactive)
+        public static IModel GetOneByBookingID(int searchID, bool getRelatedObjects, bool isInactive)
         {
             var _entityToReturn = (IModel)DatabaseLair.DatabaseContext.Invoices
                 .Where(m => m.IsInactive == isInactive)
@@ -86,7 +86,7 @@ namespace Hotel.src.ModelManagement.Services
             return _entityToReturn;
         }
 
-        public static IModel GetOneByBookingIDSeed(int searchID)
+        public static IModel GetOneByBookingIDSeed(int searchID, bool getRelatedObjects)
         {
             var _entityToReturn = (IModel)DatabaseLair.DatabaseContext.Invoices
                 .First(m => m.BookingID == searchID);
@@ -109,7 +109,7 @@ namespace Hotel.src.ModelManagement.Services
         /// </summary>
         /// <param name="databaseLair"></param>
         /// <returns></returns>
-        public static List<IInvoice> GetAll(bool isInactive)
+        public static List<IInvoice> GetAll(bool getRelatedObjects, bool isInactive)
         {
             var _listToReturn = DatabaseLair.DatabaseContext.Invoices
                 .Where(m => m.IsInactive == isInactive)
@@ -179,22 +179,26 @@ namespace Hotel.src.ModelManagement.Services
         public static IModel GetSubData(IModel entity, bool isInactive)
         {
             var _entityToReturn = (Invoice)entity;
-            _entityToReturn.Booking = (Booking)BookingService.GetOneByID(_entityToReturn.BookingID, isInactive);
+            bool _getRelatedObjects = false;
+            _entityToReturn.Booking = (Booking)BookingService.GetOneByID(_entityToReturn.BookingID, _getRelatedObjects, isInactive);
             return _entityToReturn;
         }
+
         public static IModel GetSubDataSeed(IModel entity)
         {
             var _entityToReturn = (Invoice)entity;
-            _entityToReturn.Booking = (Booking)BookingService.GetOneByIDSeed(_entityToReturn.BookingID);
+            bool _getRelatedObjects = false;
+            _entityToReturn.Booking = (Booking)BookingService.GetOneByIDSeed(_entityToReturn.BookingID, _getRelatedObjects);
             return _entityToReturn;
         }
 
         public static List<IInvoice> GetSubData(List<IInvoice> entityList, bool isInactive)
         {
             var _listToReturn = new List<IInvoice>();
+            bool _getRelatedObjects = false;
             foreach (Invoice entity in entityList)
             {
-                entity.Booking = (Booking)BookingService.GetOneByID(entity.BookingID, isInactive);
+                entity.Booking = (Booking)BookingService.GetOneByID(entity.BookingID, _getRelatedObjects, isInactive);
                 _listToReturn.Add(entity);
             };
             return _listToReturn;
