@@ -95,5 +95,10 @@ namespace Hotel.src.MenuManagement.Menus
                 //[Description("Avsluta")]
             }
         }
+        public static void ReturnToMainMenu()
+        {
+            var _mainMenu = MenuFactory.GetMenu<MainMenu>();
+            _mainMenu.Run();
+        }
     }
 }

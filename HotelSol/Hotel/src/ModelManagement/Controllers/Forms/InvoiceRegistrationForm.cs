@@ -119,7 +119,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
         public void InactivateForm(IModel entityToDelete)
         {
-            throw new NotImplementedException()
+            throw new NotImplementedException();
         }
 
         public IModel CreateAndReturnForm()

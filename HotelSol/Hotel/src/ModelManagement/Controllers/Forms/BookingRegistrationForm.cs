@@ -25,7 +25,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
         public IMenu PreviousMenu { get; set; }
-        public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
+        //public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
         public EModelType ModelType { get; set; } = EModelType.Booking;
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; } = EModelType.Booking;
@@ -104,7 +104,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 NewEntity = new Booking((Room)Data01, (Customer)Data04, (DateTime)Data02, (DateTime)Data03, (Invoice)Data05);
 
                 BookingService.Update(NewEntity);
-                MainMenu.Run();
+                MainMenu.ReturnToMainMenu();
             }
             else
             {
@@ -174,7 +174,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 { ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
 
                 BookingService.Update(NewEntity);
-                MainMenu.Run();
+                MainMenu.ReturnToMainMenu();
             }
             else
             {
@@ -198,12 +198,13 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             if ((bool)Data01 == true)
             {
                 BookingService.Delete(ExistingEntity);
+                MainMenu.ReturnToMainMenu();
             }
             else
             {
                 Console.WriteLine("Inaktivering avbruten, Återgår...");
                 Thread.Sleep(1000);
-                return;
+                PreviousMenu.Run();
             }
         }
 

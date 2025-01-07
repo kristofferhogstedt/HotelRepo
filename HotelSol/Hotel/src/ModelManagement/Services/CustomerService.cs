@@ -15,6 +15,8 @@ namespace Hotel.src.ModelManagement.Services
             {
                 DatabaseLair.DatabaseContext.Customers.Add((Customer)entityToCreate);
                 DatabaseLair.DatabaseContext.SaveChanges();
+                Console.WriteLine("Skapande lyckat!");
+                Thread.Sleep(1000);
             }
             catch (Exception e)
             {

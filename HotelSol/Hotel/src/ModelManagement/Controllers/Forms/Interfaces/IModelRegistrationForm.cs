@@ -12,7 +12,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Interfaces
 {
     public interface IModelRegistrationForm
     {
-        IMenu MainMenu { get; set; }
+        //IMenu MainMenu { get; set; }
         EModelType ModelType { get; set; }
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; }

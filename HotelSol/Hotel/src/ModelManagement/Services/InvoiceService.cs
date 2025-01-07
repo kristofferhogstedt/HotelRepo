@@ -14,16 +14,15 @@ namespace Hotel.src.ModelManagement.Services
             try
             {
                 DatabaseLair.DatabaseContext.Invoices.Add((Invoice)modelToCreate);
+                DatabaseLair.DatabaseContext.SaveChanges();
                 Console.WriteLine("Skapande lyckat!");
                 Thread.Sleep(1000);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-            }
-            finally
-            {
-                DatabaseLair.DatabaseContext.SaveChanges();
+                Console.WriteLine("Inaktivering misslyckad, återgår");
+                Thread.Sleep(1000);
             }
         }
 
@@ -143,7 +142,9 @@ namespace Hotel.src.ModelManagement.Services
             }
             else
             {
-                Create(entityToUpdate);
+                Console.WriteLine("Uppdatering misslyckad, återgår");
+                Thread.Sleep(1000);
+                return;
             }
         }
 

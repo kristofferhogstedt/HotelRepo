@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Hotel.src.ModelManagement.Utilities.Messagers;
+using Hotel.src.MenuManagement.Menus;
 
 namespace Hotel.src.ModelManagement.Services
 {
@@ -18,6 +19,8 @@ namespace Hotel.src.ModelManagement.Services
             {
                 DatabaseLair.DatabaseContext.Bookings.Add((Booking)modelToCreate);
                 DatabaseLair.DatabaseContext.SaveChanges();
+                Console.WriteLine("Skapande lyckat!");
+                Thread.Sleep(1000);
             }
             catch (Exception e)
             {
@@ -154,7 +157,7 @@ namespace Hotel.src.ModelManagement.Services
             {
                 Console.WriteLine("Inaktivering misslyckad, återgår");
                 Thread.Sleep(1000);
-                return;
+                Console.Clear();
             }
         }
 
