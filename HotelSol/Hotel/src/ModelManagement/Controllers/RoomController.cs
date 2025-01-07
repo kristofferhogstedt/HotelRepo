@@ -102,9 +102,11 @@ namespace Hotel.src.ModelManagement.Controllers
             _modelForm.EditForm((IModel)_entityToUpdate);
         }
 
-        public void Delete(IModel modelToDelete)
+        public void Delete(IModel entityToDelete)
         {
-            throw new NotImplementedException();
+            var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
+            _modelForm.InactivateForm((IModel)entityToDelete);
+
         }
     }
 }

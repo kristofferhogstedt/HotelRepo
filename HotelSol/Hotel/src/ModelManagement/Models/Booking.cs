@@ -34,7 +34,7 @@ namespace Hotel.src.ModelManagement.Models
         [NotMapped]
         public EModelType ModelTypeEnum { get; set; } = EModelType.Booking;
         [NotMapped]
-        public string Info => $"ID: {ID}, Fråndatum: {FromDate}, Tilldatum: {ToDate}";
+        public string Info => $"{ID} | {Room.Description} | {Customer.FullName} | {FromDate.Date} | {ToDate.Date} | {Invoice.IsPaid}";
         [NotMapped]
         public int StayLength 
         { 

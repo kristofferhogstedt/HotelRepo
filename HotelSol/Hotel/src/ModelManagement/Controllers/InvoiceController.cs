@@ -82,10 +82,11 @@ namespace Hotel.src.ModelManagement.Controllers
             //    InvoiceService.Update(_Entity);
         }
 
-        public void Delete()
-        {
-            throw new NotImplementedException();
-        }
+        //public void Delete(IModel modelToDelete)
+        //{
+        //    var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
+        //    _modelForm.InactivateForm((IModel)modelToDelete);
+        //}
 
 
         public void Delete(IModel entityToDelete)

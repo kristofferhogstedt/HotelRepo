@@ -14,17 +14,17 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
         {
             var table = new Table();
             table.AddColumn("Id");
-            table.AddColumn("Förnamn");
-            table.AddColumn("EfterNamn");
-            table.AddColumn("E-Post");
-            table.AddColumn("Telefon");
+            table.AddColumn("Rum");
+            table.AddColumn("Kund");
+            table.AddColumn("Från-datum");
+            table.AddColumn("Till-datum");
 
             foreach (var entity in entities)
             {
                 table.AddRow(
                     entity.ID.ToString(),
-                    entity.CustomerID.ToString(),
-                    entity.Room.ID.ToString(),
+                    entity.Customer.FullName.ToString(),
+                    entity.Room.Description.ToString(),
                     entity.FromDate.ToString(),
                     entity.ToDate.ToString()
                     );
@@ -33,43 +33,42 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             AnsiConsole.Write(table);
         }
 
+        //public static void RenderTableHighlight(List<IBooking> entityList, int indexToHighlight)
+        //{
+        //    var _entityArray = entityList.ToArray();
 
-        public static void RenderTableHighlight(List<IBooking> entityList, int indexToHighlight)
-        {
-            var _entityArray = entityList.ToArray();
+        //    var table = new Table();
+        //    table.AddColumn("Id");
+        //    table.AddColumn("Förnamn");
+        //    table.AddColumn("EfterNamn");
+        //    table.AddColumn("E-Post");
+        //    table.AddColumn("Telefon");
 
-            var table = new Table();
-            table.AddColumn("Id");
-            table.AddColumn("Förnamn");
-            table.AddColumn("EfterNamn");
-            table.AddColumn("E-Post");
-            table.AddColumn("Telefon");
+        //    for (int i = 0; i < _entityArray.Length; i++)
+        //    {
+        //        if (i == indexToHighlight)
+        //        {
+        //            Console.ForegroundColor = ConsoleColor.Green;
+        //            RowContent(i);
+        //            Console.ForegroundColor = ConsoleColor.Gray;
+        //        }
+        //        else
+        //            RowContent(i);
+        //    }
 
-            for (int i = 0; i < _entityArray.Length; i++)
-            {
-                if (i == indexToHighlight)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    RowContent(i);
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                }
-                else
-                    RowContent(i);
-            }
+        //    void RowContent(int i)
+        //    {
+        //        table.AddRow(
+        //            $"[red]{_entityArray[i].ID.ToString()}[/]",
+        //            _entityArray[i].CustomerID.ToString(),
+        //            _entityArray[i].Room.ID.ToString(),
+        //            _entityArray[i].FromDate.ToString(),
+        //            _entityArray[i].ToDate.ToString()
+        //            );
+        //    }
 
-            void RowContent(int i)
-            {
-                table.AddRow(
-                    $"[red]{_entityArray[i].ID.ToString()}[/]",
-                    _entityArray[i].CustomerID.ToString(),
-                    _entityArray[i].Room.ID.ToString(),
-                    _entityArray[i].FromDate.ToString(),
-                    _entityArray[i].ToDate.ToString()
-                    );
-            }
-
-            AnsiConsole.Write(table);
-        }
+        //    AnsiConsole.Write(table);
+        //}
 
         public static void DisplayModel(IModel entity)
         {
@@ -93,8 +92,8 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             var _tableContent = new StringWriter();
 
             _tableContent.WriteLine($"[red]{entityList.ElementAt(indexToHighlight).ID} {entityList.ElementAt(indexToHighlight).CustomerID}[/]".ToUpper());
-            _tableContent.WriteLine("ID  Förnamn  Efternamn  Född  E-post  Telefon");
-            _tableContent.WriteLine("─────────────────────────────────────────────");
+            _tableContent.WriteLine("ID |   Rum |     Kund    | Från-datum    |   Till-datum  |   Betald");
+            _tableContent.WriteLine("───────────────────────────────────────────────────────────────────");
 
             for (int i = 0; i < _entityArray.Length; i++)
             {

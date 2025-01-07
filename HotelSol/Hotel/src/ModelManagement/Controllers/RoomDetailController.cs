@@ -71,9 +71,9 @@ namespace Hotel.src.ModelManagement.Controllers
             throw new NotImplementedException();
         }
 
-        public void Delete(IModel modelToDelete)
+        public void Delete(IModel entityToDelete)
         {
-            throw new NotImplementedException();
+            RoomDetailsService.Delete((IRoomDetails)entityToDelete);
         }
 
         //public void CreateRoomType(string name, ushort defaultSize, ushort numberOfBedsDefault, ushort numberOfBedsMax)

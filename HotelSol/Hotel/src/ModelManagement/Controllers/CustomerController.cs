@@ -132,21 +132,15 @@ namespace Hotel.src.ModelManagement.Controllers
         //    CustomerService.ReadAll(dbContext).ForEach(c => Console.WriteLine(c.DisplayString()));
         //    dbContext.SaveChanges();
         //}
-        public void Delete(IModel modelToDelete)
+        public void Delete(IModel entityToDelete)
         {
-            //while (true)
-            //{
-
-            //    Console.Write("Ange kund: ");
-            //    string _customerName = UserInputHandler.UserInputString();
-            //    ICustomer _customer = CustomerService.ReadOne(_customerName);
-            //    CustomerChecks.HasBooking(_customerName);
-            //}
-
+            var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
+            _modelForm.InactivateForm((IModel)entityToDelete);
         }
-        public void DisplaySummary(IModel modelToDisplay)
+
+        public void DisplaySummary(IModel entityToDisplay)
         {
-            var _customer = (ICustomer)modelToDisplay;
+            var _customer = (ICustomer)entityToDisplay;
             Console.Clear();
             Console.WriteLine($"\nFörnamn: {_customer.FirstName}");
             Console.WriteLine($"\nEfternamn: {_customer.LastName}");

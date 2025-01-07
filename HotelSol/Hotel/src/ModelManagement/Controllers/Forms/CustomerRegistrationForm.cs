@@ -300,7 +300,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
             if (BookingService.GetAll(false).Any(b => b.CustomerID == ExistingEntity.ID))
             {
-                Console.WriteLine("Användare har en aktiv rumsbokning och kan inte inaktiveras. ");
+                AnsiConsole.MarkupLine($"[Red]Användare {ExistingEntity.FullName} har en aktiv rumsbokning och kan inte inaktiveras. [/]");
                 return;
             }
 

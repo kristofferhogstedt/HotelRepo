@@ -256,7 +256,8 @@ namespace Hotel.src.ModelManagement.Services
         public static IModel GetSubDataInvoice(IModel entity, bool isInactive)
         {
             var _entityToReturn = (IBooking)entity;
-            _entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingID(_entityToReturn.ID, isInactive);
+            //_entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingID(_entityToReturn.ID, isInactive);
+            _entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingIDSeed(_entityToReturn.ID);
             return _entityToReturn;
         }
         public static IModel GetSubDataInvoiceSeed(IModel entity)
