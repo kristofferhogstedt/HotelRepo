@@ -34,6 +34,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Interfaces
         //IModel EditForm(IModel modelToUpdate);
         void CreateForm();
         void EditForm(IModel modelToUpdate);
+        void InactivateForm(IModel modelToInactivate);
         IModel CreateAndReturnForm();
         IModel EditAndReturnForm(IModel modelToUpdate);
         void DisplaySummary();

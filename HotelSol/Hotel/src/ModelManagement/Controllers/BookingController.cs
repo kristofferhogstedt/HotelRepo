@@ -126,6 +126,9 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void Delete(IModel modelToDelete)
         {
+            var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
+            _modelForm.InactivateForm((IModel)modelToDelete);
+
         }
     }
 }

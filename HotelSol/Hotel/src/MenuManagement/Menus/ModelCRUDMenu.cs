@@ -33,7 +33,7 @@ namespace Hotel.src.MenuManagement.Menus
         public void Run()
         {
             Console.WriteLine("Återgår till huvudmeny");
-            Thread.Sleep(2000);
+            Thread.Sleep(1500);
             MainMenu.Run();
             //while (true)
             //{
@@ -74,36 +74,36 @@ namespace Hotel.src.MenuManagement.Menus
                     break;
             }
 
-            while (true)
-            {
-                var option = AnsiConsole.Prompt(
-                    new SelectionPrompt<CRUDMenuOptions>()
-                        .Title("Start")
-                        .UseConverter(option => option.ShowCRUDMenu())
-                        .AddChoices(Enum.GetValues<CRUDMenuOptions>())
-                    );
+            //while (true)
+            //{
+            //    var option = AnsiConsole.Prompt(
+            //        new SelectionPrompt<CRUDMenuOptions>()
+            //            .Title("Start")
+            //            .UseConverter(option => option.ShowCRUDMenu())
+            //            .AddChoices(Enum.GetValues<CRUDMenuOptions>())
+            //        );
 
-                switch (option)
-                {
-                    case CRUDMenuOptions.PreviousMenu:
-                        PreviousMenu.Run();
-                        break;
-                    case CRUDMenuOptions.Update:
-                        var _controller = ModelFactory.GetModelController(entityToCRUD.ModelTypeEnum, this);
-                        _controller.Update(entityToCRUD);
-                        break;
-                    case CRUDMenuOptions.Exit:
-                        Exit.ExitProgram();
-                        break;
-                    default:
-                        break;
-                }
-            }
+            //    switch (option)
+            //    {
+            //        case CRUDMenuOptions.PreviousMenu:
+            //            PreviousMenu.Run();
+            //            break;
+            //        case CRUDMenuOptions.Update:
+            //            var _controller = ModelFactory.GetModelController(entityToCRUD.ModelTypeEnum, this);
+            //            _controller.Update(entityToCRUD);
+            //            break;
+            //        case CRUDMenuOptions.Exit:
+            //            Exit.ExitProgram();
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //}
         }
 
         public void GeneralCRUDMenu(IModel entityToCRUD)
         {
-
+            var _controller = ModelFactory.GetModelController(entityToCRUD.ModelTypeEnum, this);
             while (true)
             {
                 var option = AnsiConsole.Prompt(
@@ -119,8 +119,10 @@ namespace Hotel.src.MenuManagement.Menus
                         PreviousMenu.Run();
                         break;
                     case CRUDMenuOptions.Update:
-                        var _controller = ModelFactory.GetModelController(entityToCRUD.ModelTypeEnum, this);
                         _controller.Update(entityToCRUD);
+                        break;
+                    case CRUDMenuOptions.Inactivate:
+                        _controller.Delete(entityToCRUD);
                         break;
                     case CRUDMenuOptions.Exit:
                         Exit.ExitProgram();

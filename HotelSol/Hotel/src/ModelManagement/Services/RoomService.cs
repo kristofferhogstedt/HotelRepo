@@ -141,13 +141,27 @@ namespace Hotel.src.ModelManagement.Services
 
         }
 
-        public void Delete(IRoom entityToDelete)
+        public static void Delete(IRoom entityToDelete)
         {
-            var _entityToDelete = (Room)entityToDelete;
-            _entityToDelete.IsInactive = true;
-            _entityToDelete.InactivatedDate = DateTime.Now;
-            DatabaseLair.DatabaseContext.Rooms.Update(_entityToDelete);
-            DatabaseLair.DatabaseContext.SaveChanges();
+            var existingEntity = DatabaseLair.DatabaseContext.Rooms
+                .FirstOrDefault(c => c.ID == entityToDelete.ID);
+            entityToDelete.IsInactive = true;
+            entityToDelete.InactivatedDate = DateTime.Now;
+
+            if (existingEntity != null)
+            {
+                DatabaseLair.DatabaseContext.Entry(existingEntity).CurrentValues.SetValues(entityToDelete);
+
+                DatabaseLair.DatabaseContext.SaveChanges();
+                Console.WriteLine("Inaktivering lyckad!");
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                Console.WriteLine("Inaktivering misslyckad, återgår");
+                Thread.Sleep(1000);
+                return;
+            }
         }
 
 

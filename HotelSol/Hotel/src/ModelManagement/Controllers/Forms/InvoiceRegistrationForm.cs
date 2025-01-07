@@ -78,7 +78,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             AnsiConsole.MarkupLine("\n[yellow]Är fakturan betald?[/]: ");
             Data01 = UserInputHandler.UserInputBool(PreviousMenu);
             if (CopyChecker.CheckCopyValue(Data01))
-                Data09 = ExistingEntity.IsPaid;
+                Data01 = ExistingEntity.IsPaid;
             else if ((bool)Data01 == true)
             {
                 NewEntity.IsPaid = (bool)Data01;
@@ -115,6 +115,11 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
                 PreviousMenu.Run();
             }
+        }
+
+        public void InactivateForm(IModel entityToDelete)
+        {
+            throw new NotImplementedException()
         }
 
         public IModel CreateAndReturnForm()

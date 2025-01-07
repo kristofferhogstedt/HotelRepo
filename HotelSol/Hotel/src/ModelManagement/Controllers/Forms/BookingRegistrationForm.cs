@@ -185,6 +185,28 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             }
         }
 
+        public void InactivateForm(IModel entityToDelete)
+        {
+            var ExistingEntity = (IBooking)entityToDelete;
+            ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
+            IsAnEdit = true;
+
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Godkänn inaktivering[/]: ");
+            Data01 = UserInputHandler.UserInputBool(PreviousMenu);
+            if ((bool)Data01 == true)
+            {
+                BookingService.Delete(ExistingEntity);
+            }
+            else
+            {
+                Console.WriteLine("Inaktivering avbruten, Återgår...");
+                Thread.Sleep(1000);
+                return;
+            }
+        }
+
         public IModel CreateAndReturnForm()
         {
             throw new NotImplementedException();
