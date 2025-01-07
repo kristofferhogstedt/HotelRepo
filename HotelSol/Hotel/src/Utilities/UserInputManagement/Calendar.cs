@@ -57,7 +57,7 @@ namespace Hotel.src.Utilities.UserInputManagement
                         break;
                     case ConsoleKey.Enter:
                         //AnsiConsole.MarkupLine($"\nFödelsedatum: [green]{_selectedDate:yyyy-MM-dd}[/]");
-                        if (!DateValidator.ValidateOccupiedDate(roomID, _selectedDate, isAnEdit))
+                        if (!DateValidator.ValidateOccupiedDate(roomID, booking, _selectedDate, isAnEdit))
                         {
                             Console.WriteLine("Rummet är redan bokat under detta datum, försök igen");
                             LineClearer.ClearLastLine(1000);

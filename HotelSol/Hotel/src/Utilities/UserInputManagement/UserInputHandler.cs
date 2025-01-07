@@ -11,22 +11,25 @@ namespace HotelLibrary.Utilities.UserInputManagement
 
         public static bool UserInputBool(IMenu previousMenu)
         {
-            var _input = UserInputString(previousMenu).ToLower();
-
-            switch (_input)
+            while (true)
             {
-                case "ja":
-                case "j":
-                case "yes":
-                case "y":
-                    return true;
-                case "nej":
-                case "n":
-                case "no":
-                    return false;
-                default:
-                    Console.WriteLine("Felaktig inmatning, ange Ja eller Nej.");
-                    return false;
+                var _input = UserInputString(previousMenu).ToLower();
+
+                switch (_input)
+                {
+                    case "ja":
+                    case "j":
+                    case "yes":
+                    case "y":
+                        return true;
+                    case "nej":
+                    case "n":
+                    case "no":
+                        return false;
+                    default:
+                        Console.WriteLine("Felaktig inmatning, ange Ja eller Nej.");
+                        continue;
+                }
             }
         }
 
@@ -88,7 +91,7 @@ namespace HotelLibrary.Utilities.UserInputManagement
         public static string UserInputStringNotNullOrEmpty(IMenu previousMenu)
         {
             var _input = "-1";
-            while (_input.IsNullOrEmpty() || _input=="-1")
+            while (_input.IsNullOrEmpty() || _input == "-1")
             {
                 _input = UserInputString(previousMenu);
                 if (_input.IsNullOrEmpty() || _input == "-1")

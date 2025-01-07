@@ -204,7 +204,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             {
                 Console.WriteLine("Inaktivering avbruten, Återgår...");
                 Thread.Sleep(1000);
-                PreviousMenu.Run();
             }
         }
 

@@ -296,8 +296,13 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public void InactivateForm(IModel entityToDelete)
         {
             var ExistingEntity = (ICustomer)entityToDelete;
-            ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
             IsAnEdit = true;
+
+            if (BookingService.GetAll(false).Any(b => b.CustomerID == ExistingEntity.ID))
+            {
+                Console.WriteLine("Användare har en aktiv rumsbokning och kan inte inaktiveras. ");
+                return;
+            }
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);

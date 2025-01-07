@@ -71,6 +71,32 @@ namespace Hotel.src.ModelManagement.Services
             return _entityToReturn;
         }
 
+        public static IModel GetOneByCustomerID(int searchID, bool isInactive)
+        {
+            IModel _entityToReturn = null;
+
+            if (DatabaseLair.DatabaseContext.Bookings
+                .Where(m => m.IsInactive == isInactive)
+                .Any(m => m.CustomerID == searchID))
+            {
+                _entityToReturn = DatabaseLair.DatabaseContext.Bookings
+                    .Where(m => m.IsInactive == false)
+                    .First(m => m.CustomerID == searchID);
+
+                _entityToReturn = (Booking)GetSubDataRoom(_entityToReturn, isInactive);
+                _entityToReturn = (Booking)GetSubDataCustomer(_entityToReturn, isInactive);
+            }
+
+            if (_entityToReturn == null)
+            {
+                Console.Clear();
+                ServiceMessager.DataNotFoundMessage();
+                return null;
+            }
+
+            return _entityToReturn;
+        } 
+
         /// <summary>
         /// For seeder functionality to not care about IsInactive
         /// </summary>
