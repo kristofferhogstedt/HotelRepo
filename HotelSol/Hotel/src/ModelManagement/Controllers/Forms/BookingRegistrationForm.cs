@@ -71,12 +71,12 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Från-datum[/]: ");
-            Data02 = BookingValidator.ValidateFromDate(_room.ID, IsAnEdit, PreviousMenu);
+            Data02 = BookingValidator.ValidateFromDate(_room.ID, null, IsAnEdit, PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Till-datum[/]: ");
-            Data03 = BookingValidator.ValidateToDate(_room.ID, IsAnEdit, PreviousMenu);
+            Data03 = BookingValidator.ValidateToDate(_room.ID, null, IsAnEdit, PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -122,7 +122,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
             IsAnEdit = true;
 
-
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Rum[/]: ");
@@ -135,14 +134,14 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Från-datum[/]: ");
-            Data02 = BookingValidator.ValidateFromDate(_room.ID, IsAnEdit, PreviousMenu);
+            Data02 = BookingValidator.ValidateFromDate(_room.ID, ExistingEntity, IsAnEdit, PreviousMenu);
             if (CopyChecker.CheckCopyValue(Data02))
                 Data02 = ExistingEntity.FromDate;
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Till-datum[/]: ");
-            Data03 = BookingValidator.ValidateToDate(_room.ID, IsAnEdit, PreviousMenu);
+            Data03 = BookingValidator.ValidateToDate(_room.ID, ExistingEntity, IsAnEdit, PreviousMenu);
             if (CopyChecker.CheckCopyValue(Data03))
                 Data03 = ExistingEntity.FromDate;
 

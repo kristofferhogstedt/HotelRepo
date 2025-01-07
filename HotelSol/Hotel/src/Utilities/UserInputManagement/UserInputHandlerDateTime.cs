@@ -1,4 +1,5 @@
 ﻿using Hotel.src.MenuManagement.Menus.Interfaces;
+using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.Utilities.ConsoleManagement;
 using HotelLibrary.Utilities.UserInputManagement;
 using System;
@@ -51,9 +52,9 @@ namespace Hotel.src.Utilities.UserInputManagement
         /// Dateselector with current date as starting point
         /// </summary>
         /// <returns></returns>
-        public static DateTime UserInputDateTime(int roomID, bool isAnEdit, IMenu previousMenu)
+        public static DateTime UserInputDateTime(int roomID, IBooking? booking, bool isAnEdit, IMenu previousMenu)
         {
-            return Calendar.DateSelector(roomID, Calendar.StartDate(Calendar.SetStartDate()), isAnEdit, previousMenu);
+            return Calendar.DateSelector(roomID, booking, Calendar.StartDate(Calendar.SetStartDate()), isAnEdit, previousMenu);
         }
 
         ///// <summary>

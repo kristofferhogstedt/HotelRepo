@@ -23,7 +23,7 @@ namespace Hotel.src.Utilities.UserInputManagement
             return _selectedDate;
         }
 
-        public static DateTime DateSelector(int roomID, DateTime startDate, bool isAnEdit, IMenu previousMenu)
+        public static DateTime DateSelector(int roomID, IBooking? booking, DateTime startDate, bool isAnEdit, IMenu previousMenu)
         {
             // Startdatum (början av månaden)
             //DateTime _currentDate = DateTime.Now;
@@ -36,7 +36,7 @@ namespace Hotel.src.Utilities.UserInputManagement
             while (true)
             {
                 Console.Clear();
-                RenderCalendar(_selectedDate, roomID);
+                RenderCalendar(_selectedDate, roomID, booking, isAnEdit);
 
                 // Läsa användarens tangent
                 var _key = Console.ReadKey(true).Key;
@@ -72,7 +72,7 @@ namespace Hotel.src.Utilities.UserInputManagement
             }
         }
 
-        private static void RenderCalendar(DateTime selectedDate, int roomID)
+        private static void RenderCalendar(DateTime selectedDate, int roomID, IBooking? booking, bool isAnEdit)
         {
             var calendarContent = new StringWriter();
 
@@ -90,12 +90,24 @@ namespace Hotel.src.Utilities.UserInputManagement
             var _existingBookings = BookingService.GetAll(_isInactive).Where(b => b.RoomID == roomID);
             var _occupiedDatesPerBooking = new List<DateTime>();
             var _occupiedDates = new List<DateTime>();
+            var _occupiedDatesForThisBooking = new List<DateTime>();
 
             //var existingBookingsForRoom = _existingBookings.Where(b => b.RoomID == roomID);
             foreach (var b in _existingBookings)
             {
-                _occupiedDatesPerBooking = BookedDateSplitter.SplitDates(b);
-                _occupiedDatesPerBooking.ForEach(d => _occupiedDates.Add(d));
+                if (booking != null)
+                {
+                    if (b.ID == booking.ID)
+                    {
+                        _occupiedDatesPerBooking = BookedDateSplitter.SplitDates(b);
+                        _occupiedDatesPerBooking.ForEach(d => _occupiedDatesForThisBooking.Add(d));
+                    }
+                }
+                else
+                {
+                    _occupiedDatesPerBooking = BookedDateSplitter.SplitDates(b);
+                    _occupiedDatesPerBooking.ForEach(d => _occupiedDates.Add(d));
+                }
             }
 
             // Fyll med tomma platser innan första dagen i månaden
@@ -110,13 +122,11 @@ namespace Hotel.src.Utilities.UserInputManagement
                 //var _occupiedDayHighlight = Convert.ToDateTime(day + selectedDate.Month + selectedDate.Year);
 
                 if (day == selectedDate.Day)
-                {
-                    // Siffran 2 sätter minimum bredd (även om 1 siffra)
                     calendarContent.Write($"[green]{day,2}[/]   ");
-                }
-                //else if (_occupiedDates.Any(d => d.Day == day))
+                else if (_occupiedDatesForThisBooking.Any(d => d.Day == day))
+                    calendarContent.Write($"[yellow]{day,2}[/]   "); // previous dates for this booking 
                 else if (_occupiedDates.Any(d => d.Day == day))
-                    calendarContent.Write($"[red]{day,2}[/]   ");
+                    calendarContent.Write($"[red]{day,2}[/]   "); // occupied dates for selected room
                 else
                 {
                     calendarContent.Write($"{day,2}   ");
