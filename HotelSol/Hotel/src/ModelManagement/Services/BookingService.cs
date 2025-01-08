@@ -140,7 +140,7 @@ namespace Hotel.src.ModelManagement.Services
         /// </summary>
         /// <param name="databaseLair"></param>
         /// <returns></returns>
-        public static List<IBooking> GetAll(bool isInactive, bool getRelatedObjects)
+        public static List<IBooking> GetAll(bool getRelatedObjects, bool isInactive)
         {
             var _listToReturn = DatabaseLair.DatabaseContext.Bookings
                 .Where(m => m.IsInactive == isInactive)

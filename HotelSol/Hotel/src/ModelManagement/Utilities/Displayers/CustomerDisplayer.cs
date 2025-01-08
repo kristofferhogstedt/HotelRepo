@@ -20,6 +20,7 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             table.AddColumn("EfterNamn");
             table.AddColumn("E-Post");
             table.AddColumn("Telefon");
+            table.AddColumn("Antal bokningar");
 
             foreach (var entity in entityList)
             {
@@ -28,7 +29,8 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
                     entity.FirstName,
                     entity.LastName,
                     entity.Email,
-                    entity.Phone
+                    entity.Phone,
+                    entity.Info
                     );
             }
 
@@ -46,6 +48,7 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             table.AddColumn("EfterNamn");
             table.AddColumn("E-Post");
             table.AddColumn("Telefon");
+            table.AddColumn("Antal bokningar");
 
             for (int i = 0; i < entityArray.Length; i++)
             {
@@ -66,7 +69,8 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
                     entityArray[i].FirstName,
                     entityArray[i].LastName,
                     entityArray[i].Email,
-                    entityArray[i].Phone
+                    entityArray[i].Phone,
+                    entityArray[i].Info
                     );
             }
 
@@ -77,10 +81,11 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
         {
             var panel = new Panel($@"
                 Id: {entity.ID}
-                Namn: {entity.FirstName}
+                Namn: {entity.FullName}
                 Namn: {entity.LastName}
                 E-post: {entity.Email}
                 Telefon: {entity.Phone}
+                Telefon: {entity.Info}
             ");
             panel.Header = new PanelHeader("Product Info");
             panel.Padding = new Padding(2, 2, 2, 2);
@@ -95,8 +100,8 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
 
             // Kalenderhuvud
             _tableContent.WriteLine($"[red]{entityList.ElementAt(indexToHighlight).FirstName} {entityList.ElementAt(indexToHighlight).LastName}[/]".ToUpper());
-            _tableContent.WriteLine("ID  Förnamn  Efternamn  Född  E-post  Telefon");
-            _tableContent.WriteLine("─────────────────────────────────────────────");
+            _tableContent.WriteLine("ID  Namn       Född     E-post     Telefon     Bokningar");
+            _tableContent.WriteLine("────────────────────────────────────────────────────────");
 
             //DateTime firstDayOfMonth = new DateTime(selectedDate.Year, selectedDate.Month, 1);
             //int daysInMonth = DateTime.DaysInMonth(selectedDate.Year, selectedDate.Month);

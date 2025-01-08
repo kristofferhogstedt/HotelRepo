@@ -29,5 +29,6 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         public ushort Age => Convert.ToUInt16(DateTime.Now - DateOfBirth);
         [NotMapped]
         public string Info => $"Namn: {FullName}, Epost: {Email}, Telefon: {Phone}";
+        public int NumberOfBookings { get; }
     }
 }

@@ -25,8 +25,8 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
                     entity.ID.ToString(),
                     entity.Customer.FullName.ToString(),
                     entity.Room.Description.ToString(),
-                    entity.FromDate.ToString(),
-                    entity.ToDate.ToString()
+                    entity.FromDate.Date.ToString(),
+                    entity.ToDate.Date.ToString()
                     );
             }
 
@@ -75,10 +75,10 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             var _entity = (IBooking)entity;
             var panel = new Panel($@"
                 Id: {_entity.ID}
-                Namn: {_entity.CustomerID.ToString()}
-                Namn: {_entity.Room.ID.ToString()}
-                E-post: {_entity.FromDate.ToString()}
-                Telefon: {_entity.ToDate.ToString()}
+                Namn: {_entity.Customer.FullName.ToString()}
+                Namn: {_entity.Room.Description.ToString()}
+                E-post: {_entity.FromDate.Date.ToString()}
+                Telefon: {_entity.ToDate.Date.ToString()}
             ");
             panel.Header = new PanelHeader("Product Info");
             panel.Padding = new Padding(2, 2, 2, 2);
