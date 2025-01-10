@@ -133,11 +133,13 @@ namespace Hotel.src.ModelManagement.Services
                 DatabaseLair.DatabaseContext.SaveChanges();
                 Console.WriteLine("Uppdatering lyckad!");
                 Thread.Sleep(1000);
-            }
+
+				}
             else
-            {
-                Create(entityToUpdate);
-            }
+			{
+				Console.WriteLine("Uppdatering misslyckad... Återgår");
+				Thread.Sleep(1000);
+			}
         }
 
         public static void Delete(IRoomDetails entityToDelete)

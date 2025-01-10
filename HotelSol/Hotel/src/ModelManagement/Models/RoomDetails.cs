@@ -43,12 +43,25 @@ namespace Hotel.src.ModelManagement.Models
         {
             CreatedDate = DateTime.Now;
         }
-        public RoomDetails(IRoomType roomType, int size, int numberOfBeds)
+        public RoomDetails(IRoomType roomType, int roomTypeID, IRoom room, int roomID, int size, int numberOfBeds, double price)
         {
             RoomType = (RoomType)roomType;
+            RoomTypeID = roomTypeID;
+            Room = (Room)room;
+            RoomID = roomID;
             Size = size;
             NumberOfBeds = numberOfBeds;
+            Price = price;
             CreatedDate = DateTime.Now;
-        }
-    }
+		}
+		public RoomDetails(IRoomType roomType, int roomTypeID, int size, int numberOfBeds, double price)
+		{
+			RoomType = (RoomType)roomType;
+			RoomTypeID = roomTypeID;
+			Size = size;
+			NumberOfBeds = numberOfBeds;
+			Price = price;
+			CreatedDate = DateTime.Now;
+		}
+	}
 }

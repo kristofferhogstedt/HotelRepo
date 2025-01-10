@@ -42,7 +42,7 @@ namespace Hotel.src.ModelManagement.Validations
 
                 if (isAnEdit && InputChecker.UserInputIsEnter(_userInput.ToString()))
                     return _userInput;
-                else if (_userInput < Settings.FloorsMax)
+                else if (_userInput <= Settings.FloorsMax)
                     return _userInput;
                 else
                     Console.WriteLine($"Hotellet har bara {Settings.FloorsMax} våningar");

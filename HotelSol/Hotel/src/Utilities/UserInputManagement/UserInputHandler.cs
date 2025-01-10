@@ -115,7 +115,18 @@ namespace HotelLibrary.Utilities.UserInputManagement
             return _output;
         }
 
-        public static ushort UserInputUshort(IMenu previousMenu)
+		public static double UserInputDouble(IMenu previousMenu)
+		{
+			double _output = -1;
+			while (!double.TryParse(UserInputString(previousMenu), out _output))
+			{
+				Console.WriteLine("Felaktig inmatning, måste vara heltal (double).");
+			}
+
+			return _output;
+		}
+
+		public static ushort UserInputUshort(IMenu previousMenu)
         {
             ushort _output = 0;
             while (!ushort.TryParse(UserInputString(previousMenu), out _output))

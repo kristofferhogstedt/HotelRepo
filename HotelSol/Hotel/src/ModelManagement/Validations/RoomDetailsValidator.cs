@@ -10,7 +10,7 @@ namespace Hotel.src.ModelManagement.Validations
 {
     public class RoomDetailsValidator
     {
-        public static IRoomType ValidateRoomType(IRoomType existingEntityRooMType, bool isAnEdit, IMenu previousMenu)
+        public static IRoomType ValidateRoomType(IRoomType existingEntityRoomType, bool isAnEdit, IMenu previousMenu)
         {
             var _isInactive = false;
             bool _getRelatedObjects = true;
@@ -20,7 +20,7 @@ namespace Hotel.src.ModelManagement.Validations
                 var _userInput = UserInputHandler.UserInputString(previousMenu).ToLower();
 
                 if (isAnEdit && InputChecker.UserInputIsEnter(_userInput.ToString()))
-                    return existingEntityRooMType;
+                    return existingEntityRoomType;
                 else if (_allRoomTypes.Any(e => e.Name.ToLower() == _userInput))
                     return _allRoomTypes.First(e => e.Name.ToLower() == _userInput);
                 else

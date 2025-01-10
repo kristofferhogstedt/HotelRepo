@@ -75,9 +75,13 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             RelatedForm = ModelFactory.GetModelRegistrationForm(RelatedFormModelType, PreviousMenu);
             RelatedForm.AssignRelatedForm(this);
 
-            Data04 = RelatedForm.CreateAndReturnForm(); // start RoomDetail registration form
+			Data04 = RelatedForm.CreateAndReturnForm(); // start RoomDetail registration form
+			var _newRoomDetails = (IRoomDetails)Data04;
 
-            Console.Clear();
+			var _newRoom = new Room((string)Data01, (string)Data02, (int)Data03);
+			_newRoomDetails.RoomID = _newRoom.ID;
+
+			Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
 
             // Bekräfta kunduppgifter
@@ -87,9 +91,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             {
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
-                NewEntity = new Room((string)Data01, (string)Data02, (int)Data03, (RoomDetails)Data04);
+                NewEntity = new Room((string)Data01, (string)Data02, (int)Data03, (RoomDetails)_newRoomDetails);
 
-                RoomService.Update((Room)NewEntity);
+                RoomService.Create((Room)NewEntity);
                 MainMenu.Run();
             }
             else
@@ -138,6 +142,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             RelatedForm.AssignRelatedForm(this);
             Data04 = RelatedForm.EditAndReturnForm(ExistingEntity.Details); // start RoomDetail registration form
 
+            var _newRoomDetails = (IRoomDetails)Data04;
+            _newRoomDetails.RoomID = ExistingEntity.ID;
+
             Console.Clear();
             Console.WriteLine("Tidigare värden: ");
             DisplaySummary(ExistingEntity);
@@ -149,7 +156,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
             if (confirm)
             {
-                NewEntity = new Room((string)Data01, (string)Data02, (int)Data03, (RoomDetails)Data04)
+                NewEntity = new Room((string)Data01, (string)Data02, (int)Data03, (RoomDetails)_newRoomDetails)
                 { ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
 
                 RoomService.Update((Room)NewEntity);

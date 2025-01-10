@@ -15,7 +15,9 @@ namespace Hotel.src.ModelManagement.Services
             try
             {
                 DatabaseLair.DatabaseContext.Rooms.Add((Room)entityToCreate);
-                DatabaseLair.DatabaseContext.SaveChanges();
+				RoomDetailsService.Create(entityToCreate.Details);
+
+				DatabaseLair.DatabaseContext.SaveChanges();
 
                 // Meddelande om lyckad registrering
                 Console.WriteLine("Skapande lyckat!");
@@ -130,15 +132,17 @@ namespace Hotel.src.ModelManagement.Services
             if (existingEntity != null)
             {
                 DatabaseLair.DatabaseContext.Entry(existingEntity).CurrentValues.SetValues(entityToUpdate);
+                RoomDetailsService.Update(entityToUpdate.Details);
 
                 DatabaseLair.DatabaseContext.SaveChanges();
                 Console.WriteLine("Uppdatering lyckad!");
                 Thread.Sleep(1000);
             }
             else
-            {
-                Create(entityToUpdate);
-            }
+			{
+				Console.WriteLine("Uppdatering misslyckad... återgår");
+				Thread.Sleep(1000);
+			}
 
         }
 
