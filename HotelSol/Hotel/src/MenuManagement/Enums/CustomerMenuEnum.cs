@@ -16,14 +16,10 @@ namespace Hotel.src.MenuManagement.Enums
         DisplayCustomer,
         [Description("  Registrera ny kund")]
         CreateCustomer,
-        [Description("Avsluta")]
+		[Description("  Visa inaktiverade")]
+		DisplayInactive,
+		[Description("Avsluta")]
         Exit
-        //[Description("  Se alla kunder")]
-        //DisplayCustomerAll,
-        //[Description("  Redigera kund")]
-        //UpdateCustomer,
-        //[Description("Radera kund")]
-        //DeleteCustomer,
     }
 
     public static class CustomerMenuEnum 

@@ -16,7 +16,9 @@ namespace Hotel.src.MenuManagement.Enums
         Update,
         [Description("  Inaktivera")]
         Inactivate,
-        [Description("Avsluta")]
+		[Description("  Återaktivera")]
+		Reactivate,
+		[Description("Avsluta")]
         Exit
     }
 
@@ -30,7 +32,9 @@ namespace Hotel.src.MenuManagement.Enums
         UpdateBeds,
         [Description("  Inaktivera")]
         Inactivate,
-        [Description("Avsluta")]
+		[Description("  Återaktivera")]
+		Reactivate,
+		[Description("Avsluta")]
         Exit
     }
 

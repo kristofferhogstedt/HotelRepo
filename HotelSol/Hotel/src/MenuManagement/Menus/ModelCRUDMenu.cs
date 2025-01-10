@@ -35,31 +35,6 @@ namespace Hotel.src.MenuManagement.Menus
             Console.WriteLine("Återgår till huvudmeny");
             Thread.Sleep(1500);
             MainMenu.Run();
-            //while (true)
-            //{
-            //    var option = AnsiConsole.Prompt(
-            //        new SelectionPrompt<CRUDMenuOptions>()
-            //            .Title("Start")
-            //            .UseConverter(option => option.ShowCRUDMenu())
-            //            .AddChoices(Enum.GetValues<CRUDMenuOptions>())
-            //        );
-
-            //    switch (option)
-            //    {
-            //        case CRUDMenuOptions.PreviousMenu:
-            //            PreviousMenu.Run();
-            //            break;
-            //        //case CRUDMenuOptions.Update:
-            //        //    var _controller = ModelFactory.GetModelController(, this);
-            //        //    _controller.Create();
-            //        //    break;
-            //        case CRUDMenuOptions.Exit:
-            //            Exit.ExitProgram();
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //}
         }
 
         public void Run(IModel entityToCRUD)
@@ -73,32 +48,6 @@ namespace Hotel.src.MenuManagement.Menus
                     GeneralCRUDMenu(entityToCRUD);
                     break;
             }
-
-            //while (true)
-            //{
-            //    var option = AnsiConsole.Prompt(
-            //        new SelectionPrompt<CRUDMenuOptions>()
-            //            .Title("Start")
-            //            .UseConverter(option => option.ShowCRUDMenu())
-            //            .AddChoices(Enum.GetValues<CRUDMenuOptions>())
-            //        );
-
-            //    switch (option)
-            //    {
-            //        case CRUDMenuOptions.PreviousMenu:
-            //            PreviousMenu.Run();
-            //            break;
-            //        case CRUDMenuOptions.Update:
-            //            var _controller = ModelFactory.GetModelController(entityToCRUD.ModelTypeEnum, this);
-            //            _controller.Update(entityToCRUD);
-            //            break;
-            //        case CRUDMenuOptions.Exit:
-            //            Exit.ExitProgram();
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //}
         }
 
         public void GeneralCRUDMenu(IModel entityToCRUD)
@@ -124,7 +73,10 @@ namespace Hotel.src.MenuManagement.Menus
                     case CRUDMenuOptions.Inactivate:
                         _controller.Delete(entityToCRUD);
                         break;
-                    case CRUDMenuOptions.Exit:
+					case CRUDMenuOptions.Reactivate:
+						_controller.Reactivate(entityToCRUD);
+						break;
+					case CRUDMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;
                     default:
@@ -136,7 +88,8 @@ namespace Hotel.src.MenuManagement.Menus
         public void RoomCRUDMenu(IModel entityToCrud)
         {
             var _controller = (IRoomController)ModelFactory.GetModelController(entityToCrud.ModelTypeEnum, this);
-            while (true)
+			var _roomToCrud = (IRoom)entityToCrud;
+			while (true)
             {
                 var option = AnsiConsole.Prompt(
                     new SelectionPrompt<RoomCRUDMenuOptions>()
@@ -154,11 +107,17 @@ namespace Hotel.src.MenuManagement.Menus
                         _controller.Update(entityToCrud);
                         break;
                     case RoomCRUDMenuOptions.UpdateBeds:
-                        var _roomToCrud = (IRoom)entityToCrud;
+                        _roomToCrud = (IRoom)entityToCrud;
                         var _roomDetailsToCRUD = _roomToCrud.Details;
                         _controller.UpdateBeds(_roomDetailsToCRUD);
                         break;
-                    case RoomCRUDMenuOptions.Exit:
+					case RoomCRUDMenuOptions.Inactivate:
+						_controller.Delete(_roomToCrud);
+						break;
+					case RoomCRUDMenuOptions.Reactivate:
+						_controller.Reactivate(_roomToCrud);
+						break;
+					case RoomCRUDMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;
                     default:

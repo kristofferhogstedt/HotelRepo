@@ -137,9 +137,14 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             _modelForm.InactivateForm((IModel)entityToDelete);
-        }
+		}
+		public void Reactivate(IModel entityToReactivate)
+		{
+			var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
+			_modelForm.ReactivateForm((IModel)entityToReactivate);
+		}
 
-        public void DisplaySummary(IModel entityToDisplay)
+		public void DisplaySummary(IModel entityToDisplay)
         {
             var _customer = (ICustomer)entityToDisplay;
             Console.Clear();

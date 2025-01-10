@@ -32,7 +32,6 @@ namespace Hotel.src.MenuManagement.Menus
                     new SelectionPrompt<StartMenuOptions>()
                         .Title("Start")
                         .UseConverter(option => option.ShowStartMenu())
-                        //.UseConverter(option => option.GetDescription()) // Visa beskrivningar istället för enum-namn
                         .AddChoices(Enum.GetValues<StartMenuOptions>())
                     );
 

@@ -15,13 +15,11 @@ namespace Hotel.src.MenuManagement.Enums
         [Description("  Visa rum")]
         DisplayRooms,
         [Description("  Registrera nytt rum")]
-        CreateRoom,
-        [Description("Avsluta")]
+		CreateRoom,
+		[Description("  Visa inaktiverade")]
+		DisplayInactive,
+		[Description("Avsluta")]
         Exit
-        //[Description("  Uppdatera rum")]
-        //UpdateRooms,
-        //[Description("  Radera rum")]
-        //DeleteRooms,
     }
 
     public static class RoomMenuEnum

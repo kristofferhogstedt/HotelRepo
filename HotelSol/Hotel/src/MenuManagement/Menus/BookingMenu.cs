@@ -41,7 +41,6 @@ namespace Hotel.src.MenuManagement.Menus
                     new SelectionPrompt<BookingMenuOptions>()
                         .Title("Start")
                         .UseConverter(option => option.ShowBookingMenu())
-                        //.UseConverter(option => option.GetDescription()) // Visa beskrivningar istället för enum-namn
                         .AddChoices(Enum.GetValues<BookingMenuOptions>())
                     );
 
@@ -57,7 +56,11 @@ namespace Hotel.src.MenuManagement.Menus
                     case BookingMenuOptions.CreateBooking:
                         ModelController.Create();
                         break;
-                    case BookingMenuOptions.Exit:
+					case BookingMenuOptions.DisplayInactive:
+						HandleInactive = true;
+						ModelController.ManageOne(HandleInactive);
+						break;
+					case BookingMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;
                     default:

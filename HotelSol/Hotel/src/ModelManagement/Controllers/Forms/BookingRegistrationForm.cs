@@ -205,9 +205,31 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 Console.WriteLine("Inaktivering avbruten, Återgår...");
                 Thread.Sleep(1000);
             }
-        }
+		}
+		public void ReactivateForm(IModel entityToReactivate)
+		{
+			var ExistingEntity = (IBooking)entityToReactivate;
+			IsAnEdit = true;
 
-        public IModel CreateAndReturnForm()
+			Console.Clear();
+			FormDisplayer.DisplayCurrentFormValues(this);
+			AnsiConsole.MarkupLine("\n[yellow]Godkänn återaktivering[/]: ");
+
+			if (UserInputHandler.UserInputBool(PreviousMenu))
+			{
+				ExistingEntity.IsInactive = false;
+				ExistingEntity.InactivatedDate = null;
+				BookingService.Update(ExistingEntity);
+			}
+			else
+			{
+				Console.WriteLine("Inaktivering avbruten, Återgår...");
+				Thread.Sleep(1000);
+				return;
+			}
+		}
+
+		public IModel CreateAndReturnForm()
         {
             throw new NotImplementedException();
         }

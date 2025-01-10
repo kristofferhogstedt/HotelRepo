@@ -88,7 +88,13 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             }
         }
 
-        public IModel CreateAndReturnForm()
+		public void ReactivateForm(IModel entityToReactivate)
+		{
+			throw new NotImplementedException();
+		}
+
+
+		public IModel CreateAndReturnForm()
 		{
 			IsAnEdit = false;
 

@@ -30,10 +30,13 @@ namespace Hotel.src.ModelManagement.Services
         public static IRoomDetails GetOneByID(int searchString, bool getRelatedObjects, bool isInactive)
         {
             var _entityToReturn = (IRoomDetails)DatabaseLair.DatabaseContext.RoomDetails
-                .Where(e => e.IsInactive == isInactive)
+                //.Where(e => e.IsInactive == isInactive)
                 .First(m => m.ID == searchString);
 
-            _entityToReturn = GetSubDataRoomType(_entityToReturn, isInactive); // Get subdata
+            if (getRelatedObjects)
+            {
+                _entityToReturn = GetSubDataRoomType(_entityToReturn, isInactive); // Get subdata
+            }
 
             if (_entityToReturn == null)
             {
@@ -54,7 +57,10 @@ namespace Hotel.src.ModelManagement.Services
             var _entityToReturn = (IRoomDetails)DatabaseLair.DatabaseContext.RoomDetails
                 .First(m => m.ID == searchString);
 
-            _entityToReturn = GetSubDataRoomTypeSeed(_entityToReturn); // Get subdata
+            if (getRelatedObjects)
+            {
+                _entityToReturn = GetSubDataRoomTypeSeed(_entityToReturn); // Get subdata
+            }
 
             if (_entityToReturn == null)
             {
@@ -68,10 +74,13 @@ namespace Hotel.src.ModelManagement.Services
         public static IRoomDetails GetOneByRoomID(int searchString, bool getRelatedObjects, bool isInactive)
         {
             var _entityToReturn = (IRoomDetails)DatabaseLair.DatabaseContext.RoomDetails
-                .Where(e => e.IsInactive == isInactive)
+                //.Where(e => e.IsInactive == isInactive)
                 .First(m => m.RoomID == searchString);
 
-            _entityToReturn = GetSubDataRoomType(_entityToReturn, isInactive); // Get subdata
+            if (getRelatedObjects)
+            {
+                _entityToReturn = GetSubDataRoomType(_entityToReturn, isInactive); // Get subdata
+            }
 
             if (_entityToReturn == null)
             {
@@ -92,7 +101,10 @@ namespace Hotel.src.ModelManagement.Services
             var _entityToReturn = (IRoomDetails)DatabaseLair.DatabaseContext.RoomDetails
                 .First(m => m.RoomID == searchString);
 
-            _entityToReturn = GetSubDataRoomTypeSeed(_entityToReturn); // Get subdata
+            if (getRelatedObjects)
+            {
+                _entityToReturn = GetSubDataRoomTypeSeed(_entityToReturn); // Get subdata
+            }
 
             if (_entityToReturn == null)
             {
@@ -106,10 +118,13 @@ namespace Hotel.src.ModelManagement.Services
         public static List<IRoomDetails> GetAll(bool getRelatedObjects, bool isInactive)
         {
             var _listToReturn = DatabaseLair.DatabaseContext.RoomDetails
-                .Where(e => e.IsInactive == isInactive)
+                //.Where(e => e.IsInactive == isInactive)
                 .ToList<IRoomDetails>();
 
-            _listToReturn = GetSubDataRoomTypeSeed(_listToReturn); // Get subdata
+            if (getRelatedObjects)
+            {
+                _listToReturn = GetSubDataRoomTypeSeed(_listToReturn); // Get subdata
+            }
 
             if (_listToReturn == null)
             {

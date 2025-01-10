@@ -58,7 +58,10 @@ namespace Hotel.src.ModelManagement.Services
                 .Where(e => e.IsInactive == isInactive)
                 .First(e => e.ID == searchString);
 
-            _entityToReturn = GetSubData(_entityToReturn, isInactive); // Get subdata
+            if (getRelatedObjects)
+            {
+                _entityToReturn = GetSubData(_entityToReturn, isInactive); // Get subdata
+            }
 
             if (_entityToReturn == null)
             {
@@ -78,7 +81,10 @@ namespace Hotel.src.ModelManagement.Services
             var _entityToReturn = (IRoom)DatabaseLair.DatabaseContext.Rooms
                 .First(e => e.ID == searchString);
 
-            _entityToReturn = GetSubDataSeed(_entityToReturn); // Get subdata
+            if (getRelatedObjects)
+            {
+                _entityToReturn = GetSubDataSeed(_entityToReturn); // Get subdata
+            }
 
             if (_entityToReturn == null)
             {
@@ -95,7 +101,10 @@ namespace Hotel.src.ModelManagement.Services
                 .Where(e => e.IsInactive == isInactive)
                 .First(e => e.Name == searchString);
 
-            _entityToReturn = GetSubData(_entityToReturn, isInactive); // Get subdata
+            if (getRelatedObjects)
+            {
+                _entityToReturn = GetSubData(_entityToReturn, isInactive); // Get subdata
+            }
 
             if (_entityToReturn == null)
             {
@@ -108,11 +117,14 @@ namespace Hotel.src.ModelManagement.Services
 
         public static List<IRoom> GetAll(bool getRelatedObjects, bool isInactive)
         {
-            var _listOfRooms = DatabaseLair.DatabaseContext.Rooms
+            var _listToReturn = DatabaseLair.DatabaseContext.Rooms
                 .Where(e => e.IsInactive == isInactive)
                 .ToList<IRoom>();
 
-            var _listToReturn = GetSubData(_listOfRooms, isInactive);
+            if (getRelatedObjects)
+            {
+                _listToReturn = GetSubData(_listToReturn, isInactive);
+            }
 
             if (_listToReturn == null)
             {

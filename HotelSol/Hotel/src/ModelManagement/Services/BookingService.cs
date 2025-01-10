@@ -57,7 +57,7 @@ namespace Hotel.src.ModelManagement.Services
                 .Any(m => m.ID == searchID))
             {
                 _entityToReturn = DatabaseLair.DatabaseContext.Bookings
-                    .Where(m => m.IsInactive == false)
+                    .Where(m => m.IsInactive == isInactive)
                     .First(m => m.ID == searchID);
 
                 if (getRelatedObjects)
@@ -87,7 +87,7 @@ namespace Hotel.src.ModelManagement.Services
                 .Any(m => m.CustomerID == searchID))
             {
                 _entityToReturn = DatabaseLair.DatabaseContext.Bookings
-                    .Where(m => m.IsInactive == false)
+                    .Where(m => m.IsInactive == isInactive)
                     .First(m => m.CustomerID == searchID);
 
                 if (getRelatedObjects)

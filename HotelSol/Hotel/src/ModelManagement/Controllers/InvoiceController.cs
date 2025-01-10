@@ -93,6 +93,10 @@ namespace Hotel.src.ModelManagement.Controllers
         public void Delete(IModel entityToDelete)
         {
             InvoiceService.Delete((IInvoice)entityToDelete);
-        }
-    }
+		}
+		public void Reactivate(IModel modelToReactivate)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

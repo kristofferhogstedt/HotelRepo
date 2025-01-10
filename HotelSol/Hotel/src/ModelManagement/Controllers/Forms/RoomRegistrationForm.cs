@@ -180,9 +180,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Godkänn inaktivering[/]: ");
-            Data01 = UserInputHandler.UserInputBool(PreviousMenu);
-            if ((bool)Data01 == true)
-            {
+
+			if (UserInputHandler.UserInputBool(PreviousMenu))
+			{
                 RoomService.Delete(ExistingEntity);
             }
             else
@@ -192,7 +192,31 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 return;
             }
         }
-        public IModel CreateAndReturnForm()
+
+		public void ReactivateForm(IModel entityToReactivate)
+		{
+			var ExistingEntity = (IRoom)entityToReactivate;
+			IsAnEdit = true;
+
+			Console.Clear();
+			FormDisplayer.DisplayCurrentFormValues(this);
+			AnsiConsole.MarkupLine("\n[yellow]Godkänn återaktivering[/]: ");
+
+			if (UserInputHandler.UserInputBool(PreviousMenu))
+			{
+				ExistingEntity.IsInactive = false;
+				ExistingEntity.InactivatedDate = null;
+				RoomService.Update(ExistingEntity);
+			}
+			else
+			{
+				Console.WriteLine("Inaktivering avbruten, Återgår...");
+				Thread.Sleep(1000);
+				return;
+			}
+		}
+
+		public IModel CreateAndReturnForm()
         {
             throw new NotImplementedException();
         }

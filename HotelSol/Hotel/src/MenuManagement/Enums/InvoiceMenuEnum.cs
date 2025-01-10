@@ -16,8 +16,6 @@ namespace Hotel.src.MenuManagement.Enums
         DisplayInvoices,
         [Description("Avsluta")]
         Exit
-        //[Description("  Skapa faktura")]
-        //CreateInvoices,
     }
 
     public static class InvoiceMenuEnum

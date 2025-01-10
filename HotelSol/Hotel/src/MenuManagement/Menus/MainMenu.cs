@@ -24,11 +24,6 @@ namespace Hotel.src.MenuManagement.Menus
         {
         }
 
-        //public MainMenu(IMenu previousMenu)
-        //{
-        //    PreviousMenu = previousMenu;
-        //}
-
         public static IMenu GetInstance(IMenu previousMenu)
         {
             _instance = FactoryManagement.InstanceGenerator.GetInstance<MainMenu>(_instance, _lock, previousMenu);
@@ -45,7 +40,6 @@ namespace Hotel.src.MenuManagement.Menus
                     new SelectionPrompt<MainMenuOptions>()
                         .Title("Huvudmeny")
                         .UseConverter(option => option.ShowMainMenu())
-                        //.UseConverter(option => option.GetDescription()) // Visa beskrivningar istället för enum-namn
                         .AddChoices(Enum.GetValues<MainMenuOptions>())
                     );
 
@@ -56,7 +50,6 @@ namespace Hotel.src.MenuManagement.Menus
                         break;
                     case MainMenuOptions.BookingManagement:
                         IMenu _bookingMenu = MenuFactory.GetMenu<BookingMenu>(this);
-                        //BookingMenu.GetInstance(this); OLD WAY
                         _bookingMenu.Run();
                         break;
                     case MainMenuOptions.CustomerManagement:
@@ -81,18 +74,6 @@ namespace Hotel.src.MenuManagement.Menus
                     default:
                         break;
                 }
-
-                //[Description("Föregående meny")]
-                //        PreviousMenu,
-                //[Description("Bokningshantering")]
-                //        BookingManagement,
-                //[Description("Kundhantering")]
-                //        CustomerManagement,
-                //[Description("Rumhantering")]
-                //        RoomManagement,
-                //[Description("Admin")]
-                //        Admin,
-                //[Description("Avsluta")]
             }
         }
         public static void ReturnToMainMenu()

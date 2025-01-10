@@ -56,13 +56,11 @@ namespace Hotel.src.MenuManagement.Menus
                     case CustomerMenuOptions.CreateCustomer:
                         ModelController.Create();
                         break;
-                    //case CustomerMenuOptions.DisplayCustomerAll:
-                    //    ModelController.ReadAll();
-                    //    break;
-                    //case CustomerMenuOptions.UpdateCustomer:
-                    //    ModelController.Update();
-                    //    break;
-                    case CustomerMenuOptions.Exit:
+					case CustomerMenuOptions.DisplayInactive:
+						HandleInactive = true;
+						ModelController.ManageOne(HandleInactive);
+						break;
+					case CustomerMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;
                     default:

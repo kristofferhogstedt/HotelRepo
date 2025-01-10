@@ -5,11 +5,6 @@ using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models.Enums;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Menus
 {
@@ -31,11 +26,9 @@ namespace Hotel.src.MenuManagement.Menus
 
         public void Run()
         {
-            //ModelController = ModelFactory.GetModelController(ModelType);
             while (true)
             {
                 Console.Clear();
-                // Sprectre menyval!
                 var option = AnsiConsole.Prompt(
                     new SelectionPrompt<CleaningMenuOptions>()
                         .Title("Start")

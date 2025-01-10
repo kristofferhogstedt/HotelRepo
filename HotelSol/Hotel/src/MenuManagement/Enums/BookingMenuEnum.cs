@@ -16,12 +16,10 @@ namespace Hotel.src.MenuManagement.Enums
         DisplayBookings,
         [Description("  Registrera ny bokning")]
         CreateBooking,
-        [Description("Avsluta")]
+		[Description("  Visa inaktiverade")]
+		DisplayInactive,
+		[Description("Avsluta")]
         Exit
-        //[Description("  Uppdatera bokningar")]
-        //UpdateBookings,
-        //[Description("Radera bokning")]
-        //DeleteBooking,
     }
 
     public static class BookingMenuEnum

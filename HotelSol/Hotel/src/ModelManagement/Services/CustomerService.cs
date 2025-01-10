@@ -166,7 +166,7 @@ namespace Hotel.src.ModelManagement.Services
             else
             {
                 Console.WriteLine("Inaktivering misslyckad, återgår");
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
                 return;
             }
         }

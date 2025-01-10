@@ -6,11 +6,6 @@ using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models.Enums;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Menus
 {
@@ -40,7 +35,6 @@ namespace Hotel.src.MenuManagement.Menus
                     new SelectionPrompt<RoomMenuOptions>()
                         .Title("Rum")
                         .UseConverter(option => option.ShowRoomMenu())
-                        //.UseConverter(option => option.GetDescription()) // Visa beskrivningar istället för enum-namn
                         .AddChoices(Enum.GetValues<RoomMenuOptions>())
                     );
 
@@ -55,6 +49,10 @@ namespace Hotel.src.MenuManagement.Menus
                         break;
                     case RoomMenuOptions.CreateRoom:
                         ModelController.Create();
+                        break;
+                    case RoomMenuOptions.DisplayInactive:
+                        HandleInactive = true;
+                        ModelController.ManageOne(HandleInactive);
                         break;
                     case RoomMenuOptions.Exit:
                         Exit.ExitProgram();

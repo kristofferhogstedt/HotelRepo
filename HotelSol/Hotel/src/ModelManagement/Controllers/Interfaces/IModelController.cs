@@ -19,5 +19,6 @@ namespace Hotel.src.ModelManagement.Controllers.Interfaces
         //void Update();
         void Update(IModel modelToUpdate);
         void Delete(IModel modelToDelete);
-    }
+		void Reactivate(IModel modelToReactivate);
+	}
 }

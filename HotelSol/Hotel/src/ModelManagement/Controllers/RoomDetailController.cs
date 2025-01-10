@@ -76,15 +76,19 @@ namespace Hotel.src.ModelManagement.Controllers
             RoomDetailsService.Delete((IRoomDetails)entityToDelete);
         }
 
-        //public void CreateRoomType(string name, ushort defaultSize, ushort numberOfBedsDefault, ushort numberOfBedsMax)
-        //{
-        //    _roomType.Name = name;
-        //    _roomType.DefaultSize = defaultSize;
-        //    _roomType.NumberOfBedsDefault = numberOfBedsDefault;
-        //    _roomType.NumberOfBedsMax = numberOfBedsMax;
-        //}
+		public void Reactivate(IModel modelToReactivate)
+		{
+			throw new NotImplementedException();
+		}
+		//public void CreateRoomType(string name, ushort defaultSize, ushort numberOfBedsDefault, ushort numberOfBedsMax)
+		//{
+		//    _roomType.Name = name;
+		//    _roomType.DefaultSize = defaultSize;
+		//    _roomType.NumberOfBedsDefault = numberOfBedsDefault;
+		//    _roomType.NumberOfBedsMax = numberOfBedsMax;
+		//}
 
 
 
-    }
+	}
 }

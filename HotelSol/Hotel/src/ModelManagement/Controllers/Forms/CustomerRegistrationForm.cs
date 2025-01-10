@@ -320,9 +320,32 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 Thread.Sleep(1000);
                 PreviousMenu.Run();
             }
-        }
+		}
 
-        public IModel CreateAndReturnForm()
+		public void ReactivateForm(IModel entityToReactivate)
+		{
+			var ExistingEntity = (ICustomer)entityToReactivate;
+			IsAnEdit = true;
+
+			Console.Clear();
+			FormDisplayer.DisplayCurrentFormValues(this);
+			AnsiConsole.MarkupLine("\n[yellow]Godkänn återaktivering[/]: ");
+
+			if (UserInputHandler.UserInputBool(PreviousMenu))
+			{
+				ExistingEntity.IsInactive = false;
+                ExistingEntity.InactivatedDate = null;
+				CustomerService.Update(ExistingEntity);
+			}
+			else
+			{
+				Console.WriteLine("Inaktivering avbruten, Återgår...");
+				Thread.Sleep(1000);
+				return;
+			}
+		}
+
+		public IModel CreateAndReturnForm()
         {
             throw new NotImplementedException();
         }
