@@ -12,7 +12,7 @@ namespace Hotel.src.ModelManagement.Utilities.Messagers
         {
             Console.WriteLine("Data not found");
             Console.WriteLine("Returning... ");
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
         }
     }
 }

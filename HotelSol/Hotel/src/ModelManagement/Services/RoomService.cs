@@ -117,13 +117,18 @@ namespace Hotel.src.ModelManagement.Services
 
         public static List<IRoom> GetAll(bool getRelatedObjects, bool isInactive)
         {
-            var _listToReturn = DatabaseLair.DatabaseContext.Rooms
+            List<IRoom> _listToReturn = null;
+            if (DatabaseLair.DatabaseContext.Rooms
+                .Any(e => e.IsInactive == isInactive))
+            {
+                _listToReturn = DatabaseLair.DatabaseContext.Rooms
                 .Where(e => e.IsInactive == isInactive)
                 .ToList<IRoom>();
 
-            if (getRelatedObjects)
-            {
-                _listToReturn = GetSubData(_listToReturn, isInactive);
+                if (getRelatedObjects)
+                {
+                    _listToReturn = GetSubData(_listToReturn, isInactive);
+                }
             }
 
             if (_listToReturn == null)
@@ -132,7 +137,6 @@ namespace Hotel.src.ModelManagement.Services
                 ServiceMessager.DataNotFoundMessage();
             }
             return _listToReturn;
-            // Guard clause?
         }
 
         public static void Update(IRoom entityToUpdate)

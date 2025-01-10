@@ -111,13 +111,16 @@ namespace Hotel.src.ModelManagement.Services
         /// <returns></returns>
         public static List<IInvoice> GetAll(bool getRelatedObjects, bool isInactive)
         {
-            var _listToReturn = DatabaseLair.DatabaseContext.Invoices
+            List<IInvoice> _listToReturn = null;
+            if (DatabaseLair.DatabaseContext.Invoices.Any(m => m.IsInactive == isInactive))
+            {
+                _listToReturn = DatabaseLair.DatabaseContext.Invoices
                 .Where(m => m.IsInactive == isInactive)
                 .ToList<IInvoice>();
 
-            _listToReturn = GetSubData(_listToReturn, isInactive); // Get subdata
-
-            if (_listToReturn == null)
+                _listToReturn = GetSubData(_listToReturn, isInactive); // Get subdata
+            }
+            else
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();

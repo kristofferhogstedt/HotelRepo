@@ -59,9 +59,14 @@ namespace Hotel.src.ModelManagement.Services
 
         public static List<IRoomType> GetAll(bool getRelatedObjects, bool isInactive)
         {
-            var _listToReturn = DatabaseLair.DatabaseContext.RoomTypes
-                .Where(e => e.IsInactive == isInactive)
-                .ToList<IRoomType>();
+            List<IRoomType> _listToReturn = null;
+            if (DatabaseLair.DatabaseContext.RoomTypes
+                .Any(e => e.IsInactive == isInactive))
+            {
+				_listToReturn = DatabaseLair.DatabaseContext.RoomTypes
+				.Where(e => e.IsInactive == isInactive)
+				.ToList<IRoomType>();
+			}
 
             if (_listToReturn == null)
             {

@@ -117,16 +117,18 @@ namespace Hotel.src.ModelManagement.Services
 
         public static List<IRoomDetails> GetAll(bool getRelatedObjects, bool isInactive)
         {
-            var _listToReturn = DatabaseLair.DatabaseContext.RoomDetails
-                //.Where(e => e.IsInactive == isInactive)
-                .ToList<IRoomDetails>();
-
-            if (getRelatedObjects)
+            List<IRoomDetails> _listToReturn = null;
+            if (DatabaseLair.DatabaseContext.RoomDetails.Any())
             {
-                _listToReturn = GetSubDataRoomTypeSeed(_listToReturn); // Get subdata
-            }
+				DatabaseLair.DatabaseContext.RoomDetails
+				.ToList<IRoomDetails>();
 
-            if (_listToReturn == null)
+				if (getRelatedObjects)
+                {
+                    _listToReturn = GetSubDataRoomTypeSeed(_listToReturn); // Get subdata
+                }
+            }
+            else
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();

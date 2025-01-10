@@ -9,6 +9,7 @@ using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services;
 using Hotel.src.ModelManagement.Utilities.Displayers;
 using Hotel.src.ModelManagement.Utilities.Selectors;
+using Hotel.src.Persistence;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
@@ -134,8 +135,13 @@ namespace Hotel.src.ModelManagement.Controllers
 		public void Reactivate(IModel entityToReactivate)
 		{
 			var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-
-			_modelForm.ReactivateForm((IModel)entityToReactivate);
+            if (DatabaseLair.DatabaseContext.Bookings.Any(b => b.IsInactive == true))
+                _modelForm.ReactivateForm((IModel)entityToReactivate);
+            else
+            {
+                Console.WriteLine("Inga inaktiva finns");
+                Thread.Sleep(2000);
+            }
 		}
 	}
 }

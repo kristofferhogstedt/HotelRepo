@@ -1,13 +1,8 @@
-﻿using Hotel.src.ModelManagement.Models.Interfaces;
-using Hotel.src.ModelManagement.Models;
-using Hotel.src.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Hotel.src.ModelManagement.Models;
+using Hotel.src.ModelManagement.Models.Interfaces;
+using Hotel.src.ModelManagement.Utilities.Checkers;
 using Hotel.src.ModelManagement.Utilities.Messagers;
-using Hotel.src.MenuManagement.Menus;
+using Hotel.src.Persistence;
 
 namespace Hotel.src.ModelManagement.Services
 {
@@ -106,7 +101,7 @@ namespace Hotel.src.ModelManagement.Services
             }
 
             return _entityToReturn;
-        } 
+        }
 
         /// <summary>
         /// For seeder functionality to not care about IsInactive
@@ -142,22 +137,23 @@ namespace Hotel.src.ModelManagement.Services
         /// <returns></returns>
         public static List<IBooking> GetAll(bool getRelatedObjects, bool isInactive)
         {
-            var _listToReturn = DatabaseLair.DatabaseContext.Bookings
-                .Where(m => m.IsInactive == isInactive)
-                .ToList<IBooking>();
+            List<IBooking> _listToReturn = null;
 
-            if (getRelatedObjects)
+            if (DatabaseLair.DatabaseContext.Bookings.Any(m => m.IsInactive == isInactive))
             {
-                _listToReturn = GetSubDataRoom(_listToReturn, isInactive);
-                _listToReturn = GetSubDataCustomer(_listToReturn, isInactive);
-                _listToReturn = GetSubDataInvoice(_listToReturn, isInactive);
-            }
+                _listToReturn = DatabaseLair.DatabaseContext.Bookings.Where(b => b.IsInactive == isInactive).ToList<IBooking>();
 
-            if (_listToReturn == null)
+                if (getRelatedObjects)
+                {
+                    _listToReturn = GetSubDataRoom(_listToReturn, isInactive);
+                    _listToReturn = GetSubDataCustomer(_listToReturn, isInactive);
+                    _listToReturn = GetSubDataInvoice(_listToReturn, isInactive);
+                }
+            }
+            else
             {
                 Console.Clear();
                 ServiceMessager.DataNotFoundMessage();
-                return _listToReturn;
             }
             return _listToReturn;
             // Guard clause?
@@ -211,46 +207,55 @@ namespace Hotel.src.ModelManagement.Services
         //----------------------------------------------
 
         // Room
-        public static IModel GetSubDataRoom(IModel entity, bool isInactive)
+        public static IModel GetSubDataRoom(IModel entity)
         {
             var _entityToReturn = (IBooking)entity;
             bool _getRelatedObjects = false;
-            _entityToReturn.Room = (Room)RoomService.GetOneByID(_entityToReturn.RoomID, _getRelatedObjects, isInactive);
+            bool _handleInactive = false;
+
+            DataElementChecker.CheckRoomDataExists();
+            _entityToReturn.Room = (Room)RoomService.GetOneByID(_entityToReturn.RoomID, _getRelatedObjects, _handleInactive);
             return _entityToReturn;
         }
         public static IModel GetSubDataRoomSeed(IModel entity)
         {
             var _entityToReturn = (IBooking)entity;
             bool _getRelatedObjects = false;
-            _entityToReturn.Room = (Room)RoomService.GetOneByIDSeed(_entityToReturn.RoomID, _getRelatedObjects);
+			DataElementChecker.CheckRoomDataExists();
+			_entityToReturn.Room = (Room)RoomService.GetOneByIDSeed(_entityToReturn.RoomID, _getRelatedObjects);
             return _entityToReturn;
         }
 
-        public static List<IBooking> GetSubDataRoom(List<IBooking> entityList, bool isInactive)
+        public static List<IBooking> GetSubDataRoom(List<IBooking> entityList)
         {
             var _listToReturn = new List<IBooking>();
             bool _getRelatedObjects = false;
-            foreach (IBooking entity in entityList)
+            bool _handleInactive = false;
+
+			DataElementChecker.CheckRoomDataExists(isInactive);
+			foreach (IBooking entity in entityList)
             {
-                entity.Room = (Room)RoomService.GetOneByID(entity.RoomID, _getRelatedObjects, isInactive);
+                entity.Room = (Room)RoomService.GetOneByID(entity.RoomID, _getRelatedObjects, _handleInactive);
                 _listToReturn.Add(entity);
             };
             return _listToReturn;
         }
 
         // Customer
-        public static IModel GetSubDataCustomer(IModel entity, bool isInactive)
+        public static IModel GetSubDataCustomer(IModel entity)
         {
             var _entityToReturn = (IBooking)entity;
             bool _getRelatedObjects = false;
-            _entityToReturn.Customer = (Customer)CustomerService.GetOneByID(_entityToReturn.CustomerID, _getRelatedObjects, isInactive);
+			DataElementChecker.CheckCustomerDataExists(isInactive);
+			_entityToReturn.Customer = (Customer)CustomerService.GetOneByID(_entityToReturn.CustomerID, _getRelatedObjects, isInactive);
             return _entityToReturn;
         }
         public static IModel GetSubDataCustomerSeed(IModel entity)
         {
             var _entityToReturn = (IBooking)entity;
             bool _getRelatedObjects = false;
-            _entityToReturn.Customer = (Customer)CustomerService.GetOneByIDSeed(_entityToReturn.CustomerID, _getRelatedObjects);
+			DataElementChecker.CheckCustomerDataExists();
+			_entityToReturn.Customer = (Customer)CustomerService.GetOneByIDSeed(_entityToReturn.CustomerID, _getRelatedObjects);
             return _entityToReturn;
         }
 
@@ -258,7 +263,8 @@ namespace Hotel.src.ModelManagement.Services
         {
             var _listToReturn = new List<IBooking>();
             bool _getRelatedObjects = false;
-            foreach (Booking entity in entityList)
+			DataElementChecker.CheckCustomerDataExists(isInactive);
+			foreach (Booking entity in entityList)
             {
                 entity.Customer = (Customer)CustomerService.GetOneByID(entity.CustomerID, _getRelatedObjects, isInactive);
                 _listToReturn.Add(entity);
@@ -269,7 +275,8 @@ namespace Hotel.src.ModelManagement.Services
         {
             var _listToReturn = new List<IBooking>();
             bool _getRelatedObjects = false;
-            foreach (Booking entity in entityList)
+			DataElementChecker.CheckCustomerDataExists();
+			foreach (Booking entity in entityList)
             {
                 entity.Customer = (Customer)CustomerService.GetOneByIDSeed(entity.CustomerID, _getRelatedObjects);
                 _listToReturn.Add(entity);
@@ -283,8 +290,9 @@ namespace Hotel.src.ModelManagement.Services
         {
             var _entityToReturn = (IBooking)entity;
             bool _getRelatedObjects = false;
-            //_entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingID(_entityToReturn.ID, isInactive);
-            _entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingIDSeed(_entityToReturn.ID, _getRelatedObjects);
+			//_entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingID(_entityToReturn.ID, isInactive);
+			DataElementChecker.CheckInvoiceDataExists(isInactive);
+			_entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingIDSeed(_entityToReturn.ID, _getRelatedObjects);
             return _entityToReturn;
         }
 
@@ -292,7 +300,8 @@ namespace Hotel.src.ModelManagement.Services
         {
             var _listToReturn = new List<IBooking>();
             bool _getRelatedObjects = false;
-            foreach (Booking entity in entityList)
+			DataElementChecker.CheckInvoiceDataExists(isInactive);
+			foreach (Booking entity in entityList)
             {
                 entity.Invoice = (Invoice)InvoiceService.GetOneByBookingIDSeed(entity.ID, _getRelatedObjects);
                 _listToReturn.Add(entity);
@@ -304,14 +313,16 @@ namespace Hotel.src.ModelManagement.Services
         {
             var _entityToReturn = (IBooking)entity;
             bool _getRelatedObjects = false;
-            _entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingIDSeed(_entityToReturn.ID, _getRelatedObjects);
+			DataElementChecker.CheckInvoiceDataExists();
+			_entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingIDSeed(_entityToReturn.ID, _getRelatedObjects);
             return _entityToReturn;
         }
         public static List<IBooking> GetSubDataInvoiceSeed(List<IBooking> entityList)
         {
             var _listToReturn = new List<IBooking>();
             bool _getRelatedObjects = false;
-            foreach (Booking entity in entityList)
+			DataElementChecker.CheckInvoiceDataExists();
+			foreach (Booking entity in entityList)
             {
                 entity.Invoice = (Invoice)InvoiceService.GetOneByBookingIDSeed(entity.ID, _getRelatedObjects);
                 _listToReturn.Add(entity);
