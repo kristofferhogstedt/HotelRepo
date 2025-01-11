@@ -29,7 +29,7 @@ namespace Hotel.src.ModelManagement.Models
         [NotMapped]
         public EModelType ModelTypeEnum { get; set; } = EModelType.Invoice;
         [NotMapped]
-        public string Info => $"ID: {ID}, BokningsID: {BookingID}, Pris: {Amount}, Betald: {IsPaid}";
+        public string Info => $"Kund: {Booking.Customer.FullName}, BokningsID: {BookingID}, Pris: {Amount}, Betald: {IsPaid}";
 
         //-------------------------------------
 

@@ -1,4 +1,5 @@
-﻿using Hotel.src.ModelManagement.Models;
+﻿using Hotel.src.Interfaces;
+using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Utilities.Checkers;
 using Hotel.src.ModelManagement.Utilities.Messagers;
@@ -215,7 +216,7 @@ namespace Hotel.src.ModelManagement.Services
 
             //_entityToReturn.Room = (Room)RoomService.GetOneByID(_entityToReturn.RoomID, _getRelatedObjects, _handleInactive);
             if (DataElementChecker.CheckRoomDataExists(_entityToReturn.RoomID)) // Check if data exists
-                _entityToReturn.Room = DatabaseLair.DatabaseContext.Rooms.First(e => e.ID == _entityToReturn.RoomID);
+                _entityToReturn.Room = (Room)RoomService.GetOneByIDSeed(_entityToReturn.RoomID, _getRelatedObjects);
             else
                 ServiceMessager.SubDataNotFoundMessage();
 
@@ -232,7 +233,7 @@ namespace Hotel.src.ModelManagement.Services
             {
                 if (DataElementChecker.CheckRoomDataExists(entity.RoomID))
                 {
-                    entity.Room = DatabaseLair.DatabaseContext.Rooms.First(e => e.ID == entity.RoomID);
+                    entity.Room = (Room)RoomService.GetOneByIDSeed(entity.RoomID, _getRelatedObjects);
                     _listToReturn.Add(entity);
                 }
                 else
@@ -248,7 +249,7 @@ namespace Hotel.src.ModelManagement.Services
             var _entityToReturn = (IBooking)entity;
             bool _getRelatedObjects = false;
             if (DataElementChecker.CheckCustomerDataExists(_entityToReturn.CustomerID))
-                _entityToReturn.Customer = DatabaseLair.DatabaseContext.Customers.First(e => e.ID == _entityToReturn.CustomerID);
+                _entityToReturn.Customer = (Customer)CustomerService.GetOneByIDSeed(_entityToReturn.RoomID, _getRelatedObjects);
             else
                 ServiceMessager.SubDataNotFoundMessage();
 
@@ -262,7 +263,7 @@ namespace Hotel.src.ModelManagement.Services
             {
                 if (DataElementChecker.CheckCustomerDataExists(entity.CustomerID))
                 {
-                    entity.Customer = DatabaseLair.DatabaseContext.Customers.First(e => e.ID == entity.CustomerID);
+                    entity.Customer = (Customer)CustomerService.GetOneByIDSeed(entity.RoomID, _getRelatedObjects);
                     _listToReturn.Add(entity);
 
                 }
@@ -280,7 +281,7 @@ namespace Hotel.src.ModelManagement.Services
             bool _getRelatedObjects = false;
             //_entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingID(_entityToReturn.ID, isInactive);
             if (DataElementChecker.CheckInvoiceDataExistsByBookingID(_entityToReturn.ID))
-                _entityToReturn.Invoice = DatabaseLair.DatabaseContext.Invoices.First(e => e.BookingID == _entityToReturn.ID);
+                _entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingIDSeed(_entityToReturn.ID, _getRelatedObjects);
             else
                 ServiceMessager.SubDataNotFoundMessage();
 
@@ -295,7 +296,7 @@ namespace Hotel.src.ModelManagement.Services
             {
                 if (DataElementChecker.CheckInvoiceDataExistsByBookingID(entity.ID))
                 {
-                    entity.Invoice = DatabaseLair.DatabaseContext.Invoices.First(e => e.BookingID == entity.ID);
+                    entity.Invoice = (Invoice)InvoiceService.GetOneByBookingIDSeed(entity.ID, _getRelatedObjects);
                     _listToReturn.Add(entity);
                 }
                 else

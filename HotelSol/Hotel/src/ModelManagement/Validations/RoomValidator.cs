@@ -27,8 +27,8 @@ namespace Hotel.src.ModelManagement.Validations
                     return _userInput;
                 else if (RoomService.GetAll(_getRelatedObjects, _isInactive).Any(e => e.Name == _userInput))
                     Console.WriteLine($"Rumsnummer {_userInput} finns redan, ange nytt");
-                else if (_userInput.Length <= 0 || _userInput.Length > 3)
-                    Console.WriteLine("Rumsnummer får inte vara tomt och måste vara kortare än 3 siffror");
+                //else if (_userInput.Length <= 0 || _userInput.Length > 3)
+                //    Console.WriteLine("Rumsnummer får inte vara tomt och måste vara kortare än 3 siffror");
                 else
                     return _userInput;
             }
@@ -42,10 +42,13 @@ namespace Hotel.src.ModelManagement.Validations
 
                 if (isAnEdit && InputChecker.UserInputIsEnter(_userInput.ToString()))
                     return _userInput;
-                else if (_userInput <= Settings.FloorsMax)
-                    return _userInput;
-                else
+
+                if (_userInput > Settings.FloorsMax)
                     Console.WriteLine($"Hotellet har bara {Settings.FloorsMax} våningar");
+                else if (_userInput <= 0)
+                    Console.WriteLine($"Hotellets bokningsbara rum finns på våning 1 och uppåt");
+                else
+                    return _userInput;
             }
         }
 

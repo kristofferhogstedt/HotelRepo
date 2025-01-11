@@ -12,12 +12,8 @@ using Hotel.src.ModelManagement.Rules;
 using Hotel.src.ModelManagement.Services;
 using Hotel.src.Utilities.ConsoleManagement;
 using Hotel.src.Utilities.UserInputManagement;
-using Hotel.src.Utilities.UserInputManagement.RegexManagement;
 using HotelLibrary.Utilities.UserInputManagement;
-using HotelLibrary.Utilities.Validation;
-using Microsoft.IdentityModel.Tokens;
 using Spectre.Console;
-using System.Net.WebSockets;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms
 {
@@ -54,7 +50,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         //public DateTime _dateOfBirth;
         //public string _email;
         //public string _phone;
-        public ICustomer NewEntity { get; set; } 
+        public ICustomer NewEntity { get; set; }
         public bool IsAnEdit { get; set; }
 
         public static IModelRegistrationForm GetInstance(IMenu previousMenu)
@@ -171,7 +167,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
-                PreviousMenu.Run();
+                Console.Clear();
+                return;
             }
         }
 
@@ -281,7 +278,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 NewEntity = new Customer((string)Data01, (string)Data02, (DateTime)Data03, (string)Data04
                     , (string)Data05, (string)Data06, (string)Data07, (string)Data08, (string)Data09)
                 { ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
-                
+
                 CustomerService.Update(NewEntity);
                 MainMenu.ReturnToMainMenu();
             }
@@ -290,7 +287,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
-                PreviousMenu.Run();
+                Console.Clear();
+                return;
             }
         }
 
@@ -318,34 +316,37 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             {
                 Console.WriteLine("Inaktivering avbruten, Återgår...");
                 Thread.Sleep(1000);
-                PreviousMenu.Run();
+                Console.Clear();
+                return;
             }
-		}
+        }
 
-		public void ReactivateForm(IModel entityToReactivate)
-		{
-			var ExistingEntity = (ICustomer)entityToReactivate;
-			IsAnEdit = true;
+        public void ReactivateForm(IModel entityToReactivate)
+        {
+            var ExistingEntity = (ICustomer)entityToReactivate;
+            IsAnEdit = true;
 
-			Console.Clear();
-			FormDisplayer.DisplayCurrentFormValues(this);
-			AnsiConsole.MarkupLine("\n[yellow]Godkänn återaktivering[/]: ");
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Godkänn återaktivering[/]: ");
 
-			if (UserInputHandler.UserInputBool(PreviousMenu))
-			{
-				ExistingEntity.IsInactive = false;
+            if (UserInputHandler.UserInputBool(PreviousMenu))
+            {
+                ExistingEntity.IsInactive = false;
                 ExistingEntity.InactivatedDate = null;
-				CustomerService.Update(ExistingEntity);
-			}
-			else
-			{
-				Console.WriteLine("Inaktivering avbruten, Återgår...");
-				Thread.Sleep(1000);
-				return;
-			}
-		}
+                CustomerService.Update(ExistingEntity);
+                MainMenu.ReturnToMainMenu();
+            }
+            else
+            {
+                Console.WriteLine("Inaktivering avbruten, Återgår...");
+                Thread.Sleep(1000);
+                Console.Clear();
+                return;
+            }
+        }
 
-		public IModel CreateAndReturnForm()
+        public IModel CreateAndReturnForm()
         {
             throw new NotImplementedException();
         }

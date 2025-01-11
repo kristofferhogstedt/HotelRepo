@@ -20,7 +20,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
         public IMenu PreviousMenu { get; set; }
-        public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
         public EModelType ModelType { get; set; } = EModelType.RoomDetails;
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; } = EModelType.Room;
@@ -88,15 +87,15 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 NewEntity.UpdatedDate = DateTime.Now;
 
                 RoomDetailsService.Update(NewEntity);
-                MainMenu.Run();
+                MainMenu.ReturnToMainMenu();
             }
             else
             {
                 // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
-
-                PreviousMenu.Run();
+                Console.Clear();
+                return;
             }
         }
 

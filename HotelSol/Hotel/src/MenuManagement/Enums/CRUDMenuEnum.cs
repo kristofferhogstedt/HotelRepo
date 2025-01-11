@@ -22,6 +22,16 @@ namespace Hotel.src.MenuManagement.Enums
         Exit
     }
 
+    public enum InvoiceCRUDMenuOptions
+    {
+        [Description("<--")]
+        PreviousMenu,
+        [Description("  Registrera betalning")]
+        Update,
+        [Description("Avsluta")]
+        Exit
+    }
+
     public enum RoomCRUDMenuOptions
     {
         [Description("<--")]

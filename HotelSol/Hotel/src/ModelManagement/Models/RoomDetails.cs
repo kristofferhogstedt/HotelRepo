@@ -35,7 +35,7 @@ namespace Hotel.src.ModelManagement.Models
         public EModelType ModelTypeEnum { get; set; } = EModelType.RoomDetails;
 
         [NotMapped]
-        public string Info => throw new NotImplementedException();
+        public string Info => $"{RoomType.Name}     {Price} sek      {Size} m2          {NumberOfBeds} st";
 
         //-------------------------------------
 

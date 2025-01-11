@@ -72,6 +72,7 @@ namespace Hotel.src.ModelManagement.Services
 
             return _entityToReturn;
         }
+
         /// <summary>
         /// For seeder functionality to not care about IsInactive
         /// </summary>
@@ -195,7 +196,11 @@ namespace Hotel.src.ModelManagement.Services
             bool _getRelatedObjects = false;
             // Get corresponding RoomDetails from db
             if (DataElementChecker.CheckRoomDetailsDataExistsByRoomID(_entityToReturn.ID))
-                _entityToReturn.Details = DatabaseLair.DatabaseContext.RoomDetails.First(e => e.ID == _entityToReturn.ID);
+            {
+                //    _entityToReturn.Details = DatabaseLair.DatabaseContext.RoomDetails.First(e => e.ID == _entityToReturn.ID);
+                _entityToReturn.Details = (RoomDetails)RoomDetailsService.GetOneByRoomIDSeed(_entityToReturn.ID, _getRelatedObjects);
+                _entityToReturn.Details.RoomType = (RoomType)RoomTypeService.GetOneByIDSeed(_entityToReturn.Details.RoomTypeID, _getRelatedObjects);
+            }
             else
                 ServiceMessager.SubDataNotFoundMessage();
             return _entityToReturn;
@@ -210,7 +215,8 @@ namespace Hotel.src.ModelManagement.Services
             {
                 if (DataElementChecker.CheckRoomDetailsDataExistsByRoomID(entity.ID))
                 {
-                    entity.Details = DatabaseLair.DatabaseContext.RoomDetails.First(e => e.ID == entity.ID);
+                    entity.Details = (RoomDetails)RoomDetailsService.GetOneByRoomIDSeed(entity.ID, _getRelatedObjects);
+                    entity.Details.RoomType = (RoomType)RoomTypeService.GetOneByIDSeed(entity.Details.RoomTypeID, _getRelatedObjects);
                     _listToReturn.Add(entity);
                 }
                 else

@@ -1,23 +1,15 @@
-﻿using Hotel.src.FactoryManagement.Interfaces;
-using Hotel.src.FactoryManagement;
+﻿using Hotel.src.FactoryManagement;
+using Hotel.src.FactoryManagement.Interfaces;
+using Hotel.src.MenuManagement.Menus;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Forms.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Forms.Utilities;
+using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
-using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Services;
-using Hotel.src.ModelManagement.Utilities.Calculators;
-using Hotel.src.ModelManagement.Validations;
-using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HotelLibrary.Utilities.UserInputManagement;
-using Hotel.src.ModelManagement.Controllers.Interfaces;
-using Hotel.src.MenuManagement.Menus;
+using Spectre.Console;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms
 {
@@ -26,13 +18,14 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
         public IMenu PreviousMenu { get; set; }
-        public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
+        //public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
         public EModelType ModelType { get; set; } = EModelType.Invoice;
         public IModelRegistrationForm? RelatedForm { get; set; }
-        public EModelType RelatedFormModelType { get; set; } 
+        public EModelType RelatedFormModelType { get; set; }
         public IModelController ModelController { get; set; }
         public bool IsAnEdit { get; set; }
         public IInvoice NewEntity { get; set; }
+        public bool GetRelatedObjects { get; set; } = true;
 
         public object Data01 { get; set; } // First name
         public object Data02 { get; set; } // Last name
@@ -105,29 +98,47 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 NewEntity.UpdatedDate = DateTime.Now;
 
                 InvoiceService.Update(NewEntity);
-                MainMenu.Run();
+                MainMenu.ReturnToMainMenu();
             }
             else
             {
                 // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
-
-                PreviousMenu.Run();
+                Console.Clear();
+                return;
             }
         }
 
         public void InactivateForm(IModel entityToDelete)
         {
+            var ExistingEntity = (IInvoice)entityToDelete;
+            IsAnEdit = true;
+
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Godkänn inaktivering[/]: ");
+            Data01 = UserInputHandler.UserInputBool(PreviousMenu);
+            if ((bool)Data01 == true)
+            {
+                InvoiceService.Delete(ExistingEntity);
+                MainMenu.ReturnToMainMenu();
+            }
+            else
+            {
+                Console.WriteLine("Inaktivering avbruten, Återgår...");
+                Thread.Sleep(1000);
+                Console.Clear();
+                return;
+            }
+        }
+
+        public void ReactivateForm(IModel entityToReactivate)
+        {
             throw new NotImplementedException();
         }
 
-		public void ReactivateForm(IModel entityToReactivate)
-		{
-			throw new NotImplementedException();
-		}
-
-		public IModel CreateAndReturnForm()
+        public IModel CreateAndReturnForm()
         {
             throw new NotImplementedException();
         }

@@ -74,11 +74,11 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
         {
             var _entity = (IBooking)entity;
             var panel = new Panel($@"
-                Id: {_entity.ID}
-                Namn: {_entity.Customer.FullName.ToString()}
-                Namn: {_entity.Room.Description.ToString()}
-                E-post: {_entity.FromDate.Date.ToString()}
-                Telefon: {_entity.ToDate.Date.ToString()}
+        [yellow]ID:[/]          {_entity.ID.ToString()}
+        [yellow]Kund:[/]        {_entity.Customer.FullName}
+        [yellow]Rum:[/]         {_entity.Room.Description}
+        [yellow]Från-datum:[/]  {_entity.FromDate.Date.ToString()}
+        [yellow]Till-datum:[/]  {_entity.ToDate.Date.ToString()}
             ");
             panel.Header = new PanelHeader("Product Info");
             panel.Padding = new Padding(2, 2, 2, 2);
@@ -92,7 +92,7 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             var _tableContent = new StringWriter();
 
             _tableContent.WriteLine($"[red]{entityList.ElementAt(indexToHighlight).ID} {entityList.ElementAt(indexToHighlight).CustomerID}[/]".ToUpper());
-            _tableContent.WriteLine("ID |   Rum |     Kund    | Från-datum    |   Till-datum  |   Betald");
+            _tableContent.WriteLine("ID |   Rum     |     Kund    |     Från-datum    |   Till-datum  |   Betald");
             _tableContent.WriteLine("───────────────────────────────────────────────────────────────────");
 
             for (int i = 0; i < _entityArray.Length; i++)

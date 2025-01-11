@@ -21,6 +21,9 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             table.AddColumn("E-Post");
             table.AddColumn("Telefon");
             table.AddColumn("Antal bokningar");
+            table.AddColumn("Antal bokningar");
+            table.AddColumn("Antal bokningar");
+            table.AddColumn("Antal bokningar");
 
             foreach (var entity in entityList)
             {
@@ -68,9 +71,13 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
                     $"[red]{entityArray[i].ID.ToString()}[/]",
                     entityArray[i].FirstName,
                     entityArray[i].LastName,
-                    entityArray[i].Email,
+                    entityArray[i].DateOfBirth.Date.ToString(),
                     entityArray[i].Phone,
-                    entityArray[i].Info
+                    entityArray[i].Email,
+                    entityArray[i].StreetAddress,
+                    entityArray[i].PostalCode,
+                    entityArray[i].City,
+                    entityArray[i].Country
                     );
             }
 
@@ -80,12 +87,16 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
         public static void DisplayModel(ICustomer entity)
         {
             var panel = new Panel($@"
-                Id: {entity.ID}
-                Namn: {entity.FullName}
-                Namn: {entity.LastName}
-                E-post: {entity.Email}
-                Telefon: {entity.Phone}
-                Telefon: {entity.Info}
+        [yellow]ID:[/]             {entity.ID}
+        [yellow]Förnamn:[/]        {entity.FullName}
+        [yellow]Efternamn:[/]      {entity.LastName}
+        [yellow]Födelsedatum:[/]   {entity.DateOfBirth.Date}
+        [yellow]Telefon:[/]        {entity.Phone}
+        [yellow]E-Post:[/]         {entity.Email}
+        [yellow]Gatuadress:[/]     {entity.StreetAddress}
+        [yellow]Postkod:[/]        {entity.PostalCode}
+        [yellow]Stad:[/]           {entity.City}
+        [yellow]Land:[/]           {entity.Country}
             ");
             panel.Header = new PanelHeader("Product Info");
             panel.Padding = new Padding(2, 2, 2, 2);
@@ -100,8 +111,8 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
 
             // Kalenderhuvud
             _tableContent.WriteLine($"[red]{entityList.ElementAt(indexToHighlight).FirstName} {entityList.ElementAt(indexToHighlight).LastName}[/]".ToUpper());
-            _tableContent.WriteLine("ID  Namn       Född     E-post     Telefon     Bokningar");
-            _tableContent.WriteLine("────────────────────────────────────────────────────────");
+            _tableContent.WriteLine("       Namn        |      E-post      |   Telefon");
+            _tableContent.WriteLine("─────────────────────────────────────────────────");
 
             //DateTime firstDayOfMonth = new DateTime(selectedDate.Year, selectedDate.Month, 1);
             //int daysInMonth = DateTime.DaysInMonth(selectedDate.Year, selectedDate.Month);

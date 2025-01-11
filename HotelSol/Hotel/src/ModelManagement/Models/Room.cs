@@ -28,7 +28,7 @@ namespace Hotel.src.ModelManagement.Models
         public EModelType ModelTypeEnum { get; set; } = EModelType.Room;
 
         [NotMapped]
-        public string Info => $"Rumsnummer {Name}, Beskrivning: {Description}, Våning: {Floor}";
+        public string Info => $"{Name}          {Description}       {Floor}     {Details.Info}";
 
         //-------------------------------------
 

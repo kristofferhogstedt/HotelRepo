@@ -39,7 +39,10 @@ namespace Hotel.src.ModelManagement.Services
                 .First(m => m.BookingID.ToString().Equals(searchString)
                 );
 
-            _entityToReturn = GetSubData(_entityToReturn); // Get subdata
+            if (getRelatedObjects)
+            {
+                _entityToReturn = GetSubData(_entityToReturn); // Get subdata
+            }
 
             if (_entityToReturn == null)
             {
@@ -57,7 +60,10 @@ namespace Hotel.src.ModelManagement.Services
                 .Where(m => m.IsInactive == isInactive)
                 .First(m => m.ID == searchID);
 
-            _entityToReturn = GetSubData(_entityToReturn); // Get subdata
+            if (getRelatedObjects)
+            {
+                _entityToReturn = GetSubData(_entityToReturn); // Get subdata
+            }
 
             if (_entityToReturn == null)
             {
@@ -74,8 +80,11 @@ namespace Hotel.src.ModelManagement.Services
             var _entityToReturn = (IModel)DatabaseLair.DatabaseContext.Invoices
                 .Where(m => m.IsInactive == isInactive)
                 .First(m => m.BookingID == searchID);
-            
-            _entityToReturn = GetSubData(_entityToReturn); // Get subdata
+
+            if (getRelatedObjects)
+            {
+                _entityToReturn = GetSubData(_entityToReturn); // Get subdata
+            }
 
             if (_entityToReturn == null)
             {
@@ -92,7 +101,10 @@ namespace Hotel.src.ModelManagement.Services
             var _entityToReturn = (IModel)DatabaseLair.DatabaseContext.Invoices
                 .First(m => m.BookingID == searchID);
 
-            _entityToReturn = GetSubData(_entityToReturn); // Get subdata
+            if (getRelatedObjects)
+            {
+                _entityToReturn = GetSubData(_entityToReturn); // Get subdata
+            }
 
             if (_entityToReturn == null)
             {
@@ -119,7 +131,10 @@ namespace Hotel.src.ModelManagement.Services
                 .Where(m => m.IsInactive == isInactive)
                 .ToList<IInvoice>();
 
-                _listToReturn = GetSubData(_listToReturn); // Get subdata
+                if (getRelatedObjects)
+                {
+                    _listToReturn = GetSubData(_listToReturn); // Get subdata
+                }
             }
             else
             {
@@ -185,7 +200,11 @@ namespace Hotel.src.ModelManagement.Services
             var _entityToReturn = (Invoice)entity;
             bool _getRelatedObjects = false;
             if (DataElementChecker.CheckBookingDataExists(_entityToReturn.BookingID))
-                _entityToReturn.Booking = DatabaseLair.DatabaseContext.Bookings.First(e => e.ID == _entityToReturn.BookingID);
+            {
+                _entityToReturn.Booking = (Booking)BookingService.GetOneByIDSeed(_entityToReturn.BookingID, _getRelatedObjects);
+                _entityToReturn.Booking.Customer = (Customer)CustomerService.GetOneByIDSeed(_entityToReturn.Booking.CustomerID, _getRelatedObjects);
+                _entityToReturn.Booking.Room = (Room)RoomService.GetOneByIDSeed(_entityToReturn.Booking.RoomID, _getRelatedObjects);
+            }
             else
                 ServiceMessager.SubDataNotFoundMessage();
 
@@ -200,7 +219,9 @@ namespace Hotel.src.ModelManagement.Services
             {
                 if (DataElementChecker.CheckBookingDataExists(entity.BookingID))
                 {
-                    entity.Booking = DatabaseLair.DatabaseContext.Bookings.First(e => e.ID == entity.BookingID);
+                    entity.Booking = (Booking)BookingService.GetOneByIDSeed(entity.BookingID, _getRelatedObjects);
+                    entity.Booking.Customer = (Customer)CustomerService.GetOneByIDSeed(entity.Booking.CustomerID, _getRelatedObjects);
+                    entity.Booking.Room = (Room)RoomService.GetOneByIDSeed(entity.Booking.RoomID, _getRelatedObjects);
                     _listToReturn.Add(entity);
                 }
                 else

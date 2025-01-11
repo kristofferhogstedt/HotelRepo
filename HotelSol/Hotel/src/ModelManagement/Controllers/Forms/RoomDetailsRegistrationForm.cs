@@ -25,7 +25,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
         public IMenu PreviousMenu { get; set; }
-        public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
         public EModelType ModelType { get; set; } = EModelType.RoomDetails;
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; } = EModelType.Room;
@@ -79,6 +78,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             if ((bool)Data01 == true)
             {
                 RoomDetailsService.Delete(ExistingEntity);
+                MainMenu.ReturnToMainMenu();
             }
             else
             {
@@ -114,20 +114,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 PreviousMenu.Run();
             }
 
-   //         // Rum
-   //         Data03 = parentRoom;
-			//if (Data03 != null)
-			//{
-			//	Room = Data03 as IRoom;
-			//	Data04 = Room.ID;
-			//}
-			//else
-			//{
-			//	Console.WriteLine("Fel vid tilldelning av ägande rum, återgår till föregående meny... Kontakta admin om problemet kvarstår.");
-			//	Thread.Sleep(3000);
-			//	PreviousMenu.Run();
-			//}
-
 			Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine($"\n[yellow]Storlek[/] (default {RoomType.SizeDefault}): ");
@@ -140,9 +126,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
 			Console.Clear();
 			FormDisplayer.DisplayCurrentFormValues(this);
-			AnsiConsole.MarkupLine($"\n[yellow]Pris[/] (default {RoomType.PriceDefault}): ");
-			Data07 = UserInputHandler.UserInputDouble(PreviousMenu);
-			if (CopyChecker.CheckCopyValue(Data05))
+			AnsiConsole.MarkupLine($"\n[yellow]Pris[/] (0 = default {RoomType.PriceDefault}): ");
+            Data07 = RoomDetailsValidator.ValidateRoomPrice(RoomType, IsAnEdit, PreviousMenu);
+			if (CopyChecker.CheckCopyValue(Data07))
 				Data07 = RoomType.PriceDefault;
 
 			Console.Clear();
@@ -164,6 +150,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
+                Console.Clear();
 
                 PreviousMenu.Run();
                 return null;
@@ -197,20 +184,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 PreviousMenu.Run();
             }
 
-			//Data03 = ExistingEntity.Room;
-			//if (Data03 != null)
-			//{
-			//	Room = Data03 as IRoom;
-			//	Data04 = Room.ID;
-			//}
-			//else
-			//{
-			//	Console.WriteLine("Fel vid tilldelning av ägande rum, återgår till föregående meny... Kontakta admin om problemet kvarstår.");
-			//	Thread.Sleep(3000);
-			//	PreviousMenu.Run();
-			//}
-
-
 			Console.Clear();
             DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -229,9 +202,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
 			Console.Clear();
 			FormDisplayer.DisplayCurrentFormValues(this);
-			AnsiConsole.MarkupLine($"\n[yellow]Pris[/] (Nuvarande: {ExistingEntity.Price}, default {RoomType.PriceDefault}): ");
-			Data07 = UserInputHandler.UserInputDouble(PreviousMenu);
-			if (CopyChecker.CheckCopyValue(Data07))
+			AnsiConsole.MarkupLine($"\n[yellow]Pris[/] (Nuvarande: {ExistingEntity.Price}, 0 = default {RoomType.PriceDefault}): ");
+            Data07 = RoomDetailsValidator.ValidateRoomPrice(RoomType, IsAnEdit, PreviousMenu);
+            if (CopyChecker.CheckCopyValue(Data07))
 				Data07 = ExistingEntity.Price;
             if ((double)Data07 == 0) //If ExistingEntity.Price was 0, assign PriceDefault from RoomType
 				Data07 = RoomType.PriceDefault;
@@ -258,6 +231,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
+                Console.Clear();
 
                 return ExistingEntity;
             }

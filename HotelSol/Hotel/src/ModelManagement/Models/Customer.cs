@@ -10,6 +10,11 @@ namespace Hotel.src.ModelManagement.Models
         [Key]
         public int ID { get; set; }
         //-------------------------------------
+        //[ForeignKey("Address")]
+        //[Required]
+        //public int AddressID { get; set; }
+        //[Required]
+        //public Address Address { get; set; }
         public List<Booking>? Bookings { get; set; }
         //-------------------------------------
 
@@ -35,7 +40,7 @@ namespace Hotel.src.ModelManagement.Models
         [NotMapped]
         public ushort Age => Convert.ToUInt16(DateTime.Now - DateOfBirth);
         [NotMapped]
-        public string Info => $"Namn: {FullName}, Epost: {Email}, Telefon: {Phone}";
+        public string Info => $"{FullName}      |       {Email}     |       {Phone}";
         [NotMapped]
         public int NumberOfBookings
         {

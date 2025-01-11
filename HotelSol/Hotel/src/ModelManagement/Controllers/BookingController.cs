@@ -108,28 +108,18 @@ namespace Hotel.src.ModelManagement.Controllers
             //    BookingService.Update(_model);
         }
 
-        public void Update(IModel modelToUpdate)
+        public void Update(IModel entityToUpdate)
         {
-            var _modelToUpdate = modelToUpdate;
+            var _modelToUpdate = entityToUpdate;
 
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             _modelForm.EditForm((IModel)_modelToUpdate);
-            //IBooking _model = (IBooking)_modelForm.EditForm((IModel)_modelToUpdate);
-
-            //if (_model == null)
-            //{
-            //    Console.WriteLine("Ingen data att spara, återgår...");
-            //    Thread.Sleep(2000);
-            //    return;
-            //}
-            //else
-            //    BookingService.Update(_model);
         }
 
-        public void Delete(IModel modelToDelete)
+        public void Delete(IModel entityToDelete)
         {
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-            _modelForm.InactivateForm((IModel)modelToDelete);
+            _modelForm.InactivateForm((IModel)entityToDelete);
         }
 
 		public void Reactivate(IModel entityToReactivate)

@@ -72,10 +72,10 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
         public static void DisplayModel(IInvoice entity)
         {
             var panel = new Panel($@"
-                Id: {entity.ID}
-                Namn: {entity.DueDate.ToString()}
-                Namn: {entity.IsPaid.ToString()}
-                E-post: {entity.PaidDate.ToString()}
+        [yellow]Kund:[/]            {entity.Booking.Customer.FullName}
+        [yellow]Summa:[/]           {entity.Amount} sek
+        [yellow]Förfallodatum:[/]   {entity.DueDate.Date.ToString()}
+        [yellow]Betald?:[/]         {entity.IsPaid}
             ");
             panel.Header = new PanelHeader("Product Info");
             panel.Padding = new Padding(2, 2, 2, 2);

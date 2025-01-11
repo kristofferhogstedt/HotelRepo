@@ -18,7 +18,7 @@ namespace Hotel.src.MenuManagement.Menus
     public class ModelCRUDMenu : IMenu, ICRUDMenu, IInstantiable
     {
         public IMenu PreviousMenu { get; set; }
-        public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
+        //public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
         private static IInstantiable _instance;
         private static readonly object _lock = new object();
         IModel _model;
@@ -34,7 +34,7 @@ namespace Hotel.src.MenuManagement.Menus
         {
             Console.WriteLine("Återgår till huvudmeny");
             Thread.Sleep(1500);
-            MainMenu.Run();
+            MainMenu.ReturnToMainMenu();
         }
 
         public void Run(IModel entityToCRUD)
@@ -43,6 +43,9 @@ namespace Hotel.src.MenuManagement.Menus
             {
                 case EModelType.Room:
                     RoomCRUDMenu(entityToCRUD);
+                    break;
+                case EModelType.Invoice:
+                    InvoiceCRUDMenu(entityToCRUD);
                     break;
                 default:
                     GeneralCRUDMenu(entityToCRUD);
@@ -77,6 +80,35 @@ namespace Hotel.src.MenuManagement.Menus
 						_controller.Reactivate(entityToCRUD);
 						break;
 					case CRUDMenuOptions.Exit:
+                        Exit.ExitProgram();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        public void InvoiceCRUDMenu(IModel entityToCRUD)
+        {
+            var _controller = ModelFactory.GetModelController(entityToCRUD.ModelTypeEnum, this);
+            while (true)
+            {
+                var option = AnsiConsole.Prompt(
+                    new SelectionPrompt<InvoiceCRUDMenuOptions>()
+                        .Title("Start")
+                        .UseConverter(option => option.ShowCRUDMenu())
+                        .AddChoices(Enum.GetValues<InvoiceCRUDMenuOptions>())
+                    );
+
+                switch (option)
+                {
+                    case InvoiceCRUDMenuOptions.PreviousMenu:
+                        PreviousMenu.Run();
+                        break;
+                    case InvoiceCRUDMenuOptions.Update:
+                        _controller.Update(entityToCRUD);
+                        break;
+                    case InvoiceCRUDMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;
                     default:

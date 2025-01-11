@@ -24,9 +24,11 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             //    indexToHighlight = 0;
             //}
 
-            _tableContent.WriteLine($"[red]{indexToHighlight} - {entityList.ElementAt(indexToHighlight).Name},  Våning {entityList.ElementAt(indexToHighlight).Floor}[/]".ToUpper());
-            _tableContent.WriteLine("ID  Rumsnummer  Beskrivning  Våning");
-            _tableContent.WriteLine("───────────────────────────────────");
+            _tableContent.WriteLine($"[red]{indexToHighlight} - {entityList.ElementAt(indexToHighlight).Name}" +
+                $",  Våning {entityList.ElementAt(indexToHighlight).Floor}" +
+                $"[/]".ToUpper());
+            _tableContent.WriteLine("Rumsnummer  Beskrivning  Våning     Typ        Pris        Storlek     Antal sängar");
+            _tableContent.WriteLine("────────────────────────────────────────────────────────────────────────────");
 
             for (int i = 0; i < _entityArray.Length; i++)
             {
@@ -43,7 +45,7 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             var panel = new Panel(_tableContent.ToString())
             {
                 Border = BoxBorder.Double,
-                Header = new PanelHeader($"[red]{_entityArray[indexToHighlight].Name} {_entityArray[indexToHighlight].Floor}[/]", Justify.Center)
+                Header = new PanelHeader($"[red]Vån. {_entityArray[indexToHighlight].Floor} / {_entityArray[indexToHighlight].Description}[/]", Justify.Center)
             };
 
             AnsiConsole.Write(panel);
@@ -54,10 +56,13 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
         public static void DisplayModel(IRoom entity)
         {
             var panel = new Panel($@"
-                Id: {entity.ID}
-                Rumsnummer: {entity.Name}
-                Våning: {entity.Description}
-                E-post: {entity.Floor}
+        [yellow]Rumsnummer:[/]      {entity.Name}
+        [yellow]Beskrivning:[/]     {entity.Description}
+        [yellow]Våning:[/]          {entity.Floor}
+        [yellow]Rumstyp:[/]         {entity.Details.RoomType.Name}
+        [yellow]Storlek:[/]         {entity.Details.Size} m2
+        [yellow]Antal sängar:[/]    {entity.Details.NumberOfBeds} st
+        [yellow]Pris:[/]            {entity.Details.Price} sek/natt
             ");
             panel.Header = new PanelHeader("Ruminfo");
             panel.Padding = new Padding(2, 2, 2, 2);

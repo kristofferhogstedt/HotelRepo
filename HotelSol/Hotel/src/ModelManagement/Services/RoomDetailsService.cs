@@ -193,7 +193,7 @@ namespace Hotel.src.ModelManagement.Services
             var _entityToReturn = (IRoomDetails)entity;
             bool _getRelatedObjects = false;
             if (DataElementChecker.CheckRoomTypeDataExists(_entityToReturn.RoomTypeID))
-                _entityToReturn.RoomType = DatabaseLair.DatabaseContext.RoomTypes.First(e => e.ID == _entityToReturn.RoomTypeID);
+                _entityToReturn.RoomType = (RoomType)RoomTypeService.GetOneByIDSeed(_entityToReturn.RoomTypeID, _getRelatedObjects);
             else
                 ServiceMessager.SubDataNotFoundMessage();
 
@@ -209,7 +209,7 @@ namespace Hotel.src.ModelManagement.Services
             {
                 if (DataElementChecker.CheckRoomTypeDataExists(entity.RoomTypeID))
                 {
-                    entity.RoomType = DatabaseLair.DatabaseContext.RoomTypes.First(e => e.ID == entity.RoomTypeID);
+                    entity.RoomType = (RoomType)RoomTypeService.GetOneByIDSeed(entity.RoomTypeID, _getRelatedObjects);
                     _listToReturn.Add(entity);
                 }
                 else
@@ -225,7 +225,7 @@ namespace Hotel.src.ModelManagement.Services
             var _entityToReturn = (IRoomDetails)entity;
             bool _getRelatedObjects = false;
             if (DataElementChecker.CheckRoomDataExists(_entityToReturn.RoomID))
-                _entityToReturn.Room = DatabaseLair.DatabaseContext.Rooms.First(e => e.ID == _entityToReturn.RoomID);
+                _entityToReturn.Room = (Room)RoomService.GetOneByIDSeed(_entityToReturn.RoomID, _getRelatedObjects);
             else
                 ServiceMessager.SubDataNotFoundMessage();
 
@@ -240,7 +240,7 @@ namespace Hotel.src.ModelManagement.Services
             {
                 if (DataElementChecker.CheckRoomDataExists(entity.RoomID))
                 {
-                    entity.Room = DatabaseLair.DatabaseContext.Rooms.First(e => e.ID == entity.RoomID);
+                    entity.Room = (Room)RoomService.GetOneByIDSeed(entity.RoomID, _getRelatedObjects);
                     _listToReturn.Add(entity);
                 }
                 else

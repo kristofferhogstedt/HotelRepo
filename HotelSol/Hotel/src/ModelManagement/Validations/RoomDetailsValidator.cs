@@ -75,5 +75,24 @@ namespace Hotel.src.ModelManagement.Validations
                     return _userInput;
             }
         }
+
+        public static double ValidateRoomPrice(IRoomType roomType, bool isAnEdit, IMenu previousMenu)
+        {
+            while (true)
+            {
+                var _userInput = UserInputHandler.UserInputDouble(previousMenu);
+
+                if (isAnEdit && InputChecker.UserInputIsEnter(_userInput.ToString()))
+                    return _userInput;
+                
+                if (_userInput > 0 )
+                    return _userInput;
+                else
+                {
+                    Console.WriteLine($"Priset måste överstiga 0");
+                    LineClearer.ClearLastLine(1000);
+                }
+            }
+        }
     }
 }

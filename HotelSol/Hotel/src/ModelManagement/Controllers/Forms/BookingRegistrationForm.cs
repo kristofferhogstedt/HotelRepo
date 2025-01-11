@@ -111,8 +111,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
+                Console.Clear();
 
-                PreviousMenu.Run();
+                return;
             }
         }
 
@@ -181,7 +182,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
-                PreviousMenu.Run();
+                Console.Clear();
+                return;
             }
         }
 
@@ -204,6 +206,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             {
                 Console.WriteLine("Inaktivering avbruten, Återgår...");
                 Thread.Sleep(1000);
+                Console.Clear();
+                return;
             }
 		}
 		public void ReactivateForm(IModel entityToReactivate)
@@ -220,12 +224,14 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 				ExistingEntity.IsInactive = false;
 				ExistingEntity.InactivatedDate = null;
 				BookingService.Update(ExistingEntity);
-			}
+                MainMenu.ReturnToMainMenu();
+            }
 			else
 			{
 				Console.WriteLine("Inaktivering avbruten, Återgår...");
 				Thread.Sleep(1000);
-				return;
+                Console.Clear();
+                return;
 			}
 		}
 

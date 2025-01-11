@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hotel.src.ModelManagement.Models
 {
-    public class Address_DELETE //: IAddress, IControllableModel // ISupportModel
+    public class Address : IAddress
     {
         [Key]
         public int ID { get; set; }
@@ -22,7 +22,7 @@ namespace Hotel.src.ModelManagement.Models
         public DateTime? InactivatedDate { get; set; }
 
         [NotMapped]
-        public static EModelType ModelTypeEnum { get; set; } = EModelType.Address;
+        public EModelType ModelTypeEnum { get; set; } = EModelType.Address;
 
         //[NotMapped]
         //public static Type ModelType { get; set; } = typeof(Address);
