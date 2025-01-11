@@ -1,6 +1,7 @@
 ﻿using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services.Interfaces;
+using Hotel.src.ModelManagement.Utilities.Checkers;
 using Hotel.src.ModelManagement.Utilities.Messagers;
 using Hotel.src.Persistence;
 using Spectre.Console;
@@ -38,7 +39,7 @@ namespace Hotel.src.ModelManagement.Services
                 .First(m => m.BookingID.ToString().Equals(searchString)
                 );
 
-            _entityToReturn = GetSubData(_entityToReturn, isInactive); // Get subdata
+            _entityToReturn = GetSubData(_entityToReturn); // Get subdata
 
             if (_entityToReturn == null)
             {
@@ -56,7 +57,7 @@ namespace Hotel.src.ModelManagement.Services
                 .Where(m => m.IsInactive == isInactive)
                 .First(m => m.ID == searchID);
 
-            _entityToReturn = GetSubData(_entityToReturn, isInactive); // Get subdata
+            _entityToReturn = GetSubData(_entityToReturn); // Get subdata
 
             if (_entityToReturn == null)
             {
@@ -74,7 +75,7 @@ namespace Hotel.src.ModelManagement.Services
                 .Where(m => m.IsInactive == isInactive)
                 .First(m => m.BookingID == searchID);
             
-            _entityToReturn = GetSubData(_entityToReturn, isInactive); // Get subdata
+            _entityToReturn = GetSubData(_entityToReturn); // Get subdata
 
             if (_entityToReturn == null)
             {
@@ -91,7 +92,7 @@ namespace Hotel.src.ModelManagement.Services
             var _entityToReturn = (IModel)DatabaseLair.DatabaseContext.Invoices
                 .First(m => m.BookingID == searchID);
 
-            _entityToReturn = GetSubDataSeed(_entityToReturn); // Get subdata
+            _entityToReturn = GetSubData(_entityToReturn); // Get subdata
 
             if (_entityToReturn == null)
             {
@@ -118,7 +119,7 @@ namespace Hotel.src.ModelManagement.Services
                 .Where(m => m.IsInactive == isInactive)
                 .ToList<IInvoice>();
 
-                _listToReturn = GetSubData(_listToReturn, isInactive); // Get subdata
+                _listToReturn = GetSubData(_listToReturn); // Get subdata
             }
             else
             {
@@ -179,30 +180,31 @@ namespace Hotel.src.ModelManagement.Services
         //----------------------------------------------
         
         // Booking
-        public static IModel GetSubData(IModel entity, bool isInactive)
+        public static IModel GetSubData(IModel entity)
         {
             var _entityToReturn = (Invoice)entity;
             bool _getRelatedObjects = false;
-            _entityToReturn.Booking = (Booking)BookingService.GetOneByID(_entityToReturn.BookingID, _getRelatedObjects, isInactive);
+            if (DataElementChecker.CheckBookingDataExists(_entityToReturn.BookingID))
+                _entityToReturn.Booking = DatabaseLair.DatabaseContext.Bookings.First(e => e.ID == _entityToReturn.BookingID);
+            else
+                ServiceMessager.SubDataNotFoundMessage();
+
             return _entityToReturn;
         }
 
-        public static IModel GetSubDataSeed(IModel entity)
-        {
-            var _entityToReturn = (Invoice)entity;
-            bool _getRelatedObjects = false;
-            _entityToReturn.Booking = (Booking)BookingService.GetOneByIDSeed(_entityToReturn.BookingID, _getRelatedObjects);
-            return _entityToReturn;
-        }
-
-        public static List<IInvoice> GetSubData(List<IInvoice> entityList, bool isInactive)
+        public static List<IInvoice> GetSubData(List<IInvoice> entityList)
         {
             var _listToReturn = new List<IInvoice>();
             bool _getRelatedObjects = false;
             foreach (Invoice entity in entityList)
             {
-                entity.Booking = (Booking)BookingService.GetOneByID(entity.BookingID, _getRelatedObjects, isInactive);
-                _listToReturn.Add(entity);
+                if (DataElementChecker.CheckBookingDataExists(entity.BookingID))
+                {
+                    entity.Booking = DatabaseLair.DatabaseContext.Bookings.First(e => e.ID == entity.BookingID);
+                    _listToReturn.Add(entity);
+                }
+                else
+                    ServiceMessager.SubDataNotFoundMessage();
             };
             return _listToReturn;
         }

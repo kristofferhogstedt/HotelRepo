@@ -36,9 +36,9 @@ namespace Hotel.src.ModelManagement.Services
 
             if (getRelatedObjects)
             {
-                _entityToReturn = (Booking)GetSubDataRoom(_entityToReturn, isInactive);
-                _entityToReturn = (Booking)GetSubDataCustomer(_entityToReturn, isInactive);
-                _entityToReturn = (Booking)GetSubDataInvoice(_entityToReturn, isInactive);
+                _entityToReturn = (Booking)GetSubDataRoom(_entityToReturn);
+                _entityToReturn = (Booking)GetSubDataCustomer(_entityToReturn);
+                _entityToReturn = (Booking)GetSubDataInvoice(_entityToReturn);
             }
             return _entityToReturn;
         }
@@ -57,9 +57,9 @@ namespace Hotel.src.ModelManagement.Services
 
                 if (getRelatedObjects)
                 {
-                    _entityToReturn = (Booking)GetSubDataRoom(_entityToReturn, isInactive);
-                    _entityToReturn = (Booking)GetSubDataCustomer(_entityToReturn, isInactive);
-                    _entityToReturn = (Booking)GetSubDataInvoice(_entityToReturn, isInactive);
+                    _entityToReturn = (Booking)GetSubDataRoom(_entityToReturn);
+                    _entityToReturn = (Booking)GetSubDataCustomer(_entityToReturn);
+                    _entityToReturn = (Booking)GetSubDataInvoice(_entityToReturn);
                 }
             }
 
@@ -87,9 +87,9 @@ namespace Hotel.src.ModelManagement.Services
 
                 if (getRelatedObjects)
                 {
-                    _entityToReturn = (Booking)GetSubDataRoom(_entityToReturn, isInactive);
-                    _entityToReturn = (Booking)GetSubDataCustomer(_entityToReturn, isInactive);
-                    _entityToReturn = (Booking)GetSubDataInvoice(_entityToReturn, isInactive);
+                    _entityToReturn = (Booking)GetSubDataRoom(_entityToReturn);
+                    _entityToReturn = (Booking)GetSubDataCustomer(_entityToReturn);
+                    _entityToReturn = (Booking)GetSubDataInvoice(_entityToReturn);
                 }
             }
 
@@ -115,9 +115,9 @@ namespace Hotel.src.ModelManagement.Services
 
             if (getRelatedObjects)
             {
-                _entityToReturn = (Booking)GetSubDataRoomSeed(_entityToReturn);
-                _entityToReturn = (Booking)GetSubDataCustomerSeed(_entityToReturn);
-                _entityToReturn = (Booking)GetSubDataInvoiceSeed(_entityToReturn);
+                _entityToReturn = (Booking)GetSubDataRoom(_entityToReturn);
+                _entityToReturn = (Booking)GetSubDataCustomer(_entityToReturn);
+                _entityToReturn = (Booking)GetSubDataInvoice(_entityToReturn);
             }
 
             if (_entityToReturn == null)
@@ -145,9 +145,9 @@ namespace Hotel.src.ModelManagement.Services
 
                 if (getRelatedObjects)
                 {
-                    _listToReturn = GetSubDataRoom(_listToReturn, isInactive);
-                    _listToReturn = GetSubDataCustomer(_listToReturn, isInactive);
-                    _listToReturn = GetSubDataInvoice(_listToReturn, isInactive);
+                    _listToReturn = GetSubDataRoom(_listToReturn);
+                    _listToReturn = GetSubDataCustomer(_listToReturn);
+                    _listToReturn = GetSubDataInvoice(_listToReturn);
                 }
             }
             else
@@ -213,16 +213,12 @@ namespace Hotel.src.ModelManagement.Services
             bool _getRelatedObjects = false;
             bool _handleInactive = false;
 
-            DataElementChecker.CheckRoomDataExists();
-            _entityToReturn.Room = (Room)RoomService.GetOneByID(_entityToReturn.RoomID, _getRelatedObjects, _handleInactive);
-            return _entityToReturn;
-        }
-        public static IModel GetSubDataRoomSeed(IModel entity)
-        {
-            var _entityToReturn = (IBooking)entity;
-            bool _getRelatedObjects = false;
-			DataElementChecker.CheckRoomDataExists();
-			_entityToReturn.Room = (Room)RoomService.GetOneByIDSeed(_entityToReturn.RoomID, _getRelatedObjects);
+            //_entityToReturn.Room = (Room)RoomService.GetOneByID(_entityToReturn.RoomID, _getRelatedObjects, _handleInactive);
+            if (DataElementChecker.CheckRoomDataExists(_entityToReturn.RoomID)) // Check if data exists
+                _entityToReturn.Room = DatabaseLair.DatabaseContext.Rooms.First(e => e.ID == _entityToReturn.RoomID);
+            else
+                ServiceMessager.SubDataNotFoundMessage();
+
             return _entityToReturn;
         }
 
@@ -232,12 +228,17 @@ namespace Hotel.src.ModelManagement.Services
             bool _getRelatedObjects = false;
             bool _handleInactive = false;
 
-			DataElementChecker.CheckRoomDataExists(isInactive);
-			foreach (IBooking entity in entityList)
+            foreach (IBooking entity in entityList)
             {
-                entity.Room = (Room)RoomService.GetOneByID(entity.RoomID, _getRelatedObjects, _handleInactive);
-                _listToReturn.Add(entity);
+                if (DataElementChecker.CheckRoomDataExists(entity.RoomID))
+                {
+                    entity.Room = DatabaseLair.DatabaseContext.Rooms.First(e => e.ID == entity.RoomID);
+                    _listToReturn.Add(entity);
+                }
+                else
+                    ServiceMessager.SubDataNotFoundMessage();
             };
+
             return _listToReturn;
         }
 
@@ -246,87 +247,61 @@ namespace Hotel.src.ModelManagement.Services
         {
             var _entityToReturn = (IBooking)entity;
             bool _getRelatedObjects = false;
-			DataElementChecker.CheckCustomerDataExists(isInactive);
-			_entityToReturn.Customer = (Customer)CustomerService.GetOneByID(_entityToReturn.CustomerID, _getRelatedObjects, isInactive);
-            return _entityToReturn;
-        }
-        public static IModel GetSubDataCustomerSeed(IModel entity)
-        {
-            var _entityToReturn = (IBooking)entity;
-            bool _getRelatedObjects = false;
-			DataElementChecker.CheckCustomerDataExists();
-			_entityToReturn.Customer = (Customer)CustomerService.GetOneByIDSeed(_entityToReturn.CustomerID, _getRelatedObjects);
-            return _entityToReturn;
-        }
+            if (DataElementChecker.CheckCustomerDataExists(_entityToReturn.CustomerID))
+                _entityToReturn.Customer = DatabaseLair.DatabaseContext.Customers.First(e => e.ID == _entityToReturn.CustomerID);
+            else
+                ServiceMessager.SubDataNotFoundMessage();
 
-        public static List<IBooking> GetSubDataCustomer(List<IBooking> entityList, bool isInactive)
-        {
-            var _listToReturn = new List<IBooking>();
-            bool _getRelatedObjects = false;
-			DataElementChecker.CheckCustomerDataExists(isInactive);
-			foreach (Booking entity in entityList)
-            {
-                entity.Customer = (Customer)CustomerService.GetOneByID(entity.CustomerID, _getRelatedObjects, isInactive);
-                _listToReturn.Add(entity);
-            };
-            return _listToReturn;
+            return _entityToReturn;
         }
-        public static List<IBooking> GetSubDataCustomerSeed(List<IBooking> entityList)
+        public static List<IBooking> GetSubDataCustomer(List<IBooking> entityList)
         {
             var _listToReturn = new List<IBooking>();
             bool _getRelatedObjects = false;
-			DataElementChecker.CheckCustomerDataExists();
-			foreach (Booking entity in entityList)
+            foreach (Booking entity in entityList)
             {
-                entity.Customer = (Customer)CustomerService.GetOneByIDSeed(entity.CustomerID, _getRelatedObjects);
-                _listToReturn.Add(entity);
+                if (DataElementChecker.CheckCustomerDataExists(entity.CustomerID))
+                {
+                    entity.Customer = DatabaseLair.DatabaseContext.Customers.First(e => e.ID == entity.CustomerID);
+                    _listToReturn.Add(entity);
+
+                }
+                else
+                    ServiceMessager.SubDataNotFoundMessage();
+
             };
             return _listToReturn;
         }
 
         // Invoice
-
-        public static IModel GetSubDataInvoice(IModel entity, bool isInactive)
+        public static IModel GetSubDataInvoice(IModel entity)
         {
             var _entityToReturn = (IBooking)entity;
             bool _getRelatedObjects = false;
-			//_entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingID(_entityToReturn.ID, isInactive);
-			DataElementChecker.CheckInvoiceDataExists(isInactive);
-			_entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingIDSeed(_entityToReturn.ID, _getRelatedObjects);
+            //_entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingID(_entityToReturn.ID, isInactive);
+            if (DataElementChecker.CheckInvoiceDataExistsByBookingID(_entityToReturn.ID))
+                _entityToReturn.Invoice = DatabaseLair.DatabaseContext.Invoices.First(e => e.BookingID == _entityToReturn.ID);
+            else
+                ServiceMessager.SubDataNotFoundMessage();
+
             return _entityToReturn;
         }
 
-        public static List<IBooking> GetSubDataInvoice(List<IBooking> entityList, bool isInactive)
+        public static List<IBooking> GetSubDataInvoice(List<IBooking> entityList)
         {
             var _listToReturn = new List<IBooking>();
             bool _getRelatedObjects = false;
-			DataElementChecker.CheckInvoiceDataExists(isInactive);
-			foreach (Booking entity in entityList)
+            foreach (Booking entity in entityList)
             {
-                entity.Invoice = (Invoice)InvoiceService.GetOneByBookingIDSeed(entity.ID, _getRelatedObjects);
-                _listToReturn.Add(entity);
-            };
-            return _listToReturn;
-        }
+                if (DataElementChecker.CheckInvoiceDataExistsByBookingID(entity.ID))
+                {
+                    entity.Invoice = DatabaseLair.DatabaseContext.Invoices.First(e => e.BookingID == entity.ID);
+                    _listToReturn.Add(entity);
+                }
+                else
+                    ServiceMessager.SubDataNotFoundMessage();
+            }
 
-        public static IModel GetSubDataInvoiceSeed(IModel entity)
-        {
-            var _entityToReturn = (IBooking)entity;
-            bool _getRelatedObjects = false;
-			DataElementChecker.CheckInvoiceDataExists();
-			_entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingIDSeed(_entityToReturn.ID, _getRelatedObjects);
-            return _entityToReturn;
-        }
-        public static List<IBooking> GetSubDataInvoiceSeed(List<IBooking> entityList)
-        {
-            var _listToReturn = new List<IBooking>();
-            bool _getRelatedObjects = false;
-			DataElementChecker.CheckInvoiceDataExists();
-			foreach (Booking entity in entityList)
-            {
-                entity.Invoice = (Invoice)InvoiceService.GetOneByBookingIDSeed(entity.ID, _getRelatedObjects);
-                _listToReturn.Add(entity);
-            };
             return _listToReturn;
         }
     }

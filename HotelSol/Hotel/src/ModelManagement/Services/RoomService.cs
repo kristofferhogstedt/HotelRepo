@@ -2,6 +2,7 @@
 using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services.Interfaces;
+using Hotel.src.ModelManagement.Utilities.Checkers;
 using Hotel.src.ModelManagement.Utilities.Messagers;
 using Hotel.src.Persistence;
 using Spectre.Console;
@@ -60,7 +61,7 @@ namespace Hotel.src.ModelManagement.Services
 
             if (getRelatedObjects)
             {
-                _entityToReturn = GetSubData(_entityToReturn, isInactive); // Get subdata
+                _entityToReturn = GetSubData(_entityToReturn); // Get subdata
             }
 
             if (_entityToReturn == null)
@@ -83,7 +84,7 @@ namespace Hotel.src.ModelManagement.Services
 
             if (getRelatedObjects)
             {
-                _entityToReturn = GetSubDataSeed(_entityToReturn); // Get subdata
+                _entityToReturn = GetSubData(_entityToReturn); // Get subdata
             }
 
             if (_entityToReturn == null)
@@ -103,7 +104,7 @@ namespace Hotel.src.ModelManagement.Services
 
             if (getRelatedObjects)
             {
-                _entityToReturn = GetSubData(_entityToReturn, isInactive); // Get subdata
+                _entityToReturn = GetSubData(_entityToReturn); // Get subdata
             }
 
             if (_entityToReturn == null)
@@ -127,7 +128,7 @@ namespace Hotel.src.ModelManagement.Services
 
                 if (getRelatedObjects)
                 {
-                    _listToReturn = GetSubData(_listToReturn, isInactive);
+                    _listToReturn = GetSubData(_listToReturn);
                 }
             }
 
@@ -188,32 +189,33 @@ namespace Hotel.src.ModelManagement.Services
 
         // Getters for subdata
         //----------------------------------------------
-        public static IRoom GetSubData(IRoom entity, bool isInactive)
+        public static IRoom GetSubData(IRoom entity)
         {
             var _entityToReturn = entity;
             bool _getRelatedObjects = false;
             // Get corresponding RoomDetails from db
-            _entityToReturn.Details = (RoomDetails)RoomDetailsService.GetOneByRoomID(_entityToReturn.ID, _getRelatedObjects, isInactive);
-            return _entityToReturn;
-        }
-        public static IRoom GetSubDataSeed(IRoom entity)
-        {
-            var _entityToReturn = entity;
-            bool _getRelatedObjects = false;
-            // Get corresponding RoomDetails from db
-            _entityToReturn.Details = (RoomDetails)RoomDetailsService.GetOneByRoomIDSeed(_entityToReturn.ID, _getRelatedObjects);
+            if (DataElementChecker.CheckRoomDetailsDataExistsByRoomID(_entityToReturn.ID))
+                _entityToReturn.Details = DatabaseLair.DatabaseContext.RoomDetails.First(e => e.ID == _entityToReturn.ID);
+            else
+                ServiceMessager.SubDataNotFoundMessage();
             return _entityToReturn;
         }
 
-        public static List<IRoom> GetSubData(List<IRoom> entityList, bool isInactive)
+        public static List<IRoom> GetSubData(List<IRoom> entityList)
         {
             // Get corresponding RoomDetails from db
             var _listToReturn = new List<IRoom>();
             bool _getRelatedObjects = false;
-            foreach (IRoom room in entityList)
+            foreach (IRoom entity in entityList)
             {
-                room.Details = (RoomDetails)RoomDetailsService.GetOneByRoomID(room.ID, _getRelatedObjects, isInactive);
-                _listToReturn.Add(room);
+                if (DataElementChecker.CheckRoomDetailsDataExistsByRoomID(entity.ID))
+                {
+                    entity.Details = DatabaseLair.DatabaseContext.RoomDetails.First(e => e.ID == entity.ID);
+                    _listToReturn.Add(entity);
+                }
+                else
+                    ServiceMessager.SubDataNotFoundMessage();
+
             };
             return _listToReturn;
         }

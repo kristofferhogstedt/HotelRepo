@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Hotel.src.ModelManagement.Utilities.Messagers;
+using Hotel.src.ModelManagement.Utilities.Checkers;
 
 namespace Hotel.src.ModelManagement.Services
 {
@@ -35,7 +36,7 @@ namespace Hotel.src.ModelManagement.Services
 
             if (getRelatedObjects)
             {
-                _entityToReturn = GetSubDataRoomType(_entityToReturn, isInactive); // Get subdata
+                _entityToReturn = GetSubDataRoomType(_entityToReturn); // Get subdata
             }
 
             if (_entityToReturn == null)
@@ -59,7 +60,7 @@ namespace Hotel.src.ModelManagement.Services
 
             if (getRelatedObjects)
             {
-                _entityToReturn = GetSubDataRoomTypeSeed(_entityToReturn); // Get subdata
+                _entityToReturn = GetSubDataRoomType(_entityToReturn); // Get subdata
             }
 
             if (_entityToReturn == null)
@@ -79,7 +80,7 @@ namespace Hotel.src.ModelManagement.Services
 
             if (getRelatedObjects)
             {
-                _entityToReturn = GetSubDataRoomType(_entityToReturn, isInactive); // Get subdata
+                _entityToReturn = GetSubDataRoomType(_entityToReturn); // Get subdata
             }
 
             if (_entityToReturn == null)
@@ -103,7 +104,7 @@ namespace Hotel.src.ModelManagement.Services
 
             if (getRelatedObjects)
             {
-                _entityToReturn = GetSubDataRoomTypeSeed(_entityToReturn); // Get subdata
+                _entityToReturn = GetSubDataRoomType(_entityToReturn); // Get subdata
             }
 
             if (_entityToReturn == null)
@@ -125,7 +126,7 @@ namespace Hotel.src.ModelManagement.Services
 
 				if (getRelatedObjects)
                 {
-                    _listToReturn = GetSubDataRoomTypeSeed(_listToReturn); // Get subdata
+                    _listToReturn = GetSubDataRoomType(_listToReturn); // Get subdata
                 }
             }
             else
@@ -187,83 +188,63 @@ namespace Hotel.src.ModelManagement.Services
         //----------------------------------------------
 
         // Room type
-        public static IRoomDetails GetSubDataRoomType(IRoomDetails entity, bool isInactive)
+        public static IRoomDetails GetSubDataRoomType(IRoomDetails entity)
         {
             var _entityToReturn = (IRoomDetails)entity;
             bool _getRelatedObjects = false;
-            _entityToReturn.RoomType = (RoomType)RoomTypeService.GetOneByID(_entityToReturn.RoomTypeID, _getRelatedObjects, isInactive);
+            if (DataElementChecker.CheckRoomTypeDataExists(_entityToReturn.RoomTypeID))
+                _entityToReturn.RoomType = DatabaseLair.DatabaseContext.RoomTypes.First(e => e.ID == _entityToReturn.RoomTypeID);
+            else
+                ServiceMessager.SubDataNotFoundMessage();
+
+            //_entityToReturn.RoomType = (RoomType)RoomTypeService.GetOneByID(_entityToReturn.RoomTypeID, _getRelatedObjects, isInactive);
             return _entityToReturn;
         }
 
-        public static List<IRoomDetails> GetSubDataRoomType(List<IRoomDetails> entityList, bool isInactive)
+        public static List<IRoomDetails> GetSubDataRoomType(List<IRoomDetails> entityList)
         {
             var _listToReturn = new List<IRoomDetails>();
             bool _getRelatedObjects = false;
             foreach (IRoomDetails entity in entityList)
             {
-                entity.RoomType = (RoomType)RoomTypeService.GetOneByID(entity.RoomTypeID, _getRelatedObjects, isInactive);
-                _listToReturn.Add(entity);
+                if (DataElementChecker.CheckRoomTypeDataExists(entity.RoomTypeID))
+                {
+                    entity.RoomType = DatabaseLair.DatabaseContext.RoomTypes.First(e => e.ID == entity.RoomTypeID);
+                    _listToReturn.Add(entity);
+                }
+                else
+                    ServiceMessager.SubDataNotFoundMessage();
             };
             return _listToReturn;
-        }
-        public static IRoomDetails GetSubDataRoomTypeSeed(IRoomDetails entity)
-        {
-            var _entityToReturn = (IRoomDetails)entity;
-            bool _getRelatedObjects = false;
-            _entityToReturn.RoomType = (RoomType)RoomTypeService.GetOneByIDSeed(_entityToReturn.RoomTypeID, _getRelatedObjects);
-            return _entityToReturn;
         }
 
-        public static List<IRoomDetails> GetSubDataRoomTypeSeed(List<IRoomDetails> entityList)
-        {
-            var _listToReturn = new List<IRoomDetails>();
-            bool _getRelatedObjects = false;
-            foreach (IRoomDetails entity in entityList)
-            {
-                entity.RoomType = (RoomType)RoomTypeService.GetOneByIDSeed(entity.RoomTypeID, _getRelatedObjects);
-                _listToReturn.Add(entity);
-            };
-            return _listToReturn;
-        }
 
         // Room
-        public static IModel GetSubDataRoom(IModel entity, bool isInactive)
+        public static IModel GetSubDataRoom(IModel entity)
         {
             var _entityToReturn = (IRoomDetails)entity;
             bool _getRelatedObjects = false;
-            _entityToReturn.Room = (Room)RoomService.GetOneByID(_entityToReturn.RoomTypeID, _getRelatedObjects, isInactive);
+            if (DataElementChecker.CheckRoomDataExists(_entityToReturn.RoomID))
+                _entityToReturn.Room = DatabaseLair.DatabaseContext.Rooms.First(e => e.ID == _entityToReturn.RoomID);
+            else
+                ServiceMessager.SubDataNotFoundMessage();
+
             return _entityToReturn;
         }
 
-        public static List<IRoomDetails> GetSubDataRoom(List<IRoomDetails> entityList, bool isInactive)
+        public static List<IRoomDetails> GetSubDataRoom(List<IRoomDetails> entityList)
         {
             var _listToReturn = new List<IRoomDetails>();
             bool _getRelatedObjects = false;
             foreach (IRoomDetails entity in entityList)
             {
-                entity.Room = (Room)RoomService.GetOneByID(entity.RoomTypeID, _getRelatedObjects, isInactive);
-                _listToReturn.Add(entity);
-            };
-            return _listToReturn;
-        }
-
-        //-----------------
-        //  For seed
-        public static IModel GetSubDataRoomSeed(IModel entity)
-        {
-            var _entityToReturn = (IRoomDetails)entity;
-            bool _getRelatedObjects = false;
-            _entityToReturn.Room = (Room)RoomService.GetOneByIDSeed(_entityToReturn.RoomTypeID, _getRelatedObjects);
-            return _entityToReturn;
-        }
-        public static List<IRoomDetails> GetSubDataRoomSeed(List<IRoomDetails> entityList)
-        {
-            var _listToReturn = new List<IRoomDetails>();
-            bool _getRelatedObjects = false;
-            foreach (IRoomDetails entity in entityList)
-            {
-                entity.Room = (Room)RoomService.GetOneByIDSeed(entity.RoomTypeID, _getRelatedObjects);
-                _listToReturn.Add(entity);
+                if (DataElementChecker.CheckRoomDataExists(entity.RoomID))
+                {
+                    entity.Room = DatabaseLair.DatabaseContext.Rooms.First(e => e.ID == entity.RoomID);
+                    _listToReturn.Add(entity);
+                }
+                else
+                    ServiceMessager.SubDataNotFoundMessage();
             };
             return _listToReturn;
         }

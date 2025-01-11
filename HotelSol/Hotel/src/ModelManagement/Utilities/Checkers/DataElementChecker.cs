@@ -15,22 +15,23 @@ namespace Hotel.src.ModelManagement.Utilities.Checkers
 		{
 			if (DatabaseLair.DatabaseContext.Bookings.Any())
 				return true;
-			else
-			{
-				ServiceMessager.DataNotFoundMessage();
-				return false;
-			}
-		}
-		public static bool CheckBookingDataExists(bool isInactive)
+            else
+                return false;
+        }
+        public static bool CheckBookingDataExists(int id)
+        {
+            if (DatabaseLair.DatabaseContext.Bookings.Any(e => e.ID == id))
+                return true;
+            else
+                return false;
+        }
+        public static bool CheckBookingDataExists(bool isInactive)
 		{
 			if (DatabaseLair.DatabaseContext.Bookings.Any(e => e.IsInactive == isInactive))
 				return true;
-			else
-			{
-				ServiceMessager.DataNotFoundMessage();
-				return false;
-			}
-		}
+            else
+                return false;
+        }
 
 
 		// Customers
@@ -38,23 +39,24 @@ namespace Hotel.src.ModelManagement.Utilities.Checkers
 		{
 			if (DatabaseLair.DatabaseContext.Customers.Any())
 				return true;
-			else
-			{
-				ServiceMessager.DataNotFoundMessage();
-				return false;
-			}
-		}
+            else
+                return false;
+        }
+        public static bool CheckCustomerDataExists(int id)
+        {
+            if (DatabaseLair.DatabaseContext.Customers.Any(c => c.ID == id))
+                return true;
+            else
+                return false;
+        }
 
-		public static bool CheckCustomerDataExists(bool isInactive)
+        public static bool CheckCustomerDataExists(bool isInactive)
 		{
 			if (DatabaseLair.DatabaseContext.Customers.Any(e => e.IsInactive == isInactive))
 				return true;
-			else
-			{
-				ServiceMessager.DataNotFoundMessage();
-				return false;
-			}
-		}
+            else
+                return false;
+        }
 
 
 		// Invoices
@@ -62,22 +64,23 @@ namespace Hotel.src.ModelManagement.Utilities.Checkers
 		{
 			if (DatabaseLair.DatabaseContext.Invoices.Any())
 				return true;
-			else
-			{
-				ServiceMessager.DataNotFoundMessage();
-				return false;
-			}
-		}
-		public static bool CheckInvoiceDataExists(bool isInactive)
+            else
+                return false;
+        }
+        public static bool CheckInvoiceDataExistsByBookingID(int bookingID)
+        {
+            if (DatabaseLair.DatabaseContext.Invoices.Any(e => e.BookingID == bookingID))
+                return true;
+            else
+                return false;
+        }
+        public static bool CheckInvoiceDataExists(bool isInactive)
 		{
 			if (DatabaseLair.DatabaseContext.Invoices.Any(e => e.IsInactive == isInactive))
 				return true;
-			else
-			{
-				ServiceMessager.DataNotFoundMessage();
-				return false;
-			}
-		}
+            else
+                return false;
+        }
 
 
 		// Rooms
@@ -85,22 +88,23 @@ namespace Hotel.src.ModelManagement.Utilities.Checkers
 		{
 			if (DatabaseLair.DatabaseContext.Rooms.Any())
 				return true;
-			else
-			{
-				ServiceMessager.DataNotFoundMessage();
-				return false;
-			}
-		}
+            else
+                return false;
+        }
+        public static bool CheckRoomDataExists(int id)
+        {
+            if (DatabaseLair.DatabaseContext.Rooms.Any(r => r.ID==id))
+                return true;
+            else
+                return false;
+        }
 
-		public static bool CheckRoomDataExists(bool isInactive)
+        public static bool CheckRoomDataExists(bool isInactive)
 		{
 			if (DatabaseLair.DatabaseContext.Rooms.Any(e => e.IsInactive == isInactive))
 				return true;
 			else
-			{
-				ServiceMessager.DataNotFoundMessage();
 				return false;
-			}
 		}
 
 
@@ -109,13 +113,17 @@ namespace Hotel.src.ModelManagement.Utilities.Checkers
 		{
 			if (DatabaseLair.DatabaseContext.RoomDetails.Any())
 				return true;
-			else
-			{
-				ServiceMessager.DataNotFoundMessage();
-				return false;
-			}
-		}
-		public static bool CheckRoomDetailsDataExists(bool isInactive)
+            else
+                return false;
+        }
+        public static bool CheckRoomDetailsDataExistsByRoomID(int roomID)
+        {
+            if (DatabaseLair.DatabaseContext.RoomDetails.Any(e => e.RoomID == roomID))
+                return true;
+            else
+                return false;
+        }
+        public static bool CheckRoomDetailsDataExists(bool isInactive)
 		{
 			if (DatabaseLair.DatabaseContext.RoomDetails.Any(e => e.IsInactive == isInactive))
 				return true;
@@ -132,21 +140,22 @@ namespace Hotel.src.ModelManagement.Utilities.Checkers
 		{
 			if (DatabaseLair.DatabaseContext.RoomTypes.Any())
 				return true;
-			else
-			{
-				ServiceMessager.DataNotFoundMessage();
-				return false;
-			}
-		}
-		public static bool CheckRoomTypeDataExists(bool isInactive)
+            else
+                return false;
+        }
+        public static bool CheckRoomTypeDataExists(int id)
+        {
+            if (DatabaseLair.DatabaseContext.RoomTypes.Any(e => e.ID == id))
+                return true;
+            else
+                return false;
+        }
+        public static bool CheckRoomTypeDataExists(bool isInactive)
 		{
 			if (DatabaseLair.DatabaseContext.RoomTypes.Any(e => e.IsInactive == isInactive))
 				return true;
-			else
-			{
-				ServiceMessager.DataNotFoundMessage();
-				return false;
-			}
-		}
+            else
+                return false;
+        }
 	}
 }

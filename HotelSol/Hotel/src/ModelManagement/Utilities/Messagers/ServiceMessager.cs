@@ -14,5 +14,11 @@ namespace Hotel.src.ModelManagement.Utilities.Messagers
             Console.WriteLine("Returning... ");
             Thread.Sleep(2000);
         }
+        public static void SubDataNotFoundMessage()
+        {
+            Console.WriteLine("SubData not found");
+            Console.WriteLine("Returning... ");
+            Thread.Sleep(2000);
+        }
     }
 }
