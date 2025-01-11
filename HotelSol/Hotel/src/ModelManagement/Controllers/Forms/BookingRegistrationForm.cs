@@ -76,7 +76,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Till-datum[/]: ");
-            Data03 = BookingValidator.ValidateToDate(_room.ID, null, IsAnEdit, PreviousMenu);
+            Data03 = BookingValidator.ValidateToDate(_room.ID, null, (DateTime)Data02, IsAnEdit, PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -141,7 +141,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Till-datum[/]: ");
-            Data03 = BookingValidator.ValidateToDate(_room.ID, ExistingEntity, IsAnEdit, PreviousMenu);
+            Data03 = BookingValidator.ValidateToDate(_room.ID, ExistingEntity, (DateTime)Data02, IsAnEdit, PreviousMenu);
             if (CopyChecker.CheckCopyValue(Data03))
                 Data03 = ExistingEntity.FromDate;
 

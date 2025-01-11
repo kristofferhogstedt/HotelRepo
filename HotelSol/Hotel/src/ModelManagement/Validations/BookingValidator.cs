@@ -23,14 +23,23 @@ namespace Hotel.src.ModelManagement.Validations
             else
                 return _dateToReturn;
         }
-        public static DateTime ValidateToDate(int roomID, IBooking? booking, bool isAnEdit, IMenu previousMenu)
+        public static DateTime ValidateToDate(int roomID, IBooking? booking, DateTime fromDate, bool isAnEdit, IMenu previousMenu)
         {
-            var _dateToReturn = UserInputHandlerDateTime.UserInputDateTime(roomID, booking, isAnEdit, previousMenu);
+            while (true)
+            {
+                var _dateToReturn = UserInputHandlerDateTime.UserInputDateTime(roomID, booking, isAnEdit, previousMenu);
 
-            if (isAnEdit && _dateToReturn == DateTime.MinValue)
-                return DateTime.MinValue;
-            else
-                return _dateToReturn;
+                if (isAnEdit && _dateToReturn == DateTime.MinValue)
+                    return DateTime.MinValue;
+
+                if (_dateToReturn < fromDate)
+                {
+                    Console.WriteLine("Till-datum måste ligga senare i tid än Från-datum");
+                    Thread.Sleep(2000);
+                }
+                else
+                    return _dateToReturn;
+            }
         }
 
         //public static bool ValidateOccupiedDate(int roomID, DateTime dateToValidate, bool isAnEdit)
