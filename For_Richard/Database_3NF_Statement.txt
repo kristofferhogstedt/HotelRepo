@@ -1,0 +1,54 @@
+
+All tables
+------------
+All tables contain the following data for necessary data record-keeping
+* CreatedDate
+* UpdatedDate
+* IsInactive
+* InactivatedDate
+
+
+
+Bookings
+------------
+FK - Rooms
+FK - Customers
+Only handles FromDate and ToDate, the rest of the data is stored in either Rooms, Customers or Invoices tables
+
+
+
+
+Customers
+------------
+Does not meet 3NF. Address data should be handled in a separate table. (StreetAddress, PostalCode, City, Country)
+
+Apart from that I believe the other data points are valid under 3NF for customer info
+
+
+
+Invoices
+------------
+FK - BookingID
+Has a Foreign Key to Bookings via BookingID, otherwise only contain data for Amount, DueDate and IsPaid. PaidDate
+
+
+
+RoomTypes
+------------
+Apart from Name column (which states wether its a Single, Double, Family or Suite type room), this table contains default values and max values of various RoomDetails data.
+
+
+
+Rooms
+------------
+Contains data about Rooms and data about the location of a room, basically data about the location of the door; Name, Description and Floor. Details about the (inside of the-) room is stored in the RoomDetails table.
+
+
+
+RoomDetails 
+------------
+FK - Room
+FK - RoomType
+Contains detailed info about each Room; Price, Size and NumberOfBeds.
+
+
