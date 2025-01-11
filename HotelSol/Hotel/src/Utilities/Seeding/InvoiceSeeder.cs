@@ -35,23 +35,23 @@ namespace Hotel.src.Utilities.Seeding
             {
                 new Invoice((Booking)BookingService.GetOneByIDSeed(1, _getRelatedObjects)) 
                 {CreatedDate=DateTime.Now.AddDays(-10), IsInactive=true, InactivatedDate=DateTime.Now.AddDays(-8)
-                , DueDate=DateTime.Now.AddDays(20), IsPaid=true, PaidDate=DateTime.Now.AddDays(-8)},
+                , DueDate=DateTime.Now.AddDays(20), Amount=800 , IsPaid=true, PaidDate=DateTime.Now.AddDays(-8)},
 
                 new Invoice((Booking)BookingService.GetOneByIDSeed(2, _getRelatedObjects))
-                {CreatedDate=DateTime.Now.AddDays(-8), DueDate=DateTime.Now.AddDays(24)
+                {CreatedDate=DateTime.Now.AddDays(-8), Amount=800, DueDate=DateTime.Now.AddDays(24)
                 , IsPaid=false},
 
                 new Invoice((Booking)BookingService.GetOneByIDSeed(3, _getRelatedObjects))
                 {CreatedDate=DateTime.Now.AddDays(-20), IsInactive=true, InactivatedDate=DateTime.Now.AddDays(-20)
-                , DueDate=DateTime.Now.AddDays(6), IsPaid=true, PaidDate=DateTime.Now.AddDays(-20)},
+                , DueDate=DateTime.Now.AddDays(6), Amount=800, IsPaid=true, PaidDate=DateTime.Now.AddDays(-20)},
 
                 new Invoice((Booking)BookingService.GetOneByIDSeed(4, _getRelatedObjects))
                 {CreatedDate=DateTime.Now.AddDays(-5)
-                , DueDate=DateTime.Now.AddDays(15), IsPaid=false},
+                , DueDate=DateTime.Now.AddDays(15), Amount=800, IsPaid=false},
 
                 new Invoice((Booking)BookingService.GetOneByIDSeed(5, _getRelatedObjects))
                 {CreatedDate=DateTime.Now.AddDays(-39)
-                , DueDate=DateTime.Now.AddDays(-9), IsPaid=false
+                , DueDate=DateTime.Now.AddDays(-9), Amount=800, IsPaid=false
                 , UpdatedDate=DateTime.Now.AddDays(-9)},
 
                 //new Booking((Room)RoomService.GetOneByID(4), (Customer)CustomerService.GetOneByID(6), DateTime.Now.AddDays(1), DateTime.Now.AddDays(3))

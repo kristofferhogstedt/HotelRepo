@@ -89,7 +89,7 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
             var _tableContent = new StringWriter();
 
             _tableContent.WriteLine($"[red]{entityList.ElementAt(indexToHighlight).ID} {entityList.ElementAt(indexToHighlight).DueDate}[/]".ToUpper());
-            _tableContent.WriteLine("ID  Förnamn  Efternamn  Född  E-post  Telefon");
+            _tableContent.WriteLine("Kund   |   Summa   |   Förfallodatum   |  Betald?");
             _tableContent.WriteLine("─────────────────────────────────────────────");
 
             for (int i = 0; i < _entityArray.Length; i++)
