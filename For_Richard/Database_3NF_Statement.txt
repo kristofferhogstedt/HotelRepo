@@ -11,8 +11,8 @@ All tables contain the following data for necessary data record-keeping
 
 Bookings
 ------------
-FK - Rooms
-FK - Customers
+FK - RoomID
+FK - CustomerID
 Only handles FromDate and ToDate, the rest of the data is stored in either Rooms, Customers or Invoices tables
 
 
@@ -47,8 +47,8 @@ Contains data about Rooms and data about the location of a room, basically data 
 
 RoomDetails 
 ------------
-FK - Room
-FK - RoomType
+FK - RoomID
+FK - RoomTypeID
 Contains detailed info about each Room; Price, Size and NumberOfBeds.
 
 
