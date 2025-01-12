@@ -10,12 +10,21 @@ namespace Hotel.src.ModelManagement.Validations
     {
         public static DateTime ValidateFromDate(int roomID, IBooking? booking, bool isAnEdit, IMenu previousMenu)
         {
-            var _dateToReturn = UserInputHandlerDateTime.UserInputDateTime(roomID, booking, isAnEdit, previousMenu);
+            while (true)
+            {
+                var _dateToReturn = UserInputHandlerDateTime.UserInputDateTime(roomID, booking, isAnEdit, previousMenu);
 
-            if (isAnEdit && _dateToReturn == DateTime.MinValue)
-                return DateTime.MinValue;
-            else
-                return _dateToReturn;
+                if (isAnEdit && _dateToReturn == DateTime.MinValue)
+                    return DateTime.MinValue;
+
+                if (_dateToReturn < DateTime.Now.Date)
+                {
+                    Console.WriteLine("Från-datum måste ligga senare i tid än dagens datum");
+                    Thread.Sleep(2000);
+                }
+                else
+                    return _dateToReturn;
+            }
         }
         public static DateTime ValidateToDate(int roomID, IBooking? booking, DateTime fromDate, bool isAnEdit, IMenu previousMenu)
         {
