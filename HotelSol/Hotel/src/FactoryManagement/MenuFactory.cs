@@ -1,22 +1,17 @@
 ﻿using Hotel.src.MenuManagement.Menus;
 using Hotel.src.MenuManagement.Menus.Interfaces;
-using Hotel.src.ModelManagement.Models.Enums;
 
 namespace Hotel.src.FactoryManagement
 {
     public class MenuFactory
     {
-        //private IApp _app;
-
         public MenuFactory()
         {
-            //_app = app;
         }
 
         public static T GetMenu<T>() where T : IMenu
         {
             var _typeOfT = typeof(T).Name;
-            //var _typeOfT = typeof(T).ToString();
             var _startMenu = StartMenu.GetInstance();
 
             switch (_typeOfT)
@@ -33,8 +28,7 @@ namespace Hotel.src.FactoryManagement
         public static T GetMenu<T>(IMenu previousMenu) where T : IMenu
         {
             var _typeOfT = typeof(T).Name;
-            //var _typeOfT = typeof(T).ToString();
-            
+
             switch (_typeOfT)
             {
                 case nameof(MainMenu):

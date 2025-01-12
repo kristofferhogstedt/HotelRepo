@@ -8,11 +8,6 @@ using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Utilities.Checkers;
 using Hotel.src.ModelManagement.Utilities.Messagers;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Menus
 {
@@ -61,14 +56,14 @@ namespace Hotel.src.MenuManagement.Menus
                     case BookingMenuOptions.CreateBooking:
                         ModelController.Create();
                         break;
-					case BookingMenuOptions.DisplayInactive:
-						HandleInactive = true;
+                    case BookingMenuOptions.DisplayInactive:
+                        HandleInactive = true;
                         if (DataElementChecker.CheckBookingDataExists(HandleInactive))
                             ModelController.ManageOne(HandleInactive);
-                        else 
+                        else
                             ServiceMessager.DataNotFoundMessage();
-						break;
-					case BookingMenuOptions.Exit:
+                        break;
+                    case BookingMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;
                     default:

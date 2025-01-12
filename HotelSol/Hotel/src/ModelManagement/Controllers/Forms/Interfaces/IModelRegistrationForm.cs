@@ -1,18 +1,11 @@
-﻿using Hotel.src.MenuManagement.Menus.Interfaces;
-using Hotel.src.ModelManagement.Controllers.Interfaces;
+﻿using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms.Interfaces
 {
     public interface IModelRegistrationForm
     {
-        //IMenu MainMenu { get; set; }
         EModelType ModelType { get; set; }
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; }
@@ -30,13 +23,11 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Interfaces
         object Data09 { get; set; }
         object Data10 { get; set; }
         public void AssignRelatedForm(IModelRegistrationForm relatedForm);
-        //IModel CreateForm();
-        //IModel EditForm(IModel modelToUpdate);
         void CreateForm();
         void EditForm(IModel modelToUpdate);
         void InactivateForm(IModel modelToInactivate);
-		void ReactivateForm(IModel modelToReactivate);
-		IModel CreateAndReturnForm();
+        void ReactivateForm(IModel modelToReactivate);
+        IModel CreateAndReturnForm();
         IModel EditAndReturnForm(IModel modelToUpdate);
         void DisplaySummary();
     }

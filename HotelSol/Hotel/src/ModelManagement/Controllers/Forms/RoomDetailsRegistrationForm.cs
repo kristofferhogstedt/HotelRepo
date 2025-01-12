@@ -117,19 +117,19 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 			Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine($"\n[yellow]Storlek[/] (default {RoomType.SizeDefault}): ");
-            Data05 = RoomDetailsValidator.ValidateRoomSize(RoomType, false, PreviousMenu);
+            Data03 = RoomDetailsValidator.ValidateRoomSize(RoomType, false, PreviousMenu);
 
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine($"\n[yellow]Antal sängar[/] (default {RoomType.NumberOfBedsDefault}): ");
-            Data06 = RoomDetailsValidator.ValidateNumberOfBeds(RoomType, (int)Data05, false, PreviousMenu);
+            Data04 = RoomDetailsValidator.ValidateNumberOfBeds(RoomType, (int)Data03, false, PreviousMenu);
 
 			Console.Clear();
 			FormDisplayer.DisplayCurrentFormValues(this);
 			AnsiConsole.MarkupLine($"\n[yellow]Pris[/] (0 = default {RoomType.PriceDefault}): ");
-            Data07 = RoomDetailsValidator.ValidateRoomPrice(RoomType, IsAnEdit, PreviousMenu);
-			if (CopyChecker.CheckCopyValue(Data07))
-				Data07 = RoomType.PriceDefault;
+            Data05 = RoomDetailsValidator.ValidateRoomPrice(RoomType, IsAnEdit, PreviousMenu);
+			if (CopyChecker.CheckCopyValue(Data05))
+                Data05 = RoomType.PriceDefault;
 
 			Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
@@ -141,7 +141,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             {
                 // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
-                NewEntity = new RoomDetails((IRoomType)Data01, (int)Data02, (int)Data05, (int)Data06, (double)Data07);
+                NewEntity = new RoomDetails((IRoomType)Data01, (int)Data02, (int)Data03, (int)Data04, (double)Data05);
 
 				return (IModel)NewEntity;
             }
@@ -188,26 +188,26 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine($"\n[yellow]Storlek[/] (default {RoomType.SizeDefault}): ");
-            Data05 = RoomDetailsValidator.ValidateRoomSize(RoomType, true, PreviousMenu);
-            if (CopyChecker.CheckCopyValue(Data05))
-				Data05 = ExistingEntity.Size;
+            Data03 = RoomDetailsValidator.ValidateRoomSize(RoomType, true, PreviousMenu);
+            if (CopyChecker.CheckCopyValue(Data03))
+                Data03 = ExistingEntity.Size;
 
             Console.Clear();
             DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine($"\n[yellow]Antal sängar[/] (default {RoomType.NumberOfBedsDefault}): ");
-            Data06 = RoomDetailsValidator.ValidateNumberOfBeds(RoomType, (int)Data05, true, PreviousMenu);
-            if (CopyChecker.CheckCopyValue(Data06))
-				Data06 = ExistingEntity.NumberOfBeds;
+            Data04 = RoomDetailsValidator.ValidateNumberOfBeds(RoomType, (int)Data03, true, PreviousMenu);
+            if (CopyChecker.CheckCopyValue(Data04))
+                Data04 = ExistingEntity.NumberOfBeds;
 
 			Console.Clear();
 			FormDisplayer.DisplayCurrentFormValues(this);
 			AnsiConsole.MarkupLine($"\n[yellow]Pris[/] (Nuvarande: {ExistingEntity.Price}, 0 = default {RoomType.PriceDefault}): ");
-            Data07 = RoomDetailsValidator.ValidateRoomPrice(RoomType, IsAnEdit, PreviousMenu);
-            if (CopyChecker.CheckCopyValue(Data07))
-				Data07 = ExistingEntity.Price;
-            if ((double)Data07 == 0) //If ExistingEntity.Price was 0, assign PriceDefault from RoomType
-				Data07 = RoomType.PriceDefault;
+            Data05 = RoomDetailsValidator.ValidateRoomPrice(RoomType, IsAnEdit, PreviousMenu);
+            if (CopyChecker.CheckCopyValue(Data05))
+				Data05 = ExistingEntity.Price;
+            if ((double)Data05 == 0) //If ExistingEntity.Price was 0, assign PriceDefault from RoomType
+                Data05 = RoomType.PriceDefault;
 
 			Console.Clear();
             Console.WriteLine("Tidigare värden: ");
@@ -220,7 +220,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
             if (confirm)
 			{
-				NewEntity = new RoomDetails((IRoomType)Data01, (int)Data02, (int)Data05, (int)Data06, (double)Data07)
+				NewEntity = new RoomDetails((IRoomType)Data01, (int)Data02, (int)Data03, (int)Data04, (double)Data05)
 				{ ID = ExistingEntity.ID, UpdatedDate = DateTime.Now};
 
                 //RoomDetailsService.Update(NewEntity);
@@ -251,7 +251,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             table.AddRow("Våning", (string)RelatedForm.Data03);
 
             // RoomDetails
-            table.AddRow("Rumstyp", (string)Data01);
+            table.AddRow("Rumstyp", (string)Data01.ToString());
             table.AddRow("Storlek", (string)Data02);
             table.AddRow("Antal sängar", (string)Data03);
             table.AddRow("Pris", (string)Data04);

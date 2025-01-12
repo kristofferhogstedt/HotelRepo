@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Menus.Interfaces
 {
-    public interface IPreviousMenu
-    {
-        void Return();
-    }
+    //public interface IPreviousMenu
+    //{
+    //    void Return();
+    //}
 }

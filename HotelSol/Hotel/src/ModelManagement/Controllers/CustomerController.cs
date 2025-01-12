@@ -1,19 +1,14 @@
-﻿using Hotel.src.ModelManagement.Models;
-using Hotel.src.ModelManagement.Services;
-using Hotel.src.Persistence;
-using HotelLibrary.Utilities.UserInputManagement;
-using Hotel.src.ModelManagement.Controllers.Interfaces;
-using Hotel.src.ModelManagement.Models.Interfaces;
-using Hotel.src.ModelManagement.Controllers.Checks;
-using System.Threading;
+﻿using Hotel.src.FactoryManagement;
 using Hotel.src.FactoryManagement.Interfaces;
-using Hotel.src.FactoryManagement;
-using Hotel.src.ModelManagement.Controllers.Forms;
-using Hotel.src.ModelManagement.Utilities.Displayers;
-using Hotel.src.ModelManagement.Utilities.Selectors;
 using Hotel.src.MenuManagement.Menus;
 using Hotel.src.MenuManagement.Menus.Interfaces;
+using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models.Enums;
+using Hotel.src.ModelManagement.Models.Interfaces;
+using Hotel.src.ModelManagement.Services;
+using Hotel.src.ModelManagement.Utilities.Displayers;
+using Hotel.src.ModelManagement.Utilities.Selectors;
+using Hotel.src.Persistence;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
@@ -137,20 +132,20 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             _modelForm.InactivateForm((IModel)entityToDelete);
-		}
-		public void Reactivate(IModel entityToReactivate)
-		{
-			var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-			if (DatabaseLair.DatabaseContext.Customers.Any(b => b.IsInactive == true))
-				_modelForm.ReactivateForm((IModel)entityToReactivate);
-			else
-			{
-				Console.WriteLine("Inga inaktiva finns");
-				Thread.Sleep(2000);
-			}
-		}
+        }
+        public void Reactivate(IModel entityToReactivate)
+        {
+            var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
+            if (DatabaseLair.DatabaseContext.Customers.Any(b => b.IsInactive == true))
+                _modelForm.ReactivateForm((IModel)entityToReactivate);
+            else
+            {
+                Console.WriteLine("Inga inaktiva finns");
+                Thread.Sleep(2000);
+            }
+        }
 
-		public void DisplaySummary(IModel entityToDisplay)
+        public void DisplaySummary(IModel entityToDisplay)
         {
             var _customer = (ICustomer)entityToDisplay;
             Console.Clear();

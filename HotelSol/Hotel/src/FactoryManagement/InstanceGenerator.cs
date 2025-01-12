@@ -1,11 +1,5 @@
 ﻿using Hotel.src.FactoryManagement.Interfaces;
-using Hotel.src.MenuManagement.Menus;
 using Hotel.src.MenuManagement.Menus.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.FactoryManagement
 {
@@ -41,7 +35,7 @@ namespace Hotel.src.FactoryManagement
         /// <param name="locker"></param>
         /// <param name="previousMenu"></param>
         /// <returns></returns>
-        public static T GetInstance<T>(IInstantiable instance, object locker, IMenu previousMenu) where T : new()        
+        public static T GetInstance<T>(IInstantiable instance, object locker, IMenu previousMenu) where T : new()
         {
             if (instance == null)
             {

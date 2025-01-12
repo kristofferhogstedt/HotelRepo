@@ -1,10 +1,5 @@
 ﻿using Hotel.src.MenuManagement.Enums.Services;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Enums
 {
@@ -16,13 +11,13 @@ namespace Hotel.src.MenuManagement.Enums
         DisplayCustomer,
         [Description("  Registrera ny kund")]
         CreateCustomer,
-		[Description("  Visa inaktiverade")]
-		DisplayInactive,
-		[Description("Avsluta")]
+        [Description("  Visa inaktiverade")]
+        DisplayInactive,
+        [Description("Avsluta")]
         Exit
     }
 
-    public static class CustomerMenuEnum 
+    public static class CustomerMenuEnum
     {
         public static string ShowCustomerMenu(this Enum enumValues)
         {

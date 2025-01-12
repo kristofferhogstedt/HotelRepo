@@ -8,7 +8,7 @@ namespace Hotel.src.ModelManagement.Utilities.Calculators
 {
     public class NumberOfNightsCalculator
     {
-        public static int calculateNumberOfNights(DateTime toDate, DateTime fromDate)
+        public static int CalculateNumberOfNights(DateTime toDate, DateTime fromDate)
         {
             return DateTime.Compare(toDate, fromDate);
         }

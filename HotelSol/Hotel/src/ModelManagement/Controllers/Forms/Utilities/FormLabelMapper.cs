@@ -41,7 +41,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
                 case EModelType.Room:
                     return "Beskrivning";
                 case EModelType.RoomDetails:
-                    return "Storlek";
+                    return "Rumtyp";
                 case EModelType.Booking:
                     return "Till-datum";
                 default:
@@ -59,7 +59,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
                 case EModelType.Room:
                     return "Våning";
                 case EModelType.RoomDetails:
-                    return "Antal sängar";
+                    return "Storlek";
                 case EModelType.Booking:
                     return "Rum";
                 default:
@@ -74,10 +74,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
                     return "E-post";
                 case EModelType.Address:
                     return "Land";
-                case EModelType.Room:
-                    return "Våning";
                 case EModelType.RoomDetails:
-                    return "Rumsnummer";
+                    return "Antal sängar";
                 case EModelType.Booking:
                     return "Kund";
                 default:
@@ -90,6 +88,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
             {
                 case EModelType.Customer:
                     return "Telefonnummer";
+                case EModelType.RoomDetails:
+                    return "Pris";
                 default:
                     return "";
             }
@@ -99,7 +99,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
             switch (registrationForm.ModelType)
             {
                 case EModelType.Customer:
-                    return "Address";
+                    return "GatuAddress";
                 default:
                     return "";
             }
@@ -109,7 +109,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
             switch (registrationForm.ModelType)
             {
                 case EModelType.Customer:
-                    return "Address";
+                    return "Postkod";
                 default:
                     return "";
             }
@@ -119,7 +119,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
             switch (registrationForm.ModelType)
             {
                 case EModelType.Customer:
-                    return "Address";
+                    return "Stad";
                 default:
                     return "";
             }
@@ -129,7 +129,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
             switch (registrationForm.ModelType)
             {
                 case EModelType.Customer:
-                    return "Address";
+                    return "Land";
                 default:
                     return "";
             }

@@ -1,15 +1,14 @@
 ﻿using Hotel.src.ModelManagement.Controllers.Forms.Interfaces;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
 {
     internal class FormDisplayer
     {
+        /// <summary>
+        /// Displays current form data for entity creation
+        /// </summary>
+        /// <param name="registrationForm"></param>
         public static void DisplayCurrentFormValues(IModelRegistrationForm registrationForm)
         {
             FormDisplayer.DisplayFormHeader();

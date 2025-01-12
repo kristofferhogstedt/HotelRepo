@@ -10,12 +10,9 @@ using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services;
 using Hotel.src.ModelManagement.Utilities.Calculators;
-using Hotel.src.ModelManagement.Utilities.Displayers;
 using Hotel.src.ModelManagement.Validations;
 using Hotel.src.Utilities.UserInputManagement;
-using Hotel.src.Utilities.UserInputManagement.RegexManagement;
 using HotelLibrary.Utilities.UserInputManagement;
-using Microsoft.IdentityModel.Tokens;
 using Spectre.Console;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms
@@ -25,7 +22,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
         public IMenu PreviousMenu { get; set; }
-        //public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
         public EModelType ModelType { get; set; } = EModelType.Booking;
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; } = EModelType.Booking;
@@ -58,7 +54,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
         public void CreateForm()
         {
-            //ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
             IsAnEdit = false;
 
             Console.Clear();
@@ -78,6 +73,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             AnsiConsole.MarkupLine("\n[yellow]Till-datum[/]: ");
             Data03 = BookingValidator.ValidateToDate(_room.ID, null, (DateTime)Data02, IsAnEdit, PreviousMenu);
 
+
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Kund[/]: ");
@@ -85,7 +81,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Data04 = _customerController.BrowseOne(HandleInactive);
             var _customer = (ICustomer)Data04;
 
-            var _numberOfNights = NumberOfNightsCalculator.calculateNumberOfNights((DateTime)Data03, (DateTime)Data02);
+            var _numberOfNights = NumberOfNightsCalculator.CalculateNumberOfNights((DateTime)Data03, (DateTime)Data02);
             var _price = PriceCalculator.CalculateStayPrice(_numberOfNights, _room.Details.Price);
 
             // Create Invoice 
@@ -167,23 +163,23 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 Data07 = ExistingEntity.Customer;
             }
 
-            var _numberOfNights = NumberOfNightsCalculator.calculateNumberOfNights((DateTime)Data03, (DateTime)Data02);
+            var _numberOfNights = NumberOfNightsCalculator.CalculateNumberOfNights((DateTime)Data03, (DateTime)Data02);
             var _price = PriceCalculator.CalculateStayPrice(_numberOfNights, _room.Details.Price);
 
             // Create Invoice 
             Data05 = new Invoice(_room.Details.RoomType, _price);
 
 
-            
+
             Console.Clear();
             Console.WriteLine("Tidigare värden: ");
             DisplaySummary(ExistingEntity);
             Console.WriteLine("Nya värden: ");
 
-            NewEntity = new Booking((int)Data01, (int)Data04, (DateTime)Data02, (DateTime)Data03, (Invoice)Data05, (Room)Data06, (Customer)Data07)
-            { ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
-            DisplaySummary(NewEntity);
-            //FormDisplayer.DisplayCurrentFormValues(this);
+            //NewEntity = new Booking((int)Data01, (int)Data04, (DateTime)Data02, (DateTime)Data03, (Invoice)Data05, (Room)Data06, (Customer)Data07)
+            //{ ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
+            //DisplaySummary(NewEntity);
+            FormDisplayer.DisplayCurrentFormValues(this);
 
             // Bekräfta kunduppgifter
             bool confirm = AnsiConsole.Confirm("\nÄr alla uppgifter korrekta?");
@@ -193,8 +189,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 //// Meddelande om lyckad registrering
                 //AnsiConsole.MarkupLine("[bold green]Bokning registrerad framgångsrikt![/]");
 
-                //NewEntity = new Booking((int)Data01, (int)Data04, (DateTime)Data02, (DateTime)Data03, (Invoice)Data05)
-                //{ ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
+                NewEntity = new Booking((int)Data01, (int)Data04, (DateTime)Data02, (DateTime)Data03, (Invoice)Data05)
+                { ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
 
                 BookingService.Update(NewEntity);
                 MainMenu.ReturnToMainMenu();
@@ -232,33 +228,33 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 Console.Clear();
                 return;
             }
-		}
-		public void ReactivateForm(IModel entityToReactivate)
-		{
-			var ExistingEntity = (IBooking)entityToReactivate;
-			IsAnEdit = true;
+        }
+        public void ReactivateForm(IModel entityToReactivate)
+        {
+            var ExistingEntity = (IBooking)entityToReactivate;
+            IsAnEdit = true;
 
-			Console.Clear();
-			FormDisplayer.DisplayCurrentFormValues(this);
-			AnsiConsole.MarkupLine("\n[yellow]Godkänn återaktivering[/]: ");
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Godkänn återaktivering[/]: ");
 
-			if (UserInputHandler.UserInputBool(PreviousMenu))
-			{
-				ExistingEntity.IsInactive = false;
-				ExistingEntity.InactivatedDate = null;
-				BookingService.Update(ExistingEntity);
+            if (UserInputHandler.UserInputBool(PreviousMenu))
+            {
+                ExistingEntity.IsInactive = false;
+                ExistingEntity.InactivatedDate = null;
+                BookingService.Update(ExistingEntity);
                 MainMenu.ReturnToMainMenu();
             }
-			else
-			{
-				Console.WriteLine("Inaktivering avbruten, Återgår...");
-				Thread.Sleep(1000);
+            else
+            {
+                Console.WriteLine("Inaktivering avbruten, Återgår...");
+                Thread.Sleep(1000);
                 Console.Clear();
                 return;
-			}
-		}
+            }
+        }
 
-		public IModel CreateAndReturnForm()
+        public IModel CreateAndReturnForm()
         {
             throw new NotImplementedException();
         }
@@ -270,7 +266,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public void DisplaySummary()
         {
             // Booking
-            Console.Clear();
             FormDisplayer.DisplayFormHeader();
             AnsiConsole.MarkupLine("\n[bold green]Sammanfattning:[/]");
             var table = new Table();
@@ -296,7 +291,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public void DisplaySummary(IBooking entity)
         {
             // Visa sammanfattning
-            Console.Clear();
+
             AnsiConsole.MarkupLine("\n[bold green]Sammanfattning av Bokningsinformation:[/]");
             var table = new Table();
             table.AddColumn("[red]Fält[/]");

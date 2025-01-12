@@ -1,10 +1,5 @@
 ﻿using Hotel.src.MenuManagement.Enums.Services;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Enums
 {
@@ -16,9 +11,9 @@ namespace Hotel.src.MenuManagement.Enums
         Update,
         [Description("  Inaktivera")]
         Inactivate,
-		[Description("  Återaktivera")]
-		Reactivate,
-		[Description("Avsluta")]
+        [Description("  Återaktivera")]
+        Reactivate,
+        [Description("Avsluta")]
         Exit
     }
     public enum BookingCRUDMenuOptions
@@ -57,9 +52,9 @@ namespace Hotel.src.MenuManagement.Enums
         UpdateBeds,
         [Description("  Inaktivera")]
         Inactivate,
-		[Description("  Återaktivera")]
-		Reactivate,
-		[Description("Avsluta")]
+        [Description("  Återaktivera")]
+        Reactivate,
+        [Description("Avsluta")]
         Exit
     }
 

@@ -16,7 +16,6 @@ namespace Hotel.src.MenuManagement.Menus
         public IMenu PreviousMenu { get; set; }
         private static IInstantiable _instance;
         private static readonly object _lock = new object();
-        //private static IModelController ModelController;
         public EModelType ModelType { get; set; } = EModelType.Customer;
         public IModelController ModelController { get; set; }
         public bool HandleInactive { get; set; }
@@ -28,7 +27,7 @@ namespace Hotel.src.MenuManagement.Menus
         public static IMenu GetInstance(IMenu previousMenu)
         {
             _instance = FactoryManagement.InstanceGenerator.GetInstance<CustomerMenu>(_instance, _lock, previousMenu);
-            
+
             return (CustomerMenu)_instance;
         }
 
@@ -61,14 +60,14 @@ namespace Hotel.src.MenuManagement.Menus
                     case CustomerMenuOptions.CreateCustomer:
                         ModelController.Create();
                         break;
-					case CustomerMenuOptions.DisplayInactive:
-						HandleInactive = true;
+                    case CustomerMenuOptions.DisplayInactive:
+                        HandleInactive = true;
                         if (DataElementChecker.CheckCustomerDataExists(HandleInactive))
                             ModelController.ManageOne(HandleInactive);
-                        else 
+                        else
                             ServiceMessager.DataNotFoundMessage();
-						break;
-					case CustomerMenuOptions.Exit:
+                        break;
+                    case CustomerMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;
                     default:

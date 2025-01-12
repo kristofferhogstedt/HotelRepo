@@ -1,10 +1,5 @@
 ﻿using Hotel.src.MenuManagement.Enums.Services;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.MenuManagement.Enums
 {
@@ -15,10 +10,10 @@ namespace Hotel.src.MenuManagement.Enums
         [Description("  Visa rum")]
         DisplayRooms,
         [Description("  Registrera nytt rum")]
-		CreateRoom,
-		[Description("  Visa inaktiverade")]
-		DisplayInactive,
-		[Description("Avsluta")]
+        CreateRoom,
+        [Description("  Visa inaktiverade")]
+        DisplayInactive,
+        [Description("Avsluta")]
         Exit
     }
 

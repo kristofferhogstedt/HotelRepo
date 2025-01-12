@@ -249,7 +249,7 @@ namespace Hotel.src.ModelManagement.Services
             var _entityToReturn = (IBooking)entity;
             bool _getRelatedObjects = false;
             if (DataElementChecker.CheckCustomerDataExists(_entityToReturn.CustomerID))
-                _entityToReturn.Customer = (Customer)CustomerService.GetOneByIDSeed(_entityToReturn.RoomID, _getRelatedObjects);
+                _entityToReturn.Customer = (Customer)CustomerService.GetOneByIDSeed(_entityToReturn.CustomerID, _getRelatedObjects);
             else
                 ServiceMessager.SubDataNotFoundMessage();
 
@@ -263,7 +263,7 @@ namespace Hotel.src.ModelManagement.Services
             {
                 if (DataElementChecker.CheckCustomerDataExists(entity.CustomerID))
                 {
-                    entity.Customer = (Customer)CustomerService.GetOneByIDSeed(entity.RoomID, _getRelatedObjects);
+                    entity.Customer = (Customer)CustomerService.GetOneByIDSeed(entity.CustomerID, _getRelatedObjects);
                     _listToReturn.Add(entity);
 
                 }
