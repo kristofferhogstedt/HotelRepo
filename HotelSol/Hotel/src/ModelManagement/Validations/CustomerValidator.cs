@@ -20,7 +20,6 @@ namespace Hotel.src.ModelManagement.Rules
             {
                 var _userInput = UserInputHandler.UserInputString(previousMenu);
 
-                //if (isAnEdit && InputChecker.UserInputIsEnter(_userInput))
                 if (isAnEdit && InputChecker.UserInputIsEnter(_userInput))
                     return _userInput;
                 else if (UserInputRegexHandler.UserInputRegexEmail(_userInput, previousMenu))

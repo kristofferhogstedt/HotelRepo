@@ -50,7 +50,7 @@ namespace Hotel.src.Utilities.Seeding
                 , DueDate=DateTime.Now.AddDays(15), Amount=800, IsPaid=false},
 
                 new Invoice((Booking)BookingService.GetOneByIDSeed(5, _getRelatedObjects))
-                {CreatedDate=DateTime.Now.AddDays(-39)
+                {CreatedDate=DateTime.Now.AddDays(-39), IsInactive=true, InactivatedDate=DateTime.Now.AddDays(-39)
                 , DueDate=DateTime.Now.AddDays(-9), Amount=800, IsPaid=false
                 , UpdatedDate=DateTime.Now.AddDays(-9)},
 

@@ -100,7 +100,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             if (confirm)
             {
                 // Meddelande om lyckad registrering
-                AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
+                AnsiConsole.MarkupLine("[bold green]Bokning registrerad framgångsrikt![/]");
                 NewEntity = new Booking((Room)Data01, (Customer)Data04, (DateTime)Data02, (DateTime)Data03, (Invoice)Data05);
 
                 BookingService.Update(NewEntity);
@@ -124,15 +124,21 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             IsAnEdit = true;
 
             Console.Clear();
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Rum[/]: ");
             var _roomController = ModelFactory.GetModelController(EModelType.Room, PreviousMenu);
             var _room = (IRoom)_roomController.BrowseOne(HandleInactive);
             Data01 = _room.ID;
+            Data06 = _room;
             if (CopyChecker.CheckCopyValue(Data01))
+            {
                 Data01 = ExistingEntity.RoomID;
+                Data06 = ExistingEntity.Room;
+            }
 
             Console.Clear();
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Från-datum[/]: ");
             Data02 = BookingValidator.ValidateFromDate(_room.ID, ExistingEntity, IsAnEdit, PreviousMenu);
@@ -140,6 +146,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 Data02 = ExistingEntity.FromDate;
 
             Console.Clear();
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Till-datum[/]: ");
             Data03 = BookingValidator.ValidateToDate(_room.ID, ExistingEntity, (DateTime)Data02, IsAnEdit, PreviousMenu);
@@ -147,13 +154,18 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 Data03 = ExistingEntity.FromDate;
 
             Console.Clear();
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Kund[/]: ");
             var _customerController = ModelFactory.GetModelController(EModelType.Customer, PreviousMenu);
             var _customer = (ICustomer)_customerController.BrowseOne(HandleInactive);
             Data04 = _customer.ID;
+            Data07 = _customer;
             if (CopyChecker.CheckCopyValue(Data04))
-                Data04 = ExistingEntity.Customer;
+            {
+                Data04 = ExistingEntity.CustomerID;
+                Data07 = ExistingEntity.Customer;
+            }
 
             var _numberOfNights = NumberOfNightsCalculator.calculateNumberOfNights((DateTime)Data03, (DateTime)Data02);
             var _price = PriceCalculator.CalculateStayPrice(_numberOfNights, _room.Details.Price);
@@ -161,18 +173,28 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             // Create Invoice 
             Data05 = new Invoice(_room.Details.RoomType, _price);
 
+
+            
             Console.Clear();
-            FormDisplayer.DisplayCurrentFormValues(this);
+            Console.WriteLine("Tidigare värden: ");
+            DisplaySummary(ExistingEntity);
+            Console.WriteLine("Nya värden: ");
+
+            NewEntity = new Booking((int)Data01, (int)Data04, (DateTime)Data02, (DateTime)Data03, (Invoice)Data05, (Room)Data06, (Customer)Data07)
+            { ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
+            DisplaySummary(NewEntity);
+            //FormDisplayer.DisplayCurrentFormValues(this);
 
             // Bekräfta kunduppgifter
             bool confirm = AnsiConsole.Confirm("\nÄr alla uppgifter korrekta?");
 
             if (confirm)
             {
-                // Meddelande om lyckad registrering
-                AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
-                NewEntity = new Booking((int)Data01, (int)Data04, (DateTime)Data02, (DateTime)Data03, (Invoice)Data05)
-                { ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
+                //// Meddelande om lyckad registrering
+                //AnsiConsole.MarkupLine("[bold green]Bokning registrerad framgångsrikt![/]");
+
+                //NewEntity = new Booking((int)Data01, (int)Data04, (DateTime)Data02, (DateTime)Data03, (Invoice)Data05)
+                //{ ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
 
                 BookingService.Update(NewEntity);
                 MainMenu.ReturnToMainMenu();
@@ -200,6 +222,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             if ((bool)Data01 == true)
             {
                 BookingService.Delete(ExistingEntity);
+                InvoiceService.Delete(ExistingEntity.Invoice);
                 MainMenu.ReturnToMainMenu();
             }
             else
@@ -253,15 +276,15 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             var table = new Table();
             table.AddColumn("[red]Fält[/]");
             table.AddColumn("[red]Värde[/]");
-            table.AddRow("Från-datum", (string)Data01);
-            table.AddRow("Till-datum", (string)Data02);
-            table.AddRow("Rum", (string)Data03);
+            table.AddRow("Rum", (string)Data01);
+            table.AddRow("Från-datum", (string)Data02);
+            table.AddRow("Till-datum", (string)Data03);
             table.AddRow("Kund", (string)Data04);
 
-            // Invoice Details
-            table.AddRow("Typ", (string)RelatedForm.Data01);
-            table.AddRow("Storlek", (string)RelatedForm.Data02);
-            table.AddRow("Antal sängar", (string)Data03);
+            // Invoice data
+            table.AddRow("Belopp", (string)RelatedForm.Data01);
+            table.AddRow("Förfallodatum", (string)RelatedForm.Data02);
+            table.AddRow("Är betald?", (string)Data03);
 
             AnsiConsole.Write(table);
         }
@@ -270,21 +293,40 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         /// Summary of existing customer information
         /// </summary>
         /// <param name="entity"></param>
-        public void DisplaySummary(IRoom entity)
+        public void DisplaySummary(IBooking entity)
         {
             // Visa sammanfattning
             Console.Clear();
-            AnsiConsole.MarkupLine("\n[bold green]Sammanfattning av kundinformation:[/]");
+            AnsiConsole.MarkupLine("\n[bold green]Sammanfattning av Bokningsinformation:[/]");
             var table = new Table();
             table.AddColumn("[red]Fält[/]");
             table.AddColumn("[red]Värde[/]");
-            table.AddRow("Rumsnummer", entity.Name);
-            table.AddRow("Beskrivning", entity.Description);
-            table.AddRow("Våning", entity.Floor.ToString());
-            table.AddRow("Typ", entity.Details.RoomType.Name);
-            table.AddRow("Storlek", entity.Details.Size.ToString());
-            table.AddRow("Antal sängar", entity.Details.NumberOfBeds.ToString());
+            table.AddRow("Rum", entity.Room.Name);
+            table.AddRow("Från-datum", entity.FromDate.Date.ToShortDateString());
+            table.AddRow("Till-datum", entity.ToDate.ToShortDateString());
+            table.AddRow("Kund", entity.Customer.FullName);
+            // Invoice data
+            table.AddRow("Belopp", entity.Invoice.Amount.ToString());
+            table.AddRow("Förfallodatum", entity.Invoice.DueDate.ToShortDateString());
+            table.AddRow("Är betald?", entity.Invoice.IsPaid.ToString());
             AnsiConsole.Write(table);
         }
+        //public void DisplaySummary(IModelRegistrationForm entity)
+        //{
+        //    // Visa sammanfattning
+        //    Console.Clear();
+        //    AnsiConsole.MarkupLine("\n[bold green]Sammanfattning av Bokningsinformation:[/]");
+        //    var table = new Table();
+        //    table.AddColumn("[red]Fält[/]");
+        //    table.AddColumn("[red]Värde[/]");
+        //    table.AddRow("Från-datum", entity.FromDate.Date.ToShortDateString());
+        //    table.AddRow("Till-datum", entity.ToDate.ToShortDateString());
+        //    table.AddRow("Rum", entity.Room.Name);
+        //    table.AddRow("Kund", entity.Customer.FullName);
+        //    table.AddRow("Belopp", entity.Invoice.Amount.ToString());
+        //    table.AddRow("Förfallodatum", entity.Invoice.DueDate.ToShortDateString());
+        //    table.AddRow("Är betald?", entity.Invoice.IsPaid.ToString());
+        //    AnsiConsole.Write(table);
+        //}
     }
 }

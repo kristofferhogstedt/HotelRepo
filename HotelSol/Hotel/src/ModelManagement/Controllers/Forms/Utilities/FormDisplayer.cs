@@ -16,22 +16,30 @@ namespace Hotel.src.ModelManagement.Controllers.Forms.Utilities
             AnsiConsole.MarkupLine("\n[bold green]Sammanfattning av aktuell formulärdata:[/]");
 
             AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData01(registrationForm)}[/]: {registrationForm.Data01}");
-            AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData02(registrationForm)}[/]: {registrationForm.Data02}");
-            AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData03(registrationForm)}[/]: {registrationForm.Data03}");
-            AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData04(registrationForm)}[/]: {registrationForm.Data04}");
-            AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData05(registrationForm)}[/]: {registrationForm.Data05}");
+            if (FormLabelMapper.LabelMapData02(registrationForm) != "")
+                AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData02(registrationForm)}[/]: {registrationForm.Data02}");
+            if (FormLabelMapper.LabelMapData03(registrationForm) != "")
+                AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData03(registrationForm)}[/]: {registrationForm.Data03}");
+            if (FormLabelMapper.LabelMapData04(registrationForm) != "")
+                AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData04(registrationForm)}[/]: {registrationForm.Data04}");
+            if (FormLabelMapper.LabelMapData05(registrationForm) != "")
+                AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData05(registrationForm)}[/]: {registrationForm.Data05}");
             if (registrationForm.RelatedForm != null)
             {
-                AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData01(registrationForm.RelatedForm)}[/]: {registrationForm.RelatedForm.Data01}");
-                AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData02(registrationForm.RelatedForm)}[/]: {registrationForm.RelatedForm.Data02}");
-                AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData03(registrationForm.RelatedForm)}[/]: {registrationForm.RelatedForm.Data03}");
-                AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData04(registrationForm.RelatedForm)}[/]: {registrationForm.RelatedForm.Data04}");
+                if (FormLabelMapper.LabelMapData01(registrationForm.RelatedForm) != "")
+                    AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData01(registrationForm.RelatedForm)}[/]: {registrationForm.RelatedForm.Data01}");
+                if (FormLabelMapper.LabelMapData02(registrationForm.RelatedForm) != "")
+                    AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData02(registrationForm.RelatedForm)}[/]: {registrationForm.RelatedForm.Data02}");
+                if (FormLabelMapper.LabelMapData03(registrationForm.RelatedForm) != "")
+                    AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData03(registrationForm.RelatedForm)}[/]: {registrationForm.RelatedForm.Data03}");
+                if (FormLabelMapper.LabelMapData04(registrationForm.RelatedForm) != "")
+                    AnsiConsole.MarkupLine($"[green]{FormLabelMapper.LabelMapData04(registrationForm.RelatedForm)}[/]: {registrationForm.RelatedForm.Data04}");
             }
         }
 
         public static void DisplayFormHeader()
         {
-            AnsiConsole.Markup("\n[bold green]Kundregistrering[/]");
+            AnsiConsole.Markup("\n[bold green]Registrering[/]");
             AnsiConsole.WriteLine();
         }
 

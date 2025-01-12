@@ -110,6 +110,7 @@ namespace HotelLibrary.Utilities.UserInputManagement
             while (!int.TryParse(UserInputString(previousMenu), out _output))
             {
                 Console.WriteLine("Felaktig inmatning, måste vara heltal (int).");
+                LineClearer.ClearLastLine(1500);
             }
 
             return _output;

@@ -42,39 +42,6 @@ namespace Hotel.src.ModelManagement.Validations
             }
         }
 
-        //public static bool ValidateOccupiedDate(int roomID, DateTime dateToValidate, bool isAnEdit)
-        //{
-        //    var _isInactive = false;
-        //    var _existingBookings = BookingService.GetAll(_isInactive).Where(b => b.RoomID == roomID);
-
-        //    var _occupiedDates = new List<DateTime>();
-
-        //    foreach (var booking in _existingBookings)
-        //    {
-        //        _occupiedDates = BookedDateSplitter.SplitDates(booking);
-        //    }
-
-        //    if (_occupiedDates.Any(d => d.Date == dateToValidate.Date))
-        //        return false;
-        //    //if (_existingBookings.Any(b => b.RoomID == roomID && b.FromDate <= dateToValidate && b.ToDate > dateToValidate) && isAnEdit == false)
-        //    //    return false;
-        //    else
-        //        return true;
-        //}
-        //public static bool ValidateOccupiedDay(int roomID, int dateToValidate, bool isAnEdit)
-        //{
-        //    var _isInactive = false;
-        //    var _existingBookings = BookingService.GetAll(_isInactive);
-
-        //    if (_existingBookings.Any(b => b.RoomID == roomID && b.FromDate <= dateToValidate && b.ToDate > dateToValidate) && isAnEdit == false)
-        //    {
-        //        Console.WriteLine("Rummet är redan bokat under detta datum, försök igen");
-        //        LineClearer.ClearLastLine(1000);
-        //        return false;
-        //    }
-        //    else
-        //        return true;
-        //}
 
         public static DateTime ValidateOccupiedDateBACKUP(int roomID, IBooking? booking, DateTime dateToValidate, bool isAnEdit, IMenu previousMenu)
         {

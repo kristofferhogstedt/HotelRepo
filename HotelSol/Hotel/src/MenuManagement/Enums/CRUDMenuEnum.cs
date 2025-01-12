@@ -21,6 +21,21 @@ namespace Hotel.src.MenuManagement.Enums
 		[Description("Avsluta")]
         Exit
     }
+    public enum BookingCRUDMenuOptions
+    {
+        [Description("<--")]
+        PreviousMenu,
+        [Description("  Redigera")]
+        Update,
+        [Description("  Se faktura")]
+        OpenInvoice,
+        [Description("  Inaktivera")]
+        Inactivate,
+        [Description("  Återaktivera")]
+        Reactivate,
+        [Description("Avsluta")]
+        Exit
+    }
 
     public enum InvoiceCRUDMenuOptions
     {

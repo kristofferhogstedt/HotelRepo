@@ -1,11 +1,14 @@
 ﻿using Hotel.src.FactoryManagement;
 using Hotel.src.FactoryManagement.Interfaces;
+using Hotel.src.Interfaces;
 using Hotel.src.MenuManagement.Enums;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
+using Hotel.src.ModelManagement.Utilities.Checkers;
+using Hotel.src.ModelManagement.Utilities.Messagers;
 using Spectre.Console;
 using System;
 using System.Collections.Generic;
@@ -44,6 +47,9 @@ namespace Hotel.src.MenuManagement.Menus
                 case EModelType.Room:
                     RoomCRUDMenu(entityToCRUD);
                     break;
+                case EModelType.Booking:
+                    BookingCRUDMenu(entityToCRUD);
+                    break;
                 case EModelType.Invoice:
                     InvoiceCRUDMenu(entityToCRUD);
                     break;
@@ -80,6 +86,50 @@ namespace Hotel.src.MenuManagement.Menus
 						_controller.Reactivate(entityToCRUD);
 						break;
 					case CRUDMenuOptions.Exit:
+                        Exit.ExitProgram();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        public void BookingCRUDMenu(IModel entityToCRUD)
+        {
+            var _controller = ModelFactory.GetModelController(entityToCRUD.ModelTypeEnum, this);
+            while (true)
+            {
+                var option = AnsiConsole.Prompt(
+                    new SelectionPrompt<BookingCRUDMenuOptions>()
+                        .Title("Start")
+                        .UseConverter(option => option.ShowCRUDMenu())
+                        .AddChoices(Enum.GetValues<BookingCRUDMenuOptions>())
+                    );
+
+                switch (option)
+                {
+                    case BookingCRUDMenuOptions.PreviousMenu:
+                        PreviousMenu.Run();
+                        break;
+                    case BookingCRUDMenuOptions.Update:
+                        _controller.Update(entityToCRUD);
+                        break;
+                    case BookingCRUDMenuOptions.OpenInvoice:
+                        var _invoiceController = ModelFactory.GetModelController(EModelType.Invoice, this);
+                        var _entityToCRUD = entityToCRUD as IBooking;
+                        if (DataElementChecker.CheckInvoiceDataExistsByBookingID(_entityToCRUD.ID))
+                            InvoiceCRUDMenu(_entityToCRUD.Invoice);
+                        //_invoiceController.Update(_entityToCRUD.Invoice);
+                        else
+                            ServiceMessager.DataNotFoundMessage();
+                        break;
+                    case BookingCRUDMenuOptions.Inactivate:
+                        _controller.Delete(entityToCRUD);
+                        break;
+                    case BookingCRUDMenuOptions.Reactivate:
+                        _controller.Reactivate(entityToCRUD);
+                        break;
+                    case BookingCRUDMenuOptions.Exit:
                         Exit.ExitProgram();
                         break;
                     default:

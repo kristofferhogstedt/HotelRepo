@@ -154,8 +154,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
             if (confirm)
             {
-                // Meddelande om lyckad registrering
-                //AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
                 NewEntity = new Customer((string)Data01, (string)Data02, (DateTime)Data03, (string)Data04
                     , (string)Data05, (string)Data06, (string)Data07, (string)Data08, (string)Data09);
 
@@ -164,7 +162,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             }
             else
             {
-                // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
                 Console.Clear();
@@ -270,7 +267,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.WriteLine("Nya värden: ");
             FormDisplayer.DisplayCurrentFormValues(this);
 
-            // Bekräfta kunduppgifter
             bool confirm = AnsiConsole.Confirm("\nÄr alla uppgifter korrekta?");
 
             if (confirm)
@@ -284,7 +280,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             }
             else
             {
-                // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
                 Console.Clear();

@@ -67,7 +67,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             NewEntity = ExistingEntity;
 
             Console.Clear();
-            FormDisplayer.DisplayCurrentFormValues(this);
+            DisplaySummary(ExistingEntity);
+            //FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Är fakturan betald?[/]: ");
             Data01 = UserInputHandler.UserInputBool(PreviousMenu);
             if (CopyChecker.CheckCopyValue(Data01))
@@ -85,16 +86,13 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
 
 
             Console.Clear();
+            DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
-
-            // Bekräfta kunduppgifter
+            Console.WriteLine();
             bool confirm = AnsiConsole.Confirm("\nÄr alla uppgifter korrekta?");
 
             if (confirm)
             {
-                // Meddelande om lyckad registrering
-                //InvoiceService.Delete(ExistingEntity);
-                //NewEntity = ExistingEntity;
                 NewEntity.UpdatedDate = DateTime.Now;
 
                 InvoiceService.Update(NewEntity);
@@ -102,7 +100,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             }
             else
             {
-                // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
                 Console.Clear();
@@ -172,7 +169,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         /// Summary of existing customer information
         /// </summary>
         /// <param name="entity"></param>
-        public void DisplaySummary(IRoom entity)
+        public void DisplaySummary(IInvoice entity)
         {
             // Visa sammanfattning
             Console.Clear();
@@ -180,12 +177,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             var table = new Table();
             table.AddColumn("[red]Fält[/]");
             table.AddColumn("[red]Värde[/]");
-            table.AddRow("Rumsnummer", entity.Name);
-            table.AddRow("Beskrivning", entity.Description);
-            table.AddRow("Våning", entity.Floor.ToString());
-            table.AddRow("Typ", entity.Details.RoomType.Name);
-            table.AddRow("Storlek", entity.Details.Size.ToString());
-            table.AddRow("Antal sängar", entity.Details.NumberOfBeds.ToString());
+            table.AddRow("Belopp", entity.Amount.ToString());
+            table.AddRow("Förfallodatum", entity.DueDate.ToShortDateString());
+            table.AddRow("Är betald?", entity.IsPaid.ToString());
             AnsiConsole.Write(table);
         }
     }
