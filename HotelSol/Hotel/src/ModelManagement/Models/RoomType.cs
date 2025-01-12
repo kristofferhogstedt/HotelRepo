@@ -134,7 +134,7 @@ namespace Hotel.src.ModelManagement.Models
                 switch (Name)
                 {
                     case "Single":
-                        _numberOfBedsMax = 2;
+                        _numberOfBedsMax = 1;
                         break;
                     case "Double":
                         _numberOfBedsMax = 4;
