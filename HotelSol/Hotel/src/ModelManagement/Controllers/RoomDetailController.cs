@@ -2,15 +2,9 @@
 using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
-using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
@@ -76,19 +70,9 @@ namespace Hotel.src.ModelManagement.Controllers
             RoomDetailsService.Delete((IRoomDetails)entityToDelete);
         }
 
-		public void Reactivate(IModel modelToReactivate)
-		{
-			throw new NotImplementedException();
-		}
-		//public void CreateRoomType(string name, ushort defaultSize, ushort numberOfBedsDefault, ushort numberOfBedsMax)
-		//{
-		//    _roomType.Name = name;
-		//    _roomType.DefaultSize = defaultSize;
-		//    _roomType.NumberOfBedsDefault = numberOfBedsDefault;
-		//    _roomType.NumberOfBedsMax = numberOfBedsMax;
-		//}
-
-
-
-	}
+        public void Reactivate(IModel modelToReactivate)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

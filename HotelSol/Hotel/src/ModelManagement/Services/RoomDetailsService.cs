@@ -12,7 +12,7 @@ using Hotel.src.ModelManagement.Utilities.Checkers;
 
 namespace Hotel.src.ModelManagement.Services
 {
-    internal class RoomDetailsService : IRoomService
+    internal class RoomDetailsService 
     {
         public static void Create(IRoomDetails entityToCreate)
         {

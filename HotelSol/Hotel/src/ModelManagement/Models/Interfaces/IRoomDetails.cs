@@ -1,5 +1,4 @@
-﻿using Hotel.src.ModelManagement.Models.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hotel.src.ModelManagement.Models.Interfaces

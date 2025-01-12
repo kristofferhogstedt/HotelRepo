@@ -1,22 +1,17 @@
-﻿using Hotel.src.FactoryManagement.Interfaces;
-using Hotel.src.FactoryManagement;
+﻿using Hotel.src.FactoryManagement;
+using Hotel.src.FactoryManagement.Interfaces;
+using Hotel.src.MenuManagement.Menus;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Forms.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Forms.Utilities;
+using Hotel.src.ModelManagement.Controllers.Interfaces;
+using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
-using Hotel.src.ModelManagement.Models;
+using Hotel.src.ModelManagement.Services;
+using Hotel.src.ModelManagement.Validations;
 using HotelLibrary.Utilities.UserInputManagement;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hotel.src.ModelManagement.Validations;
-using Hotel.src.ModelManagement.Controllers.Interfaces;
-using Hotel.src.ModelManagement.Services;
-using Hotel.src.MenuManagement.Menus;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms
 {
@@ -30,19 +25,19 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public EModelType RelatedFormModelType { get; set; } = EModelType.Room;
         public IRoomDetails NewEntity { get; set; }
         public IRoom Room { get; set; }
-		public IRoomType RoomType { get; set; }
-		public IModelController ModelController { get; set; }
+        public IRoomType RoomType { get; set; }
+        public IModelController ModelController { get; set; }
         public bool IsAnEdit { get; set; }
 
-        public object Data01 { get; set; } // First name
-        public object Data02 { get; set; } // Last name
-        public object Data03 { get; set; } // Date of birth
-        public object Data04 { get; set; } // Email
-        public object Data05 { get; set; } // Phone
-        public object Data06 { get; set; } // Street Address
-        public object Data07 { get; set; } // Postal Code
-        public object Data08 { get; set; } // City
-        public object Data09 { get; set; } // Country
+        public object Data01 { get; set; } 
+        public object Data02 { get; set; } 
+        public object Data03 { get; set; } 
+        public object Data04 { get; set; } 
+        public object Data05 { get; set; }
+        public object Data06 { get; set; } 
+        public object Data07 { get; set; }
+        public object Data08 { get; set; } 
+        public object Data09 { get; set; } 
         public object Data10 { get; set; }
 
         public void AssignRelatedForm(IModelRegistrationForm relatedForm)
@@ -88,33 +83,33 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             }
         }
 
-		public void ReactivateForm(IModel entityToReactivate)
-		{
-			throw new NotImplementedException();
-		}
+        public void ReactivateForm(IModel entityToReactivate)
+        {
+            throw new NotImplementedException();
+        }
 
 
-		public IModel CreateAndReturnForm()
-		{
-			IsAnEdit = false;
+        public IModel CreateAndReturnForm()
+        {
+            IsAnEdit = false;
 
-			Console.Clear();
+            Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Rumtyp[/]: ");
             Data01 = RoomDetailsValidator.ValidateRoomType(null, IsAnEdit, PreviousMenu);
             if (Data01 != null)
-			{
-				RoomType = Data01 as IRoomType;
-				Data02 = RoomType.ID;
-			}
-			else
+            {
+                RoomType = Data01 as IRoomType;
+                Data02 = RoomType.ID;
+            }
+            else
             {
                 Console.WriteLine("Fel vid val av rumstyp, återgår till föregående meny... Kontakta admin om problemet kvarstår.");
                 Thread.Sleep(3000);
                 PreviousMenu.Run();
             }
 
-			Console.Clear();
+            Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine($"\n[yellow]Storlek[/] (default {RoomType.SizeDefault}): ");
             Data03 = RoomDetailsValidator.ValidateRoomSize(RoomType, false, PreviousMenu);
@@ -124,30 +119,27 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             AnsiConsole.MarkupLine($"\n[yellow]Antal sängar[/] (default {RoomType.NumberOfBedsDefault}): ");
             Data04 = RoomDetailsValidator.ValidateNumberOfBeds(RoomType, (int)Data03, false, PreviousMenu);
 
-			Console.Clear();
-			FormDisplayer.DisplayCurrentFormValues(this);
-			AnsiConsole.MarkupLine($"\n[yellow]Pris[/] (0 = default {RoomType.PriceDefault}): ");
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine($"\n[yellow]Pris[/] (0 = default {RoomType.PriceDefault}): ");
             Data05 = RoomDetailsValidator.ValidateRoomPrice(RoomType, IsAnEdit, PreviousMenu);
-			if (CopyChecker.CheckCopyValue(Data05))
+            if (CopyChecker.CheckCopyValue(Data05))
                 Data05 = RoomType.PriceDefault;
 
-			Console.Clear();
+            Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
 
-            // Bekräfta kunduppgifter
             bool confirm = AnsiConsole.Confirm("\nÄr alla uppgifter korrekta?");
 
             if (confirm)
             {
-                // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
                 NewEntity = new RoomDetails((IRoomType)Data01, (int)Data02, (int)Data03, (int)Data04, (double)Data05);
 
-				return (IModel)NewEntity;
+                return (IModel)NewEntity;
             }
             else
             {
-                // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
                 Console.Clear();
@@ -158,10 +150,9 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         }
 
         public IModel EditAndReturnForm(IModel entityToUpdate)
-		{
-			IsAnEdit = true;
-			var ExistingEntity = (IRoomDetails)entityToUpdate;
-            //ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
+        {
+            IsAnEdit = true;
+            var ExistingEntity = (IRoomDetails)entityToUpdate;
 
             Console.Clear();
             DisplaySummary(ExistingEntity);
@@ -174,7 +165,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             if (Data01 != null)
             {
                 RoomType = Data01 as IRoomType;
-                Data02 = RoomType.ID; 
+                Data02 = RoomType.ID;
             }
 
             else
@@ -184,7 +175,7 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
                 PreviousMenu.Run();
             }
 
-			Console.Clear();
+            Console.Clear();
             DisplaySummary(ExistingEntity);
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine($"\n[yellow]Storlek[/] (default {RoomType.SizeDefault}): ");
@@ -200,35 +191,32 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             if (CopyChecker.CheckCopyValue(Data04))
                 Data04 = ExistingEntity.NumberOfBeds;
 
-			Console.Clear();
-			FormDisplayer.DisplayCurrentFormValues(this);
-			AnsiConsole.MarkupLine($"\n[yellow]Pris[/] (Nuvarande: {ExistingEntity.Price}, 0 = default {RoomType.PriceDefault}): ");
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine($"\n[yellow]Pris[/] (Nuvarande: {ExistingEntity.Price}, 0 = default {RoomType.PriceDefault}): ");
             Data05 = RoomDetailsValidator.ValidateRoomPrice(RoomType, IsAnEdit, PreviousMenu);
             if (CopyChecker.CheckCopyValue(Data05))
-				Data05 = ExistingEntity.Price;
+                Data05 = ExistingEntity.Price;
             if ((double)Data05 == 0) //If ExistingEntity.Price was 0, assign PriceDefault from RoomType
                 Data05 = RoomType.PriceDefault;
 
-			Console.Clear();
+            Console.Clear();
             Console.WriteLine("Tidigare värden: ");
             DisplaySummary(ExistingEntity);
             Console.WriteLine("Nya värden: ");
             FormDisplayer.DisplayCurrentFormValues(this);
 
-            // Bekräfta kunduppgifter
             bool confirm = AnsiConsole.Confirm("\nÄr alla uppgifter korrekta?");
 
             if (confirm)
-			{
-				NewEntity = new RoomDetails((IRoomType)Data01, (int)Data02, (int)Data03, (int)Data04, (double)Data05)
-				{ ID = ExistingEntity.ID, UpdatedDate = DateTime.Now};
+            {
+                NewEntity = new RoomDetails((IRoomType)Data01, (int)Data02, (int)Data03, (int)Data04, (double)Data05)
+                { ID = ExistingEntity.ID, UpdatedDate = DateTime.Now };
 
-                //RoomDetailsService.Update(NewEntity);
                 return NewEntity;
             }
             else
             {
-                // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
                 Console.Clear();
@@ -265,7 +253,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         /// <param name="entity"></param>
         public void DisplaySummary(IRoomDetails entity)
         {
-            // Visa sammanfattning
             Console.Clear();
             AnsiConsole.MarkupLine("\n[bold green]Sammanfattning:[/]");
             var table = new Table();

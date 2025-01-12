@@ -2,7 +2,6 @@
 using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.MenuManagement.Menus;
 using Hotel.src.MenuManagement.Menus.Interfaces;
-using Hotel.src.ModelManagement.Controllers.Forms;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
@@ -35,17 +34,7 @@ namespace Hotel.src.ModelManagement.Controllers
         public void Create()
         {
             var _roomForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-            //IRoom _room = (IRoom)
             _roomForm.CreateForm();
-
-            //if (_room == null)
-            //{
-            //    Console.WriteLine("Ingen data att spara, återgår...");
-            //    Thread.Sleep(2000);
-            //    return;
-            //}
-            //else
-            //    RoomService.Create(_room);
         }
         public void Create(IModel entityToCreate)
         {
@@ -83,16 +72,6 @@ namespace Hotel.src.ModelManagement.Controllers
 
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             _modelForm.EditForm((IModel)_entityToUpdate);
-            //IRoom _Entity = (IRoom)_modelForm.EditForm((IModel)_entityToUpdate);
-
-            //if (_Entity == null)
-            //{
-            //    Console.WriteLine("Ingen data att spara, återgår...");
-            //    Thread.Sleep(2000);
-            //    return;
-            //}
-            //else
-            //    RoomService.Update(_Entity);
         }
 
         public void UpdateBeds(IModel entityToUpdate)
@@ -108,17 +87,17 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             _modelForm.InactivateForm((IModel)entityToDelete);
-		}
-		public void Reactivate(IModel entityToReactivate)
-		{
-			var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-			if (DatabaseLair.DatabaseContext.Rooms.Any(b => b.IsInactive == true))
-				_modelForm.ReactivateForm((IModel)entityToReactivate);
-			else
-			{
-				Console.WriteLine("Inga inaktiva finns");
-				Thread.Sleep(2000);
-			}
-		}
-	}
+        }
+        public void Reactivate(IModel entityToReactivate)
+        {
+            var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
+            if (DatabaseLair.DatabaseContext.Rooms.Any(b => b.IsInactive == true))
+                _modelForm.ReactivateForm((IModel)entityToReactivate);
+            else
+            {
+                Console.WriteLine("Inga inaktiva finns");
+                Thread.Sleep(2000);
+            }
+        }
+    }
 }

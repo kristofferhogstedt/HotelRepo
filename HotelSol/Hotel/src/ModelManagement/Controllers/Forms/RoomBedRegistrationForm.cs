@@ -5,12 +5,10 @@ using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Forms.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Forms.Utilities;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
-using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services;
 using Hotel.src.ModelManagement.Validations;
-using HotelLibrary.Utilities.UserInputManagement;
 using Spectre.Console;
 
 namespace Hotel.src.ModelManagement.Controllers.Forms
@@ -102,13 +100,13 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public void InactivateForm(IModel entityToDelete)
         {
             throw new NotImplementedException();
-		}
-		public void ReactivateForm(IModel entityToReactivate)
-		{
-			throw new NotImplementedException();
-		}
+        }
+        public void ReactivateForm(IModel entityToReactivate)
+        {
+            throw new NotImplementedException();
+        }
 
-		public IModel CreateAndReturnForm()
+        public IModel CreateAndReturnForm()
         {
             throw new NotImplementedException();
         }

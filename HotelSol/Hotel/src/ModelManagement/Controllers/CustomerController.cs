@@ -16,7 +16,7 @@ namespace Hotel.src.ModelManagement.Controllers
     {
         public IMenu PreviousMenu { get; set; }
         private static IInstantiable _instance;
-        private static readonly object _lock = new object(); // Lock object for thread safety
+        private static readonly object _lock = new object();
         public EModelType ModelTypeEnum { get; set; } = EModelType.Customer;
         public bool GetRelatedObjects { get; set; } = true;
 
@@ -38,16 +38,6 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             var _customerForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             _customerForm.CreateForm();
-            //ICustomer _customer = (ICustomer)_customerForm.CreateForm();
-
-            //if (_customer == null)
-            //{
-            //    Console.WriteLine("Ingen data att spara, återgår...");
-            //    Thread.Sleep(2000);
-            //    return;
-            //}
-            //else
-            //    CustomerService.Create(_customer);
         }
         public void Create(IModel entityToCreate)
         {
@@ -67,7 +57,6 @@ namespace Hotel.src.ModelManagement.Controllers
             CustomerDisplayer.DisplayModel(_customer);
             Console.WriteLine("Vad vill du göra?");
 
-            //var _crudMenu = CustomerCRUDMenu.GetInstance(PreviousMenu);
             var _crudMenu = ModelCRUDMenu.GetInstance(PreviousMenu);
             _crudMenu.Run((IModel)_customer);
         }
@@ -79,19 +68,6 @@ namespace Hotel.src.ModelManagement.Controllers
 
         public void Update()
         {
-            //var _customerToUpdate = BrowseOne();
-
-            //var _customerForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-            //_customerForm.EditForm((IModel)_customerToUpdate);
-            ////ICustomer _customer = (ICustomer)_customerForm.EditForm((IModel)_customerToUpdate);
-
-            //if (_customer == null)
-            //{
-            //    Console.WriteLine("Ingen data att spara, återgår...");
-            //    Thread.Sleep(2000);
-            //    return;
-            //}
-            //    CustomerService.Update(_customer);
         }
 
         public void Update(IModel entityToUpdate)
@@ -100,34 +76,8 @@ namespace Hotel.src.ModelManagement.Controllers
 
             var _customerForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             _customerForm.EditForm((IModel)_customerToUpdate);
-            //ICustomer _customer = (ICustomer)_customerForm.EditForm((IModel)_customerToUpdate);
-
-            //if (_customer == null)
-            //{
-            //    Console.WriteLine("Ingen data att spara, återgår...");
-            //    Thread.Sleep(2000);
-            //    return;
-            //}
-            //else
-            //    CustomerService.Update(_customer);
         }
 
-        //public void Update(DatabaseLair dbLair)
-        //{
-        //    Console.Clear();
-        //    dbLair.DatabaseContext.Customers.Displayer.ReadAll(dbLair).ForEach(c => Console.WriteLine(c.DisplayString()));
-        //    Console.Write("Välj katt att uppdatera: ");
-        //    var _entityToUpdate = dbContext.Students.First(c => c.FirstName + " " + c.LastName == Console.ReadLine());
-        //    Console.Clear();
-        //    Console.WriteLine($"uppdaterar ålder på: {_entityToUpdate.FirstName} {_entityToUpdate.LastName}");
-        //    Console.Write("Ange ny ålder: ");
-        //    //_entityToUpdate. = UserInputManager.UserInputInt();
-
-        //    Console.Clear();
-        //    Console.WriteLine("Uppdaterad lista: ");
-        //    CustomerService.ReadAll(dbContext).ForEach(c => Console.WriteLine(c.DisplayString()));
-        //    dbContext.SaveChanges();
-        //}
         public void Delete(IModel entityToDelete)
         {
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
@@ -158,7 +108,6 @@ namespace Hotel.src.ModelManagement.Controllers
             Console.WriteLine($"\nPostnummer: {_customer.PostalCode}");
             Console.WriteLine($"\nStad: {_customer.City}");
             Console.WriteLine($"\nLand: {_customer.Country}");
-
         }
     }
 }

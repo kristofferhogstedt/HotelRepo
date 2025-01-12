@@ -35,18 +35,18 @@ namespace Hotel.src.ModelManagement.Models
         public Room()
         {
             CreatedDate = DateTime.Now;
-		}
-		public Room(string name, string description, int floor)
-		{
-			Name = name;
-			Description = description;
-			Floor = floor;
-			CreatedDate = DateTime.Now;
-		}
-		public Room(string name, string description, int floor, RoomDetails roomDetails)
+        }
+        public Room(string name, string description, int floor)
         {
             Name = name;
-            Description = description; 
+            Description = description;
+            Floor = floor;
+            CreatedDate = DateTime.Now;
+        }
+        public Room(string name, string description, int floor, RoomDetails roomDetails)
+        {
+            Name = name;
+            Description = description;
             Floor = floor;
             Details = roomDetails;
             CreatedDate = DateTime.Now;

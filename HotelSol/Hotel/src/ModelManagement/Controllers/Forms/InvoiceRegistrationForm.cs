@@ -18,7 +18,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
         public IMenu PreviousMenu { get; set; }
-        //public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
         public EModelType ModelType { get; set; } = EModelType.Invoice;
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; }
@@ -27,15 +26,15 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public IInvoice NewEntity { get; set; }
         public bool GetRelatedObjects { get; set; } = true;
 
-        public object Data01 { get; set; } // First name
-        public object Data02 { get; set; } // Last name
-        public object Data03 { get; set; } // Date of birth
-        public object Data04 { get; set; } // Email
-        public object Data05 { get; set; } // Phone
-        public object Data06 { get; set; } // Street Address
-        public object Data07 { get; set; } // Postal Code
-        public object Data08 { get; set; } // City
-        public object Data09 { get; set; } // Country
+        public object Data01 { get; set; }
+        public object Data02 { get; set; }
+        public object Data03 { get; set; }
+        public object Data04 { get; set; }
+        public object Data05 { get; set; }
+        public object Data06 { get; set; }
+        public object Data07 { get; set; }
+        public object Data08 { get; set; }
+        public object Data09 { get; set; }
         public object Data10 { get; set; }
 
         public void AssignRelatedForm(IModelRegistrationForm relatedForm)
@@ -62,13 +61,11 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public void EditForm(IModel entityToUpdate)
         {
             var ExistingEntity = (IInvoice)entityToUpdate;
-            //ModelController = ModelFactory.GetModelController(ModelType, PreviousMenu);
             IsAnEdit = true;
             NewEntity = ExistingEntity;
 
             Console.Clear();
             DisplaySummary(ExistingEntity);
-            //FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Är fakturan betald?[/]: ");
             Data01 = UserInputHandler.UserInputBool(PreviousMenu);
             if (CopyChecker.CheckCopyValue(Data01))
@@ -171,7 +168,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         /// <param name="entity"></param>
         public void DisplaySummary(IInvoice entity)
         {
-            // Visa sammanfattning
             Console.Clear();
             AnsiConsole.MarkupLine("\n[bold green]Sammanfattning av kundinformation:[/]");
             var table = new Table();

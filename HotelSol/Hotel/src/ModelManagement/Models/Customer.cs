@@ -10,11 +10,6 @@ namespace Hotel.src.ModelManagement.Models
         [Key]
         public int ID { get; set; }
         //-------------------------------------
-        //[ForeignKey("Address")]
-        //[Required]
-        //public int AddressID { get; set; }
-        //[Required]
-        //public Address Address { get; set; }
         public List<Booking>? Bookings { get; set; }
         //-------------------------------------
 
@@ -72,4 +67,4 @@ namespace Hotel.src.ModelManagement.Models
             CreatedDate = DateTime.Now;
         }
     }
-} 
+}

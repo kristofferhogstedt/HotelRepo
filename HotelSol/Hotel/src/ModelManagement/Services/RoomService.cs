@@ -9,7 +9,7 @@ using Spectre.Console;
 
 namespace Hotel.src.ModelManagement.Services
 {
-    public class RoomService : IRoomService
+    public class RoomService
     {
         public static void Create(IRoom entityToCreate)
         {

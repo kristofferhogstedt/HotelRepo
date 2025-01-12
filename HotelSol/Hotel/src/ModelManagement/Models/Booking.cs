@@ -1,9 +1,7 @@
 ﻿using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Numerics;
 
 namespace Hotel.src.ModelManagement.Models
 {
@@ -36,8 +34,8 @@ namespace Hotel.src.ModelManagement.Models
         [NotMapped]
         public string Info => $"{ID} | {Room.Description} | {Customer.FullName} | {FromDate.Date} | {ToDate.Date} | {Invoice.IsPaid}";
         [NotMapped]
-        public int StayLength 
-        { 
+        public int StayLength
+        {
             get
             {
                 return DateTime.Compare(ToDate, FromDate);

@@ -20,7 +20,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
         public IMenu PreviousMenu { get; set; }
-        //public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
         public EModelType ModelType { get; set; } = EModelType.Room;
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; } = EModelType.RoomDetails;
@@ -28,15 +27,15 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         public IRoom NewEntity { get; set; }
         public bool IsAnEdit { get; set; }
 
-        public object Data01 { get; set; } // First name
-        public object Data02 { get; set; } // Last name
-        public object Data03 { get; set; } // Date of birth
-        public object Data04 { get; set; } // Email
-        public object Data05 { get; set; } // Phone
-        public object Data06 { get; set; } // Street Address
-        public object Data07 { get; set; } // Postal Code
-        public object Data08 { get; set; } // City
-        public object Data09 { get; set; } // Country
+        public object Data01 { get; set; }
+        public object Data02 { get; set; }
+        public object Data03 { get; set; }
+        public object Data04 { get; set; }
+        public object Data05 { get; set; }
+        public object Data06 { get; set; }
+        public object Data07 { get; set; }
+        public object Data08 { get; set; }
+        public object Data09 { get; set; }
         public object Data10 { get; set; }
 
         public void AssignRelatedForm(IModelRegistrationForm relatedForm)
@@ -75,21 +74,19 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             RelatedForm = ModelFactory.GetModelRegistrationForm(RelatedFormModelType, PreviousMenu);
             RelatedForm.AssignRelatedForm(this);
 
-			Data04 = RelatedForm.CreateAndReturnForm(); // start RoomDetail registration form
-			var _newRoomDetails = (IRoomDetails)Data04;
+            Data04 = RelatedForm.CreateAndReturnForm(); // start RoomDetail registration form
+            var _newRoomDetails = (IRoomDetails)Data04;
 
-			var _newRoom = new Room((string)Data01, (string)Data02, (int)Data03);
-			_newRoomDetails.RoomID = _newRoom.ID;
+            var _newRoom = new Room((string)Data01, (string)Data02, (int)Data03);
+            _newRoomDetails.RoomID = _newRoom.ID;
 
-			Console.Clear();
+            Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
 
-            // Bekräfta kunduppgifter
             bool confirm = AnsiConsole.Confirm("\nÄr alla uppgifter korrekta?");
 
             if (confirm)
             {
-                // Meddelande om lyckad registrering
                 AnsiConsole.MarkupLine("[bold green]Kund registrerad framgångsrikt![/]");
                 NewEntity = new Room((string)Data01, (string)Data02, (int)Data03, (RoomDetails)_newRoomDetails);
 
@@ -98,7 +95,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             }
             else
             {
-                // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
                 Console.Clear();
@@ -152,7 +148,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.WriteLine("Nya värden: ");
             FormDisplayer.DisplayCurrentFormValues(this);
 
-            // Bekräfta kunduppgifter
             bool confirm = AnsiConsole.Confirm("\nÄr alla uppgifter korrekta?");
 
             if (confirm)
@@ -165,7 +160,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             }
             else
             {
-                // Meddelande om avbryta
                 AnsiConsole.MarkupLine("[bold red]Registrering avbruten.[/]");
                 Thread.Sleep(2000);
                 Console.Clear();
@@ -182,8 +176,8 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             FormDisplayer.DisplayCurrentFormValues(this);
             AnsiConsole.MarkupLine("\n[yellow]Godkänn inaktivering[/]: ");
 
-			if (UserInputHandler.UserInputBool(PreviousMenu))
-			{
+            if (UserInputHandler.UserInputBool(PreviousMenu))
+            {
                 RoomService.Delete(ExistingEntity);
                 MainMenu.ReturnToMainMenu();
             }
@@ -196,32 +190,32 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             }
         }
 
-		public void ReactivateForm(IModel entityToReactivate)
-		{
-			var ExistingEntity = (IRoom)entityToReactivate;
-			IsAnEdit = true;
+        public void ReactivateForm(IModel entityToReactivate)
+        {
+            var ExistingEntity = (IRoom)entityToReactivate;
+            IsAnEdit = true;
 
-			Console.Clear();
-			FormDisplayer.DisplayCurrentFormValues(this);
-			AnsiConsole.MarkupLine("\n[yellow]Godkänn återaktivering[/]: ");
+            Console.Clear();
+            FormDisplayer.DisplayCurrentFormValues(this);
+            AnsiConsole.MarkupLine("\n[yellow]Godkänn återaktivering[/]: ");
 
-			if (UserInputHandler.UserInputBool(PreviousMenu))
-			{
-				ExistingEntity.IsInactive = false;
-				ExistingEntity.InactivatedDate = null;
-				RoomService.Update(ExistingEntity);
+            if (UserInputHandler.UserInputBool(PreviousMenu))
+            {
+                ExistingEntity.IsInactive = false;
+                ExistingEntity.InactivatedDate = null;
+                RoomService.Update(ExistingEntity);
                 MainMenu.ReturnToMainMenu();
             }
-			else
-			{
-				Console.WriteLine("Inaktivering avbruten, Återgår...");
-				Thread.Sleep(1000);
+            else
+            {
+                Console.WriteLine("Inaktivering avbruten, Återgår...");
+                Thread.Sleep(1000);
                 Console.Clear();
-				return;
-			}
-		}
+                return;
+            }
+        }
 
-		public IModel CreateAndReturnForm()
+        public IModel CreateAndReturnForm()
         {
             throw new NotImplementedException();
         }
@@ -258,7 +252,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         /// <param name="entity"></param>
         public void DisplaySummary(IRoom entity)
         {
-            // Visa sammanfattning
             Console.Clear();
             AnsiConsole.MarkupLine("\n[bold green]Sammanfattning av kundinformation:[/]");
             var table = new Table();

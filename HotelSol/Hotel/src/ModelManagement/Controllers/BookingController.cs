@@ -3,7 +3,6 @@ using Hotel.src.FactoryManagement.Interfaces;
 using Hotel.src.MenuManagement.Menus;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Controllers.Interfaces;
-using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Enums;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services;
@@ -17,7 +16,7 @@ namespace Hotel.src.ModelManagement.Controllers
     {
         public IMenu PreviousMenu { get; set; }
         private static IInstantiable _instance;
-        private static readonly object _lock = new object(); // Lock object for thread safety
+        private static readonly object _lock = new object(); 
         public EModelType ModelTypeEnum { get; set; } = EModelType.Booking;
         public bool GetRelatedObjects { get; set; } = true;
 
@@ -39,17 +38,6 @@ namespace Hotel.src.ModelManagement.Controllers
         {
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             _modelForm.CreateForm();
-
-            //IBooking _model = (IBooking)_modelForm.CreateForm();
-
-            //if (_model == null)
-            //{
-            //    Console.WriteLine("Ingen data att spara, återgår...");
-            //    Thread.Sleep(2000);
-            //    return;
-            //}
-            //else
-            //    BookingService.Create(_model);
         }
 
         public void Create(IModel entityToCreate)
@@ -88,24 +76,12 @@ namespace Hotel.src.ModelManagement.Controllers
             BookingDisplayer.DisplayModelTable(_listToDisplay);
         }
 
-        // NOT IN USE??
         public void Update(bool isInactive)
         {
             var _modelToUpdate = BrowseOne(isInactive);
 
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             _modelForm.EditForm((IModel)_modelToUpdate);
-
-            //IBooking _model = (IBooking)_modelForm.EditForm((IModel)_modelToUpdate);
-
-            //if (_model == null)
-            //{
-            //    Console.WriteLine("Ingen data att spara, återgår...");
-            //    Thread.Sleep(2000);
-            //    return;
-            //}
-            //else
-            //    BookingService.Update(_model);
         }
 
         public void Update(IModel entityToUpdate)
@@ -122,9 +98,9 @@ namespace Hotel.src.ModelManagement.Controllers
             _modelForm.InactivateForm((IModel)entityToDelete);
         }
 
-		public void Reactivate(IModel entityToReactivate)
-		{
-			var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
+        public void Reactivate(IModel entityToReactivate)
+        {
+            var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             if (DatabaseLair.DatabaseContext.Bookings.Any(b => b.IsInactive == true))
                 _modelForm.ReactivateForm((IModel)entityToReactivate);
             else
@@ -132,6 +108,6 @@ namespace Hotel.src.ModelManagement.Controllers
                 Console.WriteLine("Inga inaktiva finns");
                 Thread.Sleep(2000);
             }
-		}
-	}
+        }
+    }
 }

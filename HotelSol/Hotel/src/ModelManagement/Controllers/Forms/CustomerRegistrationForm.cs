@@ -22,7 +22,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
         private static IInstantiable _instance;
         private static readonly object _lock = new object(); // Lock object for thread safety
         public IMenu PreviousMenu { get; set; }
-        //public IMenu MainMenu { get; set; } = MenuFactory.GetMenu<MainMenu>();
         public EModelType ModelType { get; set; } = EModelType.Customer;
         public IModelRegistrationForm? RelatedForm { get; set; }
         public EModelType RelatedFormModelType { get; set; }
@@ -45,11 +44,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             throw new NotImplementedException();
         }
 
-        //public string _firstName;
-        //public string _lastName;
-        //public DateTime _dateOfBirth;
-        //public string _email;
-        //public string _phone;
         public ICustomer NewEntity { get; set; }
         public bool IsAnEdit { get; set; }
 
@@ -149,7 +143,6 @@ namespace Hotel.src.ModelManagement.Controllers.Forms
             Console.Clear();
             FormDisplayer.DisplayCurrentFormValues(this);
 
-            // Bekräfta kunduppgifter
             bool confirm = AnsiConsole.Confirm("\nÄr alla uppgifter korrekta?");
 
             if (confirm)

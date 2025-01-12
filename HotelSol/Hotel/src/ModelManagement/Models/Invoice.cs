@@ -2,7 +2,6 @@
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Utilities.Calculators;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Numerics;
 
 namespace Hotel.src.ModelManagement.Models
 {
@@ -53,9 +52,9 @@ namespace Hotel.src.ModelManagement.Models
         }
 
 
-        public double GetAmount() 
-        { 
-            return PriceCalculator.CalculateStayPrice(Booking.StayLength, Booking.Room.Details.Price); 
+        public double GetAmount()
+        {
+            return PriceCalculator.CalculateStayPrice(Booking.StayLength, Booking.Room.Details.Price);
         }
     }
 }

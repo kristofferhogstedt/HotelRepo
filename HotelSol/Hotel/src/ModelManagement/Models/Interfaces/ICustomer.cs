@@ -1,6 +1,4 @@
-﻿using Hotel.src.ModelManagement.Models;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Hotel.src.ModelManagement.Models.Interfaces
 {
@@ -16,8 +14,6 @@ namespace Hotel.src.ModelManagement.Models.Interfaces
         string PostalCode { get; set; }
         string City { get; set; }
         string Country { get; set; }
-        //public int AddressID { get; set; }
-        //public Address Address { get; set; }
         List<Booking>? Bookings { get; set; }
         DateTime CreatedDate { get; set; }
         DateTime? UpdatedDate { get; set; }

@@ -1,5 +1,4 @@
-﻿using Hotel.src.Interfaces;
-using Hotel.src.ModelManagement.Models;
+﻿using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Utilities.Checkers;
 using Hotel.src.ModelManagement.Utilities.Messagers;
@@ -214,7 +213,6 @@ namespace Hotel.src.ModelManagement.Services
             bool _getRelatedObjects = false;
             bool _handleInactive = false;
 
-            //_entityToReturn.Room = (Room)RoomService.GetOneByID(_entityToReturn.RoomID, _getRelatedObjects, _handleInactive);
             if (DataElementChecker.CheckRoomDataExists(_entityToReturn.RoomID)) // Check if data exists
                 _entityToReturn.Room = (Room)RoomService.GetOneByIDSeed(_entityToReturn.RoomID, _getRelatedObjects);
             else
@@ -279,7 +277,6 @@ namespace Hotel.src.ModelManagement.Services
         {
             var _entityToReturn = (IBooking)entity;
             bool _getRelatedObjects = false;
-            //_entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingID(_entityToReturn.ID, isInactive);
             if (DataElementChecker.CheckInvoiceDataExistsByBookingID(_entityToReturn.ID))
                 _entityToReturn.Invoice = (Invoice)InvoiceService.GetOneByBookingIDSeed(_entityToReturn.ID, _getRelatedObjects);
             else

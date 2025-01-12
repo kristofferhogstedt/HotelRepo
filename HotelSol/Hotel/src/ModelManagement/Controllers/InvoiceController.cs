@@ -11,7 +11,7 @@ using Hotel.src.ModelManagement.Utilities.Selectors;
 
 namespace Hotel.src.ModelManagement.Controllers
 {
-    public class InvoiceController : IModelController, IInvoiceController, IInstantiable
+    public class InvoiceController : IModelController, IInstantiable
     {
         public IMenu PreviousMenu { get; set; }
         public EModelType ModelTypeEnum { get; set; } = EModelType.Invoice;
@@ -71,32 +71,15 @@ namespace Hotel.src.ModelManagement.Controllers
 
             var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
             _modelForm.EditForm((IModel)_entityToUpdate);
-            //IInvoice _Entity = (IInvoice)_modelForm.EditForm((IModel)_entityToUpdate);
-
-            //if (_Entity == null)
-            //{
-            //    Console.WriteLine("Ingen data att spara, återgår...");
-            //    Thread.Sleep(2000);
-            //    return;
-            //}
-            //else
-            //    InvoiceService.Update(_Entity);
         }
-
-        //public void Delete(IModel modelToDelete)
-        //{
-        //    var _modelForm = ModelFactory.GetModelRegistrationForm(ModelTypeEnum, PreviousMenu);
-        //    _modelForm.InactivateForm((IModel)modelToDelete);
-        //}
-
 
         public void Delete(IModel entityToDelete)
         {
             throw new NotImplementedException();
         }
-		public void Reactivate(IModel modelToReactivate)
-		{
-			throw new NotImplementedException();
-		}
-	}
+        public void Reactivate(IModel modelToReactivate)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
