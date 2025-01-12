@@ -1,7 +1,6 @@
 ﻿using Hotel.src.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System.Threading;
 
 namespace Hotel.src.Persistence
 {
@@ -42,7 +41,7 @@ namespace Hotel.src.Persistence
             DatabaseContext.Database.Migrate();
             DataInitializer.Initialize();
         }
-                
+
         public static void CloseDbConnection()
         {
             if (DatabaseContext != null)

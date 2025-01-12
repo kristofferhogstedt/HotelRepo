@@ -4,13 +4,6 @@ using Hotel.src.MenuManagement.Menus;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.Persistence;
 using Hotel.src.Persistence.Interfaces;
-using HotelLibrary.Interfaces;
-using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel
 {
@@ -21,19 +14,17 @@ namespace Hotel
 
         public App(IMenu menu)
         {
-            //_menu = menu;
             ModelFactory _factory = new ModelFactory();
             AppDatabase = DatabaseLair.GetInstance();
         }
 
         public void Run()
         {
-            //AppDatabase.CreateDbConnection();
-            AppDatabase.SeedDatabase();
-            IMenu _startMenu = StartMenu.GetInstance();
+            AppDatabase.SeedDatabase(); // Seed and display successful seed messages
+            Thread.Sleep(2000);
+            Console.Clear();
 
-            Console.WriteLine();
-            AnsiConsole.MarkupLine("[cyan]Förlåt Richard![/]");
+            IMenu _startMenu = StartMenu.GetInstance();
 
             _startMenu.Run();
 

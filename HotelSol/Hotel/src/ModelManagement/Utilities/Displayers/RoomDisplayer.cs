@@ -1,28 +1,14 @@
 ﻿using Hotel.src.ModelManagement.Models.Interfaces;
-using Hotel.src.ModelManagement.Utilities.Displayers.Interfaces;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Utilities.Displayers
 {
-    public class RoomDisplayer //: IModelDisplayer
-    {      
+    public class RoomDisplayer
+    {
         public static void RenderTable(List<IRoom> entityList, int indexToHighlight)
         {
             var _entityArray = entityList.ToArray();
             var _tableContent = new StringWriter();
-            //if (indexToHighlight < 0)
-            //{
-            //    indexToHighlight = _entityArray.Length-1;
-            //}
-            //else if (indexToHighlight >= _entityArray.Length)
-            //{
-            //    indexToHighlight = 0;
-            //}
 
             _tableContent.WriteLine($"[red]{indexToHighlight} - {entityList.ElementAt(indexToHighlight).Name}" +
                 $",  Våning {entityList.ElementAt(indexToHighlight).Floor}" +

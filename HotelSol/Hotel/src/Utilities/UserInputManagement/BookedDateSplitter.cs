@@ -1,9 +1,4 @@
 ﻿using Hotel.src.ModelManagement.Models.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.Utilities.UserInputManagement
 {
@@ -29,8 +24,6 @@ namespace Hotel.src.Utilities.UserInputManagement
         }
         public static List<DateTime> SplitDates(DateTime fromDate, DateTime toDate)
         {
-            //var _fromDate = booking.FromDate.Date;
-            //var _toDate = booking.ToDate.Date;
             var _dayCounter = fromDate;
             DateTime _individualDate;
 

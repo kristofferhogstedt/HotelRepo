@@ -1,5 +1,4 @@
 ﻿using Hotel.src.MenuManagement.Menus.Interfaces;
-using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services;
 using Hotel.src.Utilities.ConsoleManagement;
@@ -58,8 +57,6 @@ namespace Hotel.src.ModelManagement.Validations
 
                 if (isAnEdit && InputChecker.UserInputIsEnter(_userInput.ToString()))
                     return _userInput;
-                //else if (_userInput < roomDetails.RoomType.NumberOfBedsMax)
-                //    return _userInput;
                 var _bedsMaxByRoomSize = (roomSize / 10);
                 if (_userInput > _bedsMaxByRoomSize || _userInput > roomType.NumberOfBedsMax)
                 {
@@ -84,8 +81,8 @@ namespace Hotel.src.ModelManagement.Validations
 
                 if (isAnEdit && InputChecker.UserInputIsEnter(_userInput.ToString()))
                     return _userInput;
-                
-                if (_userInput > 0 )
+
+                if (_userInput > 0)
                     return _userInput;
                 else
                 {

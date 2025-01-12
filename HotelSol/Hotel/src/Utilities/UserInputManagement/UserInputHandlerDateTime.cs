@@ -1,12 +1,6 @@
 ﻿using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Models.Interfaces;
-using Hotel.src.Utilities.ConsoleManagement;
 using HotelLibrary.Utilities.UserInputManagement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.Utilities.UserInputManagement
 {
@@ -56,38 +50,5 @@ namespace Hotel.src.Utilities.UserInputManagement
         {
             return Calendar.DateSelector(roomID, booking, Calendar.StartDate(Calendar.SetStartDate()), isAnEdit, previousMenu);
         }
-
-        ///// <summary>
-        ///// Dateselector with user-selected year as starting point
-        ///// </summary>
-        ///// <param name="year"></param>
-        ///// <returns></returns>
-        //public static DateTime UserInputDateTime(int year, IMenu previousMenu)
-        //{
-        //    return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year)), previousMenu);
-        //}
-
-        ///// <summary>
-        ///// Dateselector with user-selected year and month as starting point
-        ///// </summary>
-        ///// <param name="year"></param>
-        ///// <param name="month"></param>
-        ///// <returns></returns>
-        //public static DateTime UserInputDateTime(int year, int month, IMenu previousMenu)
-        //{
-        //    return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year, month)), previousMenu);
-        //}
-
-        ///// <summary>
-        ///// Dateselector with user-selected year, month and day as starting point
-        ///// </summary>
-        ///// <param name="year"></param>
-        ///// <param name="month"></param>
-        ///// <param name="day"></param>
-        ///// <returns></returns>
-        //public static DateTime UserInputDateTime(int year, int month, int day, IMenu previousMenu)
-        //{
-        //    return Calendar.DateSelector(Calendar.StartDate(Calendar.SetStartDate(year, month, day)), previousMenu);
-        //}
     }
 }

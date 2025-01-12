@@ -1,14 +1,7 @@
 ﻿using Hotel.src.MenuManagement.Menus.Interfaces;
-using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services;
 using Hotel.src.Utilities.UserInputManagement;
 using HotelLibrary.Utilities.UserInputManagement;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Validations
 {
@@ -27,8 +20,6 @@ namespace Hotel.src.ModelManagement.Validations
                     return _userInput;
                 else if (RoomService.GetAll(_getRelatedObjects, _isInactive).Any(e => e.Name == _userInput))
                     Console.WriteLine($"Rumsnummer {_userInput} finns redan, ange nytt");
-                //else if (_userInput.Length <= 0 || _userInput.Length > 3)
-                //    Console.WriteLine("Rumsnummer får inte vara tomt och måste vara kortare än 3 siffror");
                 else
                     return _userInput;
             }

@@ -1,17 +1,11 @@
 ﻿using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Utilities.Displayers;
-using Hotel.src.ModelManagement.Utilities.Selectors.Interfaces;
 using Hotel.src.ModelManagement.Utilities.Selectors.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Utilities.Selectors
 {
-    public class CustomerEntitySelector //: IModelEntitySelector
+    public class CustomerEntitySelector 
     {
         public static ICustomer Select(List<ICustomer> entityList, int startIndex, IMenu previousMenu)
         {
@@ -34,7 +28,7 @@ namespace Hotel.src.ModelManagement.Utilities.Selectors
                         TopAndBottomAdjuster.AdjustTopBottom(ref _selectedIndex, entityList.Count);
                         break;
                     case ConsoleKey.Enter:
-                        return entityList.ElementAt(_selectedIndex); 
+                        return entityList.ElementAt(_selectedIndex);
                     case ConsoleKey.Escape:
                         previousMenu.Run();
                         break;

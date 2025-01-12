@@ -1,12 +1,6 @@
-﻿using Hotel.src.ModelManagement.Models.Enums;
-using Hotel.src.ModelManagement.Models.Interfaces;
+﻿using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Utilities.Messagers;
 using Hotel.src.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Services
 {
@@ -63,10 +57,10 @@ namespace Hotel.src.ModelManagement.Services
             if (DatabaseLair.DatabaseContext.RoomTypes
                 .Any(e => e.IsInactive == isInactive))
             {
-				_listToReturn = DatabaseLair.DatabaseContext.RoomTypes
-				.Where(e => e.IsInactive == isInactive)
-				.ToList<IRoomType>();
-			}
+                _listToReturn = DatabaseLair.DatabaseContext.RoomTypes
+                .Where(e => e.IsInactive == isInactive)
+                .ToList<IRoomType>();
+            }
 
             if (_listToReturn == null)
             {
@@ -74,7 +68,6 @@ namespace Hotel.src.ModelManagement.Services
                 ServiceMessager.DataNotFoundMessage();
             }
             return _listToReturn;
-            // Guard clause?
         }
     }
 }

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Utilities.Displayers.Interfaces
 {
-    public interface IModelDisplayer
-    {
-        void RenderTable(List<IModel> entityList, int indexToHighlight);
-    }
+    //public interface IModelDisplayer
+    //{
+    //    void RenderTable(List<IModel> entityList, int indexToHighlight);
+    //}
 }

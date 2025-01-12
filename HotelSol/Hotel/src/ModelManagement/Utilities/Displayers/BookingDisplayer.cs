@@ -1,10 +1,5 @@
 ﻿using Hotel.src.ModelManagement.Models.Interfaces;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Utilities.Displayers
 {
@@ -32,43 +27,6 @@ namespace Hotel.src.ModelManagement.Utilities.Displayers
 
             AnsiConsole.Write(table);
         }
-
-        //public static void RenderTableHighlight(List<IBooking> entityList, int indexToHighlight)
-        //{
-        //    var _entityArray = entityList.ToArray();
-
-        //    var table = new Table();
-        //    table.AddColumn("Id");
-        //    table.AddColumn("Förnamn");
-        //    table.AddColumn("EfterNamn");
-        //    table.AddColumn("E-Post");
-        //    table.AddColumn("Telefon");
-
-        //    for (int i = 0; i < _entityArray.Length; i++)
-        //    {
-        //        if (i == indexToHighlight)
-        //        {
-        //            Console.ForegroundColor = ConsoleColor.Green;
-        //            RowContent(i);
-        //            Console.ForegroundColor = ConsoleColor.Gray;
-        //        }
-        //        else
-        //            RowContent(i);
-        //    }
-
-        //    void RowContent(int i)
-        //    {
-        //        table.AddRow(
-        //            $"[red]{_entityArray[i].ID.ToString()}[/]",
-        //            _entityArray[i].CustomerID.ToString(),
-        //            _entityArray[i].Room.ID.ToString(),
-        //            _entityArray[i].FromDate.ToString(),
-        //            _entityArray[i].ToDate.ToString()
-        //            );
-        //    }
-
-        //    AnsiConsole.Write(table);
-        //}
 
         public static void DisplayModel(IModel entity)
         {

@@ -1,11 +1,8 @@
-﻿using Hotel.src.MenuManagement.Menus;
-using Hotel.src.ModelManagement.Models;
+﻿using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Interfaces;
-using Hotel.src.ModelManagement.Services.Interfaces;
 using Hotel.src.ModelManagement.Utilities.Checkers;
 using Hotel.src.ModelManagement.Utilities.Messagers;
 using Hotel.src.Persistence;
-using Spectre.Console;
 
 namespace Hotel.src.ModelManagement.Services
 {
@@ -16,11 +13,10 @@ namespace Hotel.src.ModelManagement.Services
             try
             {
                 DatabaseLair.DatabaseContext.Rooms.Add((Room)entityToCreate);
-				RoomDetailsService.Create(entityToCreate.Details);
+                RoomDetailsService.Create(entityToCreate.Details);
 
-				DatabaseLair.DatabaseContext.SaveChanges();
+                DatabaseLair.DatabaseContext.SaveChanges();
 
-                // Meddelande om lyckad registrering
                 Console.WriteLine("Skapande lyckat!");
                 Thread.Sleep(1000);
             }
@@ -29,29 +25,6 @@ namespace Hotel.src.ModelManagement.Services
                 Console.WriteLine(e.Message);
             }
         }
-
-        /// <summary>
-        /// For fetching one customer
-        /// </summary>
-        /// <param name="searchString"></param>
-        /// <returns></returns>
-        /// 
-        //public static IRoom GetOne(string searchString)
-        //{
-        //    var _modelToReturn = DatabaseLair.DatabaseContext.Rooms
-        //        .Where(m => m.IsActive == true)
-        //        .First(m => m.FirstName.Contains(searchString)
-        //        || m.LastName.Contains(searchString));
-
-        //    if (_modelToReturn == null)
-        //    {
-        //        Console.Clear();
-        //        DataNotFoundMessage();
-        //        return null;
-        //    }
-
-        //    return _modelToReturn;
-        //}
 
         public static IModel GetOneByID(int searchString, bool getRelatedObjects, bool isInactive)
         {
@@ -157,11 +130,10 @@ namespace Hotel.src.ModelManagement.Services
                 Thread.Sleep(1000);
             }
             else
-			{
-				Console.WriteLine("Uppdatering misslyckad... återgår");
-				Thread.Sleep(1000);
-			}
-
+            {
+                Console.WriteLine("Uppdatering misslyckad... återgår");
+                Thread.Sleep(1000);
+            }
         }
 
         public static void Delete(IRoom entityToDelete)
@@ -197,7 +169,6 @@ namespace Hotel.src.ModelManagement.Services
             // Get corresponding RoomDetails from db
             if (DataElementChecker.CheckRoomDetailsDataExistsByRoomID(_entityToReturn.ID))
             {
-                //    _entityToReturn.Details = DatabaseLair.DatabaseContext.RoomDetails.First(e => e.ID == _entityToReturn.ID);
                 _entityToReturn.Details = (RoomDetails)RoomDetailsService.GetOneByRoomIDSeed(_entityToReturn.ID, _getRelatedObjects);
                 _entityToReturn.Details.RoomType = (RoomType)RoomTypeService.GetOneByIDSeed(_entityToReturn.Details.RoomTypeID, _getRelatedObjects);
             }

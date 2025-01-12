@@ -1,9 +1,6 @@
 ﻿using Autofac;
-using Hotel.src;
 using Hotel.src.FactoryManagement;
 using Hotel.src.Interfaces;
-using HotelLibrary;
-using HotelLibrary.Interfaces;
 
 namespace Hotel
 {
@@ -22,8 +19,4 @@ namespace Hotel
             Console.ReadKey();
         }
     }
-
-    // Att göra:
-    // DI with AutoFac, Tim Corey https://www.youtube.com/watch?v=mCUNrRtVVWY
-    // Använd primary constructor för dependency injection
 }

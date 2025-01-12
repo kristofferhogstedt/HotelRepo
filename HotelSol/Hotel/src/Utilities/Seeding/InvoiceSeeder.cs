@@ -1,13 +1,7 @@
 ﻿using Hotel.src.ModelManagement.Models;
-using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Services;
 using Hotel.src.Persistence;
 using Hotel.src.Utilities.Seeding.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.Utilities.Seeding
 {
@@ -32,7 +26,7 @@ namespace Hotel.src.Utilities.Seeding
             bool _getRelatedObjects = false; // Seeders should not get related data
             var _bookings = new List<Invoice>()
             {
-                new Invoice((Booking)BookingService.GetOneByIDSeed(1, _getRelatedObjects)) 
+                new Invoice((Booking)BookingService.GetOneByIDSeed(1, _getRelatedObjects))
                 {CreatedDate=DateTime.Now.AddDays(-10), IsInactive=true, InactivatedDate=DateTime.Now.AddDays(-8)
                 , DueDate=DateTime.Now.AddDays(20), Amount=800 , IsPaid=true, PaidDate=DateTime.Now.AddDays(-8)},
 

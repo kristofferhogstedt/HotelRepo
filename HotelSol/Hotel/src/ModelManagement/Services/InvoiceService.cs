@@ -1,14 +1,12 @@
 ﻿using Hotel.src.ModelManagement.Models;
 using Hotel.src.ModelManagement.Models.Interfaces;
-using Hotel.src.ModelManagement.Services.Interfaces;
 using Hotel.src.ModelManagement.Utilities.Checkers;
 using Hotel.src.ModelManagement.Utilities.Messagers;
 using Hotel.src.Persistence;
-using Spectre.Console;
 
 namespace Hotel.src.ModelManagement.Services
 {
-    public class InvoiceService //: IDataService<InvoiceService>
+    public class InvoiceService 
     {
         public static void Create(IInvoice modelToCreate)
         {
@@ -193,7 +191,7 @@ namespace Hotel.src.ModelManagement.Services
 
         // Getters for subdata
         //----------------------------------------------
-        
+
         // Booking
         public static IModel GetSubData(IModel entity)
         {

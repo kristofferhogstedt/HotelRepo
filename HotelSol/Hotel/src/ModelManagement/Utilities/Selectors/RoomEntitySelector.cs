@@ -2,11 +2,6 @@
 using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Utilities.Displayers;
 using Hotel.src.ModelManagement.Utilities.Selectors.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.ModelManagement.Utilities.Selectors
 {
@@ -40,19 +35,6 @@ namespace Hotel.src.ModelManagement.Utilities.Selectors
                         break;
                 }
             }
-
-            ///// To Adjust for if index goes outside the bounds of the list(Array)
-            //void AdjustTopBottom(ref int selectedIndex, int listLength)
-            //{
-            //    if (selectedIndex < 0)
-            //    {
-            //        selectedIndex = listLength - 1;
-            //    }
-            //    else if (selectedIndex >= listLength)
-            //    {
-            //        selectedIndex = 0;
-            //    }
-            //}
         }
     }
 }

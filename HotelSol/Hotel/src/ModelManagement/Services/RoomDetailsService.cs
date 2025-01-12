@@ -1,18 +1,12 @@
-﻿using Hotel.src.ModelManagement.Models.Interfaces;
-using Hotel.src.ModelManagement.Models;
-using Hotel.src.ModelManagement.Services.Interfaces;
-using Hotel.src.Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Hotel.src.ModelManagement.Utilities.Messagers;
+﻿using Hotel.src.ModelManagement.Models;
+using Hotel.src.ModelManagement.Models.Interfaces;
 using Hotel.src.ModelManagement.Utilities.Checkers;
+using Hotel.src.ModelManagement.Utilities.Messagers;
+using Hotel.src.Persistence;
 
 namespace Hotel.src.ModelManagement.Services
 {
-    internal class RoomDetailsService 
+    internal class RoomDetailsService
     {
         public static void Create(IRoomDetails entityToCreate)
         {
@@ -31,7 +25,6 @@ namespace Hotel.src.ModelManagement.Services
         public static IRoomDetails GetOneByID(int searchString, bool getRelatedObjects, bool isInactive)
         {
             var _entityToReturn = (IRoomDetails)DatabaseLair.DatabaseContext.RoomDetails
-                //.Where(e => e.IsInactive == isInactive)
                 .First(m => m.ID == searchString);
 
             if (getRelatedObjects)
@@ -75,7 +68,6 @@ namespace Hotel.src.ModelManagement.Services
         public static IRoomDetails GetOneByRoomID(int searchString, bool getRelatedObjects, bool isInactive)
         {
             var _entityToReturn = (IRoomDetails)DatabaseLair.DatabaseContext.RoomDetails
-                //.Where(e => e.IsInactive == isInactive)
                 .First(m => m.RoomID == searchString);
 
             if (getRelatedObjects)
@@ -121,10 +113,10 @@ namespace Hotel.src.ModelManagement.Services
             List<IRoomDetails> _listToReturn = null;
             if (DatabaseLair.DatabaseContext.RoomDetails.Any())
             {
-				DatabaseLair.DatabaseContext.RoomDetails
-				.ToList<IRoomDetails>();
+                DatabaseLair.DatabaseContext.RoomDetails
+                .ToList<IRoomDetails>();
 
-				if (getRelatedObjects)
+                if (getRelatedObjects)
                 {
                     _listToReturn = GetSubDataRoomType(_listToReturn); // Get subdata
                 }
@@ -152,12 +144,12 @@ namespace Hotel.src.ModelManagement.Services
                 Console.WriteLine("Uppdatering lyckad!");
                 Thread.Sleep(1000);
 
-				}
+            }
             else
-			{
-				Console.WriteLine("Uppdatering misslyckad... Återgår");
-				Thread.Sleep(1000);
-			}
+            {
+                Console.WriteLine("Uppdatering misslyckad... Återgår");
+                Thread.Sleep(1000);
+            }
         }
 
         public static void Delete(IRoomDetails entityToDelete)
@@ -197,7 +189,6 @@ namespace Hotel.src.ModelManagement.Services
             else
                 ServiceMessager.SubDataNotFoundMessage();
 
-            //_entityToReturn.RoomType = (RoomType)RoomTypeService.GetOneByID(_entityToReturn.RoomTypeID, _getRelatedObjects, isInactive);
             return _entityToReturn;
         }
 

@@ -1,11 +1,4 @@
 ﻿using Hotel.src.MenuManagement.Menus.Interfaces;
-using Hotel.src.Utilities.ConsoleManagement;
-using HotelLibrary.Utilities.UserInputManagement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hotel.src.Utilities.UserInputManagement.RegexManagement
 {
@@ -17,8 +10,6 @@ namespace Hotel.src.Utilities.UserInputManagement.RegexManagement
                 return true;
             else
             {
-                //Console.WriteLine("Invalid email. Please enter a valid email.");
-                //LineClearer.ClearLastLine(1000);
                 return false;
             }
         }
@@ -29,8 +20,6 @@ namespace Hotel.src.Utilities.UserInputManagement.RegexManagement
                 return true;
             else
             {
-                //Console.WriteLine("Invalid phone number. Please enter a valid email.");
-                //LineClearer.ClearLastLine(1000);
                 return false;
             }
         }
@@ -41,8 +30,6 @@ namespace Hotel.src.Utilities.UserInputManagement.RegexManagement
                 return true;
             else
             {
-                //Console.WriteLine("Invalid Postal code. Please enter a valid email.");
-                //LineClearer.ClearLastLine(1000);
                 return false;
             }
         }

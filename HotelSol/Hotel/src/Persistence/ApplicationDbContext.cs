@@ -1,7 +1,5 @@
 ﻿using Hotel.src.ModelManagement.Models;
-using Hotel.src.Persistence.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace Hotel.src.Persistence
 {

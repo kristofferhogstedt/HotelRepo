@@ -1,14 +1,12 @@
 ﻿using Hotel;
 using Hotel.src.MenuManagement.Menus.Interfaces;
 using Hotel.src.Utilities.ConsoleManagement;
-using Hotel.src.Utilities.UserInputManagement;
 using Microsoft.IdentityModel.Tokens;
 
 namespace HotelLibrary.Utilities.UserInputManagement
 {
     public class UserInputHandler
     {
-
         public static bool UserInputBool(IMenu previousMenu)
         {
             while (true)
@@ -74,12 +72,11 @@ namespace HotelLibrary.Utilities.UserInputManagement
 
         public static string UserInputString(IMenu previousMenu)
         {
-            var _firstKey = Console.ReadKey(true).Key; //UserInputEscape(previousMenu);
+            var _firstKey = Console.ReadKey(true).Key; 
             string _output = "";
 
             if (UserInputEsc(_firstKey))
                 previousMenu.Run();
-            //_output = "";
             else if (UserInputEnter(_firstKey))
                 _output = "-1";
             else
@@ -116,18 +113,18 @@ namespace HotelLibrary.Utilities.UserInputManagement
             return _output;
         }
 
-		public static double UserInputDouble(IMenu previousMenu)
-		{
-			double _output = -1;
-			while (!double.TryParse(UserInputString(previousMenu), out _output))
-			{
-				Console.WriteLine("Felaktig inmatning, måste vara heltal (double).");
-			}
+        public static double UserInputDouble(IMenu previousMenu)
+        {
+            double _output = -1;
+            while (!double.TryParse(UserInputString(previousMenu), out _output))
+            {
+                Console.WriteLine("Felaktig inmatning, måste vara heltal (double).");
+            }
 
-			return _output;
-		}
+            return _output;
+        }
 
-		public static ushort UserInputUshort(IMenu previousMenu)
+        public static ushort UserInputUshort(IMenu previousMenu)
         {
             ushort _output = 0;
             while (!ushort.TryParse(UserInputString(previousMenu), out _output))
